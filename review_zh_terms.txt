@@ -1,0 +1,830 @@
+Inbound|入站解析器
+Outbound Resolver|出站解析器
+Outbound|出站解析器
+Bucket Policy|存储桶策略
+Identity Policy|身份策略
+Trust Policy|信任策略
+resource-based policy|资源策略
+Resource Policy|资源策略
+IAM Policy|身份权限策略
+IAM Role|身份角色
+IAM user|身份用户
+IAM Allow|身份权限允许
+IAM|身份与访问管理
+ALB Sticky|应用负载均衡器的粘性会话
+Sticky|粘性会话
+Global Tables|全局表
+Global Table|全局表
+Global Database|全球数据库
+Multi-Region keys|多区域密钥
+Private Hosted Zone|私有托管区域
+Private Zone|私有托管区域
+Private VIF|私有虚拟接口
+Public VIF|公有虚拟接口
+transit VIF|中转虚拟接口
+VIF|虚拟接口
+Interface Endpoint|接口端点
+Gateway Endpoint|网关端点
+Endpoint Service|端点服务
+VPC Endpoint|私有网络端点
+Endpoint|端点
+DX Gateway|专线网关
+DXGW|专线网关
+Direct Connect|专线连接
+DX|专线
+Transit Gateway|中转网关
+TGW|中转网关
+VPC|虚拟私有网络
+NAT Gateway|地址转换网关
+NAT|地址转换网关
+ALB|应用负载均衡器
+NLB|网络负载均衡器
+GWLB|网关负载均衡器
+Gateway Load Balancer|网关负载均衡器
+ELB|弹性负载均衡
+Auto Scaling Health Check Grace Period|自动扩缩容健康检查宽限期
+Auto Scaling Group|自动扩缩容组
+Auto Scaling|自动扩缩容
+ASG|自动扩缩容组
+EC2|云服务器
+Lambda@Edge|边缘函数
+Lambda authorizer|函数授权器
+Lambda|云函数
+RDS Proxy|数据库代理
+RDS|托管关系数据库
+Aurora|极光数据库
+DynamoDB|云端键值数据库
+S3|对象存储
+EFS|弹性共享文件系统
+EBS Multi-Attach|云硬盘多重挂载
+EBS encryption by default|云硬盘默认加密
+EBS|云硬盘
+FSx for Windows|托管微软文件系统
+FSx Windows|托管微软文件系统
+FSx for Lustre|托管高性能并行文件系统
+FSx|托管文件系统
+Lustre|高性能并行文件系统
+ECS Fargate|无服务器容器
+ECS on EC2|运行于云服务器的容器服务
+ECS|容器服务
+EKS Anywhere|本地容器编排管理服务
+EKS|托管容器编排服务
+Fargate|无服务器容器计算
+ECR|容器镜像仓库
+SQS|消息队列
+SNS|通知服务
+SES|邮件发送服务
+CloudFront Function|边缘轻量函数
+CloudFront Custom Error Response|内容分发的自定义错误响应
+CloudFront Origin Group|内容分发源站组
+CloudFront origin failover|内容分发源站故障切换
+CloudFront|内容分发网络
+Origin Group|源站组
+Custom Error Response|自定义错误响应
+Origin failover|源站故障切换
+Global Accelerator|全球加速器
+GA|全球加速器
+Route 53|域名解析服务
+DNS|域名解析
+Failover|故障转移
+Multivalue|多值应答
+Latency|延迟
+weighted|加权
+geolocation|地理位置路由
+SCP|服务控制策略
+OU|组织单位
+Organizations|组织管理
+Organization|组织
+Organization Trail|组织审计轨迹
+OrganizationAccountAccessRole|组织账号访问角色
+OrganizationAccountAccess|组织账号访问
+Control Tower|多账号治理服务
+RAM|资源访问管理
+Service Catalog|服务目录
+Service-managed StackSets|服务托管的堆栈集
+CloudFormation StackSets|基础设施模板堆栈集
+CloudFormation resource import|基础设施模板资源导入
+CloudFormation|基础设施模板服务
+StackSets|堆栈集
+StackSet|堆栈集
+Stack policy|堆栈策略
+Stack|堆栈
+CFN|基础设施模板
+SAM|无服务器应用模板
+CDK|云开发工具包
+DeletionPolicy|删除策略
+Systems Manager Patch Manager|系统管理器的补丁管理
+Patch Manager|补丁管理
+Patch|补丁
+SSM SendCommand|系统管理器发送命令
+SSM Agent|系统管理代理
+SSM|系统管理器
+Session Manager|会话管理器
+Fleet Manager RDP|机群管理器的远程桌面
+Instance Connect|实例连接服务
+Lifecycle Hook|生命周期挂钩
+lifecycle hooks|生命周期挂钩
+Secrets Manager|密钥管理服务
+Secrets|机密凭证
+KMS|加密密钥管理
+ACM|证书管理
+RotationSchedule|轮换计划
+AD Connector|目录连接器
+Managed Microsoft AD|托管微软活动目录
+Managed AD|托管活动目录
+Directory Service|目录服务
+Identity Center|身份中心
+Azure AD|微软云目录
+AD FS|活动目录联合服务
+AD|活动目录
+SCIM|跨域身份同步
+SAML|身份联合认证
+ABAC|基于属性的访问控制
+MFA|多因素认证
+Permission Sets|权限集
+User-Agent|用户代理标头
+Usage Plan|使用计划
+Capacity Reservation|容量预留
+On-Demand Capacity Reservations|按需容量预留
+Reserved Capacity|预留容量
+Compute Savings Plans|计算节省计划
+Compute Savings Plan|计算节省计划
+Compute SP|计算节省计划
+Instance Savings Plans|实例节省计划
+EC2 Instance SP|云服务器实例节省计划
+Savings Plans|节省计划
+Savings Plan|节省计划
+SP|节省计划
+RI All Upfront|全预付预留实例
+No Upfront|无预付
+RI|预留实例
+Spot|竞价实例
+On-Demand|按需实例
+Deny|拒绝
+Allow|允许
+FullAWSAccess|完全访问权限策略
+DenyAWSAccess|拒绝所有访问策略
+Default|默认
+CORS|跨域资源共享
+Writer|写入节点
+reader|读取节点
+Replica|副本
+Read Replica|只读副本
+Cross-Region Read Replica|跨区域只读副本
+Promote|提升为主库
+Region|区域
+AZ|可用区
+Multi-AZ|多可用区
+RPO|数据可丢失时长
+RTO|恢复时限
+RPO/RTO|数据丢失与恢复时限
+HPC|高性能计算
+CPU|处理器
+DB|数据库
+VM|虚拟机
+DR|灾备
+HA|高可用
+API Gateway|接口网关
+REST API|资源型接口
+HTTP API|网页请求接口
+API key|接口密钥
+API|接口
+CLI|命令行
+SDK|开发工具包
+API GW|接口网关
+REST|资源型接口
+HTTP|网页请求协议
+HTTPS|加密网页协议
+TCP|传输控制协议
+TLS|传输层加密
+SSH|安全远程登录
+NFS|网络文件协议
+SMB|微软文件共享协议
+SFTP|安全文件传输
+FTP|文件传输协议
+SMTP|邮件传输协议
+SES SMTP|邮件服务传输接口
+STARTTLS|升级为加密连接
+TLS Wrapper|直接加密连接
+VPN|虚拟专用网络
+Client VPN|客户端虚拟专用网络
+Site-to-Site|站点到站点
+IP|网络地址
+EIP|弹性公网地址
+CIDR|网段
+ACL|访问控制列表
+SG|安全组
+NACL|网络访问控制列表
+ARN|资源标识
+CNAME|别名记录
+URL|网址
+TTL|有效期
+CRR|跨区域复制
+MRAP|多区域接入点
+OAI|源站访问身份
+CDN|内容分发网络
+DLQ|死信队列
+FIFO|先进先出队列
+CDC|变更数据捕获
+ETL|数据提取转换加载
+TCO|总拥有成本
+SSE-KMS|密钥管理型服务端加密
+SSE-S3|对象存储托管密钥加密
+SSE|服务端加密
+One Zone-IA|单区低频访问
+Standard-IA|标准低频访问
+Deep Archive|深度归档
+Intelligent-Tiering|智能分层
+UltraWarm|温数据存储层
+Parquet|列式存储格式
+Partitioning|分区
+AWS Backup|云备份服务
+Backup/Restore|备份与恢复
+Backup|备份
+DLM|数据生命周期管理
+File Gateway|文件网关
+S3 File Gateway|对象存储文件网关
+Volume Gateway cache mode|卷网关缓存模式
+Volume Gateway|卷网关
+Tape Gateway|磁带网关
+Storage Gateway|存储网关
+Mountpoint for S3|对象存储挂载工具
+DataSync|数据同步服务
+Transfer Family|托管文件传输服务
+Transfer Acceleration|传输加速
+Multipart Upload|分段上传
+multipart|分段上传
+Snowball Edge Compute|离线传输边缘计算设备
+Snowball Edge|离线数据传输设备
+Snowball|离线数据传输设备
+Snowcone|便携离线传输设备
+Outposts|本地云设施
+Application Migration Service|应用迁移服务
+MGN|应用迁移服务
+Migration Evaluator|迁移评估器
+Evaluator|迁移评估器
+Migration Hub|迁移中心
+Application Discovery Service|应用发现服务
+Application Discovery Agent|应用发现代理
+Discovery Agent|发现代理
+Discovery|发现服务
+Migration Assistant|迁移助手
+Strategy Recommendations|迁移策略建议
+VM Import/Export|虚拟机导入导出
+OVF|开放虚拟化格式
+DMS|数据库迁移服务
+SCT|架构转换工具
+Elastic Disaster Recovery|弹性灾难恢复
+Elastic DR|弹性灾难恢复
+Compute Optimizer|计算优化器
+Trusted Advisor|可信顾问
+Access Analyzer|访问分析器
+CloudWatch Agent|监控代理
+CloudWatch Logs|云监控日志
+CloudWatch|云监控
+CloudTrail Lake|云审计日志湖
+CloudTrail|云审计
+Config Aggregator|配置汇总器
+Config|配置审计
+EventBridge|事件总线
+Step Functions|工作流编排
+Firehose|数据投递流
+Kinesis Data Streams|实时数据流
+Kinesis Streams|实时数据流
+Data Streams|数据流
+Kinesis|实时流服务
+Data Analytics|流数据分析
+Athena|交互式查询服务
+Glue|数据集成服务
+QuickSight|商业智能仪表板
+Redshift Serverless|无服务器数据仓库
+Redshift|数据仓库
+OpenSearch|搜索与日志分析服务
+EMR|大数据集群
+DAX|键值数据库加速器
+MemoryDB|持久化内存数据库
+ElastiCache Redis|托管缓存数据库
+ElastiCache|托管缓存
+DocumentDB|兼容文档数据库
+Neptune|图数据库
+Amazon MQ|托管消息代理
+IoT Core|物联网核心服务
+IoT|物联网
+Rekognition|图像识别服务
+Textract|文档文字提取
+Comprehend|文本理解服务
+Greengrass|物联网边缘运行服务
+SageMaker|机器学习平台
+ML|机器学习
+MSK|托管分布式消息流
+WAF|网页防火墙
+Shield Advanced|高级流量攻击防护
+Firewall Manager|防火墙管理器
+Network Firewall|网络防火墙
+Security Hub|安全中心
+GuardDuty|威胁检测
+Inspector|漏洞扫描器
+Cost Anomaly Detection|成本异常检测
+Cost Explorer|成本分析器
+Storage Lens|存储透视
+Budgets|预算
+CUR|成本与使用情况报告
+CodeCommit|代码仓库
+CodeBuild|代码构建服务
+CodeDeploy|代码部署服务
+CodeArtifact|软件包仓库
+Elastic Beanstalk|应用部署托管平台
+Beanstalk|应用部署托管平台
+App2Container|应用容器化工具
+App Runner|应用运行服务
+Amplify|前端应用托管平台
+AppSync|应用数据同步接口
+Cognito|用户身份服务
+AppStream|应用串流服务
+WorkSpaces|云桌面
+Connect|云联络中心
+Pinpoint|客户互动消息服务
+Contact Lens|联络中心对话分析
+Data Exchange datashare|数据交换共享
+Data Exchange|数据交换服务
+Parameter Store|参数存储
+Agentless collector|无代理采集器
+Agent-based discovery|安装代理的应用发现
+Agentless|无代理
+Agent|代理程序
+Collector|采集器
+AMI|机器映像
+ENI|弹性网卡
+EFA|弹性网络适配器
+Cluster placement group|集群置放群组
+Memory Optimized|内存优化型
+Compute optimized|计算优化型
+Cluster|集群
+Spread|分散
+Partition|分区
+Launch Template|启动模板
+Launch configuration|启动配置
+HealthCheck|健康检查
+Terminate|终止
+Health check|健康检查
+Scale-in protection|缩容保护
+Termination protection|终止保护
+In-transit Encryption|传输中加密
+Continuous Backup|连续备份
+PITR|时间点恢复
+Object Lock WORM|对象锁定（只写一次、可多次读取）
+WORM|只写一次、可多次读取
+Warm pool|预热池
+Grace Period|宽限期
+scheduled scaling|计划扩缩容
+dynamic scaling|动态扩缩容
+predictive scaling|预测扩缩容
+Predictive|预测式
+provisioned concurrency|预置并发
+reserved concurrency|预留并发上限
+Concurrency Scaling|并发扩展
+SnapStart|启动快照加速
+AUTH|身份认证
+OIDC|开放身份认证
+OAuth|开放授权
+JWT|签名身份令牌
+STS|临时凭证服务
+AssumeRoleWithWebIdentity|凭网页身份换取角色临时权限
+AssumeRoleWithSAML|凭联合身份换取角色临时权限
+AssumeRole|代入角色
+GetSessionToken|获取临时会话凭证
+Role|角色
+Access Point|接入点
+VPC-only Access Point|仅私网可用接入点
+Multi-Region Access Point|多区域接入点
+Forwarding Rule|转发规则
+Private DNS|私有域名解析
+Private API|私有接口
+PrivateLink|私有连接
+Private|私有
+Public|公有
+Gateway|网关
+AWS|云平台
+MySQL|开源关系数据库
+PostgreSQL|高级开源关系数据库
+SQL Server|微软关系数据库
+Oracle|商业关系数据库
+MongoDB|文档数据库
+Mongo|文档数据库
+Redis|内存缓存数据库
+Kafka|分布式消息流
+RabbitMQ|消息代理
+Kubernetes|容器编排
+K8s|容器编排
+Docker|容器
+VMware|虚拟化平台
+Linux|开源操作系统
+Windows|微软操作系统
+Java|虚拟机编程语言
+Node|服务端脚本运行环境
+NET Framework|微软旧应用框架
+NET|微软应用框架
+Tomcat|应用服务器
+Apache|网页服务器
+Grafana|监控仪表板
+Kibana|日志可视化
+Splunk|日志分析平台
+GitHub Actions|代码仓库自动化工作流
+GitHub|代码托管平台
+PyPI|语言软件包源
+OpenCV|图像处理库
+SQL|结构化查询
+JSON|结构化文本
+CSV|表格文本
+Web|网页
+WebSocket|双向实时连接
+Webhook|事件回调
+MQTT|物联网消息协议
+iSCSI|网络块存储协议
+RDP|远程桌面
+PGP|文件加密协议
+X.509|设备数字证书
+RADIUS MFA|目录认证多因素验证
+POSIX|类本地文件接口标准
+user data|启动脚本
+metadata|元数据
+schema|表结构
+session|会话
+handler|处理函数
+source/destination check|源和目标检查
+session tag|会话标签
+PrincipalTag|主体标签
+PrincipalOrgID|主体组织标识
+aws:RequestedRegion|请求区域条件键
+aws:username|用户名条件键
+DataAccessPointArn|数据接入点条件键
+InspectorCodeExclusion|排除代码扫描标签
+CAPABILITY_NAMED_IAM|允许创建指定名称身份资源的声明
+CAPABILITY_IAM|允许创建身份资源的声明
+CreateAccessPoint|创建接入点
+CreateStack|创建堆栈
+CreateUser|创建用户
+IgnorePublicAcls|忽略公开访问控制列表
+GenerateDataKey|生成数据密钥
+GetKeyPolicy|读取密钥策略
+RefreshCache|刷新缓存
+CopyObject API|复制对象接口
+Encrypt|加密
+Decrypt|解密
+SecureTransport|安全传输条件
+Count|计数模式
+Block|阻止模式
+rate-based|基于速率
+S3 Block Public Access|阻止对象存储公开访问
+Tag Policy|标签策略
+TagOption|标签选项库
+Portfolio|产品组合
+EndUser|最终用户权限
+BusinessUnit|业务部门标签
+Project|项目标签
+DataOps|数据运营
+production|生产环境
+Billing|账单
+data events|数据事件
+Logs|日志
+Flow Logs|流日志
+log|日志
+key|密钥
+username|用户名
+tenant ID|租户标识
+prefix list|前缀列表
+prefix|前缀
+Managed Prefix List|托管前缀列表
+Managed|托管
+Session|会话
+Signed URL|签名网址
+Presigned|预签名
+Alias|别名
+connection alias|连接别名
+routing-config|流量路由配置
+blue/green|蓝绿部署
+in-place|原地部署
+Snapshot|快照
+sync|同步
+Stop|停止
+Start|启动
+stop/start|停止再启动
+read|读取
+write|写入
+writer|写入节点
+origin|源站
+apex|根域名
+edge|边缘
+Zone|托管区域
+Authorize|授权
+Associate|关联
+Attachment|连接附件
+attach|连接
+Clone|克隆
+guardrail|护栏
+Strongly recommended|强烈建议的
+mandatory|强制的
+Service Role|服务角色
+Instance|实例
+all features|全功能
+Bastion|跳板机
+DLQ|死信队列
+on-failure|失败后处理
+hot standby|热备用
+per-request|每次请求
+push|推送
+Scan on push|推送即扫描
+scan|扫描
+code scan|代码扫描
+throttle|限流
+too many connections|连接过多
+max_connections|最大连接数
+template|模板
+pre-provisioning hook|预配置挂钩
+auto-registration|自动注册
+Tag|标签
+CA|证书颁发机构
+CVE|已知漏洞
+CI/CD|持续集成与部署
+QA|测试环境
+PR|代码合并请求
+IAM role for EC2|云服务器身份角色
+task|任务
+bridge|桥接
+isolated|隔离
+subnets|子网
+subnet|子网
+Multi-Region|多区域
+cross-zone|跨可用区
+AZ-specific|指定可用区
+internet-facing|面向互联网
+VPC-hosted|托管于私有网络
+Resource import|资源导入
+import|导入
+custom resource|自定义资源
+DeletionPolicy Delete|删除策略设为删除
+Delete|删除
+Resource|资源
+group|群组
+stack|堆栈
+change set|变更集
+update policy|更新策略
+instance refresh|实例刷新
+deployment group|部署组
+control plane|控制面
+data plane|数据面
+topology spread|拓扑分散
+Pod|容器实例
+manifest|部署清单
+full load|全量加载
+Full Load|全量加载
+full control|完全控制
+session KV|会话键值数据
+Agent-based|安装代理的
+CMDB|配置管理数据库
+CART|云采用准备度评估工具
+TCO|总拥有成本
+Hub|中心
+SMS|服务器迁移服务
+FDW|外部数据封装器
+foreign table|外部表
+stored procedure|存储过程
+I/O|磁盘读写
+SSO|单点登录
+IdP|身份提供者
+assertion|身份断言
+authenticate-cognito|用户池身份验证
+authenticate-oidc|开放身份验证
+SG|安全组
+NS|域名服务器记录
+RDS standby|数据库备用实例
+Multi-Attach|多重挂载
+Bursting|突发吞吐量
+burstable|突发性能型
+Reserved Nodes|预留节点
+Provisioned Capacity|预配置容量
+CloudWatch agent|监控代理
+Metric filter|指标筛选器
+Sample Count|样本数
+Data Exchange for APIs|接口数据交换
+CCP|联络控制面板
+flow|流程
+flows|流程
+users|用户
+query|查询参数
+service map|服务关系图
+runbook|操作手册
+rehost|原样迁移
+re-platform|调整运行平台
+lift-and-shift|直接搬迁
+infra|基础设施
+administrator|管理员
+admin|管理员
+on-premises|本地机房
+WAN|广域网络
+IGW|互联网网关
+egress-only IGW|仅出站互联网网关
+egress|出站
+IP access control group|网络地址访问控制组
+IPSet|地址集合
+Anycast|任播
+Access Denied|访问被拒绝
+Forbidden|禁止访问
+API Key|接口密钥
+IP Target|网络地址目标
+Origin|源站
+serverless|无服务器
+DAS|数据库活动流
+NAS|网络附属存储
+SAN|存储区域网络
+MAM|媒体资产管理
+CMS|内容管理系统
+OLAP|分析型数据库
+PAN|支付卡号
+DRT|攻击防护响应团队
+DR|灾备
+RTC|复制时间控制
+SLA|服务等级约定
+GPU|图形处理器
+BYOIP|自带公网地址
+MAC|网卡物理地址
+MACsec|链路层加密
+private IP|私有地址
+allow list|允许列表
+deny list|拒绝列表
+http health check|网页健康检查
+TCP check|传输层连通性检查
+warmup|预热
+root|组织根
+null|为空条件
+true|开启
+COMPLETED|已完成
+Enable|启用
+Disable|禁用
+timeout|超时
+error|错误
+payload|负载数据
+Rule|规则
+rule|规则
+Copy|复制
+copy|复制
+lifecycle|生命周期
+lifecycle rules|生命周期规则
+subscription filter|订阅筛选器
+notification|通知
+AWS/Usage|配额用量指标命名空间
+cloudfront IP|内容分发网络地址
+APIs|接口
+Gateway Endpoint|网关端点
+namespace|命名空间
+proxy|代理
+Directory|目录
+directory|目录
+health|健康
+MSK|托管消息流
+DC|数据中心
+LOB|业务线
+IAM role|身份角色
+Public endpoint|公有端点
+TB|万亿字节
+GB|十亿字节
+MB|兆字节
+Mbps|兆比特每秒
+Gbps|千兆比特每秒
+resolv.conf|域名服务器配置文件
+DNS TTL|域名缓存有效期
+EKS Managed|托管容器编排
+Web CMS|网页内容管理系统
+SAN|域名替代名称
+AWS services monitor|按云服务分类的监控器
+External ID|外部标识
+Batch Operations|批量操作
+Batch|批处理服务
+Dead-Letter Queue|死信队列
+Enhanced Fan-Out|增强型扇出
+Managed Prefix List|托管前缀列表
+Peering|对等连接
+External|外部
+ID|标识
+CMK|客户管理密钥
+Categories|成本类别
+CodeGuru|代码分析服务
+Commit|提交代码
+DBA|数据库管理员
+Email|邮件
+States.ALL|匹配所有可捕获错误
+Catch|捕获异常
+Forwarding|转发
+IaC|基础设施即代码
+IPv6|第六版互联网协议
+Instant Retrieval|即时检索
+Internal|内部
+Landing Zone|登陆区
+Layer|函数层
+Logging|日志记录
+Max I/O|最大吞吐模式
+Memcached|内存缓存服务
+MoveAccount|移动账号
+OCR|文字识别
+OWASP|网页安全基线
+PG|置放群组
+PutBucketPolicy|设置存储桶策略
+Regional|区域型
+Requester Pays|请求者付费
+Reshard|重新分片
+Restore|恢复
+Retrieval|检索
+SaaS|软件服务
+Select|选择查询
+Server Access Logging|服务器访问日志
+SigV4|第四版请求签名
+Spectrum|外部数据查询
+Standard|标准型
+Streams|数据流
+Swap URL|交换环境网址
+Throttling|限流
+VGW|虚拟私有网关
+Versioning|版本控制
+WCU|写入容量
+Well-Architected|架构最佳实践评估
+X-Ray|请求链路追踪
+active-passive|主动—被动
+application/team|应用或团队
+Assume|代入角色
+behavior|行为规则
+bootstrap|初始化启动
+broker|消息代理
+bucket|存储桶
+client|客户端
+configuration set|配置集
+conformance packs|合规规则包
+controls|控制规则
+credentials|凭证
+cron|定时任务
+dashboard|仪表板
+distribution|分发配置
+downtime|停机
+src|来源
+dst|目标
+effort|工作量
+endpoints|端点
+exception handler|异常处理步骤
+geo match|地理位置匹配
+global|全球
+guardrails|护栏
+header|标头
+image|镜像
+inline|内联
+isPublic|是否公开
+item|项目
+load-balanced|负载均衡型
+local|本地
+logging|日志记录
+mesh|网状
+min|最小值
+monitor|监控器
+on|在
+optimized|优化型
+over|通过
+policy|策略
+profile|配置文件
+repo|仓库
+rightsize|调整规格
+routing|路由
+run-task|运行任务
+scale-in|缩容
+secret|机密
+service|服务
+services|服务
+set|集合
+shard|分片
+stage|阶段
+stickiness|粘性会话
+stream|数据流
+token|令牌
+trail|审计轨迹
+unhealthy|不健康
+vault|备份保管库
+viewer-response|查看者响应
+vs|对比
+zip|压缩包
+access|访问
+App|应用
+Service Integration|服务集成
+Service|服务
+AmazonProvidedDNS|平台提供的域名解析器
+Babelfish|数据库协议兼容层
+MQ|消息代理
+Operations|操作
+Queue|队列
+Tape|磁带
+Video|视频
+Server|服务器
+configuration|配置
+packs|规则包
+match|匹配
+Access|访问
+Integration|集成
+Max|最大
+Logging|日志记录
+Swap|交换

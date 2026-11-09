@@ -1,0 +1,28 @@
+# Local backups and original source documents
+backup-*/
+*.pdf
+
+# Local previews and desktop files
+*-preview.png
+*-preview.jpg
+.DS_Store
+Thumbs.db
+
+# Local agent notes
+.superpowers/
+docs/superpowers/
+task_plan.md
+findings.md
+progress.md
+.planning/
+
+# Credentials and generated output
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+node_modules/
+_site/
+dist/
+*.zip

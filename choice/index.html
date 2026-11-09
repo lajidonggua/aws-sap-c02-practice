@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AWS SAP-C02 Practice</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif;
+  background: #2d2d2d;
+  color: #e0e0e0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding:
+    max(12px, env(safe-area-inset-top))
+    max(12px, env(safe-area-inset-right))
+    max(12px, env(safe-area-inset-bottom))
+    max(12px, env(safe-area-inset-left));
+  width: 100%;
+}
+.header { display: flex; flex-direction: column; padding: 15px 20px; background: #3a3a3a; border-radius: 10px; margin-bottom: 20px; gap: 10px; }
+.stats { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: flex-start; width: 100%; }
+.stat { background: #4a4a4a; padding: 8px 16px; border-radius: 8px; font-size: 14px; }
+.stat-value { font-weight: bold; color: #4fc3f7; }
+.stat-wrong .stat-value { color: #ef5350; }
+.wrong-questions-nav { background: #2a2a2a; padding: 10px 15px; border-radius: 8px; margin-top: 10px; border: 1px solid #444; }
+.wrong-nav-header { color: #ef5350; font-weight: bold; margin-bottom: 8px; font-size: 14px; }
+.wrong-nav-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.wrong-question-btn { background: #ef5350; color: white; border: none; border-radius: 4px; padding: 4px 8px; cursor: pointer; font-size: 12px; transition: all 0.2s; }
+.wrong-question-btn:hover { background: #f44336; transform: scale(1.05); }
+.wrong-nav-arrows { display: flex; gap: 8px; margin-top: 8px; }
+.wrong-nav-arrows .btn { padding: 6px 12px; font-size: 13px; }
+.starred-questions-nav { background: #2a4a2a; padding: 10px 15px; border-radius: 8px; margin-top: 10px; border: 1px solid #4a6a4a; }
+.starred-nav-header { color: #66bb6a; font-weight: bold; margin-bottom: 8px; font-size: 14px; }
+.starred-nav-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.starred-question-btn { background: #66bb6a; color: white; border: none; border-radius: 4px; padding: 4px 8px; cursor: pointer; font-size: 12px; transition: all 0.2s; }
+.starred-question-btn:hover { background: #81c784; transform: scale(1.05); }
+.starred-nav-arrows { display: flex; gap: 8px; margin-top: 8px; }
+.starred-nav-arrows .btn { padding: 6px 12px; font-size: 13px; }
+.star-checkbox { margin: 10px 0; }
+.star-checkbox label { display: flex; align-items: center; gap: 8px; cursor: pointer; color: #66bb6a; font-size: 14px; }
+.star-checkbox input[type="checkbox"] { cursor: pointer; }
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.btn-primary { background: #4fc3f7; color: #1a1a1a; }
+.btn-primary:hover { background: #81d4fa; }
+.btn-danger { background: #ef5350; color: white; }
+.btn-danger:hover { background: #f44336; }
+.btn-secondary { background: #555; color: #e0e0e0; }
+.btn-secondary:hover { background: #666; }
+.btn-success { background: #66bb6a; color: #1a1a1a; }
+.btn-success:hover { background: #81c784; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; width: 100%; }
+.nav input { width: 60px; padding: 6px 10px; background: #4a4a4a; border: 1px solid #555; border-radius: 6px; color: #e0e0e0; text-align: center; font-size: 14px; min-height: 36px; }
+.question-card { background: #3a3a3a; border-radius: 10px; padding: 25px; margin-bottom: 20px; min-width: 0; }
+.q-number { color: #4fc3f7; font-size: 14px; margin-bottom: 10px; word-break: break-word; }
+.q-multi { color: #ffa726; font-size: 13px; margin-bottom: 10px; }
+.q-vote { color: #ab47bc; font-size: 12px; margin-bottom: 10px; }
+.q-text { font-size: 16px; line-height: 1.6; margin-bottom: 20px; word-break: break-word; overflow-wrap: anywhere; white-space: pre-wrap; }
+.options { display: flex; flex-direction: column; gap: 10px; }
+.option { display: flex; align-items: flex-start; gap: 12px; padding: 12px 15px; background: #4a4a4a; border-radius: 8px; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; min-width: 0; }
+.option:hover { background: #555; }
+.option.selected { border-color: #4fc3f7; background: #555; }
+.option.correct { border-color: #66bb6a; background: #1b5e20; }
+.option.wrong { border-color: #ef5350; background: #b71c1c; }
+.option.missed { border-color: #ffa726; background: #4a3000; }
+.option input { margin-top: 3px; accent-color: #4fc3f7; }
+.option-label { font-weight: bold; color: #4fc3f7; min-width: 24px; }
+.option-text { flex: 1; min-width: 0; line-height: 1.5; white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere; }
+.feedback { margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 15px; display: none; word-break: break-word; }
+.feedback.correct { background: #1b5e20; color: #a5d6a7; display: block; }
+.feedback.wrong { background: #b71c1c; color: #ef9a9a; display: block; }
+.controls { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+.btn-exp { background: #26a69a; color: #fff; }
+.btn-exp:hover { background: #4db6ac; }
+.btn-submit { padding: 10px 30px; font-size: 16px; }
+.hidden { display: none; }
+.timer-controls { display: flex; gap: 8px; margin-left: 0; flex-wrap: wrap; }
+.translate-controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.btn-translate { padding: 8px 20px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; transition: all 0.2s; background: #ff9800; color: #1a1a1a; font-weight: bold; min-width: 100px; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.btn-translate:hover { background: #ffb74d; }
+.btn-translate.active { background: #4caf50; color: white; }
+.vote-info { background: #3a3a3a; border-radius: 8px; padding: 10px 15px; margin-bottom: 15px; border-left: 4px solid #ab47bc; word-break: break-word; }
+.question-card.disputed { border: 2px solid #ff9800; box-shadow: 0 0 0 1px rgba(255, 152, 0, 0.2); }
+.q-number.disputed { color: #ff9800; font-weight: bold; }
+.disputed-badge { display: inline-block; background: #ff9800; color: #1a1a1a; font-size: 12px; font-weight: bold; padding: 2px 8px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+.dispute-info { background: #3d2e14; border-radius: 8px; padding: 10px 15px; margin-bottom: 15px; border-left: 4px solid #ff9800; font-size: 13px; line-height: 1.5; word-break: break-word; }
+.exp-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
+.exp-modal.hidden { display: none; }
+.exp-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.7); }
+.exp-modal-content { position: relative; background: #2d2d2d; border-radius: 12px; max-width: 960px; width: 100%; max-height: min(90vh, 90dvh); display: flex; flex-direction: column; box-shadow: 0 8px 32px rgba(0,0,0,0.5); border: 1px solid #555; min-width: 0; }
+.exp-modal-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #444; gap: 12px; }
+.exp-modal-header h3 { color: #4fc3f7; font-size: clamp(1rem, 4vw, 1.125rem); min-width: 0; word-break: break-word; }
+.exp-modal-close { background: none; border: none; color: #aaa; font-size: 28px; cursor: pointer; line-height: 1; padding: 0 4px; flex-shrink: 0; min-width: 40px; min-height: 40px; }
+.exp-modal-close:hover { color: #fff; }
+.exp-modal-body { padding: 20px; overflow-y: auto; flex: 1; font-size: 14px; line-height: 1.7; -webkit-overflow-scrolling: touch; word-break: break-word; }
+.exp-modal-footer { padding: 12px 20px; border-top: 1px solid #444; text-align: right; }
+.exp-section { margin-bottom: 18px; }
+.exp-section h4 { color: #4fc3f7; font-size: 15px; margin-bottom: 8px; }
+.exp-section p { color: #ccc; margin-bottom: 6px; }
+.exp-option { background: #3a3a3a; border-radius: 8px; padding: 12px; margin-bottom: 10px; border-left: 3px solid #555; }
+.exp-option-correct { border-left-color: #66bb6a; background: #1e3a1e; }
+.exp-option-header { margin-bottom: 6px; color: #e0e0e0; }
+.exp-option-body { color: #bbb; font-size: 13px; }
+.exp-correct-tag { color: #66bb6a; font-size: 12px; margin-left: 8px; }
+.exp-missing { color: #aaa; font-style: italic; }
+.exp-steps { list-style: none; padding: 0; margin: 0; counter-reset: none; }
+.exp-steps li { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; color: #ccc; }
+.exp-step-num { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #4fc3f7; color: #1a1a1a; font-size: 12px; font-weight: bold; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+.exp-step-text { flex: 1; line-height: 1.6; }
+.exp-diagram-hint { color: #999; font-size: 12px; margin-bottom: 12px !important; }
+.exp-diagrams-grid { display: flex; flex-direction: column; gap: 16px; }
+.exp-diagram { background: #333; border-radius: 10px; padding: 12px 14px; border: 1px solid #555; }
+.exp-diagram-before { border-left: 4px solid #ef5350; }
+.exp-diagram-after { border-left: 4px solid #66bb6a; }
+.exp-diagram-title { font-size: 13px; font-weight: bold; margin-bottom: 10px; color: #e0e0e0; }
+.exp-diagram-before .exp-diagram-title { color: #ef9a9a; }
+.exp-diagram-after .exp-diagram-title { color: #a5d6a7; }
+.exp-diagram-canvas { overflow-x: auto; background: #1e1e1e; border-radius: 8px; padding: 10px; }
+.exp-diagram-canvas .mermaid { margin: 0; text-align: center; }
+.exp-diagram-canvas svg { max-width: 100%; height: auto; }
+.exp-diagram-missing { color: #888; font-style: italic; font-size: 13px; }
+.exp-diagram-fallback { white-space: pre-wrap; color: #bbb; font-size: 12px; line-height: 1.5; margin: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; word-break: break-word; }
+
+/* —— Responsive: tablet & phone —— */
+@media (max-width: 768px) {
+  .container { padding: 12px; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+  .header { padding: 12px 14px; border-radius: 8px; }
+  .stat { padding: 6px 12px; font-size: 13px; }
+  .question-card { padding: 16px; }
+  .q-text { font-size: 15px; }
+  .option { padding: 12px; }
+  .controls { justify-content: stretch; }
+  .controls .btn { flex: 1 1 auto; min-height: 44px; }
+  .btn-submit { padding: 10px 16px; width: 100%; }
+  .exp-modal-header { padding: 12px 14px; }
+  .exp-modal-body { padding: 14px; }
+  .exp-modal-footer { padding: 10px 14px; text-align: center; }
+  .exp-modal-footer .btn { width: 100%; min-height: 44px; }
+}
+
+@media (max-width: 560px) {
+  .stats { gap: 8px; }
+  .stat { flex: 1 1 calc(50% - 8px); text-align: center; min-width: 0; }
+  .nav .btn,
+  .timer-controls .btn,
+  .wrong-nav-arrows .btn,
+  .starred-nav-arrows .btn {
+    min-height: 40px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .nav input { flex: 0 0 56px; }
+  .translate-controls { gap: 8px; }
+  .btn-translate { flex: 1 1 140px; min-width: 0; min-height: 44px; }
+  .controls { flex-direction: column; }
+  .controls .btn { width: 100%; }
+  .exp-modal-content {
+    max-height: min(96vh, 96dvh);
+    border-radius: 10px 10px 0 0;
+    margin-top: auto;
+  }
+  .exp-modal {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .disputed-badge { display: inline-block; margin-left: 4px; margin-top: 4px; }
+  .option-label { min-width: 20px; }
+}
+
+@media (max-width: 380px) {
+  .stat { flex: 1 1 100%; }
+  .btn { font-size: 13px; }
+}
+</style>
+<link rel="stylesheet" href="../twenty_review.css?v=simplified1">
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="stats">
+      <div class="stat">Total: <span class="stat-value" id="totalCount">0</span></div>
+      <div class="stat stat-wrong">Wrong: <span class="stat-value" id="wrongCount">0</span></div>
+      <div class="stat">Timer: <span class="stat-value" id="timerDisplay">00:00:00</span></div>
+    </div>
+    <div class="wrong-questions-nav" id="wrongQuestionsNav" style="display: none;">
+      <div class="wrong-nav-header">错题导航:</div>
+      <div class="wrong-nav-list" id="wrongNavList"></div>
+      <div class="wrong-nav-arrows">
+        <button class="btn btn-secondary" id="wrongPrevBtn" onclick="prevWrong()" style="display:none">◀ 上一题</button>
+        <button class="btn btn-secondary" id="wrongNextBtn" onclick="nextWrong()" style="display:none">下一题 ▶</button>
+      </div>
+    </div>
+    <div class="starred-questions-nav" id="starredQuestionsNav" style="display: none;">
+      <div class="starred-nav-header">重点题导航:</div>
+      <div class="starred-nav-list" id="starredNavList"></div>
+      <div class="starred-nav-arrows">
+        <button class="btn btn-secondary" id="starredPrevBtn" onclick="prevStarred()" style="display:none">◀ 上一题</button>
+        <button class="btn btn-secondary" id="starredNextBtn" onclick="nextStarred()" style="display:none">下一题 ▶</button>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()">Prev</button>
+      <input type="number" id="jumpInput" min="1" placeholder="#" onkeydown="if(event.key==='Enter')jumpTo()">
+      <button class="btn btn-secondary" onclick="jumpTo()">Go</button>
+      <button class="btn btn-secondary" id="nextBtn" onclick="nextQuestion()">Next</button>
+      <button class="btn btn-danger" onclick="clearWrong()">Clear Wrong</button>
+      <button class="btn btn-success" onclick="clearStarred()">Clear Starred</button>
+
+      <div class="timer-controls">
+        <button class="btn btn-primary" onclick="startTimer()">start</button>
+        <button class="btn btn-secondary" onclick="pauseTimer()">pause</button>
+        <button class="btn btn-danger" onclick="resetTimer()">reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="translate-controls" style="margin-bottom: 15px;">
+    <button class="btn btn-translate" id="translateQBtn" onclick="toggleQuestionTranslation()">翻译题目</button>
+    <button class="btn btn-translate" id="translateOBtn" onclick="toggleOptionsTranslation()">翻译选项</button>
+  </div>
+
+  <div id="questionCard" class="question-card"></div>
+  <div class="controls">
+    <button class="btn btn-primary btn-submit" id="submitBtn" onclick="submitAnswer()">Submit</button>
+    <button class="btn btn-exp hidden" id="showExpBtn" onclick="showExplanation(QUESTIONS[current])">展开完整解析</button>
+    <button class="btn btn-primary hidden" id="nextQBtn" onclick="nextQuestion()">Next Question</button>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js?v=simplified1"></script>
+<script src="../sap_questions.js?v=simplified1"></script>
+<script src="../sap_explanations.js?v=simplified1"></script>
+<script src="../quick_memory.js?v=simplified1"></script>
+<script src="../quick_answer_cards.js?v=simplified1"></script>
+<script src="../flash_cards.js?v=simplified1"></script><script src="../twenty_review.js?v=simplified1"></script>
+<script src="../explanation_shared.js?v=simplified1"></script>
+<script>
+let QUESTIONS = CHOICE_QUESTIONS;
+const DISPUTED = typeof DISPUTED_QUESTIONS !== 'undefined' ? DISPUTED_QUESTIONS : {};
+
+function isDisputed(q) {
+  return Object.prototype.hasOwnProperty.call(DISPUTED, String(q.id)) || Object.prototype.hasOwnProperty.call(DISPUTED, q.id);
+}
+
+function getDisputeInfo(q) {
+  return DISPUTED[q.id] || DISPUTED[String(q.id)] || null;
+}
+
+function buildDisputeInfoHtml(q) {
+  const dispute = getDisputeInfo(q);
+  if (!isDisputed(q) || !dispute) return '';
+  return `
+    <strong>⚠️ 此题答案有争议</strong><br>
+    当前答案：<strong>${dispute.current}</strong> | 社区投票：<strong>${dispute.community}</strong>（${dispute.vote}）<br>
+    ${escapeHtml(dispute.reason)}
+  `;
+}
+
+function showDisputeInfo(q) {
+  const el = document.getElementById('disputeInfo');
+  if (!el) return;
+  const html = buildDisputeInfoHtml(q);
+  if (!html) {
+    el.style.display = 'none';
+    el.innerHTML = '';
+    return;
+  }
+  el.innerHTML = html;
+  el.style.display = 'block';
+}
+
+function buildVoteInfoHtml(q) {
+  if (isDisputed(q)) return '';
+  if (!q.community_vote || !q.community_vote.length || !q.vote_percentage) return '';
+  const isDifferent = JSON.stringify([...q.correct_answers].sort()) !== JSON.stringify([...q.community_vote].sort());
+  if (!isDifferent) return '';
+  return `<strong>📊 社区投票:</strong> ${q.community_vote.join(', ')} (${q.vote_percentage} 投票率)`;
+}
+
+function showVoteInfo(q) {
+  const el = document.getElementById('voteInfo');
+  if (!el) return;
+  const html = buildVoteInfoHtml(q);
+  if (!html) {
+    el.style.display = 'none';
+    el.innerHTML = '';
+    return;
+  }
+  el.innerHTML = html;
+  el.style.display = 'block';
+}
+
+function showPostAnswerInfo(q) {
+  showInlineQuick(q);
+  showDisputeInfo(q);
+  showVoteInfo(q);
+}
+
+// 计时器变数
+let timerInterval = null;
+let seconds = 0;
+let isRunning = false;
+
+let current = 0;
+let wrongCount = 0;
+let wrongQuestions = [];
+let starredQuestions = [];
+let answered = false;
+
+function init() {
+  document.getElementById('totalCount').textContent = QUESTIONS.length;
+  const qParam = parseInt(new URLSearchParams(window.location.search).get('q'), 10);
+  if (qParam) {
+    const idx = QUESTIONS.findIndex(q => q.id === qParam);
+    if (idx >= 0) current = idx;
+  }
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const q = QUESTIONS[current];
+  answered = false;
+  document.getElementById('submitBtn').classList.remove('hidden');
+  document.getElementById('showExpBtn').classList.add('hidden');
+  document.getElementById('nextQBtn').classList.add('hidden');
+  closeExplanation();
+
+  const multiHint = q.is_multi ? `<div class="q-multi">Multi-select (choose ${q.multi_count})</div>` : '';
+  const inputType = q.is_multi ? 'checkbox' : 'radio';
+
+  const disputed = isDisputed(q);
+  const disputedBadge = disputed ? '<span class="disputed-badge">⚠️ 争议题</span>' : '';
+
+  const isStarred = starredQuestions.includes(current);
+  let html = `
+    <div class="q-number${disputed ? ' disputed' : ''}">Question ${q.id} (${current + 1}/${QUESTIONS.length})${disputedBadge}</div>
+    ${multiHint}
+    <div id="disputeInfo" class="dispute-info" style="display:none"></div>
+    <div id="voteInfo" class="vote-info" style="display:none"></div>
+    <div class="q-text">${(questionTranslated && q.question_zh ? escapeHtml(q.question_zh) : escapeHtml(q.question))}</div>
+    <div class="star-checkbox">
+      <label>
+        <input type="checkbox" ${isStarred ? 'checked' : ''} onclick="toggleStar(${current})">
+        <span class="star-label">⭐ 标记为重点题</span>
+      </label>
+    </div>
+    <div class="options">
+  `;
+
+  for (const opt of q.options) {
+    html += `
+      <label class="option" data-letter="${opt.letter}" onclick="selectOption(this, '${opt.letter}', ${q.is_multi})">
+        <input type="${inputType}" name="q${q.id}" value="${opt.letter}">
+        <span class="option-label">${opt.letter}.</span>
+        <span class="option-text">${(optionsTranslated && opt.text_zh ? escapeHtml(opt.text_zh) : escapeHtml(opt.text))}</span>
+      </label>
+    `;
+  }
+
+  html += `</div><div class="feedback" id="feedback"></div>`;
+  const card = document.getElementById('questionCard');
+  card.innerHTML = html;
+  card.classList.toggle('disputed', disputed);
+  document.getElementById('jumpInput').value = current + 1;
+  updateNavButtons();
+  updateWrongArrows();
+  updateStarredArrows();
+}
+
+function selectOption(el, letter, isMulti) {
+  if (answered) return;
+  if (!isMulti) {
+    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  }
+  el.classList.toggle('selected');
+  el.querySelector('input').checked = el.classList.contains('selected');
+}
+
+function submitAnswer() {
+  if (answered) return;
+  const q = QUESTIONS[current];
+  const selected = [];
+  document.querySelectorAll('.option.selected').forEach(o => {
+    selected.push(o.dataset.letter);
+  });
+
+  if (selected.length === 0) return;
+
+  answered = true;
+  const correct = q.correct_answers;
+  const isCorrect = selected.length === correct.length && selected.every(s => correct.includes(s));
+
+  if (!isCorrect) {
+    wrongCount++;
+    document.getElementById('wrongCount').textContent = wrongCount;
+
+    // Add to wrong questions array if not already present
+    if (!wrongQuestions.includes(current)) {
+      wrongQuestions.push(current);
+      updateWrongQuestionsNav();
+    }
+  }
+
+  // Mark options
+  document.querySelectorAll('.option').forEach(o => {
+    const letter = o.dataset.letter;
+    const isSelected = selected.includes(letter);
+    const isCorrectOpt = correct.includes(letter);
+
+    if (isSelected && isCorrectOpt) {
+      o.classList.add('correct');
+    } else if (isSelected && !isCorrectOpt) {
+      o.classList.add('wrong');
+    } else if (!isSelected && isCorrectOpt) {
+      o.classList.add('missed');
+    }
+    o.style.pointerEvents = 'none';
+  });
+
+  // Show feedback
+  const fb = document.getElementById('feedback');
+  if (correct.length === 0) {
+    fb.className = 'feedback wrong';
+    fb.textContent = 'No answer available for this question.';
+  } else if (isCorrect) {
+    fb.className = 'feedback correct';
+    fb.textContent = 'Correct!';
+  } else {
+    fb.className = 'feedback wrong';
+    fb.textContent = `Wrong! Correct answer: ${correct.join(', ')}`;
+  }
+
+  showPostAnswerInfo(q);
+
+  document.getElementById('submitBtn').classList.add('hidden');
+  document.getElementById('showExpBtn').classList.remove('hidden');
+  document.getElementById('nextQBtn').classList.remove('hidden');
+}
+
+function nextQuestion() {
+  if (current < QUESTIONS.length - 1) {
+    current++;
+    loadQuestion();
+  }
+}
+
+function prevQuestion() {
+  if (current > 0) {
+    current--;
+    loadQuestion();
+  }
+}
+
+function jumpTo() {
+  const val = parseInt(document.getElementById('jumpInput').value);
+  if (val >= 1 && val <= QUESTIONS.length) {
+    current = val - 1;
+    loadQuestion();
+  }
+}
+
+function updateWrongQuestionsNav() {
+  const navContainer = document.getElementById('wrongQuestionsNav');
+  const navList = document.getElementById('wrongNavList');
+
+  if (wrongQuestions.length === 0) {
+    navContainer.style.display = 'none';
+    return;
+  }
+
+  navContainer.style.display = 'block';
+  navList.innerHTML = '';
+
+  wrongQuestions.forEach(questionIndex => {
+    const button = document.createElement('button');
+    button.className = 'wrong-question-btn';
+    button.textContent = questionIndex + 1; // Show 1-based numbering
+    button.onclick = () => {
+      current = questionIndex;
+      loadQuestion();
+    };
+    navList.appendChild(button);
+  });
+  updateWrongArrows();
+}
+
+function toggleStar(questionIndex) {
+  const index = starredQuestions.indexOf(questionIndex);
+  if (index === -1) {
+    starredQuestions.push(questionIndex);
+  } else {
+    starredQuestions.splice(index, 1);
+  }
+  updateStarredQuestionsNav();
+  loadQuestion(); // Refresh to update checkbox state
+}
+
+function updateStarredQuestionsNav() {
+  const navContainer = document.getElementById('starredQuestionsNav');
+  const navList = document.getElementById('starredNavList');
+
+  if (starredQuestions.length === 0) {
+    navContainer.style.display = 'none';
+    return;
+  }
+
+  navContainer.style.display = 'block';
+  navList.innerHTML = '';
+
+  starredQuestions.forEach(questionIndex => {
+    const button = document.createElement('button');
+    button.className = 'starred-question-btn';
+    button.textContent = questionIndex + 1; // Show 1-based numbering
+    button.onclick = () => {
+      current = questionIndex;
+      loadQuestion();
+    };
+    navList.appendChild(button);
+  });
+  updateStarredArrows();
+}
+
+function updateWrongArrows() {
+  const idx = wrongQuestions.indexOf(current);
+  const prevBtn = document.getElementById('wrongPrevBtn');
+  const nextBtn = document.getElementById('wrongNextBtn');
+  prevBtn.style.display = idx > 0 ? '' : 'none';
+  nextBtn.style.display = idx >= 0 && idx < wrongQuestions.length - 1 ? '' : 'none';
+}
+
+function prevWrong() {
+  const idx = wrongQuestions.indexOf(current);
+  if (idx > 0) { current = wrongQuestions[idx - 1]; loadQuestion(); }
+}
+
+function nextWrong() {
+  const idx = wrongQuestions.indexOf(current);
+  if (idx >= 0 && idx < wrongQuestions.length - 1) { current = wrongQuestions[idx + 1]; loadQuestion(); }
+}
+
+function updateStarredArrows() {
+  const idx = starredQuestions.indexOf(current);
+  const prevBtn = document.getElementById('starredPrevBtn');
+  const nextBtn = document.getElementById('starredNextBtn');
+  prevBtn.style.display = idx > 0 ? '' : 'none';
+  nextBtn.style.display = idx >= 0 && idx < starredQuestions.length - 1 ? '' : 'none';
+}
+
+function prevStarred() {
+  const idx = starredQuestions.indexOf(current);
+  if (idx > 0) { current = starredQuestions[idx - 1]; loadQuestion(); }
+}
+
+function nextStarred() {
+  const idx = starredQuestions.indexOf(current);
+  if (idx >= 0 && idx < starredQuestions.length - 1) { current = starredQuestions[idx + 1]; loadQuestion(); }
+}
+
+function clearWrong() {
+  wrongCount = 0;
+  document.getElementById('wrongCount').textContent = 0;
+  wrongQuestions = [];
+  updateWrongQuestionsNav();
+}
+
+function clearStarred() {
+  starredQuestions = [];
+  updateStarredQuestionsNav();
+  loadQuestion(); // Refresh to update checkbox states
+}
+
+function updateNavButtons() {
+  document.getElementById('prevBtn').disabled = current === 0;
+  document.getElementById('nextBtn').disabled = current === QUESTIONS.length - 1;
+}
+
+// 计时器函数
+function formatTime(totalSeconds) {
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const secs = totalSeconds % 60;
+  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+function updateTimerDisplay() {
+  document.getElementById('timerDisplay').textContent = formatTime(seconds);
+}
+
+function startTimer() {
+  if (!isRunning) {
+    isRunning = true;
+    timerInterval = setInterval(() => {
+      seconds++;
+      updateTimerDisplay();
+    }, 1000);
+  }
+}
+
+function pauseTimer() {
+  if (isRunning) {
+    isRunning = false;
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+}
+
+function resetTimer() {
+  isRunning = false;
+  clearInterval(timerInterval);
+  timerInterval = null;
+  seconds = 0;
+  updateTimerDisplay();
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+
+// === Translation Feature ===
+let questionTranslated = false;
+let optionsTranslated = false;
+let translatedQuestions = {}; // 缓存翻译结果
+
+// 使用浏览器翻译API进行翻译
+async function translateText(text) {
+  if (!text) return text;
+  
+  // 检查缓存
+  const cacheKey = text.substring(0, 100);
+  if (translatedQuestions[cacheKey]) {
+    return translatedQuestions[cacheKey];
+  }
+  
+  try {
+    // 使用Google翻译（通过iframe方式）
+    const result = await new Promise((resolve) => {
+      // 简单的提示，让用户知道没有预设翻译
+      resolve(null);
+    });
+    return result;
+  } catch (e) {
+    return null;
+  }
+}
+
+function toggleQuestionTranslation() {
+  const q = QUESTIONS[current];
+  
+  // 如果没有预设的中文翻译，提示用户
+  if (!q.question_zh || q.question_zh === '') {
+    alert('此题目暂无预设中文翻译。\n\n您可以使用浏览器的翻译功能（右键 -> 翻译成中文）来翻译整个页面。\n\n或者您可以手动将题目数据添加中文翻译。');
+    return;
+  }
+  
+  questionTranslated = !questionTranslated;
+  const btn = document.getElementById('translateQBtn');
+  btn.classList.toggle('active', questionTranslated);
+  btn.textContent = questionTranslated ? '显示英文题目' : '翻译题目';
+  loadQuestion();
+}
+
+function toggleOptionsTranslation() {
+  const q = QUESTIONS[current];
+  const hasTranslation = q.options.some(opt => opt.text_zh && opt.text_zh !== '');
+  
+  // 如果没有预设的中文翻译，提示用户
+  if (!hasTranslation) {
+    alert('此题目的选项暂无预设中文翻译。\n\n您可以使用浏览器的翻译功能（右键 -> 翻译成中文）来翻译整个页面。\n\n或者您可以手动将题目数据添加中文翻译。');
+    return;
+  }
+  
+  optionsTranslated = !optionsTranslated;
+  const btn = document.getElementById('translateOBtn');
+  btn.classList.toggle('active', optionsTranslated);
+  btn.textContent = optionsTranslated ? '显示英文选项' : '翻译选项';
+  loadQuestion();
+}
+
+init();
+</script>
+</body>
+</html>

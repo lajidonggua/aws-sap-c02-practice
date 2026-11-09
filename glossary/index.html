@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AWS SAP-C02 - 名词解释</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif;
+  background: #2d2d2d;
+  color: #e0e0e0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding:
+    max(12px, env(safe-area-inset-top))
+    max(12px, env(safe-area-inset-right))
+    max(12px, env(safe-area-inset-bottom))
+    max(12px, env(safe-area-inset-left));
+  width: 100%;
+}
+.header {
+  background: #3a3a3a;
+  border-radius: 10px;
+  padding: clamp(14px, 3.5vw, 20px) clamp(14px, 3.5vw, 25px);
+  margin-bottom: 20px;
+}
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+.title { font-size: clamp(1.2rem, 4.5vw, 1.5rem); color: #ff9800; font-weight: bold; line-height: 1.3; word-break: break-word; }
+.subtitle { font-size: 14px; color: #aaa; margin-top: 4px; line-height: 1.45; }
+.back-link {
+  color: #4fc3f7;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 8px 16px;
+  border: 1px solid #4fc3f7;
+  border-radius: 6px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.back-link:hover { background: #4fc3f7; color: #1a1a1a; }
+.search-box {
+  width: 100%;
+  padding: 12px 16px;
+  background: #4a4a4a;
+  border: 1px solid #555;
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 16px;
+  outline: none;
+}
+.search-box:focus { border-color: #ff9800; }
+.search-box::placeholder { color: #888; }
+.stats-bar {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #aaa;
+  flex-wrap: wrap;
+  line-height: 1.5;
+}
+.stat-highlight { color: #ff9800; font-weight: bold; }
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.cat-btn {
+  padding: 8px 14px;
+  border: 1px solid #555;
+  border-radius: 20px;
+  background: #3a3a3a;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+  min-height: 36px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.cat-btn:hover { border-color: #ff9800; color: #ff9800; }
+.cat-btn.active {
+  background: #ff9800;
+  color: #1a1a1a;
+  border-color: #ff9800;
+  font-weight: bold;
+}
+.term-list { display: flex; flex-direction: column; gap: 12px; }
+.term-card {
+  background: #3a3a3a;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  overflow: hidden;
+  transition: border-color 0.2s;
+  min-width: 0;
+}
+.term-card:hover { border-color: #555; }
+.term-card.expanded { border-color: #ff9800; }
+.term-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  cursor: pointer;
+  user-select: none;
+  flex-wrap: wrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.term-name {
+  font-size: clamp(0.95rem, 3.2vw, 1rem);
+  font-weight: bold;
+  color: #4fc3f7;
+  flex: 1 1 140px;
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+.term-abbr {
+  background: #4a4a4a;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #ff9800;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+.term-cat {
+  font-size: 11px;
+  color: #888;
+  background: #2d2d2d;
+  padding: 3px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.term-qcount {
+  font-size: 12px;
+  color: #ab47bc;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.term-chevron {
+  color: #888;
+  font-size: 12px;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+.term-card.expanded .term-chevron { transform: rotate(180deg); }
+.term-body {
+  display: none;
+  padding: 0 16px 16px;
+  border-top: 1px solid #4a4a4a;
+}
+.term-card.expanded .term-body { display: block; }
+.term-section { margin-top: 14px; }
+.term-section-title {
+  font-size: 13px;
+  color: #ff9800;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+.term-section-content {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #ccc;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+.use-case-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.use-case-list li {
+  background: #4a4a4a;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #bbb;
+  word-break: break-word;
+}
+.related-questions { display: flex; flex-wrap: wrap; gap: 6px; }
+.q-link {
+  background: #ab47bc;
+  color: white;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  transition: all 0.2s;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.q-link:hover { background: #ce93d8; color: #1a1a1a; }
+.no-results {
+  text-align: center;
+  padding: 40px 16px;
+  color: #888;
+  font-size: 15px;
+}
+.empty-msg { display: none; }
+
+@media (max-width: 640px) {
+  .header-top { flex-direction: column; align-items: stretch; }
+  .back-link { align-self: flex-start; text-align: center; }
+  .categories {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+    margin-left: -4px;
+    margin-right: -4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    scrollbar-width: thin;
+  }
+  .cat-btn { flex: 0 0 auto; white-space: nowrap; }
+  .term-header { gap: 8px; }
+  .term-cat { order: 3; }
+  .term-qcount { order: 4; }
+  .term-chevron { order: 5; margin-left: 0; }
+}
+
+@media (max-width: 400px) {
+  .term-abbr { font-size: 11px; padding: 2px 8px; }
+  .stats-bar { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="title">AWS 名词解释</div>
+        <div class="subtitle">SAP-C02 考试相关服务、概念与协定速查</div>
+      </div>
+      <a href="../index.html" class="back-link">← 返回首页</a>
+    </div>
+    <input type="text" class="search-box" id="searchInput" placeholder="搜寻名词、缩写或功能描述...">
+    <div class="stats-bar">
+      <span>共 <span class="stat-highlight" id="totalTerms">0</span> 个名词</span>
+      <span>显示 <span class="stat-highlight" id="visibleCount">0</span> 个</span>
+      <span>来源：207 个原始词汇 → 去重分类</span>
+    </div>
+  </div>
+
+  <div class="categories" id="categoryBar"></div>
+  <div class="term-list" id="termList"></div>
+  <div class="no-results empty-msg" id="noResults">没有符合条件的名词</div>
+</div>
+
+<script src="../sap_glossary.js?v=simplified1"></script>
+<script>
+let activeCategory = 'all';
+let searchQuery = '';
+
+const categoryMap = Object.fromEntries(GLOSSARY_CATEGORIES.map(c => [c.id, c.name]));
+
+function init() {
+  document.getElementById('totalTerms').textContent = GLOSSARY_TERMS.length;
+  renderCategories();
+  renderTerms();
+  document.getElementById('searchInput').addEventListener('input', e => {
+    searchQuery = e.target.value.trim().toLowerCase();
+    renderTerms();
+  });
+}
+
+function renderCategories() {
+  const bar = document.getElementById('categoryBar');
+  bar.innerHTML = GLOSSARY_CATEGORIES.map(cat => `
+    <button class="cat-btn${cat.id === activeCategory ? ' active' : ''}"
+            data-cat="${cat.id}">${cat.name}</button>
+  `).join('');
+  bar.querySelectorAll('.cat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeCategory = btn.dataset.cat;
+      renderCategories();
+      renderTerms();
+    });
+  });
+}
+
+function matchesSearch(term) {
+  if (!searchQuery) return true;
+  const q = searchQuery;
+  const abbr = (term.abbr || '').toLowerCase();
+  const name = (term.name || '').toLowerCase();
+  const full = (term.full_name || '').toLowerCase();
+  const aliases = (term.aliases || []).map(a => String(a).toLowerCase());
+
+  // Short queries (e.g. OU, DX, TGW, PHZ, SCP): prefer exact abbr / alias / name tokens
+  // so "ou" won't match every word containing those letters (Route, Cloud...).
+  if (q.length <= 4) {
+    if (abbr === q) return true;
+    if (name === q || full === q) return true;
+    if (aliases.some(a => a === q)) return true;
+    // allow token match: "AWS OU" / "OU 组织"
+    const tokens = [name, full, ...aliases].join(' ').split(/[\s/|,，、()（）+-]+/).filter(Boolean);
+    if (tokens.includes(q)) return true;
+    // still allow prefix on abbr for things like "tg" → TGW only if abbr starts with q and is short-ish
+    if (abbr && abbr.startsWith(q) && abbr.length <= 6) return true;
+    return false;
+  }
+
+  const haystack = [
+    term.name, term.full_name, term.abbr,
+    ...term.aliases, term.function,
+    ...term.use_cases, categoryMap[term.category]
+  ].join(' ').toLowerCase();
+  return haystack.includes(q);
+}
+
+function searchRank(term) {
+  if (!searchQuery) return 0;
+  const q = searchQuery;
+  const abbr = (term.abbr || '').toLowerCase();
+  if (abbr === q) return 0;
+  if ((term.aliases || []).some(a => String(a).toLowerCase() === q)) return 1;
+  if ((term.name || '').toLowerCase() === q) return 2;
+  if ((term.name || '').toLowerCase().startsWith(q)) return 3;
+  return 4;
+}
+
+function renderTerms() {
+  const filtered = GLOSSARY_TERMS.filter(t => {
+    if (activeCategory !== 'all' && t.category !== activeCategory) return false;
+    return matchesSearch(t);
+  }).sort((a, b) => searchRank(a) - searchRank(b) || a.name.localeCompare(b.name));
+
+  document.getElementById('visibleCount').textContent = filtered.length;
+  const noResults = document.getElementById('noResults');
+  const list = document.getElementById('termList');
+
+  if (filtered.length === 0) {
+    list.innerHTML = '';
+    noResults.style.display = 'block';
+    return;
+  }
+  noResults.style.display = 'none';
+
+  list.innerHTML = filtered.map(term => {
+    const qCount = term.question_count || 0;
+    const qLinks = (term.related_questions || []).slice(0, 12).map(id =>
+      `<a class="q-link" href="../choice/index.html?q=${id}" title="跳转至第 ${id} 题">Q${id}</a>`
+    ).join('');
+    const moreQ = qCount > 12 ? `<span style="color:#888;font-size:12px">+${qCount - 12} 题</span>` : '';
+
+    return `
+      <div class="term-card" data-id="${term.id}">
+        <div class="term-header" onclick="toggleCard(this.parentElement)">
+          <span class="term-name">${esc(term.name)}</span>
+          <span class="term-abbr">${esc(term.abbr)}</span>
+          <span class="term-cat">${esc(categoryMap[term.category] || '')}</span>
+          ${qCount ? `<span class="term-qcount">${qCount} 道相关题</span>` : ''}
+          <span class="term-chevron">▼</span>
+        </div>
+        <div class="term-body">
+          <div class="term-section">
+            <div class="term-section-title">全称</div>
+            <div class="term-section-content">${esc(term.full_name)}</div>
+          </div>
+          <div class="term-section">
+            <div class="term-section-title">主要功能</div>
+            <div class="term-section-content">${esc(term.function)}</div>
+          </div>
+          <div class="term-section">
+            <div class="term-section-title">常见使用场景</div>
+            <ul class="use-case-list">${term.use_cases.map(u => `<li>${esc(u)}</li>`).join('')}</ul>
+          </div>
+          ${qCount ? `
+          <div class="term-section">
+            <div class="term-section-title">练习题参考</div>
+            <div class="related-questions">${qLinks}${moreQ}</div>
+          </div>` : ''}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function toggleCard(card) {
+  const wasExpanded = card.classList.contains('expanded');
+  document.querySelectorAll('.term-card.expanded').forEach(c => c.classList.remove('expanded'));
+  if (!wasExpanded) card.classList.add('expanded');
+}
+
+function esc(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+init();
+</script>
+</body>
+</html>
