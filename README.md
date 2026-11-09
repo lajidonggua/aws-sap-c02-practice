@@ -2,6 +2,8 @@
 
 AWS Certified Solutions Architect – Professional（SAP-C02）中文刷题与考前复习网站，包含 529 道练习题。
 
+**在线练习：[打开刷题网站](https://lajidonggua.github.io/aws-sap-c02-practice/)**
+
 ## 功能
 
 - 顺序刷题、随机练习、错题重练和收藏。
