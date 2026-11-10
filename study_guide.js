@@ -1,57 +1,6 @@
 'use strict';
 
 const studyEscape = learningEscape;
-const studyDefinitions = {
-  acm: '帮助签发、管理和部署 TLS 证书，让支持的服务配置 HTTPS 等加密连接。',
-  firehose: 'Amazon Data Firehose（旧题中也称 Kinesis Data Firehose）将流式数据托管投递到支持的目的地。'
-};
-const studyTermMap = new Map();
-for (const term of [...GLOSSARY_TERMS, ...LEARNING_EXTRA_TERMS, ...STUDY_EXTRA_TERMS]) {
-  if (['amazon', 'aws'].includes(term.id)) continue;
-  const help = LEARNING_TERM_HELP[term.id];
-  studyTermMap.set(term.id, {
-    ...term, definition: learningPlain(studyDefinitions[term.id] || (help ? help[0] : term.function)),
-    analogy: help ? help[1] : term.analogy || '',
-    notes: STUDY_TERM_NOTES[term.id] || null,
-    matchers: learningAliases(term)
-  });
-}
-const studyQuestionIndex = CHOICE_QUESTIONS.map(q => ({
-  q, text: [q.question, q.question_zh, ...q.options.filter(o => q.correct_answers.includes(o.letter)).flatMap(o => [o.text, o.text_zh])].join(' ')
-}));
-const studyRelatedCache = new Map();
-function getStudyRelatedQuestions(termId) {
-  if (!studyRelatedCache.has(termId)) {
-    const term = studyTermMap.get(termId);
-    studyRelatedCache.set(termId, term ? studyQuestionIndex.filter(item => learningHasTerm(term, item.text)).map(item => item.q.id) : []);
-  }
-  return studyRelatedCache.get(termId);
-}
-function getStudyChapterQuestions(chapter) {
-  const weights = new Map();
-  for (const id of chapter.terms) for (const qid of getStudyRelatedQuestions(id)) weights.set(qid, (weights.get(qid) || 0) + 1);
-  return [...weights].sort((a, b) => b[1] - a[1] || a[0] - b[0]).map(([qid]) => qid);
-}
-function getStudyTermChapter(termId) {
-  const direct = STUDY_CHAPTERS.find(chapter => chapter.terms.includes(termId));
-  if (direct) return direct;
-  const categories = { networking: 'networking', compute: 'compute', storage: 'storage', database: 'databases', security: 'security', integration: 'integration', analytics: 'analytics', management: 'governance', migration: 'migration', devops: 'delivery' };
-  return STUDY_CHAPTERS.find(chapter => chapter.id === (categories[studyTermMap.get(termId)?.category] || 'foundations'));
-}
-function studyMatchesQuery(text, query) {
-  const haystack = String(text).toLowerCase();
-  return query.trim().toLowerCase().split(/\s+/).filter(Boolean).every(word => /^[a-z0-9-]{1,4}$/.test(word)
-    ? new RegExp('(?<![a-z0-9])' + word + '(?![a-z0-9])', 'i').test(haystack)
-    : haystack.includes(word));
-}
-function studySearchTerms(query, includeExtended = false) {
-  const needle = query.trim().toLowerCase();
-  return [...studyTermMap.values()].filter(term => (includeExtended || needle || term.notes) && (!needle || studyMatchesQuery([term.name, term.abbr, term.definition, term.analogy, ...(term.aliases || []), ...(term.notes || []), ...(term.use_cases || [])].join(' '), needle)))
-    .sort((a, b) => {
-      const rank = term => [term.abbr, term.name, ...(term.aliases || [])].some(x => x?.toLowerCase() === needle) ? 0 : term.notes ? 1 : 2;
-      return rank(a) - rank(b) || a.abbr.localeCompare(b.abbr);
-    });
-}
 function studyComparisonHtml(comparison) {
   const e = studyEscape;
   return `<section class="study-comparison"><h3>${e(comparison.title)}</h3><p class="comparison-cue">${e(comparison.cue)}</p><div class="comparison-scroll" tabindex="0" aria-label="${e(comparison.title)}对比表"><table><thead><tr><th scope="col">概念 / 服务</th><th scope="col">主要用途</th><th scope="col">考题里别混淆</th></tr></thead><tbody>${comparison.rows.map(row => `<tr><th scope="row">${e(row[0])}</th><td>${e(row[1])}</td><td>${e(row[2])}</td></tr>`).join('')}</tbody></table></div></section>`;
@@ -62,7 +11,7 @@ function studyTermHtml(term) {
   const chapter = getStudyTermChapter(term.id);
   const legacy = STUDY_LEGACY_TERMS.has(term.id);
   const notes = term.notes;
-  return `<article class="study-term" id="term-${e(term.id)}"><div class="study-term-top"><span class="term-badge">${notes ? '核心学习卡' : '扩展词汇'}</span><button class="term-share" data-link-term="${e(term.id)}" aria-label="打开 ${e(term.abbr)} 的独立链接">定位 ↗</button></div><h3>${e(term.abbr)}</h3><p class="study-term-name">${e(term.name)}</p>${legacy ? '<p class="legacy-note">此词出现在旧题中，服务支持范围已有变化。请结合 <a href="https://docs.aws.amazon.com/general/latest/gr/service-lifecycle.html" target="_blank" rel="noopener">AWS 服务生命周期说明</a>理解当前支持情况。</p>' : ''}<div class="term-definition"><h4>它是什么</h4><p>${e(term.definition)}</p></div>${term.analogy ? `<p class="study-analogy"><b>打个比方</b>${e(term.analogy)}</p>` : ''}${notes ? `<dl class="study-term-notes"><div><dt>什么时候用</dt><dd>${e(notes[0])}</dd></div><div><dt>考点怎么辨认</dt><dd>${e(notes[1])}</dd></div><div><dt>不要混淆</dt><dd>${e(notes[2])}</dd></div></dl>` : `<div class="extended-use"><h4>常见用途</h4><ul>${(term.use_cases || ['结合基础章节，理解这个术语在方案中承担的职责。']).map(text => `<li>${e(learningPlain(text))}</li>`).join('')}</ul></div>`}<div class="term-links"><a href="#${e(chapter.id)}">回到相关章节</a>${questions.length ? `<a href="../index.html?q=${questions[0]}">练习相关题 ↗</a><span>${questions.length} 道关联题</span>` : ''}${term.source ? `<a href="${e(term.source)}" target="_blank" rel="noopener">AWS 官方说明 ↗</a>` : ''}</div></article>`;
+  return `<article class="study-term" id="term-${e(term.id)}"><div class="study-term-top"><span class="term-badge">${notes ? '核心学习卡' : '扩展词汇'}</span><button class="term-share" data-link-term="${e(term.id)}" aria-label="打开 ${e(term.abbr)} 的独立链接">定位 ↗</button></div><h3>${e(term.abbr)}</h3><p class="study-term-name">${e(term.name)}</p>${legacy ? '<p class="legacy-note">此词出现在旧题中，服务支持范围已有变化。请结合 <a href="https://docs.aws.amazon.com/general/latest/gr/service-lifecycle.html" target="_blank" rel="noopener">AWS 服务生命周期说明</a>理解当前支持情况。</p>' : ''}<div class="term-definition"><h4>它是什么</h4><p>${e(term.definition)}</p></div>${term.analogy ? `<p class="study-analogy"><b>打个比方</b>${e(term.analogy)}</p>` : ''}${notes ? `<dl class="study-term-notes"><div><dt>什么时候用</dt><dd>${e(notes[0])}</dd></div><div><dt>考点怎么辨认</dt><dd>${e(notes[1])}</dd></div><div><dt>不要混淆</dt><dd>${e(notes[2])}</dd></div></dl>` : `<div class="extended-use"><h4>常见用途</h4><ul>${(term.use_cases || ['结合基础章节，理解这个术语在方案中承担的职责。']).map(text => `<li>${e(learningPlain(text))}</li>`).join('')}</ul></div>`}<div class="term-links"><a href="#${e(chapter.id)}">回到相关章节</a>${questions.length ? `<a href="../index.html?term=${encodeURIComponent(term.id)}&amp;q=${questions[0]}">练习相关题 ↗</a><span>${questions.length} 道关联题</span>` : ''}${term.source ? `<a href="${e(term.source)}" target="_blank" rel="noopener">AWS 官方说明 ↗</a>` : ''}</div></article>`;
 }
 
 if (typeof document !== 'undefined' && document.getElementById('studyContent')) {
@@ -114,7 +63,7 @@ if (typeof document !== 'undefined' && document.getElementById('studyContent')) 
     const next = STUDY_CHAPTERS[index + 1];
     const questions = getStudyChapterQuestions(chapter);
     const comparisons = chapter.comparisons.map(id => STUDY_COMPARISONS.find(item => item.id === id));
-    get('studyContent').innerHTML = `<article class="study-chapter"><header class="chapter-header"><span class="section-eyebrow">第 ${String(index + 1).padStart(2, '0')} 章 · ${chapter.minutes} 分钟左右</span><h2 id="chapterTitle" tabindex="-1">${studyEscape(chapter.title)}</h2><p>${studyEscape(chapter.subtitle)}</p></header><div class="chapter-goal"><b>这一章先学会</b><p>${studyEscape(chapter.goal)}</p></div><section class="chapter-section"><h3>从一个场景开始</h3><p class="chapter-story">${studyEscape(chapter.story)}</p><ol class="concept-flow ${chapter.flowKind === 'choices' ? 'concept-choices' : ''}" aria-label="${studyEscape(chapter.title)}的理解顺序">${chapter.flow.map(([title, detail], i) => `<li><span>${i + 1}</span><h4>${studyEscape(title)}</h4><p>${studyEscape(detail)}</p></li>`).join('')}</ol></section><section class="chapter-section"><h3>先掌握这 ${chapter.principles.length} 个知识点</h3><div class="principle-list">${chapter.principles.map(([title, detail], i) => `<div><span>${String(i + 1).padStart(2, '0')}</span><section><h4>${studyEscape(title)}</h4><p>${studyEscape(detail)}</p></section></div>`).join('')}</div></section><section class="chapter-section"><h3>本章名词、用法与考点</h3><p class="muted">先知道它负责什么，再看题目是否真的需要这个能力。</p><div class="study-term-grid">${chapter.terms.map(id => studyTermHtml(studyTermMap.get(id))).join('')}</div></section><section class="chapter-section"><h3>最容易混淆的地方</h3>${comparisons.map(studyComparisonHtml).join('')}</section>${renderStudyQuiz(chapter)}<section class="practice-box"><div><span class="section-eyebrow">学完再做题</span><h3>用练习把概念连起来</h3><p>${questions.length ? `本章关联 ${questions.length} 道练习。先选几道，遇到不懂的名词再回来查。` : '可以先回到首页练习，再根据遇到的场景回看本章。'}</p></div>${questions.length ? `<a class="primary-link" href="../index.html?q=${questions[0]}">练一道本章相关题 →</a><div class="study-question-links">${questions.slice(0, 12).map(id => `<a href="../index.html?q=${id}">第 ${id} 题</a>`).join('')}</div>` : '<a class="primary-link" href="../index.html">开始刷题 →</a>'}</section><div class="chapter-complete"><button class="primary-button" id="markStudyRead">${next ? '本章已读，继续下一章 →' : '本章已读，完成这一轮预习 ✓'}</button>${studyProgress.read.includes(chapter.id) ? '<span>本章已标记为读过，可随时复习。</span>' : '<span>能解释上面的场景后，再标记已读。</span>'}</div>${studyProgress.read.length === STUDY_CHAPTERS.length ? '<div class="all-read">这一轮章节已经读完。接下来做题、回看解析，检验自己能否独立判断。</div>' : ''}<footer class="chapter-sources"><h3>继续查阅 AWS 官方资料</h3>${chapter.sources.map(([title, url]) => `<a href="${studyEscape(url)}" target="_blank" rel="noopener">${studyEscape(title)} ↗</a>`).join('')}</footer></article>`;
+    get('studyContent').innerHTML = `<article class="study-chapter"><header class="chapter-header"><span class="section-eyebrow">第 ${String(index + 1).padStart(2, '0')} 章 · ${chapter.minutes} 分钟左右</span><h2 id="chapterTitle" tabindex="-1">${studyEscape(chapter.title)}</h2><p>${studyEscape(chapter.subtitle)}</p></header><div class="chapter-goal"><b>这一章先学会</b><p>${studyEscape(chapter.goal)}</p></div><section class="chapter-section"><h3>从一个场景开始</h3><p class="chapter-story">${studyEscape(chapter.story)}</p><ol class="concept-flow ${chapter.flowKind === 'choices' ? 'concept-choices' : ''}" aria-label="${studyEscape(chapter.title)}的理解顺序">${chapter.flow.map(([title, detail], i) => `<li><span>${i + 1}</span><h4>${studyEscape(title)}</h4><p>${studyEscape(detail)}</p></li>`).join('')}</ol></section><section class="chapter-section"><h3>先掌握这 ${chapter.principles.length} 个知识点</h3><div class="principle-list">${chapter.principles.map(([title, detail], i) => `<div><span>${String(i + 1).padStart(2, '0')}</span><section><h4>${studyEscape(title)}</h4><p>${studyEscape(detail)}</p></section></div>`).join('')}</div></section><section class="chapter-section"><h3>本章名词、用法与考点</h3><p class="muted">先知道它负责什么，再看题目是否真的需要这个能力。</p><div class="study-term-grid">${chapter.terms.map(id => studyTermHtml(studyTermMap.get(id))).join('')}</div></section><section class="chapter-section"><h3>最容易混淆的地方</h3>${comparisons.map(studyComparisonHtml).join('')}</section>${renderStudyQuiz(chapter)}<section class="practice-box"><div><span class="section-eyebrow">学完再做题</span><h3>用练习把概念连起来</h3><p>${questions.length ? `本章关联 ${questions.length} 道练习，按关联程度排列。进入后会按本章集合继续；遇到不懂的名词再回来查。` : '可以先回到首页练习，再根据遇到的场景回看本章。'}</p></div>${questions.length ? `<a class="primary-link" href="../index.html?chapter=${chapter.id}&amp;q=${questions[0]}">开始本章练习 →</a><p class="muted">前 ${Math.min(12, questions.length)} 道预览，可从任意一题开始：</p><div class="study-question-links">${questions.slice(0, 12).map(id => `<a href="../index.html?chapter=${chapter.id}&amp;q=${id}">第 ${id} 题</a>`).join('')}</div>` : '<a class="primary-link" href="../index.html">开始刷题 →</a>'}</section><div class="chapter-complete"><button class="primary-button" id="markStudyRead">${next ? '本章已读，继续下一章 →' : '本章已读，完成这一轮预习 ✓'}</button>${studyProgress.read.includes(chapter.id) ? '<span>本章已标记为读过，可随时复习。</span>' : '<span>能解释上面的场景后，再标记已读。</span>'}</div>${studyProgress.read.length === STUDY_CHAPTERS.length ? '<div class="all-read">这一轮章节已经读完。接下来做题、回看解析，检验自己能否独立判断。</div>' : ''}<footer class="chapter-sources"><h3>继续查阅 AWS 官方资料</h3>${chapter.sources.map(([title, url]) => `<a href="${studyEscape(url)}" target="_blank" rel="noopener">${studyEscape(title)} ↗</a>`).join('')}</footer></article>`;
     get('markStudyRead').onclick = () => {
       studyProgress.read = [...new Set([...studyProgress.read, chapter.id])];
       studyProgress.last = next ? next.id : chapter.id;

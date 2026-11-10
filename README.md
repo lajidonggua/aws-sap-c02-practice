@@ -8,6 +8,7 @@ AWS Certified Solutions Architect – Professional（SAP-C02）中文刷题与�
 
 - 刷题前知识手册：13 个循序渐进的主题、核心名词与用法、易混对比、场景小测、已读进度和关联练习。
 
+- 章节和名词可进入对应题目集合，前后翻题、随机、闪记、错题和收藏都保留当前范围。
 - 顺序刷题、随机练习、错题重练和收藏。
 - 5 秒闪记、题眼提示、答案关键词和速记卡；人工核对过的关键条件会保留。
 - 关键词支持检索中英文题干、全部选项和速记内容，精确题号优先。
@@ -63,6 +64,13 @@ node test_quick_cards.cjs
 node test_quick_search.cjs
 node test_learning_review.cjs
 node test_study_guide.cjs
+node test_practice_sets.cjs
+```
+
+浏览器回归检查需另外安装 Playwright 及其 Chromium，并先启动本地预览，然后运行：
+
+```sh
+SAP_TEST_BASE=http://127.0.0.1:8000/ node test_practice_navigation.cjs
 ```
 
 练习题与解析用于学习参考；争议题以网站提示为准。

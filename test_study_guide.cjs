@@ -4,7 +4,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const context = vm.createContext({ URL });
 vm.runInContext([
-  'sap_questions.js', 'sap_glossary.js', 'learning_review.js', 'study_guide_data.js', 'study_guide.js'
+  'sap_questions.js', 'sap_glossary.js', 'learning_review.js', 'study_guide_data.js', 'study_model.js', 'study_guide.js'
 ].map(file => fs.readFileSync(path.join(__dirname, file), 'utf8')).join('\n') + `
 this.api = { chapters: STUDY_CHAPTERS, comparisons: STUDY_COMPARISONS, terms: studyTermMap,
   notes: STUDY_TERM_NOTES, related: getStudyRelatedQuestions, chapterQuestions: getStudyChapterQuestions,
