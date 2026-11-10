@@ -22,12 +22,12 @@ function renderFlash(){
  ${(full.disputed||full.legacyMismatch)?'<p class="flash-caution">此题有争议或旧解析不一致 · 按当前题库记，展开核对</p>':''}
  <div class="flash-clock"><div id="flashClockBar"></div></div><div class="flash-playback"><button id="flashPlay">${flashPlaying?'暂停':'开始 5 秒自动翻题'}</button><span id="flashSeconds">5.0 秒</span></div>
  <div class="flash-decisions"><button id="flashMiss">没记住 · 稍后再背 <kbd>←</kbd></button><button id="flashKnown" class="primary">记住了 · 下一题 <kbd>→</kbd></button></div><p id="flashStatus" class="muted">${flash.recall?'自动播放：2 秒回想 + 3 秒看关键词。':'答案字母默认隐藏；先对照关键词自己选。'} 空格暂停 / 继续。</p>
- <details id="flashDetails"><summary>分不清时再看：易错点、中文原题与答案</summary><p><b>别选错：</b>${esc(full.avoid)}</p><p>${esc(q.question_zh||q.question)}</p>${q.options.map(o=>`<p class="${q.correct_answers.includes(o.letter)?'flash-correct':''}"><b>${esc(o.letter)}${q.correct_answers.includes(o.letter)?' ✓':''}</b> ${esc(o.text_zh||o.text)}</p>`).join('')}<p>本卡只帮助识别当前原题；遇到条件变化，请核对完整选项。</p></details>`;
+ <details id="flashDetails"><summary>停下来理解：知识点、名词和图解</summary><p><b>别选错：</b>${esc(full.avoid)}</p><p>${esc(q.question_zh||q.question)}</p>${q.options.map(o=>`<p class="${q.correct_answers.includes(o.letter)?'flash-correct':''}"><b>${esc(o.letter)}${q.correct_answers.includes(o.letter)?' ✓':''}</b> ${esc(o.text_zh||o.text)}</p>`).join('')}<p>本卡只帮助识别当前原题；遇到条件变化，请核对完整选项。</p>${buildLearningReview(q)}</details>`;
  $('flashAll').onclick=()=>flashScope('all');$('flashAgain').onclick=()=>flashScope('again');$('flashReveal').onclick=revealFlash;
  $('flashRecall').onchange=e=>{flash.recall=e.target.checked;render();};
  $('flashPlay').onclick=()=>{if(flashPlaying){stopFlash();$('flashPlay').textContent='继续 5 秒自动翻题';$('flashSeconds').textContent='已暂停';}else{flashPlaying=true;$('flashPlay').textContent='暂停';runFlashTimer();}};
  $('flashMiss').onclick=()=>flashMark(false);$('flashKnown').onclick=()=>flashMark(true);
- $('flashDetails').ontoggle=()=>{if($('flashDetails').open){stopFlash();$('flashPlay').textContent='继续 5 秒自动翻题';$('flashSeconds').textContent='已暂停';}};
+ $('flashDetails').ontoggle=()=>{if($('flashDetails').open){renderLearningDiagrams($('flashDetails'));stopFlash();$('flashPlay').textContent='继续 5 秒自动翻题';$('flashSeconds').textContent='已暂停';}};
  runFlashTimer();
 }
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='flash'){stopFlash();if($('flashPlay'))$('flashPlay').textContent='继续 5 秒自动翻题';if($('flashSeconds'))$('flashSeconds').textContent='已暂停';}});

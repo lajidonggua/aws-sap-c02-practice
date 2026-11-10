@@ -278,6 +278,12 @@ let searchQuery = '';
 const categoryMap = Object.fromEntries(GLOSSARY_CATEGORIES.map(c => [c.id, c.name]));
 
 function init() {
+  const termId = new URLSearchParams(window.location.search).get('term');
+  const linkedTerm = GLOSSARY_TERMS.find(term => term.id === termId);
+  if (linkedTerm) {
+    searchQuery = linkedTerm.abbr || linkedTerm.name;
+    document.getElementById('searchInput').value = searchQuery;
+  }
   document.getElementById('totalTerms').textContent = GLOSSARY_TERMS.length;
   renderCategories();
   renderTerms();

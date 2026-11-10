@@ -74,46 +74,13 @@ function renderArchitectureSection(exp) {
 
 async function renderMermaidIn(container) {
   if (!container) return;
-  const nodes = container.querySelectorAll('pre.mermaid');
-  if (!nodes.length) return;
-
-  if (typeof mermaid === 'undefined') {
-    nodes.forEach((node) => {
-      const fallback = document.createElement('pre');
-      fallback.className = 'exp-diagram-fallback';
-      fallback.textContent = node.textContent;
-      node.replaceWith(fallback);
-    });
-    return;
-  }
-
-  try {
-    // Mermaid v10+: initialize once, then run on new nodes
-    if (!window.__sapMermaidReady) {
-      mermaid.initialize({
-        startOnLoad: false,
-        securityLevel: 'loose',
-        theme: 'dark',
-        flowchart: {
-          htmlLabels: true,
-          curve: 'basis',
-          nodeSpacing: 30,
-          rankSpacing: 40,
-        },
-      });
-      window.__sapMermaidReady = true;
-    }
-    await mermaid.run({ nodes: Array.from(nodes) });
-  } catch (err) {
-    console.warn('Mermaid render failed:', err);
-    nodes.forEach((node) => {
-      if (node.querySelector('svg')) return;
-      const fallback = document.createElement('pre');
-      fallback.className = 'exp-diagram-fallback';
-      fallback.textContent = node.textContent + '\n\n（架构图渲染失败，显示原始文字）';
-      node.replaceWith(fallback);
-    });
-  }
+  container.querySelectorAll('pre.mermaid').forEach(node => {
+    node.classList.add('learning-mermaid');
+    node.hidden = true;
+    node.parentElement.classList.add('lesson-diagram-canvas');
+    node.parentElement.setAttribute('aria-label', '原始解析架构示意图');
+  });
+  await renderLearningDiagrams(container);
 }
 
 function buildFullExplanationHtml(q) {
@@ -237,6 +204,7 @@ function closeExplanation() {
 }
 
 function buildExplanationHtml(q) {
+  if (typeof getLearningLesson === 'function' && getLearningLesson(q).uncertain) return buildTwentyReview(q);
   const full = buildFullExplanationHtml(q);
   if (typeof buildTwentyReview !== 'function') return full;
   return buildTwentyReview(q) + `<details><summary style="cursor:pointer;padding:12px">需要时再看原始完整解析</summary>${full}</details>`;

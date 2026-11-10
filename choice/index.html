@@ -190,7 +190,7 @@ body {
 }
 </style>
 <link rel="stylesheet" href="../twenty_review.css?v=simplified1">
-</head>
+<link rel="stylesheet" href="../learning_review.css?v=learning1"></head>
 <body>
 <div class="container">
   <div class="header">
@@ -243,13 +243,15 @@ body {
     <button class="btn btn-primary hidden" id="nextQBtn" onclick="nextQuestion()">Next Question</button>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js?v=simplified1"></script>
+<script src="../vendor/mermaid.min.js?v=learning1"></script>
 <script src="../sap_questions.js?v=simplified1"></script>
 <script src="../sap_explanations.js?v=simplified1"></script>
+<script src="../sap_glossary.js?v=learning1"></script>
+<script src="../learning_review.js?v=learning1"></script>
 <script src="../quick_memory.js?v=simplified1"></script>
 <script src="../quick_answer_cards.js?v=simplified1"></script>
-<script src="../flash_cards.js?v=simplified1"></script><script src="../twenty_review.js?v=simplified1"></script>
-<script src="../explanation_shared.js?v=simplified1"></script>
+<script src="../flash_cards.js?v=simplified1"></script><script src="../twenty_review.js?v=learning1"></script>
+<script src="../explanation_shared.js?v=learning1"></script>
 <script>
 let QUESTIONS = CHOICE_QUESTIONS;
 const DISPUTED = typeof DISPUTED_QUESTIONS !== 'undefined' ? DISPUTED_QUESTIONS : {};
