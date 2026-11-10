@@ -5,6 +5,8 @@ const KEY='sap-quick-practice-v1';
 const ALL_REVIEW_CARDS=CHOICE_QUESTIONS.map(q=>{const c=QUICK_ANSWER_CARDS[q.id];return {id:q.id,title:'原题 '+q.id,when:[c.when],target:c.target,avoid:c.avoid,english:''};});
 let state={answers:{},stars:[],last:1},storageOK=true;
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.answers&&typeof s.answers==='object'&&!Array.isArray(s.answers)&&Array.isArray(s.stars))state={...state,...s};}catch{storageOK=false;}
+const practiceEntryId=Number(new URLSearchParams(window.location.search).get('q'));
+if(CHOICE_QUESTIONS.some(q=>q.id===practiceEntryId))state.last=practiceEntryId;
 let mode='order',pool=[...CHOICE_QUESTIONS],at=Math.max(0,CHOICE_QUESTIONS.findIndex(q=>q.id===state.last)),selected=[],locked=false,revealed=false;
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch{storageOK=false;}if(!storageOK)$('saveNote').textContent='浏览器未允许保存；本次练习仍可继续。';}
 function stats(){const a=Object.values(state.answers);$('stats').innerHTML=`<div class="stat"><b>${a.length}<small style="font-size:14px;color:#687873"> / ${CHOICE_QUESTIONS.length}</small></b><span>已练题目</span></div><div class="stat"><b>${a.length?Math.round(a.filter(x=>x.correct).length/a.length*100):0}%</b><span>最近作答正确率</span></div>`;$('wrongCount').textContent=a.filter(x=>!x.correct).length;}
