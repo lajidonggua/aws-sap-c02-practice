@@ -2,6 +2,7 @@
 const FLASH_KEY='sap-five-second-v1';
 let flash={again:[],known:[],last:1,scope:'all',recall:false},flashPlaying=false,flashTimer=null,flashDeadline=0;
 try{const saved=JSON.parse(localStorage.getItem(FLASH_KEY));if(saved){for(const key of ['again','known'])if(Array.isArray(saved[key]))flash[key]=saved[key].filter(id=>CHOICE_QUESTIONS.some(q=>q.id===id));if(CHOICE_QUESTIONS.some(q=>q.id===saved.last))flash.last=saved.last;}}catch{}
+function renderFlashAvoid(text){return text?`<p><b>别选错：</b>${String(text).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}</p>`:'';}
 function saveFlash(){try{localStorage.setItem(FLASH_KEY,JSON.stringify({again:flash.again,known:flash.known,last:flash.last}));}catch{$('saveNote').textContent='浏览器未允许保存；本次闪记仍可继续。';}}
 function stopFlash(pause=true){clearInterval(flashTimer);flashTimer=null;if(pause)flashPlaying=false;}
 function flashMove(){if(at<pool.length-1){at++;render();}else{stopFlash();$('flashStatus').textContent='这一轮已结束。可重新过一轮，或只背没记住的题。';$('flashPlay').textContent='重新播放这一轮';$('flashPlay').onclick=()=>{if(flash.scope==='again')pool=CHOICE_QUESTIONS.filter(q=>flash.again.includes(q.id));at=0;flashPlaying=true;render();};}}
@@ -22,7 +23,7 @@ function renderFlash(){
  ${(full.disputed||full.legacyMismatch)?'<p class="flash-caution">此题有争议或旧解析不一致 · 按当前题库记，展开核对</p>':''}
  <div class="flash-clock"><div id="flashClockBar"></div></div><div class="flash-playback"><button id="flashPlay">${flashPlaying?'暂停':'开始 5 秒自动翻题'}</button><span id="flashSeconds">5.0 秒</span></div>
  <div class="flash-decisions"><button id="flashMiss">没记住 · 稍后再背 <kbd>←</kbd></button><button id="flashKnown" class="primary">记住了 · 下一题 <kbd>→</kbd></button></div><p id="flashStatus" class="muted">${flash.recall?'自动播放：2 秒回想 + 3 秒看关键词。':'答案字母默认隐藏；先对照关键词自己选。'} 空格暂停 / 继续。</p>
- <details id="flashDetails"><summary>停下来理解：知识点、名词和图解</summary><p><b>别选错：</b>${esc(full.avoid)}</p><p>${esc(q.question_zh||q.question)}</p>${q.options.map(o=>`<p class="${q.correct_answers.includes(o.letter)?'flash-correct':''}"><b>${esc(o.letter)}${q.correct_answers.includes(o.letter)?' ✓':''}</b> ${esc(o.text_zh||o.text)}</p>`).join('')}<p>本卡只帮助识别当前原题；遇到条件变化，请核对完整选项。</p>${buildLearningReview(q)}</details>`;
+ <details id="flashDetails"><summary>停下来理解：知识点、名词和图解</summary>${renderFlashAvoid(full.avoid)}<p>${esc(q.question_zh||q.question)}</p>${q.options.map(o=>`<p class="${q.correct_answers.includes(o.letter)?'flash-correct':''}"><b>${esc(o.letter)}${q.correct_answers.includes(o.letter)?' ✓':''}</b> ${esc(o.text_zh||o.text)}</p>`).join('')}<p>本卡只帮助识别当前原题；遇到条件变化，请核对完整选项。</p>${buildLearningReview(q)}</details>`;
  $('flashAll').onclick=()=>flashScope('all');$('flashAgain').onclick=()=>flashScope('again');$('flashReveal').onclick=revealFlash;
  $('flashRecall').onchange=e=>{flash.recall=e.target.checked;render();};
  $('flashPlay').onclick=()=>{if(flashPlaying){stopFlash();$('flashPlay').textContent='继续 5 秒自动翻题';$('flashSeconds').textContent='已暂停';}else{flashPlaying=true;$('flashPlay').textContent='暂停';runFlashTimer();}};

@@ -1,0 +1,31 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+
+const context = vm.createContext({});
+const prefix = fs.readFileSync(path.join(__dirname, 'quick.js'), 'utf8').split('const ALL_REVIEW_CARDS')[0];
+vm.runInContext(['sap_questions.js', 'quick_answer_cards.js'].map(file => fs.readFileSync(path.join(__dirname, file), 'utf8')).join('\n') + '\n' + prefix + `
+this.api = { questions: CHOICE_QUESTIONS, cards: QUICK_ANSWER_CARDS, index: makeQuickSearchIndex, find: findQuickCards };
+`, context);
+const { questions, cards, index, find } = context.api;
+const reviewCards = Array.from(questions, q => ({ id: q.id }));
+const searchIndex = index(questions, cards);
+const results = query => find(reviewCards, searchIndex, query);
+assert.equal(results('').length, 529);
+assert.equal(results('  ').length, 529);
+assert(!cards[1].when.includes('cloud.example.com'), 'Fixture must exercise words removed by compression');
+assert(results('cloud.example.com').some(card => card.id === 1), 'Search must include the original question');
+assert(results('CLOUD.EXAMPLE.COM').some(card => card.id === 1), 'Search should ignore case');
+assert(results('S3 NAT').some(card => card.id === 529), 'Search must support multiple full-text terms');
+assert.equal(results('72')[0].id, 72, 'An exact question number must take priority');
+assert(!results('OU').some(card => card.id === 1), 'OU must not match part of Route, Cloud or Outbound');
+assert(results('OU').length > 0);
+const synthetic = [{ id: 999, question: 'Original English question', question_zh: '原始中文题干', options: [{ text: 'AmazonS3', text_zh: '只出现在干扰选项中的词' }] }];
+const syntheticIndex = index(synthetic, { 999: { when: '短提示', target: '答案词', avoid: '' } });
+assert.equal(find([{ id: 999 }], syntheticIndex, '干扰选项').length, 1, 'Search must cover all options');
+assert.equal(find([{ id: 999 }], syntheticIndex, 'English').length, 1, 'Search must cover English source');
+assert.equal(find([{ id: 999 }], syntheticIndex, 'S3').length, 1, 'Joined product names should remain searchable');
+assert.equal(results('不存在的原题内容xyz').length, 0);
+assert.equal(reviewCards[0].id, 1, 'Ranking results must not reorder the source card list');
+console.log('Full-text quick search passed: source questions, all options, English, acronyms, multiple terms and exact question-number priority.');

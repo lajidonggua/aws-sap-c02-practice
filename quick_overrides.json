@@ -1,33 +1,497 @@
 {
-  "6": {"answerCues": {"C": ["\"Principal\": {\"AWS\": \"arn:aws:iam::AccountB:user/User_DataProcessor\"}"], "D": ["在Account B中，将User_DataProcessor的权限设置为以下内容", "s3:ListBucket"]}, "avoid": "C 看 Bucket Policy 的 Principal；D 看 Account B 用户自身权限，两边都要授权。"},
-  "36": {"answerCues": {"C": ["在 us-east-1 中的S3储存桶上配置复制", "设定一个 Amazon CloudFront 分配"]}},
-  "44": {"answerCues": {"D": ["值为 0.0.0.0/0 时拒绝 ec2:AuthorizeSecurityGroupIngress 操作"]}},
-  "51": {"answerCues": {"B": ["使用 AWS KMS 托管加密金钥 (SSE- KMS) 的伺服器端加密", "使用AWS CLI重新上传S3储存桶中的所有物件"]}},
-  "72": {"answerCues": {"B": ["建立一个 RDS 代理", "更新应用程式中的连线设定以指向 RDS 代理端点"]}, "avoid": "题目只需解决故障切换后的连接；别额外迁移到 Aurora。"},
-  "95": {"answerCues": {"A": ["建立使用 AMI 和 Application Load Balancer 的 Amazon EC2 Auto Scaling 群组", "设定 Amazon MQ", "配置 Amazon Elastic Kubernetes Service (Amazon EKS)"]}},
-  "99": {"answerCues": {"B": ["在主 AWS 帐户中建立 Client VPN 端点", "配置允许存取内部应用程式的所需路由"]}, "avoid": "已有账户间 VPC 对等连接，不要每个账户各建端点，也不要额外添加 Transit Gateway。"},
-  "103": {"answerCues": {"A": ["在生产帐户中，建立一个新的 IAM 策略", "允许对 S3 储存桶进行读写存取"], "C": ["将开发帐户定义为受信任的实体"], "E": ["允许对生产帐户中的角色执行 sts:AssumeRole 操作"]}},
-  "116": {"answerCues": {"D": ["将Transit Gateways彼此对等以支援跨Region 路由", "建立从 DX-B 连接到相同 Direct Connect 闸道的中转 VIF"]}},
-  "132": {"answerCues": {"C": ["aws:RequestedRegion 条件键", "将 SCP 应用于根OU"], "E": ["ec2:InstanceType 条件键", "将 SCP 应用到 DataOps OU"]}},
-  "160": {"answerCues": {"A": ["将另一个 Region 加入到 Aurora MySQL 资料库集群"], "D": ["将现有 DynamoDB 表转换为全域表"]}, "avoid": "Aurora 扩展集群，不是给集群中的每个表加 Region；两种数据库都要跨区。"},
-  "254": {"answerCues": {"D": ["部署DynamoDB Accelerator (DAX)", "使用预配置容量模式", "配置DynamoDB自动缩放"]}},
-  "263": {"answerCues": {"B": ["在实例群组中的 Spot 实例上启动任务节点", "终止集群，包括所有实例", "购买计算节省计划来满足按需实例的使用"]}},
-  "275": {"answerCues": {"A": ["使用AWS架构转换工具（AWSSCT）将资料库架构从来源资料库迁移到目标资料库"], "C": ["配置两个 AWS 帐户中的 VPC 之间的 VPC 对等互连"], "E": ["执行从来源资料库到目标资料库的完整载入加变更资料撷取（CDC）迁移"]}},
-  "310": {"answerCues": {"D": ["AWS Storage Gateway 档案闸道", "在 5 天后将档案移至 S3 Glacier Deep Archive"]}},
-  "313": {"answerCues": {"A": ["单独的 Availability Zone"], "C": ["Gateway Load Balancer"], "F": ["建立 VPC Gateway Load Balancer 端点"]}},
-  "326": {"answerCues": {"B": ["为 Microsoft Active Directory 实作建立 AWS Directory Service", "启动 EC2 实例"]}},
-  "332": {"answerCues": {"B": ["面向 com.amazonaws.global.cloudfront.origin 的 CloudFront 托管前缀清单"]}},
-  "370": {"answerCues": {"C": ["建立每个未加密磁碟区的快照", "将其替换为加密卷"], "D": ["开启强制控制（护栏）"]}},
-  "377": {"answerCues": {"C": ["使用标签编辑器将标签套用到适当的资源", "购买计算节省计划"]}},
-  "381": {"answerCues": {"A": ["将慢查询和错误日志发布到AmazonCloudWatch日志"], "E": ["启用并配置 AWS CloudTrail 以收集和分析来自 Amazon EC2 和 Aurora 的应用程式活动"], "F": ["启用 Aurora MySQL 资料库集群效能基准测试并将串流发布到 AWS X-Ray"]}},
-  "394": {"answerCues": {"D": ["使用最大 I/O 效能模式的新 Amazon Elastic File System (Amazon EFS) 档案系统"]}},
-  "395": {"answerCues": {"D": ["标准 Aurora MySQL 全域资料库", "在主动-被动配置中工作"]}},
-  "415": {"answerCues": {"B": ["使用 GitHub webhooks 触发 CodePipeline 管道", "使用AWSCodeBuild的Jenkins插件进行单元测试", "使用 AWS CodeDeploy 在蓝色/绿色部署中进行部署"]}},
-  "453": {"answerCues": {"C": ["使用现有的备份计划", "启用连续备份以进行时间点复原"]}},
-  "466": {"answerCues": {"B": ["安装 Migration Evaluator 无代理程式收集器", "配置迁移评估器以产生 TCO 报告"]}},
-  "469": {"answerCues": {"B": ["透过中转 VIF 通告 on-premises 网路前缀"], "C": ["透过中转 VIF 将 VPC 前缀从 Direct Connect 闸道通告到 on-premises 网路"]}},
-  "471": {"answerCues": {"A": ["部署Gateway Load Balancer"], "C": ["建立使用实例目标类型的目标群组"], "F": ["在集中网路帐号中建立 VPC 端点"]}},
-  "484": {"answerCues": {"A": ["在组织的管理帐户中，建立一个名为 BusinessUnit 的成本分配标签", "使用AmazonAthena查询AWSCUR资料", "使用 Amazon QuickSight 进行视觉化"]}},
-  "489": {"answerCues": {"B": ["为资料库建立一个 RDS 代理端点", "增加 Lambda 函数的预先配置并发性"]}},
-  "518": {"answerCues": {"D": ["配置识别未加密 EBS 卷的 AWS 配置托管规则", "配置自动修复操作", "修改 EBS 加密的 AWS 帐户设置，以始终加密新的 EBS 卷"]}}
+  "1": {
+    "questionCues": [
+      "本地系统应该能够解析并连接",
+      "所有VPC应该能够解析"
+    ]
+  },
+  "6": {
+    "answerCues": {
+      "C": [
+        "将S3存储桶策略",
+        "\"Principal\": {\"AWS\""
+      ],
+      "D": [
+        "在Account B中",
+        "s3:ListBucket"
+      ]
+    },
+    "avoid": "C 看 Bucket Policy；D 看用户权限，两边都要授权。"
+  },
+  "36": {
+    "answerCues": {
+      "C": [
+        "在 us-east-1 中的S3储存桶上配置复制",
+        "设定一个 Amazon CloudFront 分配"
+      ]
+    }
+  },
+  "39": {
+    "answerCues": {
+      "A": [
+        "AWS Application Discovery Agent"
+      ],
+      "D": [
+        "AWS Migration Hub",
+        "将伺服器分组到应用程式中进行迁移"
+      ],
+      "E": [
+        "产生建议的实例类型和相关成本"
+      ]
+    }
+  },
+  "44": {
+    "answerCues": {
+      "D": [
+        "值为 0.0.0.0/0 时拒绝 ec2:AuthorizeSecurityGroupIngress 操作"
+      ]
+    }
+  },
+  "51": {
+    "answerCues": {
+      "B": [
+        "AWS KMS 托管加密金钥 (SSE- KMS)",
+        "重新上传S3储存桶中的所有物件"
+      ]
+    }
+  },
+  "72": {
+    "answerCues": {
+      "B": [
+        "建立一个 RDS 代理",
+        "更新应用程式中的连线设定以指向 RDS 代理端点"
+      ]
+    },
+    "avoid": "题目只需解决故障切换后的连接；别额外迁移到 Aurora。",
+    "questionCues": [
+      "故障转移测试后",
+      "并且无法重新建立连接"
+    ]
+  },
+  "86": {
+    "answerCues": {
+      "B": [
+        "交换暂存环境和生产环境 URL"
+      ]
+    }
+  },
+  "95": {
+    "answerCues": {
+      "A": [
+        "AMI",
+        "Amazon MQ",
+        "Amazon EKS"
+      ]
+    }
+  },
+  "99": {
+    "answerCues": {
+      "B": [
+        "在主 AWS 帐户中建立 Client VPN 端点",
+        "配置允许存取内部应用程式的所需路由"
+      ]
+    },
+    "avoid": "已有 VPC 对等连接；不要各建端点或 Transit Gateway。",
+    "questionCues": [
+      "多个 AWS 帐户",
+      "可扩展的 AWS Client VPN 解决方案"
+    ]
+  },
+  "103": {
+    "answerCues": {
+      "A": [
+        "在生产帐户中，建立一个新的 IAM 策略",
+        "允许对 S3 储存桶进行读写存取"
+      ],
+      "C": [
+        "将开发帐户定义为受信任的实体"
+      ],
+      "E": [
+        "允许对生产帐户中的角色执行 sts:AssumeRole 操作"
+      ]
+    }
+  },
+  "116": {
+    "answerCues": {
+      "D": [
+        "中转 VIF",
+        "将Transit Gateways彼此对等以支援跨Region 路由"
+      ]
+    }
+  },
+  "132": {
+    "answerCues": {
+      "C": [
+        "aws:RequestedRegion 条件键",
+        "将 SCP 应用于根OU"
+      ],
+      "E": [
+        "ec2:InstanceType 条件键",
+        "将 SCP 应用到 DataOps OU"
+      ]
+    }
+  },
+  "135": {
+    "questionCues": [
+      "游戏上线后的第一周内"
+    ]
+  },
+  "144": {
+    "answerCues": {
+      "B": [
+        "update-le-system 指令增加容量"
+      ]
+    }
+  },
+  "150": {
+    "answerCues": {
+      "B": [
+        "三节点DynamoDB Accelerator (DAX)集群",
+        "DAX读取资料并将资料直接写入DynamoDB表"
+      ]
+    }
+  },
+  "160": {
+    "answerCues": {
+      "A": [
+        "将另一个 Region 加入到 Aurora MySQL 资料库集群"
+      ],
+      "D": [
+        "将现有 DynamoDB 表转换为全域表"
+      ]
+    },
+    "avoid": "Aurora 扩展集群，不是给集群中的每个表加 Region；两种数据库都要跨区。",
+    "questionCues": [
+      "关键应用程式必须跨两个Regions部署应用程式层元件和资料层元件"
+    ]
+  },
+  "186": {
+    "answerCues": {
+      "A": [
+        "S3 Multi-Region 接入点"
+      ],
+      "B": [
+        "双向S3交叉Region复制（CRR）"
+      ],
+      "E": [
+        "S3版本控制"
+      ]
+    }
+  },
+  "200": {
+    "answerCues": {
+      "B": [
+        "SAML 提供者设定为主体"
+      ],
+      "C": [
+        "不属于公司 IdP 中的 AWSFederatedUsers 群组"
+      ],
+      "E": [
+        "DNS 主机名称可从 AWS 环境 VPC 存取"
+      ]
+    }
+  },
+  "219": {
+    "questionCues": [
+      "解决方案架构师必须建立一个系统来追踪工程师所做的更改"
+    ]
+  },
+  "230": {
+    "answerCues": {
+      "C": [
+        "关闭Network Load Balancer的跨区域负载平衡"
+      ],
+      "D": [
+        "Availability Zone 特定端点服务"
+      ]
+    }
+  },
+  "235": {
+    "answerCues": {
+      "A": [
+        "单一Availability Zone内启动"
+      ],
+      "C": [
+        "启用了 Elastic Fabric Adapter"
+      ],
+      "F": [
+        "Amazon FSx for Lustre"
+      ]
+    }
+  },
+  "240": {
+    "questionCues": [
+      "AWS Region 内的高可用性",
+      "1 分钟内故障转移到另一个 AWS Region"
+    ]
+  },
+  "254": {
+    "answerCues": {
+      "D": [
+        "部署DynamoDB Accelerator (DAX)",
+        "使用预配置容量模式",
+        "配置DynamoDB自动缩放"
+      ]
+    }
+  },
+  "257": {
+    "answerCues": {
+      "B": [
+        "DynamoDB 表的 WCU"
+      ],
+      "D": [
+        "新增 Amazon Simple Queue Service (Amazon SQS) 伫列"
+      ]
+    }
+  },
+  "263": {
+    "answerCues": {
+      "B": [
+        "在实例群组中的 Spot 实例上启动任务节点",
+        "终止集群，包括所有实例",
+        "购买计算节省计划来满足按需实例的使用"
+      ]
+    }
+  },
+  "275": {
+    "answerCues": {
+      "A": [
+        "AWS架构转换工具（AWSSCT）"
+      ],
+      "C": [
+        "VPC 对等互连"
+      ],
+      "E": [
+        "完整载入加变更资料撷取（CDC）迁移"
+      ]
+    }
+  },
+  "291": {
+    "answerCues": {
+      "B": [
+        "Amazon S3",
+        "AWS Batch 与 Spot 实例"
+      ]
+    }
+  },
+  "310": {
+    "answerCues": {
+      "D": [
+        "档案闸道",
+        "移至 S3 Glacier Deep Archive"
+      ]
+    }
+  },
+  "313": {
+    "answerCues": {
+      "A": [
+        "单独的 Availability Zone"
+      ],
+      "C": [
+        "Gateway Load Balancer",
+        "建立新的目标群组"
+      ],
+      "F": [
+        "建立 VPC Gateway Load Balancer 端点"
+      ]
+    }
+  },
+  "326": {
+    "answerCues": {
+      "B": [
+        "为 Microsoft Active Directory 实作",
+        "启动 EC2 实例"
+      ]
+    }
+  },
+  "332": {
+    "answerCues": {
+      "B": [
+        "CloudFront 托管前缀清单"
+      ]
+    }
+  },
+  "360": {
+    "answerCues": {
+      "C": [
+        "AWS Service Catalog"
+      ]
+    }
+  },
+  "370": {
+    "answerCues": {
+      "C": [
+        "建立每个未加密磁碟区的快照",
+        "将其替换为加密卷"
+      ],
+      "D": [
+        "开启强制控制（护栏）"
+      ]
+    }
+  },
+  "377": {
+    "answerCues": {
+      "C": [
+        "使用标签编辑器将标签套用到适当的资源",
+        "购买计算节省计划"
+      ]
+    }
+  },
+  "381": {
+    "answerCues": {
+      "A": [
+        "慢查询和错误日志发布到AmazonCloudWatch日志"
+      ],
+      "E": [
+        "AWS CloudTrail"
+      ],
+      "F": [
+        "效能基准测试并将串流发布到 AWS X-Ray"
+      ]
+    }
+  },
+  "394": {
+    "answerCues": {
+      "D": [
+        "使用最大 I/O 效能模式的新 Amazon Elastic File System (Amazon EFS) 档案系统"
+      ]
+    }
+  },
+  "395": {
+    "answerCues": {
+      "D": [
+        "标准 Aurora MySQL 全域资料库",
+        "在主动-被动配置中工作"
+      ]
+    }
+  },
+  "415": {
+    "answerCues": {
+      "B": [
+        "使用 GitHub webhooks",
+        "使用AWSCodeBuild的Jenkins插件"
+      ]
+    }
+  },
+  "453": {
+    "answerCues": {
+      "C": [
+        "使用现有的备份计划",
+        "启用连续备份以进行时间点复原"
+      ]
+    }
+  },
+  "466": {
+    "answerCues": {
+      "B": [
+        "安装 Migration Evaluator 无代理程式收集器",
+        "配置迁移评估器以产生 TCO 报告"
+      ]
+    }
+  },
+  "469": {
+    "answerCues": {
+      "B": [
+        "透过中转 VIF 通告 on-premises 网路前缀"
+      ],
+      "C": [
+        "透过中转 VIF 将 VPC 前缀从 Direct Connect 闸道通告到 on-premises 网路"
+      ]
+    }
+  },
+  "471": {
+    "answerCues": {
+      "A": [
+        "部署Gateway Load Balancer"
+      ],
+      "C": [
+        "建立使用实例目标类型的目标群组"
+      ],
+      "F": [
+        "在集中网路帐号中建立 VPC 端点"
+      ]
+    }
+  },
+  "484": {
+    "answerCues": {
+      "A": [
+        "组织的管理帐户中",
+        "使用 Amazon QuickSight 进行视觉化"
+      ]
+    }
+  },
+  "489": {
+    "answerCues": {
+      "B": [
+        "为资料库建立一个 RDS 代理端点",
+        "增加 Lambda 函数的预先配置并发性"
+      ]
+    }
+  },
+  "488": {
+    "answerCues": {
+      "C": [
+        "保护 API Gateway API",
+        "监控对 API 存取的恶意尝试"
+      ]
+    }
+  },
+  "505": {
+    "answerCues": {
+      "A": [
+        "Amazon CloudFront 发行版来提供报告"
+      ],
+      "D": [
+        "AWS IoT 规则"
+      ],
+      "E": [
+        "AmazonDocumentDB（相容于MongoDB）"
+      ]
+    }
+  },
+  "518": {
+    "answerCues": {
+      "D": [
+        "配置识别未加密 EBS 卷的 AWS 配置托管规则",
+        "配置自动修复操作",
+        "始终加密新的 EBS 卷"
+      ]
+    }
+  },
+  "2": {
+    "answerCues": {
+      "C": [
+        "故障转移记录",
+        "将DynamoDB表转换为全局表"
+      ]
+    }
+  },
+  "4": {
+    "answerCues": {
+      "C": [
+        "为Aurora Replicas启用Aurora Auto Scaling",
+        "粘性会话",
+        "Application Load Balancer"
+      ]
+    },
+    "targetLimit": 80
+  },
+  "28": {
+    "questionCues": [
+      "JSON 文件中定义",
+      "接受 HTTP 和 HTTPS 请求的重定向服务"
+    ],
+    "answerCues": {
+      "B": [
+        "Application Load Balancer"
+      ],
+      "C": [
+        "建立一个 AWS Lambda 函数"
+      ],
+      "F": [
+        "AWS 证书管理器 (ACM)",
+        "主题备用名称"
+      ]
+    }
+  }
 }

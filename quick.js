@@ -1,8 +1,25 @@
 'use strict';
 const $=id=>document.getElementById(id);
 const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const renderAvoid=t=>t?`<p class="keyword-trap"><b>③ 别踩这个坑：</b>${esc(t)}</p>`:'';
 const KEY='sap-quick-practice-v1';
+function makeQuickSearchIndex(questions,cards){
+ return new Map(questions.map(q=>{
+  const c=cards[q.id]||{};
+  const text=[String(q.id),q.question,q.question_zh,...q.options.flatMap(o=>[o.text,o.text_zh]),c.when,c.target,c.avoid,JSON.stringify(c.originalTerms)].filter(Boolean).join(' ');
+  const tokens=new Set((text+' '+text.replace(/([a-z])([A-Z])/g,'$1 $2')).toLowerCase().split(/[^a-z0-9]+/).filter(Boolean));
+  return [q.id,{text:text.toLowerCase(),tokens}];
+ }));
+}
+function findQuickCards(cards,index,query){
+ const words=query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+ if(!words.length)return [...cards];
+ const matches=cards.filter(card=>{const entry=index.get(card.id);return entry&&words.every(word=>/^[a-z0-9]{1,4}$/.test(word)?entry.tokens.has(word):entry.text.includes(word));});
+ const exactId=/^\d+$/.test(query.trim())?Number(query.trim()):null;
+ return matches.sort((a,b)=>Number(b.id===exactId)-Number(a.id===exactId));
+}
 const ALL_REVIEW_CARDS=CHOICE_QUESTIONS.map(q=>{const c=QUICK_ANSWER_CARDS[q.id];return {id:q.id,title:'原题 '+q.id,when:[c.when],target:c.target,avoid:c.avoid,english:''};});
+const QUICK_SEARCH_INDEX=makeQuickSearchIndex(CHOICE_QUESTIONS,QUICK_ANSWER_CARDS);
 let state={answers:{},stars:[],last:1},storageOK=true;
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.answers&&typeof s.answers==='object'&&!Array.isArray(s.answers)&&Array.isArray(s.stars))state={...state,...s};}catch{storageOK=false;}
 const practiceEntryId=Number(new URLSearchParams(window.location.search).get('q'));
@@ -27,16 +44,16 @@ $('modes').onclick=e=>{const b=e.target.closest('[data-mode]');if(b)start(b.data
 function renderKeywords(){
  stats();$('feedback').innerHTML='';$('options').innerHTML='';$('submit').hidden=true;$('selection').textContent='只背题眼和答案词';
  const term=$('keywordSearch').value.trim().toLowerCase();
- const cards=ALL_REVIEW_CARDS.filter(c=>[c.title,...c.when,c.target,c.avoid,c.english,JSON.stringify(QUICK_ANSWER_CARDS[c.id].originalTerms),String(c.id)].join(' ').toLowerCase().split(/[^a-z0-9]+/).includes(term) || (!/^[a-z0-9]+$/.test(term) && [c.title,...c.when,c.target,c.avoid,c.english,JSON.stringify(QUICK_ANSWER_CARDS[c.id].originalTerms),String(c.id)].join(' ').toLowerCase().includes(term)));
+ const cards=findQuickCards(ALL_REVIEW_CARDS,QUICK_SEARCH_INDEX,term);
  pool=cards.map(c=>CHOICE_QUESTIONS.find(q=>q.id===c.id));if(at>=pool.length)at=0;
- $('keywordCount').textContent=`${ALL_REVIEW_CARDS.length} 组题眼速记 · 当前匹配 ${pool.length} 组 · 原题库 ${CHOICE_QUESTIONS.length} 题保留在顺序练习`;
+ $('keywordCount').textContent=`${ALL_REVIEW_CARDS.length} 组题眼速记 · 当前匹配 ${pool.length} 组 · 题干、选项和速记均可检索`;
  const c=cards[at],q=pool[at];$('prev').disabled=!q||at===0;$('next').disabled=!q;$('star').hidden=!q;
  $('next').textContent=at===pool.length-1?'再背一轮 ↻':'下一张 →';
  if(!q){$('position').textContent='没有匹配的速记卡';$('progress').style.width='0';$('question').innerHTML='<div class="empty"><h2>换一个关键词试试</h2><p>可搜服务名、场景或题号。完整题库仍可按题号前往。</p></div>';return;}
  $('position').textContent=`秒选卡 ${at+1} / ${pool.length} · 对应原题 ${q.id}`;
  $('progress').style.width=`${(at+1)/pool.length*100}%`;$('star').textContent=state.stars.includes(q.id)?'★ 已收藏':'☆ 收藏';
  const disputed=typeof DISPUTED_QUESTIONS!=='undefined'&&DISPUTED_QUESTIONS[q.id];
- $('question').innerHTML=`<h2 class="keyword-title">${esc(c.title)}</h2><div class="signal-label">① 题目出现这组字眼</div><div class="signal-chips">${c.when.map(t=>`<strong>${esc(t)}</strong>`).join('<span>＋</span>')}</div><div class="target-box"><div class="signal-label">② 选项里找这几个词</div><h3 id="keywordAnswer">${esc(c.target)}</h3><p>对应原题 ${q.id}：${esc(q.correct_answers.join(' + '))}${q.correct_answers.length>1?' · 多选，需全部选中':''}</p><button id="coverAnswer" class="quiet" aria-expanded="true">遮住答案，考自己</button></div><p class="keyword-trap"><b>③ 别踩这个坑：</b>${esc(c.avoid)}</p>${disputed?`<div class="warning">原题答案有争议：${esc(disputed.reason)}。本卡按题库整理。</div>`:''}<details class="original"><summary>需要核对时，展开原题和选项</summary><p>${esc(q.question_zh||q.question)}</p>${q.options.map(o=>`<p><b>${esc(o.letter)}.</b> ${esc(o.text_zh||o.text)}</p>`).join('')}<button id="practiceOriginal">去做这道原题</button></details>`;
+ $('question').innerHTML=`<h2 class="keyword-title">${esc(c.title)}</h2><div class="signal-label">① 题目出现这组字眼</div><div class="signal-chips">${c.when.map(t=>`<strong>${esc(t)}</strong>`).join('<span>＋</span>')}</div><div class="target-box"><div class="signal-label">② 选项里找这几个词</div><h3 id="keywordAnswer">${esc(c.target)}</h3><p>对应原题 ${q.id}：${esc(q.correct_answers.join(' + '))}${q.correct_answers.length>1?' · 多选，需全部选中':''}</p><button id="coverAnswer" class="quiet" aria-expanded="true">遮住答案，考自己</button></div>${renderAvoid(c.avoid)}${disputed?`<div class="warning">原题答案有争议：${esc(disputed.reason)}。本卡按题库整理。</div>`:''}<details class="original"><summary>需要核对时，展开原题和选项</summary><p>${esc(q.question_zh||q.question)}</p>${q.options.map(o=>`<p><b>${esc(o.letter)}.</b> ${esc(o.text_zh||o.text)}</p>`).join('')}<button id="practiceOriginal">去做这道原题</button></details>`;
  $('coverAnswer').onclick=()=>{const answer=$('keywordAnswer'),hidden=!answer.hidden;answer.hidden=hidden;answer.nextElementSibling.hidden=hidden;$('coverAnswer').textContent=hidden?'显示答案':'遮住答案，考自己';$('coverAnswer').setAttribute('aria-expanded',String(!hidden));};
  $('practiceOriginal').onclick=()=>{state.last=q.id;start('order');};
 }

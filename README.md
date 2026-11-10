@@ -9,7 +9,8 @@ AWS Certified Solutions Architect – Professional（SAP-C02）中文刷题与�
 - 刷题前知识手册：13 个循序渐进的主题、核心名词与用法、易混对比、场景小测、已读进度和关联练习。
 
 - 顺序刷题、随机练习、错题重练和收藏。
-- 5 秒闪记、题眼提示、答案关键词和速记卡。
+- 5 秒闪记、题眼提示、答案关键词和速记卡；人工核对过的关键条件会保留。
+- 关键词支持检索中英文题干、全部选项和速记内容，精确题号优先。
 - 每题小白解析：题目条件、知识点、相关名词解释、生活类比、架构图和理解自测。
 - 多选题专项练习、计时模拟考、争议题提示和术语表。
 - 自动在当前浏览器保存练习进度、错题和收藏。
@@ -59,6 +60,7 @@ python3 -m http.server 8000
 ```sh
 node build_quick_cards.cjs
 node test_quick_cards.cjs
+node test_quick_search.cjs
 node test_learning_review.cjs
 node test_study_guide.cjs
 ```

@@ -34,6 +34,14 @@ function unique(values) {
   return [...new Set(values.filter(Boolean))];
 }
 
+function orderBySource(values, source) {
+  const text = normalize(source);
+  return values
+    .map((value, index) => ({ value, index, position: text.indexOf(normalize(value)) }))
+    .sort((a, b) => a.position - b.position || a.index - b.index)
+    .map(item => item.value);
+}
+
 function baseClauses(value) {
   return String(value || '')
     .split(/[。！？；;\n：]+|(?<=[^\d]),\s+|，/)
@@ -79,12 +87,12 @@ function extractQuestionCues(questionZh) {
   const picked = [];
   for (const candidate of candidates.sort((a, b) => b.score - a.score || a.value.length - b.value.length)) {
     if (picked.some(value => value.includes(candidate.value) || candidate.value.includes(value))) continue;
-    if (picked.length && picked.join(' + ').length + candidate.value.length + 3 > 70) continue;
+    if (picked.length && picked.join(' + ').length + candidate.value.length + 3 > 48) continue;
     picked.push(candidate.value);
-    if (picked.length === 3 || picked.join(' + ').length >= 58) break;
+    if (picked.length === 2 || picked.join(' + ').length >= 40) break;
   }
-  if (!picked.length) picked.push(extractServices(text)[0] || clauses.filter(clause => clause.length <= 70).at(-1) || text);
-  return picked;
+  if (!picked.length) picked.push(extractServices(text).find(term => term.length <= 48) || clauses.filter(clause => clause.length <= 48).at(-1) || text);
+  return orderBySource(picked, questionZh);
 }
 
 function candidateAnswerParts(optionText, distractorTexts, maxLength = 58) {
@@ -109,21 +117,55 @@ function candidateAnswerParts(optionText, distractorTexts, maxLength = 58) {
   return candidates.sort((a, b) => b.score - a.score || a.value.length - b.value.length);
 }
 
-function extractAnswerCues(optionText, distractorTexts, maxLength) {
-  const picked = [];
-  for (const candidate of candidateAnswerParts(optionText, distractorTexts, maxLength)) {
+function shortestDistinctCues(candidates, distractorTexts, maxLength) {
+  const values = [];
+  for (const candidate of candidates) {
     if (candidate.value.length < 3) continue;
-    if (picked.some(value => value.includes(candidate.value) || candidate.value.includes(value))) continue;
-    picked.push(candidate.value);
-    if (picked.length === 2 || picked.join(' + ').length >= 55) break;
+    if (values.some(item => item.value.includes(candidate.value) || candidate.value.includes(item.value))) continue;
+    values.push(candidate);
   }
-  if (!picked.length) {
-    const fallback = splitClauses(optionText).filter(clause => clause.length <= maxLength).sort((a, b) => a.length - b.length)[0]
-      || extractServices(optionText).find(term => term.length <= maxLength && !genericService.test(term))
-      || normalize(optionText);
-    picked.push(fallback);
+  const wrongTexts = distractorTexts.map(compact);
+  const distinguishes = cues => !wrongTexts.some(text => cues.every(cue => text.includes(compact(cue))));
+  const singles = values.filter(item => item.value.length <= maxLength && distinguishes([item.value]));
+  if (singles.length) {
+    singles.sort((a, b) => a.value.length - b.value.length || b.score - a.score);
+    return [singles[0].value];
   }
-  return picked;
+  let bestPair = null;
+  for (let left = 0; left < values.length; left += 1) {
+    for (let right = left + 1; right < values.length; right += 1) {
+      const cues = [values[left].value, values[right].value];
+      const length = cues.join(' + ').length;
+      if (length > maxLength || !distinguishes(cues)) continue;
+      const score = values[left].score + values[right].score;
+      if (!bestPair || length < bestPair.length || (length === bestPair.length && score > bestPair.score)) bestPair = { cues, length, score };
+    }
+  }
+  if (bestPair) return bestPair.cues;
+  let bestTriple = null;
+  for (let first = 0; first < values.length; first += 1) {
+    for (let second = first + 1; second < values.length; second += 1) {
+      for (let third = second + 1; third < values.length; third += 1) {
+        const cues = [values[first].value, values[second].value, values[third].value];
+        const length = cues.join(' + ').length;
+        if (length > maxLength || !distinguishes(cues)) continue;
+        const score = values[first].score + values[second].score + values[third].score;
+        if (!bestTriple || length < bestTriple.length || (length === bestTriple.length && score > bestTriple.score)) bestTriple = { cues, length, score };
+      }
+    }
+  }
+  if (bestTriple) return bestTriple.cues;
+  return values.filter(item => item.value.length <= maxLength).slice(0, 1).map(item => item.value);
+}
+
+function extractAnswerCues(optionText, distractorTexts, maxLength) {
+  const candidates = candidateAnswerParts(optionText, distractorTexts, maxLength);
+  const picked = shortestDistinctCues(candidates, distractorTexts, maxLength);
+  if (picked.length) return picked;
+  const fallback = splitClauses(optionText).filter(clause => clause.length <= maxLength).sort((a, b) => a.length - b.length)[0]
+    || extractServices(optionText).find(term => term.length <= maxLength && !genericService.test(term))
+    || normalize(optionText);
+  return [fallback];
 }
 
 function buildAvoid(correctOptions, wrongOptions, answerCues) {
@@ -137,12 +179,9 @@ function buildAvoid(correctOptions, wrongOptions, answerCues) {
     const score = overlap * 4 + wrongTerm.score;
     if (!best || score > best.score) best = { value: wrongTerm.value, score };
   }
-  const right = Object.values(answerCues).flat()[0];
-  if (!best || !right) return '按题目限制核对完整选项。';
-  const text = `别选“${best.value}”；认准“${right}”。`;
-  if (text.length <= 70) return text;
-  const short = `别选“${best.value}”。`;
-  return short.length <= 70 ? short : '按题目限制核对完整选项。';
+  if (!best) return '核对题目限制与完整选项。';
+  const text = `别选“${best.value}”。`;
+  return text.length <= 45 ? text : '核对题目限制与完整选项。';
 }
 
 function validateOverride(q, override) {
@@ -168,31 +207,52 @@ function makeCard(q) {
   const wrongOptions = q.options.filter(option => !q.correct_answers.includes(option.letter));
   const override = overrides[q.id] || {};
   const automaticQuestionCues = extractQuestionCues(q.question_zh);
+  const multi = q.correct_answers.length > 1;
+  const orderedCorrectLetters = unique(correctOptions.map(option => option.letter));
+  const defaultTargetLimit = multi ? 100 : 60;
+  const targetLimit = override.targetLimit ?? defaultTargetLimit;
+  if (!Number.isInteger(targetLimit) || targetLimit < defaultTargetLimit || targetLimit > (multi ? 100 : 80)) {
+    throw new Error(`Q${q.id}: invalid curated target length budget`);
+  }
+  const labelOverhead = multi ? orderedCorrectLetters.length * 2 + Math.max(0, orderedCorrectLetters.length - 1) : 0;
+  const perOptionLimit = targetLimit - labelOverhead;
   const automaticAnswerCues = Object.fromEntries(correctOptions.map(option => [
     option.letter,
-    extractAnswerCues(option.text_zh, wrongOptions.map(item => item.text_zh), q.correct_answers.length > 1 ? 42 : 58)
+    extractAnswerCues(option.text_zh, q.options.filter(item => item !== option).map(item => item.text_zh), perOptionLimit)
   ]));
   validateOverride(q, override);
-  const questionCues = override.questionCues || automaticQuestionCues;
-  const answerCues = override.answerCues || automaticAnswerCues;
-  const multi = q.correct_answers.length > 1;
-  if (multi && !override.answerCues) {
-    for (const letter of q.correct_answers) answerCues[letter] = answerCues[letter].slice(0, 1);
-  }
-  const target = q.correct_answers.map(letter => {
+  const questionCues = orderBySource(override.questionCues || automaticQuestionCues, q.question_zh);
+  // Explicitly curated conditions are requirements, not candidates for further compression.
+  const selectedAnswerCues = override.answerCues || automaticAnswerCues;
+  const answerCues = Object.fromEntries(Object.entries(selectedAnswerCues).map(([letter, cues]) => {
+    const options = correctOptions.filter(option => option.letter === letter);
+    const sourceOption = options.find(option => cues.every(cue => compact(option.text_zh).includes(compact(cue)))) || options[0];
+    return [letter, orderBySource(cues, sourceOption?.text_zh || '')];
+  }));
+  const target = orderedCorrectLetters.map(letter => {
     const words = answerCues[letter].join(' + ');
     return multi ? `${letter}：${words}` : words;
   }).join('；');
   const explanation = context.explanations[q.id] || {};
   const source = explanation.solutions || explanation.solution || '';
+  const disputed = Boolean(context.disputes[q.id]) || /依题库|题库.*(?:有误|冲突|争议)|实务.*(?:更常|正解)/.test(source);
+  const mismatch = legacyMismatch(q, explanation);
+  const correctIsWrongSubset = correctOptions.some(correct => wrongOptions.some(wrong => compact(wrong.text_zh).includes(compact(correct.text_zh))));
+  const needsCombinedCue = Object.values(answerCues).some(cues => cues.length > 1 &&
+    cues.every(cue => wrongOptions.some(option => compact(option.text_zh).includes(compact(cue)))));
+  const highRisk = disputed || mismatch || correctIsWrongSubset || needsCombinedCue || Boolean(override.avoid);
+  const avoid = highRisk ? (override.avoid || buildAvoid(correctOptions, wrongOptions, answerCues)) : '';
+  if (questionCues.join(' + ').length > 48 || target.length > targetLimit || avoid.length > 45) {
+    throw new Error(`Q${q.id}: curated cues exceed their display budget; shorten the override without dropping required conditions`);
+  }
   return {
     when: questionCues.join(' + '),
     target,
-    avoid: override.avoid || buildAvoid(correctOptions, wrongOptions, answerCues),
+    avoid,
     questionCues,
     answerCues,
-    disputed: Boolean(context.disputes[q.id]) || /依题库|题库.*(?:有误|冲突|争议)|实务.*(?:更常|正解)/.test(source),
-    legacyMismatch: legacyMismatch(q, explanation)
+    disputed,
+    legacyMismatch: mismatch
   };
 }
 
