@@ -21,7 +21,7 @@ function findQuickCards(cards,index,query){
 const ALL_REVIEW_CARDS=CHOICE_QUESTIONS.map(q=>{const c=QUICK_ANSWER_CARDS[q.id];return {id:q.id,title:'原题 '+q.id,when:[c.when],target:c.target,avoid:c.avoid,english:''};});
 const QUICK_SEARCH_INDEX=makeQuickSearchIndex(CHOICE_QUESTIONS,QUICK_ANSWER_CARDS);
 let state={answers:{},stars:[],last:1},storageOK=true;
-try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.answers&&typeof s.answers==='object'&&!Array.isArray(s.answers)&&Array.isArray(s.stars))state={...state,...s};}catch{storageOK=false;}
+try{const s=JSON.parse(LearningProgress.getItem(KEY));if(s&&s.answers&&typeof s.answers==='object'&&!Array.isArray(s.answers)&&Array.isArray(s.stars))state={...state,...s};}catch{storageOK=false;}
 const practiceParams=new URLSearchParams(window.location.search);
 const practiceSet=getStudyPracticeSet(practiceParams);
 const practiceQuestionMap=new Map(CHOICE_QUESTIONS.map(q=>[q.id,q]));
@@ -35,7 +35,7 @@ if(PRACTICE_IDS.has(practiceEntryId))practiceLast=practiceEntryId;
 let mode='order',pool=[...PRACTICE_QUESTIONS],at=Math.max(0,pool.findIndex(q=>q.id===practiceLast)),selected=[],locked=false,revealed=false;
 function rememberPracticeQuestion(id){
  if(practiceSet||mode==='order')practiceLast=id;
- if(practiceSet){const url=new URL(window.location.href);url.searchParams.set('q',id);if(url.href!==window.location.href)history.replaceState(null,'',url);}
+ if(practiceSet){try{const key=practiceSet.kind+':'+practiceParams.get(practiceSet.kind);const scopes=LearningProgress.get(ProgressModel.KEYS.scopes,{});scopes[key]=id;LearningProgress.put(ProgressModel.KEYS.scopes,scopes);}catch{}const url=new URL(window.location.href);url.searchParams.set('q',id);if(url.href!==window.location.href)history.replaceState(null,'',url);}
  else if(mode==='order'){state.last=id;save();}
 }
 if(practiceSet){
@@ -43,7 +43,7 @@ if(practiceSet){
  $('practiceSetBanner').hidden=false;
  $('practiceSetBanner').innerHTML=`<div><span class="eyebrow">${label} · ${PRACTICE_QUESTIONS.length} 题</span><h2>${esc(practiceSet.title)}</h2><p>下一题按这个集合继续；下方练习方式也在此范围内。</p></div><div class="practice-set-links"><a href="${esc(practiceSet.returnHref)}">返回知识手册</a><a href="index.html">退出集合，练全部题目 →</a></div>`;
 }
-function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch{storageOK=false;}if(!storageOK)$('saveNote').textContent='浏览器未允许保存；本次练习仍可继续。';}
+function save(){try{LearningProgress.setItem(KEY,JSON.stringify(state));}catch{storageOK=false;}if(!storageOK)$('saveNote').textContent='浏览器未允许保存；本次练习仍可继续。';}
 function stats(){const a=PRACTICE_QUESTIONS.map(q=>state.answers[q.id]).filter(Boolean);$('stats').innerHTML=`<div class="stat"><b>${a.length}<small style="font-size:14px;color:#687873"> / ${PRACTICE_QUESTIONS.length}</small></b><span>已练题目</span></div><div class="stat"><b>${a.length?Math.round(a.filter(x=>x.correct).length/a.length*100):0}%</b><span>最近作答正确率</span></div>`;$('wrongCount').textContent=a.filter(x=>!x.correct).length;}
 function start(nextMode){if(typeof stopFlash==='function')stopFlash();mode=nextMode;if(mode==='flash')flash.scope='all';pool=PRACTICE_QUESTIONS.filter(q=>mode==='keywords'?PRACTICE_REVIEW_CARDS.some(c=>c.id===q.id):mode==='wrong'?state.answers[q.id]&&!state.answers[q.id].correct:mode==='star'?state.stars.includes(q.id):true);if(mode==='random'){for(let i=pool.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}}at=mode==='flash'?Math.max(0,pool.findIndex(q=>q.id===(practiceSet?practiceLast:flash.last))):mode==='order'?Math.max(0,pool.findIndex(q=>q.id===practiceLast)):0;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));render();}
 function render(){document.body.classList.toggle('flash-mode',mode==='flash');if(typeof stopFlash==='function')stopFlash(false);if(mode==='flash'){renderFlash();return;}$('keywordTools').hidden=mode!=='keywords';if(mode==='keywords'){renderKeywords();return;}selected=[];locked=false;revealed=false;stats();$('feedback').innerHTML='';$('options').innerHTML='';$('submit').hidden=true;$('selection').textContent='';const q=pool[at];$('prev').disabled=!q||at===0;$('next').disabled=!q;$('star').hidden=!q;$('next').textContent=at===pool.length-1?'再练一轮 ↻':'下一题 →';if(!q){$('position').textContent='暂无题目';$('progress').style.width='0';$('question').innerHTML=`<div class="empty"><h2>${mode==='wrong'?'暂时没有错题': '还没有收藏'}</h2><p class="muted">${mode==='wrong'?'答错的题会自动收进这里。':'遇到想再看的题，点右上角收藏。'}</p><button id="back" style="margin-top:18px">去顺序练习</button></div>`;$('back').onclick=()=>start('order');return;}rememberPracticeQuestion(q.id);$('position').textContent=`第 ${at+1} / ${pool.length} 题 · 原题 ${q.id}`;$('progress').style.width=`${(at+1)/pool.length*100}%`;$('star').textContent=state.stars.includes(q.id)?'★ 已收藏':'☆ 收藏';const count=q.correct_answers.length;const dispute=typeof DISPUTED_QUESTIONS!=='undefined'&&DISPUTED_QUESTIONS[q.id];$('question').innerHTML=`<span class="type">${count>1?'多选 · 选 '+count+' 项':'单选 · 选 1 项'}</span>${mode==='memory'?'<span class="type" style="margin-left:8px">先回想，再翻卡</span>':''}<div class="question-text">${esc(q.question_zh||q.question)}</div><details><summary>查看英文原题</summary><p>${esc(q.question)}</p></details>${dispute?'<div class="warning">此题答案存在争议，作答后可查看题库与社区的差异。</div>':''}`;

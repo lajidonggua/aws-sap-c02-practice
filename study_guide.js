@@ -17,23 +17,24 @@ function studyTermHtml(term) {
 if (typeof document !== 'undefined' && document.getElementById('studyContent')) {
   const STUDY_STORAGE_KEY = 'sap-prestudy-v1';
   const validChapters = new Set(STUDY_CHAPTERS.map(chapter => chapter.id));
-  let studyProgress = { read: [], last: 'foundations' };
+  let studyProgress = { read: [], quiz: {}, last: 'foundations' };
   let studyStorageOK = true;
   try {
-    const saved = JSON.parse(localStorage.getItem(STUDY_STORAGE_KEY));
+    const saved = JSON.parse(LearningProgress.getItem(STUDY_STORAGE_KEY));
     if (saved && typeof saved === 'object') {
       studyProgress.read = Array.isArray(saved.read) ? [...new Set(saved.read.filter(id => validChapters.has(id)))] : [];
+      if (saved.quiz && typeof saved.quiz === 'object') studyProgress.quiz = Object.fromEntries(Object.entries(saved.quiz).filter(([id, answer]) => validChapters.has(id) && Number.isInteger(answer) && answer >= 0 && answer < STUDY_CHAPTERS.find(chapter => chapter.id === id).quiz.choices.length));
       studyProgress.last = validChapters.has(saved.last) ? saved.last : 'foundations';
     }
   } catch (_) { studyStorageOK = false; }
-  const studyQuizAnswers = new Map();
+  const studyQuizAnswers = new Map(Object.entries(studyProgress.quiz));
   let studyShowExtended = false;
   let studyQuery = '';
   let studyActiveChapter = 'foundations';
   let studyView = 'route';
   const get = id => document.getElementById(id);
   function saveStudyProgress() {
-    try { localStorage.setItem(STUDY_STORAGE_KEY, JSON.stringify(studyProgress)); studyStorageOK = true; }
+    try { LearningProgress.setItem(STUDY_STORAGE_KEY, JSON.stringify(studyProgress)); studyStorageOK = true; }
     catch (_) { studyStorageOK = false; }
     get('studySaveNote').textContent = studyStorageOK ? '阅读进度保存在本浏览器。已读表示你读过，不代表已经掌握。' : '本次可以正常阅读；浏览器暂时无法保存阅读进度。';
   }
@@ -62,8 +63,10 @@ if (typeof document !== 'undefined' && document.getElementById('studyContent')) 
     const index = STUDY_CHAPTERS.indexOf(chapter);
     const next = STUDY_CHAPTERS[index + 1];
     const questions = getStudyChapterQuestions(chapter);
+    const savedQuestion = LearningProgress.get(ProgressModel.KEYS.scopes, {})['chapter:' + chapter.id];
+    const entryQuestion = questions.includes(savedQuestion) ? savedQuestion : questions[0];
     const comparisons = chapter.comparisons.map(id => STUDY_COMPARISONS.find(item => item.id === id));
-    get('studyContent').innerHTML = `<article class="study-chapter"><header class="chapter-header"><span class="section-eyebrow">第 ${String(index + 1).padStart(2, '0')} 章 · ${chapter.minutes} 分钟左右</span><h2 id="chapterTitle" tabindex="-1">${studyEscape(chapter.title)}</h2><p>${studyEscape(chapter.subtitle)}</p></header><div class="chapter-goal"><b>这一章先学会</b><p>${studyEscape(chapter.goal)}</p></div><section class="chapter-section"><h3>从一个场景开始</h3><p class="chapter-story">${studyEscape(chapter.story)}</p><ol class="concept-flow ${chapter.flowKind === 'choices' ? 'concept-choices' : ''}" aria-label="${studyEscape(chapter.title)}的理解顺序">${chapter.flow.map(([title, detail], i) => `<li><span>${i + 1}</span><h4>${studyEscape(title)}</h4><p>${studyEscape(detail)}</p></li>`).join('')}</ol></section><section class="chapter-section"><h3>先掌握这 ${chapter.principles.length} 个知识点</h3><div class="principle-list">${chapter.principles.map(([title, detail], i) => `<div><span>${String(i + 1).padStart(2, '0')}</span><section><h4>${studyEscape(title)}</h4><p>${studyEscape(detail)}</p></section></div>`).join('')}</div></section><section class="chapter-section"><h3>本章名词、用法与考点</h3><p class="muted">先知道它负责什么，再看题目是否真的需要这个能力。</p><div class="study-term-grid">${chapter.terms.map(id => studyTermHtml(studyTermMap.get(id))).join('')}</div></section><section class="chapter-section"><h3>最容易混淆的地方</h3>${comparisons.map(studyComparisonHtml).join('')}</section>${renderStudyQuiz(chapter)}<section class="practice-box"><div><span class="section-eyebrow">学完再做题</span><h3>用练习把概念连起来</h3><p>${questions.length ? `本章关联 ${questions.length} 道练习，按关联程度排列。进入后会按本章集合继续；遇到不懂的名词再回来查。` : '可以先回到首页练习，再根据遇到的场景回看本章。'}</p></div>${questions.length ? `<a class="primary-link" href="../index.html?chapter=${chapter.id}&amp;q=${questions[0]}">开始本章练习 →</a><p class="muted">前 ${Math.min(12, questions.length)} 道预览，可从任意一题开始：</p><div class="study-question-links">${questions.slice(0, 12).map(id => `<a href="../index.html?chapter=${chapter.id}&amp;q=${id}">第 ${id} 题</a>`).join('')}</div>` : '<a class="primary-link" href="../index.html">开始刷题 →</a>'}</section><div class="chapter-complete"><button class="primary-button" id="markStudyRead">${next ? '本章已读，继续下一章 →' : '本章已读，完成这一轮预习 ✓'}</button>${studyProgress.read.includes(chapter.id) ? '<span>本章已标记为读过，可随时复习。</span>' : '<span>能解释上面的场景后，再标记已读。</span>'}</div>${studyProgress.read.length === STUDY_CHAPTERS.length ? '<div class="all-read">这一轮章节已经读完。接下来做题、回看解析，检验自己能否独立判断。</div>' : ''}<footer class="chapter-sources"><h3>继续查阅 AWS 官方资料</h3>${chapter.sources.map(([title, url]) => `<a href="${studyEscape(url)}" target="_blank" rel="noopener">${studyEscape(title)} ↗</a>`).join('')}</footer></article>`;
+    get('studyContent').innerHTML = `<article class="study-chapter"><header class="chapter-header"><span class="section-eyebrow">第 ${String(index + 1).padStart(2, '0')} 章 · ${chapter.minutes} 分钟左右</span><h2 id="chapterTitle" tabindex="-1">${studyEscape(chapter.title)}</h2><p>${studyEscape(chapter.subtitle)}</p></header><div class="chapter-goal"><b>这一章先学会</b><p>${studyEscape(chapter.goal)}</p></div><section class="chapter-section"><h3>从一个场景开始</h3><p class="chapter-story">${studyEscape(chapter.story)}</p><ol class="concept-flow ${chapter.flowKind === 'choices' ? 'concept-choices' : ''}" aria-label="${studyEscape(chapter.title)}的理解顺序">${chapter.flow.map(([title, detail], i) => `<li><span>${i + 1}</span><h4>${studyEscape(title)}</h4><p>${studyEscape(detail)}</p></li>`).join('')}</ol></section><section class="chapter-section"><h3>先掌握这 ${chapter.principles.length} 个知识点</h3><div class="principle-list">${chapter.principles.map(([title, detail], i) => `<div><span>${String(i + 1).padStart(2, '0')}</span><section><h4>${studyEscape(title)}</h4><p>${studyEscape(detail)}</p></section></div>`).join('')}</div></section><section class="chapter-section"><h3>本章名词、用法与考点</h3><p class="muted">先知道它负责什么，再看题目是否真的需要这个能力。</p><div class="study-term-grid">${chapter.terms.map(id => studyTermHtml(studyTermMap.get(id))).join('')}</div></section><section class="chapter-section"><h3>最容易混淆的地方</h3>${comparisons.map(studyComparisonHtml).join('')}</section>${renderStudyQuiz(chapter)}<section class="practice-box"><div><span class="section-eyebrow">学完再做题</span><h3>用练习把概念连起来</h3><p>${questions.length ? `本章关联 ${questions.length} 道练习，按关联程度排列。进入后会按本章集合继续；遇到不懂的名词再回来查。` : '可以先回到首页练习，再根据遇到的场景回看本章。'}</p></div>${questions.length ? `<a class="primary-link" href="../index.html?chapter=${chapter.id}&amp;q=${entryQuestion}">${entryQuestion === questions[0] ? '开始本章练习' : '继续本章练习 · 第 ' + entryQuestion + ' 题'} →</a><p class="muted">前 ${Math.min(12, questions.length)} 道预览，可从任意一题开始：</p><div class="study-question-links">${questions.slice(0, 12).map(id => `<a href="../index.html?chapter=${chapter.id}&amp;q=${id}">第 ${id} 题</a>`).join('')}</div>` : '<a class="primary-link" href="../index.html">开始刷题 →</a>'}</section><div class="chapter-complete"><button class="primary-button" id="markStudyRead">${next ? '本章已读，继续下一章 →' : '本章已读，完成这一轮预习 ✓'}</button>${studyProgress.read.includes(chapter.id) ? '<span>本章已标记为读过，可随时复习。</span>' : '<span>能解释上面的场景后，再标记已读。</span>'}</div>${studyProgress.read.length === STUDY_CHAPTERS.length ? '<div class="all-read">这一轮章节已经读完。接下来做题、回看解析，检验自己能否独立判断。</div>' : ''}<footer class="chapter-sources"><h3>继续查阅 AWS 官方资料</h3>${chapter.sources.map(([title, url]) => `<a href="${studyEscape(url)}" target="_blank" rel="noopener">${studyEscape(title)} ↗</a>`).join('')}</footer></article>`;
     get('markStudyRead').onclick = () => {
       studyProgress.read = [...new Set([...studyProgress.read, chapter.id])];
       studyProgress.last = next ? next.id : chapter.id;
@@ -75,6 +78,7 @@ if (typeof document !== 'undefined' && document.getElementById('studyContent')) 
     document.querySelectorAll('[data-quiz-choice]').forEach(button => button.onclick = () => {
       const answer = Number(button.dataset.quizChoice);
       studyQuizAnswers.set(chapter.id, answer);
+      studyProgress.quiz[chapter.id] = answer; saveStudyProgress();
       document.querySelectorAll('[data-quiz-choice]').forEach(item => {
         const value = Number(item.dataset.quizChoice);
         item.setAttribute('aria-pressed', String(answer === value));

@@ -9,6 +9,9 @@ AWS Certified Solutions Architect – Professional（SAP-C02）中文刷题与�
 - 刷题前知识手册：13 个循序渐进的主题、核心名词与用法、易混对比、场景小测、已读进度和关联练习。
 
 - 章节和名词可进入对应题目集合，前后翻题、随机、闪记、错题和收藏都保留当前范围。
+- 详细复习手册：11 章、4 大考试域、服务对比、易错陷阱和 18 道原创场景题。
+- 学习进度页：阅读位置、小测答案、刷题与章节进度、备份导出和合并恢复。
+- 账号与云同步：Cloudflare Workers + D1；访客和各账号分别保存，支持断网后继续同步。
 - 顺序刷题、随机练习、错题重练和收藏。
 - 5 秒闪记、题眼提示、答案关键词和速记卡；人工核对过的关键条件会保留。
 - 关键词支持检索中英文题干、全部选项和速记内容，精确题号优先。
@@ -16,7 +19,7 @@ AWS Certified Solutions Architect – Professional（SAP-C02）中文刷题与�
 - 多选题专项练习、计时模拟考、争议题提示和术语表。
 - 自动在当前浏览器保存练习进度、错题和收藏。
 
-这是一个纯 HTML、CSS、JavaScript 网站，无需安装依赖、构建或运行后端服务。练习记录保存在浏览器中，不会自动跨设备同步。
+这是一个纯 HTML、CSS、JavaScript 网站，无需安装依赖、构建或运行后端服务。访客记录保存在浏览器中。配置并启用 Cloudflare 账号服务后，登录用户可以跨设备同步学习进度；未配置时，页面会说明当前仅使用本机保存。
 
 ## 本地预览
 
@@ -43,6 +46,9 @@ python3 -m http.server 8000
 | 路径 | 用途 |
 | --- | --- |
 | `index.html` | 刷题与闪记首页 |
+| `review/` | 按考试域组织的详细复习手册 |
+| `account/` | 账号、学习进度与备份 |
+| `backend/` | Cloudflare Workers + D1 账号服务 |
 | `choice/` | 原版题库 |
 | `multi/` | 多选题专项练习 |
 | `exam/` | 计时模拟考 |
@@ -65,6 +71,7 @@ node test_quick_search.cjs
 node test_learning_review.cjs
 node test_study_guide.cjs
 node test_practice_sets.cjs
+node test_progress_store.cjs
 ```
 
 浏览器回归检查需另外安装 Playwright 及其 Chromium，并先启动本地预览，然后运行：
@@ -72,5 +79,7 @@ node test_practice_sets.cjs
 ```sh
 SAP_TEST_BASE=http://127.0.0.1:8000/ node test_practice_navigation.cjs
 ```
+
+账号服务配置和验证见 [backend/README.md](backend/README.md)。本地服务启动后，可运行 `node test_account_api.mjs`，以及安装 Playwright 后运行 `node test_learning_profiles.cjs`，验证真实登录、账号隔离、两个浏览器同步和断网恢复。
 
 练习题与解析用于学习参考；争议题以网站提示为准。

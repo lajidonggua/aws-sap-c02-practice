@@ -345,6 +345,7 @@ body {
 <script src="../quick_answer_cards.js?v=merged9"></script>
 <script src="../flash_cards.js?v=simplified1"></script><script src="../twenty_review.js?v=merged9"></script>
 <script src="../explanation_shared.js?v=learning1"></script>
+<script src="../progress_model.js?v=profiles1"></script><script src="../progress_store.js?v=profiles1"></script>
 <script>
 
 const STORAGE_KEY = 'sap_multi_mode_v1';
@@ -392,7 +393,7 @@ function escapeHtml(text) {
 
 function loadState() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = LearningProgress.getItem(STORAGE_KEY);
     if (!raw) return;
     const data = JSON.parse(raw);
     if (Array.isArray(data.wrongIds)) wrongIds = data.wrongIds.map(Number);
@@ -407,7 +408,7 @@ function loadState() {
 
 function saveState() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    LearningProgress.setItem(STORAGE_KEY, JSON.stringify({
       wrongIds,
       starredIds,
       answeredIds,
@@ -450,7 +451,7 @@ function applyFilter(need, keepPosition) {
   }
 
   // restore last position for this filter if possible
-  const lastId = Number(sessionStorage.getItem(STORAGE_KEY + ':pos:' + need) || 0);
+  const lastId = Number(LearningProgress.get(ProgressModel.KEYS.multiPosition, {})['need-' + need] || 0);
   if (keepPosition === 'restore' && lastId) {
     const idx = QUESTIONS.findIndex(q => q.id === lastId);
     if (idx >= 0) current = idx;
@@ -633,7 +634,7 @@ function loadQuestion() {
   updateWrongArrows();
   updateStarredArrows();
   updateSelectCount();
-  sessionStorage.setItem(STORAGE_KEY + ':pos:' + filterNeed, String(q.id));
+  try { const positions = LearningProgress.get(ProgressModel.KEYS.multiPosition, {}); positions['need-' + filterNeed] = q.id; LearningProgress.put(ProgressModel.KEYS.multiPosition, positions); } catch (_) {}
 }
 
 function selectOption(event, el, letter) {
@@ -975,5 +976,5 @@ document.getElementById('showExpBtn').addEventListener('click', function() {
 init();
 
 </script>
-</body>
+<script src="../account_config.js?v=profiles1"></script><script src="../account_sync.js?v=profiles1"></script></body>
 </html>

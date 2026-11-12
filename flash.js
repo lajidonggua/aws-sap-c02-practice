@@ -1,9 +1,9 @@
 'use strict';
 const FLASH_KEY='sap-five-second-v1';
 let flash={again:[],known:[],last:1,scope:'all',recall:false},flashPlaying=false,flashTimer=null,flashDeadline=0;
-try{const saved=JSON.parse(localStorage.getItem(FLASH_KEY));if(saved){for(const key of ['again','known'])if(Array.isArray(saved[key]))flash[key]=saved[key].filter(id=>CHOICE_QUESTIONS.some(q=>q.id===id));if(CHOICE_QUESTIONS.some(q=>q.id===saved.last))flash.last=saved.last;}}catch{}
+try{const saved=JSON.parse(LearningProgress.getItem(FLASH_KEY));if(saved){for(const key of ['again','known'])if(Array.isArray(saved[key]))flash[key]=saved[key].filter(id=>CHOICE_QUESTIONS.some(q=>q.id===id));if(CHOICE_QUESTIONS.some(q=>q.id===saved.last))flash.last=saved.last;}}catch{}
 function renderFlashAvoid(text){return text?`<p><b>别选错：</b>${String(text).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}</p>`:'';}
-function saveFlash(){try{localStorage.setItem(FLASH_KEY,JSON.stringify({again:flash.again,known:flash.known,last:flash.last}));}catch{$('saveNote').textContent='浏览器未允许保存；本次闪记仍可继续。';}}
+function saveFlash(){try{LearningProgress.setItem(FLASH_KEY,JSON.stringify({again:flash.again,known:flash.known,last:flash.last}));}catch{$('saveNote').textContent='浏览器未允许保存；本次闪记仍可继续。';}}
 function stopFlash(pause=true){clearInterval(flashTimer);flashTimer=null;if(pause)flashPlaying=false;}
 function flashMove(){if(at<pool.length-1){at++;render();}else{stopFlash();$('flashStatus').textContent='这一轮已结束。可重新过一轮，或只背没记住的题。';$('flashPlay').textContent='重新播放这一轮';$('flashPlay').onclick=()=>{if(flash.scope==='again')pool=PRACTICE_QUESTIONS.filter(q=>flash.again.includes(q.id));at=0;flashPlaying=true;render();};}}
 function flashMark(known){const q=pool[at];if(!q)return;flash.again=flash.again.filter(id=>id!==q.id);flash.known=flash.known.filter(id=>id!==q.id);flash[known?'known':'again'].push(q.id);saveFlash();flashMove();if($('flashAgainCount'))$('flashAgainCount').textContent=flash.again.filter(id=>PRACTICE_IDS.has(id)).length;}

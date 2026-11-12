@@ -1,0 +1,901 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAP-C02 复习手册</title>
+<link rel="stylesheet" href="review.css?v=profiles1"><link rel="stylesheet" href="../account.css?v=profiles1">
+</head>
+<body>
+<div class="layout">
+<nav class="toc" id="toc">
+  <a class="brand" href="../index.html">SAP 刷题手册</a><div class="guide-nav"><a href="../learn/index.html">入门知识手册</a><a href="../index.html">529 题练习</a><a href="../account/index.html" data-account-link>学习进度与备份</a></div>
+  <div class="sub">AWS Certified Solutions Architect – Professional</div>
+  <div class="progress"><div id="pbar"></div></div>
+  <div class="progress-label" id="plabel">已完成 0 / 0 章</div>
+  <div class="tools">
+    <button id="themeBtn" type="button">切换深/浅色</button>
+    <button id="ansBtn" type="button">展开全部答案</button>
+    <button type="button" onclick="window.print()">打印 / 存 PDF</button>
+  </div>
+  <ol id="tocList"></ol>
+</nav>
+
+<main>
+<header class="hero">
+  <h1>AWS SAP-C02 详细复习手册</h1>
+  <p>按官方 4 大考试域组织 · 包含服务对比表、场景关键词速查、易错陷阱、数字速记和 18 道原创练习题。</p>
+  <p>使用方法：左侧目录跳转；每章标题右侧可勾选「已读」，会记住已读章节、阅读位置和看过的题目解析；练习题答案默认折叠。</p>
+<div class="resume-tools"><a id="resumeReview" href="#overview">从考试概览开始 →</a><span id="reviewSaveNote" role="status">阅读位置自动保存到本浏览器。</span></div><p class="muted">建议先读入门手册，再按考试域复习；已读标记不代表已掌握。</p></header>
+
+<!-- ============ 0 考试概览 ============ -->
+<section class="chapter" id="overview" data-title="考试概览">
+<h2>0. 考试概览 <label class="chk"><input type="checkbox" data-done="overview">已读</label></h2>
+<div class="table-wrap"><table>
+<tr><th>项目</th><th>内容</th></tr>
+<tr><td>考试代码</td><td>SAP-C02（Professional 级别）</td></tr>
+<tr><td>题量 / 时长</td><td>75 题（65 道计分 + 10 道不计分，无法区分）/ 180 分钟</td></tr>
+<tr><td>题型</td><td>单选（4 选 1）、多选（5 个以上选项选 2–3 个，题干会写明选几个）</td></tr>
+<tr><td>及格线</td><td>750 / 1000（缩放分数，补偿模型：不要求每个域都及格）</td></tr>
+<tr><td>费用</td><td>300 USD（持有效 AWS 证书可用 50% 折扣券）</td></tr>
+<tr><td>有效期</td><td>3 年</td></tr>
+<tr><td>语言</td><td>含简体中文；非英语母语可申请 ESL +30 分钟（考前在 AWS Certification 账户申请，具体资格与流程请以官方安排为准）</td></tr>
+</table></div>
+
+<h4>考试域权重</h4>
+<div class="weights">
+  <div class="wrow"><span>域 1：组织复杂性设计</span><div class="wbar"><div style="width:26%;background:var(--d1)"></div></div><span class="kv">26%</span></div>
+  <div class="wrow"><span>域 2：新解决方案设计</span><div class="wbar"><div style="width:29%;background:var(--d2)"></div></div><span class="kv">29%</span></div>
+  <div class="wrow"><span>域 3：现有方案持续改进</span><div class="wbar"><div style="width:25%;background:var(--d3)"></div></div><span class="kv">25%</span></div>
+  <div class="wrow"><span>域 4：加速迁移与现代化</span><div class="wbar"><div style="width:20%;background:var(--d4)"></div></div><span class="kv">20%</span></div>
+</div>
+<p class="muted">柱宽按 100% 计。</p>
+
+<div class="callout warn"><b class="t">考前请核对</b>以上信息基于官方考试指南（Exam Guide）。考试费用、题型等可能调整，报名前请在 aws.amazon.com/certification 查看 SAP-C02 页面的最新版本。</div>
+
+<div class="callout"><b class="t">服务变更提示（题库可能滞后）</b>
+<ul>
+<li><b>Snow 系列</b>：旧题可按离线迁移能力理解；Snowball Edge 自 2025-11-07 起仅对现有客户开放。新客户设计方案前应先确认服务可用性。<a href="https://docs.aws.amazon.com/snowball/latest/developer-guide/doc-history.html" target="_blank" rel="noopener">官方变更记录</a></li>
+<li><b>CodeCommit</b> 已于 2025 年 11 月重新向新客户开放，不能沿用 2024 年的停招结论。<b>Cloud9</b> 的可用性需单独查阅服务生命周期说明。<a href="https://docs.aws.amazon.com/codecommit/latest/userguide/history.html" target="_blank" rel="noopener">官方变更记录</a></li>
+<li><b>FSx File Gateway</b> 不再对新客户开放；新方案直接通过 VPN/DX 访问 FSx for Windows。</li>
+<li>新增 <b>RCP（资源控制策略）</b>、<b>Declarative Policies</b>，属于近年 Organizations 新概念，可能以新题出现。</li>
+</ul></div>
+</section>
+
+<!-- ============ 1 策略 ============ -->
+<section class="chapter" id="strategy" data-title="答题策略">
+<h2>1. 答题策略 <label class="chk"><input type="checkbox" data-done="strategy">已读</label></h2>
+<p>SAP 的难点不在知识点本身，而在 <b>题干长（每题 150–300 字）</b>、<b>选项都"能用"</b>，你需要选出<b>最符合约束条件</b>的那个。</p>
+<h4>四步法</h4>
+<ol>
+<li><b>先读问句（最后一句）</b>：找出约束词——"最具成本效益"、"运维开销最少"、"最少停机时间"、"最安全"、"最快"。</li>
+<li><b>圈出硬性条件</b>：RTO/RPO 数值、合规要求、现有技术（Oracle、SMB、VMware、AD）、带宽和时间窗口、"不能修改应用代码"。</li>
+<li><b>排除法</b>：先划掉违反硬性条件或技术上不成立的选项（例如 VPC 对等的传递路由、网关端点从本地访问）。</li>
+<li><b>两两比较剩余选项</b>：通常剩 2 个，差异往往在一个细节——托管 vs 自建、同步 vs 异步、一次性 vs 持续。</li>
+</ol>
+
+<h4>约束词 → 倾向答案</h4>
+<div class="table-wrap"><table>
+<tr><th>题干约束</th><th>倾向</th><th>警惕</th></tr>
+<tr><td>LEAST operational overhead</td><td>全托管、Serverless、原生功能（Organizations、Control Tower、Backup、SSM）</td><td>自建 EC2 脚本、cron、自定义 Lambda 轮询</td></tr>
+<tr><td>MOST cost-effective</td><td>Spot、Savings Plans、S3 生命周期、Intelligent-Tiering、按需关停、Graviton</td><td>为低频场景预置大量容量；多余的 NAT/DX</td></tr>
+<tr><td>MOST secure / least privilege</td><td>IAM 角色 + 临时凭证、SCP、KMS CMK、PrivateLink、VPC 端点</td><td>长期 Access Key、0.0.0.0/0、共享凭证</td></tr>
+<tr><td>Minimal downtime（迁移）</td><td>持续复制：MGN、DMS CDC、DataSync 增量、Aurora 读副本提升</td><td>一次性快照导出导入</td></tr>
+<tr><td>No code changes</td><td>Rehost/Replatform；RDS Proxy、ElastiCache 作为旁路</td><td>重构为微服务、改用 DynamoDB</td></tr>
+<tr><td>Near real-time / 秒级</td><td>Kinesis Data Streams、EventBridge、DynamoDB Streams</td><td>Firehose 有缓冲（秒到分钟）；批处理</td></tr>
+<tr><td>Global users, low latency</td><td>CloudFront（HTTP/缓存）、Global Accelerator（TCP/UDP/静态IP）、Aurora Global、DynamoDB Global Tables</td><td>单 Region 方案</td></tr>
+</table></div>
+
+<div class="callout tip"><b class="t">时间管理</b>180 分钟 / 75 题 ≈ 2.4 分钟/题。第一遍不纠结，标记（Flag）不确定的题；留 20–25 分钟复查。不确定的题也必须作答，答错不扣分。</div>
+</section>
+
+<!-- ============ 2 关键词速查 ============ -->
+<section class="chapter" id="keywords" data-title="场景关键词速查">
+<h2>2. 场景关键词 → 服务速查 <label class="chk"><input type="checkbox" data-done="keywords">已读</label></h2>
+<div class="table-wrap"><table>
+<tr><th>场景描述</th><th>首选答案</th></tr>
+<tr><td>禁止任何账户（含 root）关闭 CloudTrail / 离开组织 / 使用某 Region</td><td>SCP（附加到 OU 或 Root）</td></tr>
+<tr><td>限制组织外部主体访问本组织的 S3/KMS/SQS 资源，不想逐个改 bucket policy</td><td>RCP（Resource Control Policy）；单个资源用 <code>aws:PrincipalOrgID</code></td></tr>
+<tr><td>快速建立符合最佳实践的多账户环境、自动创建账户</td><td>AWS Control Tower + Account Factory（Terraform 用 AFT）</td></tr>
+<tr><td>员工用企业 IdP 登录多个 AWS 账户</td><td>IAM Identity Center + 外部 IdP（SAML 2.0 + SCIM）+ 权限集</td></tr>
+<tr><td>第三方 SaaS 访问你的账户</td><td>跨账户 IAM 角色 + External ID（防混淆代理）</td></tr>
+<tr><td>几十上百个 VPC 与本地互通，需要传递路由</td><td>Transit Gateway（+ DX Gateway Transit VIF / VPN 挂载）</td></tr>
+<tr><td>向大量消费者 VPC 暴露服务，CIDR 重叠</td><td>PrivateLink（NLB 后端的 Endpoint Service）</td></tr>
+<tr><td>本地解析 AWS 私有托管区</td><td>Route 53 Resolver <b>入站</b>端点 + 本地 DNS 条件转发</td></tr>
+<tr><td>AWS 内解析本地域名</td><td>Route 53 Resolver <b>出站</b>端点 + 转发规则（用 RAM 共享规则给其他账户）</td></tr>
+<tr><td>DX 链路需要加密</td><td>MACsec（10/100 Gbps 专用连接）或 DX 之上跑 IPsec VPN</td></tr>
+<tr><td>集中出口 / 东西向流量检查</td><td>TGW + Inspection VPC（Network Firewall 或 GWLB + 第三方设备，开启 appliance mode）</td></tr>
+<tr><td>多账户统一管理 WAF/Shield/安全组/Network Firewall 规则</td><td>AWS Firewall Manager</td></tr>
+<tr><td>跨账户共享子网、TGW、Resolver 规则、License</td><td>AWS RAM</td></tr>
+<tr><td>开发者自助创建合规资源，但自身不具备高权限</td><td>Service Catalog + Launch Constraint</td></tr>
+<tr><td>同一模板部署到多个账户/Region，新账户自动部署</td><td>CloudFormation StackSets（service-managed 权限 + 自动部署）</td></tr>
+<tr><td>RPO 秒级、RTO 分钟级跨区域关系型数据库</td><td>Aurora Global Database</td></tr>
+<tr><td>多区域多活写入 NoSQL</td><td>DynamoDB Global Tables</td></tr>
+<tr><td>物理/虚拟服务器跨区域 DR，持续块级复制</td><td>AWS Elastic Disaster Recovery（DRS）</td></tr>
+<tr><td>集中备份策略、跨账户跨区域备份复制、防篡改</td><td>AWS Backup（Organizations 备份策略 + Vault Lock）</td></tr>
+<tr><td>Lambda 大量并发打爆 RDS 连接</td><td>RDS Proxy</td></tr>
+<tr><td>API 需固定 IP / UDP / 跨区域快速故障转移</td><td>Global Accelerator</td></tr>
+<tr><td>静态内容全球加速、S3 私有访问</td><td>CloudFront + OAC</td></tr>
+<tr><td>数据必须不可删除 N 年，root 也不行</td><td>S3 Object Lock <b>Compliance</b> 模式（或 Glacier Vault Lock）</td></tr>
+<tr><td>大量 VMware/物理机原样迁移</td><td>AWS Application Migration Service（MGN）</td></tr>
+<tr><td>异构数据库迁移（Oracle → Aurora PostgreSQL）</td><td>SCT / DMS Schema Conversion + DMS（全量 + CDC）</td></tr>
+<tr><td>NFS/SMB 文件定期/在线迁移到 S3/EFS/FSx</td><td>DataSync</td></tr>
+<tr><td>带宽不足、数十 TB 以上、时间紧</td><td>Snowball Edge（需确认客户可用性）</td></tr>
+<tr><td>本地应用继续用 NFS/SMB，后端存 S3</td><td>Storage Gateway – S3 File Gateway</td></tr>
+<tr><td>替换磁带备份（VTL）</td><td>Storage Gateway – Tape Gateway</td></tr>
+<tr><td>合作伙伴通过 SFTP 上传文件</td><td>AWS Transfer Family</td></tr>
+<tr><td>发现本地服务器依赖关系</td><td>Application Discovery Service（Agent 提供进程/网络依赖）</td></tr>
+<tr><td>迁移业务案例 / TCO 评估</td><td>Migration Evaluator</td></tr>
+<tr><td>无需堡垒机、不开 22 端口登录 EC2</td><td>Systems Manager Session Manager</td></tr>
+<tr><td>批量打补丁、合规报告</td><td>SSM Patch Manager + Maintenance Window</td></tr>
+<tr><td>资源配置不合规自动修复</td><td>AWS Config 规则 + SSM Automation 修复</td></tr>
+<tr><td>S3 中敏感数据（PII）发现</td><td>Amazon Macie</td></tr>
+<tr><td>威胁检测（异常 API、挖矿、恶意 IP）</td><td>Amazon GuardDuty</td></tr>
+<tr><td>EC2/ECR/Lambda 漏洞扫描</td><td>Amazon Inspector</td></tr>
+<tr><td>安全发现汇总、合规评分</td><td>AWS Security Hub</td></tr>
+<tr><td>找出被外部共享的资源 / 未使用权限 / 生成最小权限策略</td><td>IAM Access Analyzer</td></tr>
+<tr><td>预算超标自动执行动作（附加 SCP、停实例）</td><td>AWS Budgets Actions</td></tr>
+<tr><td>EC2/Lambda/EBS 规格优化建议</td><td>Compute Optimizer</td></tr>
+</table></div>
+</section>
+
+<!-- ============ 3 Domain 1 ============ -->
+<section class="chapter" id="d1" data-title="域1 组织复杂性">
+<h2>3. 域 1：组织复杂性设计 <span class="tag">26%</span> <label class="chk"><input type="checkbox" data-done="d1">已读</label></h2>
+<p>考察任务：网络连通性策略、规定的安全控制、可靠且有弹性的架构、多账户环境、成本与可视化控制。</p>
+
+<h3 id="d1-org">3.1 AWS Organizations 与多账户治理</h3>
+<h4>核心概念</h4>
+<ul>
+<li><b>管理账户（Management account）</b>：付款、创建账户、管理策略。最佳实践：<b>不在管理账户运行工作负载</b>。</li>
+<li><b>OU</b>：按职能/安全边界设计，常见结构：<span class="pill">Security</span><span class="pill">Infrastructure</span><span class="pill">Workloads/Prod</span><span class="pill">Workloads/SDLC</span><span class="pill">Sandbox</span><span class="pill">Suspended</span><span class="pill">Policy Staging</span></li>
+<li><b>委派管理员（Delegated administrator）</b>：把 GuardDuty、Security Hub、Config、Firewall Manager、IAM Access Analyzer 等服务的管理权交给 Security 账户，避免使用管理账户。</li>
+<li><b>所有功能（All features）</b>模式才能使用 SCP 等策略；仅"合并账单"模式不行。</li>
+</ul>
+
+<h4>策略类型对比</h4>
+<div class="table-wrap"><table>
+<tr><th>策略</th><th>作用对象</th><th>要点</th></tr>
+<tr><td>SCP</td><td>成员账户中的 IAM 主体（用户、角色、root）</td><td>只<b>限制</b>最大权限，不授予权限；<b>不影响管理账户</b>；不影响服务关联角色（SLR）；默认附加 <code>FullAWSAccess</code>。</td></tr>
+<tr><td>RCP</td><td>成员账户中的<b>资源</b>（S3、STS、KMS、SQS、Secrets Manager 等支持的服务）</td><td>为资源设置最大权限，例如"仅允许组织内主体访问"，实现数据边界（Data Perimeter）。不影响管理账户。</td></tr>
+<tr><td>Declarative Policy</td><td>服务配置（如 EC2）</td><td>声明式强制某些服务配置（如禁止公开 AMI、强制 IMDSv2），即使有新 API 也生效。</td></tr>
+<tr><td>Tag Policy</td><td>标签</td><td>规范标签键/值的大小写和取值；可配合强制（enforce）阻止不合规标签操作。</td></tr>
+<tr><td>Backup Policy</td><td>AWS Backup</td><td>组织级统一备份计划。</td></tr>
+<tr><td>AI opt-out Policy</td><td>AI 服务</td><td>退出 AWS 用你的数据改进 AI 服务。</td></tr>
+</table></div>
+
+<h4>SCP 常见写法</h4>
+<ul>
+<li><b>Deny list（推荐）</b>：保留 FullAWSAccess，再加显式 Deny。例：拒绝 <code>cloudtrail:StopLogging</code>、<code>organizations:LeaveOrganization</code>。</li>
+<li><b>Allow list</b>：移除 FullAWSAccess，只允许列出的服务。管理更繁琐。</li>
+<li><b>Region 限制</b>：<code>aws:RequestedRegion</code> 条件 + <code>NotAction</code> 排除全局服务（IAM、Organizations、CloudFront、Route 53、Support 等）。</li>
+<li><b>例外</b>：通过 <code>aws:PrincipalArn</code> 条件放行特定管理角色（例如 Control Tower 执行角色）。</li>
+</ul>
+
+<h4>IAM 策略评估逻辑</h4>
+<div class="flow"><span>显式 Deny？→ 拒绝</span><i>→</i><span>SCP / RCP 允许？</span><i>→</i><span>资源策略允许？</span><i>→</i><span>身份策略允许？</span><i>→</i><span>权限边界允许？</span><i>→</i><span>会话策略允许？</span><i>→</i><span>允许</span></div>
+<ul>
+<li>任何层级的显式 Deny 最终生效。</li>
+<li><b>同账户</b>：身份策略或资源策略二者之一允许即可（受边界、SCP 限制）。</li>
+<li><b>跨账户</b>：双方都要允许——对方账户的身份策略 <b>且</b> 本方资源策略（或通过 AssumeRole）。</li>
+<li><b>权限边界（Permissions Boundary）</b>：限制委派管理员能创建的角色的最大权限（"允许开发者建角色但不提权"）。</li>
+</ul>
+
+<h4>AWS Control Tower</h4>
+<ul>
+<li>自动搭建 Landing Zone：Organizations + IAM Identity Center + <b>Log Archive 账户</b> + <b>Audit 账户</b> + 组织级 CloudTrail 和 Config。</li>
+<li><b>控件（Controls / 旧称 Guardrails）</b>：
+  <ul>
+  <li>预防性（Preventive）= SCP/RCP</li>
+  <li>检测性（Detective）= Config 规则</li>
+  <li>主动性（Proactive）= CloudFormation Hooks，在资源创建前检查</li>
+  </ul>
+  另按强制级别分为 Mandatory / Strongly recommended / Elective。</li>
+<li><b>Account Factory</b>：标准化开账户（通过 Service Catalog）；<b>AFT</b>：用 Terraform 的 GitOps 开账户；<b>CfCT</b>：用 CloudFormation/SCP 定制。</li>
+<li>已有 Organizations 也可以启用 Control Tower 并逐个注册（enroll）现有账户。</li>
+<li>漂移（Drift）：在 Control Tower 外改了 SCP/OU 会导致漂移，需要 Repair。</li>
+</ul>
+
+<h3 id="d1-iam">3.2 身份联合与跨账户访问</h3>
+<div class="table-wrap"><table>
+<tr><th>方案</th><th>适用场景</th><th>说明</th></tr>
+<tr><td>IAM Identity Center</td><td>员工登录多个账户（首选）</td><td>权限集（Permission Set）在每个账户生成角色；支持外部 IdP（Okta、Entra ID）SAML + SCIM 自动同步；支持 ABAC（基于用户属性标签）。</td></tr>
+<tr><td>IAM SAML 联合</td><td>单账户或遗留方案</td><td><code>AssumeRoleWithSAML</code>；每个账户单独配置，规模大时不推荐。</td></tr>
+<tr><td>Web Identity / Cognito</td><td>移动/Web 应用终端用户</td><td>Cognito User Pool 认证 → Identity Pool 换取临时 AWS 凭证。</td></tr>
+<tr><td>IAM Roles Anywhere</td><td>本地服务器访问 AWS，不想用长期 AK</td><td>基于 X.509 证书（私有 CA）获取临时凭证。</td></tr>
+<tr><td>跨账户角色</td><td>账户间访问</td><td>信任策略 + <code>sts:AssumeRole</code>；第三方加 <code>sts:ExternalId</code>。</td></tr>
+</table></div>
+
+<h4>目录服务</h4>
+<div class="table-wrap"><table>
+<tr><th>服务</th><th>特点</th><th>选择时机</th></tr>
+<tr><td>AWS Managed Microsoft AD</td><td>AWS 上真正的 AD，可与本地 AD 建立<b>信任关系</b></td><td>需要 AD 感知应用（SQL Server、FSx Windows）且本地 AD 不可达时仍可工作</td></tr>
+<tr><td>AD Connector</td><td>代理，把认证请求转发到本地 AD，<b>不缓存</b></td><td>只想用本地 AD 账号登录 AWS（Identity Center、WorkSpaces），依赖网络连通</td></tr>
+<tr><td>Simple AD</td><td>Samba 兼容的低成本目录</td><td>小规模、不需要信任关系</td></tr>
+</table></div>
+
+<h4>常用全局条件键</h4>
+<ul>
+<li><code>aws:PrincipalOrgID</code> / <code>aws:PrincipalOrgPaths</code>：只允许本组织 / 某 OU 的主体。</li>
+<li><code>aws:SourceVpce</code> / <code>aws:SourceVpc</code>：只允许通过特定 VPC 端点访问（S3 bucket policy 常用）。</li>
+<li><code>aws:SourceIp</code>：只对公网请求生效，<b>经 VPC 端点的请求不带公网源 IP</b>（常见陷阱）。</li>
+<li><code>aws:SourceArn</code> / <code>aws:SourceAccount</code>：防止服务对服务的混淆代理。</li>
+<li><code>aws:RequestTag</code> / <code>aws:ResourceTag</code> / <code>aws:PrincipalTag</code>：ABAC。</li>
+<li><code>aws:SecureTransport</code>：强制 HTTPS。</li>
+</ul>
+
+<h3 id="d1-net">3.3 网络连通性（高频重点）</h3>
+<h4>VPC 互联方案对比</h4>
+<div class="table-wrap"><table>
+<tr><th>方案</th><th>传递路由</th><th>CIDR 重叠</th><th>规模/特点</th><th>典型场景</th></tr>
+<tr><td>VPC Peering</td><td>✗</td><td>✗</td><td>点对点，N 个 VPC 需 N(N-1)/2 条；无带宽瓶颈、无额外小时费；支持跨区域跨账户</td><td>少量 VPC、高带宽低成本</td></tr>
+<tr><td>Transit Gateway</td><td>✓</td><td>✗（同一路由域内）</td><td>Hub-and-spoke，多路由表实现隔离；支持 VPN ECMP、DX、跨区域 TGW Peering（静态路由）、Connect 挂载（SD-WAN，GRE+BGP）、组播</td><td>大量 VPC + 本地网络</td></tr>
+<tr><td>PrivateLink</td><td>N/A（单向）</td><td>✓</td><td>服务提供方用 NLB/GWLB 建 Endpoint Service，消费方建接口端点；只能消费方发起</td><td>SaaS、共享服务、CIDR 重叠</td></tr>
+<tr><td>VPC Lattice</td><td>应用层</td><td>✓</td><td>服务网络（Service Network），L7 服务间通信、认证策略，跨账户</td><td>微服务跨 VPC/账户通信，不想管网络路由</td></tr>
+<tr><td>Cloud WAN</td><td>✓</td><td>—</td><td>基于策略的全球网络（Core Network），自动管理多区域 TGW 式连接和分段（Segment）</td><td>全球多区域 + 分支机构 WAN</td></tr>
+</table></div>
+
+<h4>VPC 端点</h4>
+<ul>
+<li><b>网关端点（Gateway Endpoint）</b>：仅 S3 和 DynamoDB；免费；通过路由表生效；<b>无法从本地、对等 VPC、TGW 另一侧访问</b>。</li>
+<li><b>接口端点（Interface Endpoint）</b>：ENI + 私有 IP，按小时 + 流量计费；可从本地经 DX/VPN 访问；支持安全组；S3 也支持接口端点（本地访问 S3 私有路径的答案）。</li>
+<li>集中化接口端点：放在共享服务 VPC，通过 TGW 共享，配合 Route 53 私有托管区（关闭 private DNS，手动建 PHZ 并关联到各 VPC）以节省成本。</li>
+</ul>
+
+<h4>Direct Connect（DX）</h4>
+<div class="table-wrap"><table>
+<tr><th>VIF 类型</th><th>连接目标</th><th>说明</th></tr>
+<tr><td>Private VIF</td><td>VGW 或 DX Gateway → VPC</td><td>访问 VPC 私有 IP</td></tr>
+<tr><td>Public VIF</td><td>AWS 公共端点</td><td>访问 S3、DynamoDB 等公共 IP，可在其上搭建 IPsec VPN 实现加密</td></tr>
+<tr><td>Transit VIF</td><td>DX Gateway → Transit Gateway</td><td>大规模 VPC 接入</td></tr>
+</table></div>
+<ul>
+<li><b>DX Gateway</b>：全局资源，一条 DX 连接多个 Region 的 VGW/TGW；<b>不能用于 VPC 之间互通</b>（不提供 VPC 间传递）。</li>
+<li><b>连接类型</b>：专用连接（Dedicated，1/10/100/400 Gbps，直接向 AWS 申请）、托管连接（Hosted，50 Mbps–25 Gbps，经合作伙伴）。开通通常需要数周 → 紧急场景先用 VPN。</li>
+<li><b>高可用</b>：
+  <ul>
+  <li>最高弹性（Maximum Resiliency）：2 个 DX 位置 × 每处 2 条连接（关键业务）。</li>
+  <li>高弹性（High Resiliency）：2 个 DX 位置各 1 条连接。</li>
+  <li>低成本备份：DX + Site-to-Site VPN 备份。</li>
+  </ul></li>
+<li><b>LAG</b>：同一位置多条同速率连接捆绑（LACP）。</li>
+<li><b>加密</b>：DX 本身<b>不加密</b>。可选 MACsec（L2，部分 10/100 Gbps 专用连接），或在 DX 上跑 IPsec VPN（Public VIF 或配合 TGW 的私有 IP VPN）。</li>
+<li><b>SiteLink</b>：通过 AWS 骨干网连接你的不同 DX 位置（分支互联），流量不进 Region。</li>
+<li><b>BGP 选路</b>：AWS 侧优先最长前缀匹配；本地可用 AS_PATH prepend、Local Preference（BGP community）控制主备。DX 路由优先于 VPN（相同前缀时）。</li>
+</ul>
+
+<h4>Site-to-Site VPN</h4>
+<ul>
+<li>每条 VPN 连接 2 条隧道，每条隧道最高约 <b>1.25 Gbps</b>。</li>
+<li>超过带宽：TGW + 多条 VPN + <b>ECMP</b>（需 BGP 动态路由）聚合。VGW 不支持 ECMP。</li>
+<li><b>Accelerated VPN</b>：经 Global Accelerator 边缘接入，改善远距离质量（仅 TGW 挂载）。</li>
+<li><b>Client VPN</b>：员工远程接入（OpenVPN 客户端）。</li>
+<li><b>VPN CloudHub</b>：VGW 连接多个分支，分支间可互通（hub-and-spoke）。</li>
+</ul>
+
+<h4>混合 DNS（Route 53 Resolver）</h4>
+<div class="grid2">
+<div class="card"><h4>本地 → AWS</h4>本地 DNS 配置条件转发到 <b>Inbound Endpoint</b> 的 IP → 解析私有托管区（PHZ）和 VPC 内名称。</div>
+<div class="card"><h4>AWS → 本地</h4>创建 <b>Outbound Endpoint</b> + <b>Forwarding Rule</b>（如 <code>corp.example.com</code> → 本地 DNS IP）；通过 RAM 把规则共享给其他账户的 VPC。</div>
+</div>
+<ul>
+<li>跨账户关联 PHZ：PHZ 所在账户 <code>create-vpc-association-authorization</code> → VPC 所在账户 <code>associate-vpc-with-hosted-zone</code>（CLI/API，控制台不支持）。</li>
+<li>集中式 DNS：在网络账户集中部署 Resolver 端点，规则共享到所有 VPC。</li>
+<li><b>Route 53 Resolver DNS Firewall</b>：过滤出站 DNS 查询（阻止恶意域名、数据外泄）。</li>
+</ul>
+
+<h4>集中出口与流量检查</h4>
+<ul>
+<li><b>集中出口（Centralized Egress）</b>：所有 Spoke VPC 默认路由指向 TGW → Egress VPC 的 NAT Gateway → IGW。节省 NAT 网关数量，但要注意跨 AZ 流量费和 TGW 数据处理费。</li>
+<li><b>Inspection VPC</b>：TGW 路由将流量引入检查 VPC（AWS Network Firewall 或 GWLB + 第三方防火墙）。<b>必须在 TGW 的检查 VPC 挂载上启用 Appliance Mode</b>，保证双向流量走同一 AZ（对称路由）。</li>
+<li><b>GWLB</b>：L3 网关 + L4 负载均衡，GENEVE 协议（6081 端口），用于透明插入第三方虚拟设备。</li>
+<li><b>Network Firewall</b>：托管有状态防火墙，支持 Suricata 规则、域名过滤（SNI/HTTP Host）、TLS 检查。</li>
+</ul>
+
+<h4>其他网络知识点</h4>
+<ul>
+<li><b>VPC 共享（RAM 共享子网）</b>：网络账户拥有 VPC，参与账户在共享子网中创建资源；减少 VPC 数量和 TGW 挂载，集中管理网络。</li>
+<li><b>VPC IPAM</b>：组织级 IP 地址规划、分配与审计，避免 CIDR 冲突。</li>
+<li><b>NAT Gateway</b>：AZ 级资源，高可用需每个 AZ 一个；不支持安全组。</li>
+<li><b>Egress-only IGW</b>：IPv6 出站。</li>
+<li><b>Prefix List</b>：在安全组/路由表中引用 CIDR 集合，可通过 RAM 共享。</li>
+<li><b>Traffic Mirroring</b>：复制 ENI 流量给 IDS 分析。<b>VPC Flow Logs</b>：只记录元数据（不含 payload）。</li>
+<li><b>Reachability Analyzer</b>：分析两个资源间路径可达性；<b>Network Access Analyzer</b>：找出不符合预期的网络访问路径。</li>
+</ul>
+
+<h3 id="d1-sec">3.4 集中化安全与日志</h3>
+<div class="table-wrap"><table>
+<tr><th>需求</th><th>方案</th></tr>
+<tr><td>组织所有账户的 API 审计</td><td>组织级 CloudTrail Trail（Organization trail）→ Log Archive 账户 S3（启用 Object Lock、KMS 加密）；成员账户无法修改/删除组织 trail。CloudTrail Lake 用 SQL 查询。</td></tr>
+<tr><td>组织配置合规</td><td>Config + Aggregator（聚合多账户多区域）；Conformance Pack（规则包）组织级下发。</td></tr>
+<tr><td>集中应用日志</td><td>CloudWatch Logs 订阅过滤器 → 目标账户的 Kinesis Data Streams/Firehose → S3/OpenSearch；或 CloudWatch 跨账户可观测性（Monitoring account）。</td></tr>
+<tr><td>集中安全发现</td><td>GuardDuty / Security Hub / Inspector / Macie 设置委派管理员 + 自动启用新账户 + 跨区域聚合。</td></tr>
+<tr><td>安全数据湖</td><td>Amazon Security Lake（OCSF 格式），统一收集 CloudTrail、VPC Flow Logs、Route 53、Security Hub 发现。</td></tr>
+<tr><td>事件调查</td><td>Amazon Detective（基于 GuardDuty、CloudTrail、Flow Logs 构建行为图）。</td></tr>
+<tr><td>合规审计证据</td><td>AWS Audit Manager；AWS Artifact 下载 AWS 合规报告（SOC、PCI）。</td></tr>
+</table></div>
+<div class="callout trap"><b class="t">陷阱</b>Security Hub 依赖 AWS Config 记录资源；GuardDuty 不需要你开启 VPC Flow Logs/DNS 日志（它直接从底层获取）。</div>
+
+<h3 id="d1-cost">3.5 多账户成本可见性与控制</h3>
+<ul>
+<li><b>合并账单</b>：用量累计享受阶梯价；RI 和 Savings Plans 默认在组织内共享，可在管理账户<b>按账户关闭共享</b>。</li>
+<li><b>成本分配标签</b>：必须在<b>管理账户（付款账户）中激活</b>后才出现在账单/Cost Explorer；AWS 生成标签（如 <code>aws:createdBy</code>）也需激活。</li>
+<li><b>Tag Policy + SCP</b>：Tag Policy 规范取值；SCP 用 <code>aws:RequestTag</code> 条件强制创建资源时必须带标签。</li>
+<li><b>Cost Categories</b>：按规则把成本归类到业务单元。<b>AWS Billing Conductor</b>：自定义计费视图（内部 Showback/Chargeback，或转售）。</li>
+<li><b>AWS Budgets</b>：成本/用量/RI/SP 覆盖率预算；Budget Actions 可自动附加 IAM 策略/SCP 或停止 EC2/RDS。</li>
+<li><b>CUR 2.0 / Data Exports</b>：最细粒度账单数据 → S3 → Athena/QuickSight 分析。</li>
+<li><b>Cost Anomaly Detection</b>：基于机器学习的异常支出告警。</li>
+</ul>
+</section>
+
+<!-- ============ 4 Domain 2 ============ -->
+<section class="chapter" id="d2" data-title="域2 新方案设计">
+<h2>4. 域 2：新解决方案设计 <span class="tag">29%</span> <label class="chk"><input type="checkbox" data-done="d2">已读</label></h2>
+<p>考察任务：部署策略、业务连续性、安全控制、可靠性、性能目标、成本优化。权重最大。</p>
+
+<h3 id="d2-deploy">4.1 部署策略与基础设施即代码</h3>
+<div class="table-wrap"><table>
+<tr><th>工具</th><th>要点</th></tr>
+<tr><td>CloudFormation</td><td>Change Set 预览变更；DeletionPolicy（Retain/Snapshot）；Stack Policy 防止关键资源被更新；Drift Detection；Custom Resource（Lambda）；嵌套栈 & 跨栈引用（Export/ImportValue）；<b>cfn-init + cfn-signal / CreationPolicy</b> 等待实例就绪。</td></tr>
+<tr><td>StackSets</td><td>跨账户、跨区域部署。<b>Service-managed</b> 权限（与 Organizations 集成，新账户加入 OU 时自动部署）vs <b>Self-managed</b>（手动建 Admin/Execution 角色）。</td></tr>
+<tr><td>CDK</td><td>用编程语言定义，合成为 CloudFormation。</td></tr>
+<tr><td>Service Catalog</td><td>管理员定义 Portfolio/Product（CFN 模板）；<b>Launch Constraint</b> 指定 IAM 角色代用户创建资源 → 用户只需 Service Catalog 权限。TagOptions 强制标签。可跨账户共享 Portfolio。</td></tr>
+<tr><td>Systems Manager</td><td>Parameter Store（配置/密钥，层级、版本）、AppConfig（特性开关、配置渐进部署 + 自动回滚）。</td></tr>
+<tr><td>Elastic Beanstalk</td><td>PaaS；适合"最少运维地快速部署 Web 应用"。</td></tr>
+</table></div>
+
+<h4>部署方式对比</h4>
+<div class="table-wrap"><table>
+<tr><th>策略</th><th>停机</th><th>回滚速度</th><th>成本</th><th>说明</th></tr>
+<tr><td>All-at-once / In-place</td><td>有</td><td>慢（重新部署）</td><td>低</td><td>开发环境</td></tr>
+<tr><td>Rolling</td><td>无，但容量下降</td><td>慢</td><td>低</td><td>分批更新</td></tr>
+<tr><td>Rolling with additional batch</td><td>无，容量不降</td><td>慢</td><td>中</td><td>Beanstalk 特有</td></tr>
+<tr><td>Immutable</td><td>无</td><td>快（删新 ASG）</td><td>高（临时双倍）</td><td>在新 ASG 部署，健康后切换</td></tr>
+<tr><td>Blue/Green</td><td>无</td><td>最快（切回流量）</td><td>高</td><td>Route 53 加权、ALB 目标组切换、Beanstalk Swap URL、CodeDeploy ECS 蓝绿</td></tr>
+<tr><td>Canary / Linear</td><td>无</td><td>快</td><td>中</td><td>CodeDeploy for Lambda/ECS（如 Canary10Percent5Minutes）、API Gateway Canary、Lambda 别名加权</td></tr>
+</table></div>
+<div class="callout trap"><b class="t">陷阱：DNS 切换</b>Route 53 蓝绿受客户端 DNS 缓存（TTL）影响，切换不是即时的；需要立即切换时选 ALB 层切换或 Global Accelerator 权重。</div>
+
+<h3 id="d2-dr">4.2 业务连续性与灾难恢复</h3>
+<p><b>RPO</b>（Recovery Point Objective）= 可容忍丢失多少数据；<b>RTO</b>（Recovery Time Objective）= 可容忍多久恢复服务。</p>
+<div class="spectrum">
+<div><b>Backup &amp; Restore</b>RPO/RTO：小时级<br>成本：最低<br>仅备份数据，灾难时用 IaC 重建全部资源。</div>
+<div><b>Pilot Light</b>RPO：分钟级 / RTO：数十分钟<br>核心数据实时复制（DB 运行），应用服务器<b>关闭或不存在</b>，灾难时启动并扩容。</div>
+<div><b>Warm Standby</b>RPO：秒级 / RTO：分钟级<br>完整环境<b>以缩小规模运行</b>，可处理少量流量，灾难时扩容。</div>
+<div><b>Multi-site Active/Active</b>RPO/RTO：接近零<br>成本：最高<br>多区域同时承载生产流量。</div>
+</div>
+<div class="callout tip"><b class="t">区分 Pilot Light 与 Warm Standby</b>问自己：备用区域的<b>应用层</b>能否立即处理请求？能（哪怕规模小）→ Warm Standby；不能，需要先启动 → Pilot Light。</div>
+
+<h4>各服务的 DR 能力</h4>
+<div class="table-wrap"><table>
+<tr><th>服务</th><th>DR 能力</th></tr>
+<tr><td>Aurora Global Database</td><td>存储层异步跨区域复制（通常 &lt;1 秒）；托管切换（switchover，无数据丢失）/ 故障转移（failover）分钟级 RTO；Write Forwarding 让次要区域转发写入。</td></tr>
+<tr><td>RDS</td><td>Multi-AZ（同步，高可用，非读扩展）；Multi-AZ DB Cluster（1 写 2 可读备用）；跨区域只读副本（异步，可提升为主库）；自动备份跨区域复制。</td></tr>
+<tr><td>DynamoDB</td><td>Global Tables（多区域多活，最后写入者胜出；也提供多区域强一致性选项）；PITR（35 天内任意时间点）；按需备份。</td></tr>
+<tr><td>S3</td><td>CRR/SRR（需开版本控制）；<b>Replication Time Control（RTC）</b>：99.99% 对象 15 分钟内复制（有 SLA）；<b>Batch Replication</b> 复制已有对象；Multi-Region Access Points 自动路由与故障转移。</td></tr>
+<tr><td>EBS / AMI</td><td>快照跨区域复制；Data Lifecycle Manager 自动化；快照归档层。</td></tr>
+<tr><td>AWS Backup</td><td>集中策略，支持 EC2/EBS/RDS/Aurora/DynamoDB/EFS/FSx/S3 等；跨区域、跨账户复制；<b>Vault Lock</b>（WORM，Compliance 模式不可变）；逻辑隔离保管库（logically air-gapped vault）防勒索。</td></tr>
+<tr><td>Elastic Disaster Recovery（DRS）</td><td>持续块级复制本地/云上服务器到低成本暂存区；秒级 RPO、分钟级 RTO；支持定期演练和回切（failback）。</td></tr>
+<tr><td>Route 53</td><td>健康检查 + 故障转移路由；ARC（Application Recovery Controller）提供路由控制和就绪检查，实现可控的区域切换。</td></tr>
+<tr><td>ElastiCache</td><td>Global Datastore（Redis/Valkey 跨区域复制）。</td></tr>
+<tr><td>EFS / FSx</td><td>EFS 跨区域复制；FSx for ONTAP SnapMirror；FSx 备份。</td></tr>
+</table></div>
+
+<h3 id="d2-sec">4.3 安全控制设计</h3>
+<h4>KMS 要点</h4>
+<ul>
+<li>密钥类型：AWS 拥有的密钥、AWS 托管密钥（<code>aws/s3</code>，不能改策略，不能跨账户共享）、<b>客户托管密钥（CMK）</b>（可控策略、轮换、跨账户）。</li>
+<li><b>Key Policy 是必须的</b>：没有 key policy 授权，IAM 策略也无效（除非 key policy 委托给账户 root 允许 IAM 控制）。</li>
+<li>跨账户使用：Key Policy 允许对方账户 <b>且</b> 对方账户 IAM 策略允许。</li>
+<li><b>Grants</b>：临时、程序化授权（如 EBS、RDS 内部使用）。</li>
+<li>直接加密最多 4 KB → 更大数据用<b>信封加密</b>（GenerateDataKey）。</li>
+<li><b>多区域密钥（Multi-Region Keys）</b>：相同密钥 ID 和材料复制到其他区域，跨区域解密无需重新加密（DynamoDB Global Tables、跨区域加密数据）。</li>
+<li><b>加密的 EBS 快照/AMI 跨账户共享</b>：必须使用 CMK 并共享密钥；AWS 托管密钥加密的快照需先用 CMK 重新加密复制。</li>
+<li>导入密钥材料（BYOK）、<b>CloudHSM</b>（单租户 HSM，你独占控制密钥，适合合规要求完全自主管理）、<b>External Key Store（XKS）</b>（密钥留在本地 HSM）。</li>
+<li>自动轮换：CMK 可开启自动轮换（可配置周期），旧版本材料保留以解密历史数据。</li>
+</ul>
+
+<h4>密钥/凭证管理</h4>
+<div class="table-wrap"><table>
+<tr><th></th><th>Secrets Manager</th><th>SSM Parameter Store</th></tr>
+<tr><td>自动轮换</td><td>✓（内置 RDS/Redshift/DocumentDB，或自定义 Lambda）</td><td>✗（需自己实现）</td></tr>
+<tr><td>跨区域复制</td><td>✓</td><td>✗</td></tr>
+<tr><td>成本</td><td>按密钥收费</td><td>标准参数免费</td></tr>
+<tr><td>选择</td><td>数据库密码、需轮换的凭证</td><td>配置值、低成本的 SecureString</td></tr>
+</table></div>
+
+<h4>数据保护</h4>
+<ul>
+<li><b>S3</b>：Block Public Access（账户级/组织级）；默认 SSE-S3 加密；SSE-KMS（审计、权限控制，注意 KMS 请求配额，可用 <b>S3 Bucket Key</b> 降低 KMS 调用成本）；SSE-C；客户端加密。Object Ownership 设为 Bucket owner enforced（禁用 ACL）。</li>
+<li><b>Object Lock</b>：Governance 模式（有特殊权限可删除）vs <b>Compliance 模式（任何人包括 root 都不能删除/缩短保留期）</b>；Legal Hold 无期限保留。</li>
+<li><b>Macie</b>：发现 S3 中的 PII。</li>
+<li><b>ACM</b>：免费公有证书自动续期（ALB、CloudFront、API Gateway）；CloudFront 证书必须在 <b>us-east-1</b>。<b>AWS Private CA</b>：内部私有证书。</li>
+<li>传输加密：ALB/NLB TLS 终止；NLB TLS 透传（端到端加密，证书在后端）。</li>
+</ul>
+
+<h4>边缘与应用防护</h4>
+<ul>
+<li><b>AWS WAF</b>：部署在 CloudFront、ALB、API Gateway、AppSync、Cognito；托管规则组、速率限制规则、地理匹配、Bot Control、Fraud Control（账户接管防护）。</li>
+<li><b>Shield Standard</b>（免费，L3/L4）；<b>Shield Advanced</b>：L3/L4/L7 保护、SRT（Shield 响应团队）、DDoS 成本保护（扩容费用退还）、健康检查感知检测。</li>
+<li><b>CloudFront</b>：OAC 访问私有 S3（取代 OAI）；签名 URL（单文件）/签名 Cookie（多文件）；字段级加密；地理限制；自定义源限制只接受 CloudFront（自定义 Header 或 CloudFront 托管前缀列表 + 安全组）。</li>
+<li><b>Cognito</b>：User Pool（用户目录、OAuth/OIDC、MFA、社交登录）；Identity Pool（换取 AWS 临时凭证）；ALB 可直接集成 Cognito 认证。</li>
+<li><b>Verified Access</b>：无 VPN 的零信任访问企业应用。</li>
+</ul>
+
+<h3 id="d2-rel">4.4 可靠性：解耦、伸缩与集成</h3>
+<h4>消息与事件服务对比</h4>
+<div class="table-wrap"><table>
+<tr><th>服务</th><th>模型</th><th>关键特征</th><th>选择时机</th></tr>
+<tr><td>SQS Standard</td><td>队列（拉取）</td><td>几乎无限吞吐；至少一次；可能乱序</td><td>削峰、解耦</td></tr>
+<tr><td>SQS FIFO</td><td>队列</td><td>严格顺序（按 Message Group）、恰好一次处理（去重）；吞吐有限（高吞吐模式可提升）</td><td>订单、金融交易顺序</td></tr>
+<tr><td>SNS</td><td>发布/订阅（推送）</td><td>扇出到 SQS/Lambda/HTTP/Email/SMS；消息过滤；FIFO Topic</td><td>一对多通知、扇出</td></tr>
+<tr><td>EventBridge</td><td>事件总线</td><td>基于内容规则路由、SaaS 集成、跨账户事件总线、Archive &amp; Replay、Scheduler、Pipes</td><td>事件驱动架构、AWS 服务事件</td></tr>
+<tr><td>Kinesis Data Streams</td><td>流</td><td>分片内有序、多个消费者可重放；保留 24h–365 天</td><td>实时分析、点击流、日志</td></tr>
+<tr><td>Data Firehose</td><td>投递</td><td>全托管、近实时（有缓冲）、可用 Lambda 转换；投递到 S3/Redshift/OpenSearch/Splunk/HTTP</td><td>把流数据落地，零运维</td></tr>
+<tr><td>Amazon MQ</td><td>Broker</td><td>ActiveMQ / RabbitMQ，兼容 JMS/AMQP/MQTT/STOMP</td><td><b>迁移</b>本地使用标准协议的消息系统，不改代码</td></tr>
+<tr><td>MSK</td><td>Kafka</td><td>托管 Kafka（含 Serverless）</td><td>已有 Kafka 生态</td></tr>
+<tr><td>Step Functions</td><td>编排</td><td>状态机、重试/补偿、人工审批（回调 Token）；Standard（最长 1 年）vs Express（高频短时）</td><td>多步骤工作流、Saga 模式</td></tr>
+</table></div>
+<ul>
+<li>SQS 要点：可见性超时（处理时间 &gt; 超时会重复消费）、DLQ（maxReceiveCount）、长轮询（最多 20 秒，减少空响应和成本）、延迟队列（最多 15 分钟）、超大消息用 S3（Extended Client Library）。</li>
+<li>按队列深度伸缩：自定义指标 <b>"每实例积压量（Backlog per instance）"</b> + 目标跟踪策略。</li>
+</ul>
+
+<h4>Auto Scaling 与负载均衡</h4>
+<ul>
+<li>伸缩策略：目标跟踪（首选）、步进、简单、<b>计划伸缩</b>（可预测高峰）、<b>预测性伸缩</b>（ML 预测周期性负载）。</li>
+<li><b>Warm Pool</b>：预初始化实例，缩短启动时间。<b>生命周期挂钩</b>：启动/终止时执行脚本（如终止前上传日志）。</li>
+<li>混合实例策略：On-Demand 基础容量 + Spot 多实例类型，分配策略 <code>price-capacity-optimized</code>。</li>
+<li><b>ALB</b>（L7，路径/主机/Header 路由，Lambda 目标，认证）；<b>NLB</b>（L4，静态 IP/EIP，超高性能，PrivateLink 必需，保留源 IP）；<b>GWLB</b>（安全设备）。</li>
+<li>跨可用区负载均衡：ALB 默认开启；NLB/GWLB 默认关闭（开启会产生跨 AZ 费用）。</li>
+<li>健康检查：ASG 默认只用 EC2 状态检查，需<b>启用 ELB 健康检查</b>才能替换应用层不健康实例。</li>
+</ul>
+
+<h4>Serverless 要点</h4>
+<ul>
+<li><b>Lambda</b>：最长 15 分钟；内存最大 10 GB；预置并发（消除冷启动）；预留并发（限制/保证并发）；SnapStart（Java 等，减少冷启动）；VPC 内 Lambda 访问互联网需 NAT。超过 15 分钟的任务 → Step Functions、ECS Fargate、AWS Batch。</li>
+<li><b>API Gateway</b>：REST（功能最全：API Key/使用计划、请求验证、缓存、WAF、私有 API）vs HTTP（便宜、低延迟、JWT 授权）vs WebSocket；默认集成超时 29 秒；节流 429；端点类型 Edge-optimized / Regional / Private。</li>
+<li><b>RDS Proxy</b>：连接池，解决 Lambda 连接风暴；故障转移更快；可强制 IAM 认证。</li>
+</ul>
+
+<h3 id="d2-perf">4.5 性能：计算、存储、数据库选型</h3>
+<h4>计算选型</h4>
+<div class="table-wrap"><table>
+<tr><th>选项</th><th>适用</th></tr>
+<tr><td>EC2</td><td>需要 OS 控制、特定许可（Dedicated Host 用于 BYOL 按物理核/插槽计费的许可）</td></tr>
+<tr><td>Placement Group</td><td>Cluster（低延迟高吞吐，HPC，单 AZ）、Spread（每机架 1 个实例，最多 7 个/AZ，关键实例隔离）、Partition（Hadoop/Kafka/Cassandra 大规模分布式）</td></tr>
+<tr><td>HPC</td><td>EFA（Elastic Fabric Adapter，MPI 低延迟）、ParallelCluster、FSx for Lustre、AWS Batch</td></tr>
+<tr><td>ECS / EKS + Fargate</td><td>容器，免管理节点；EKS 适合已有 Kubernetes</td></tr>
+<tr><td>App Runner</td><td>从源码/镜像最快上线 Web 服务</td></tr>
+<tr><td>Lambda</td><td>事件驱动、短时任务</td></tr>
+<tr><td>Graviton</td><td>更好的性价比（ARM）</td></tr>
+</table></div>
+
+<h4>存储选型</h4>
+<div class="table-wrap"><table>
+<tr><th>服务</th><th>协议/类型</th><th>要点</th></tr>
+<tr><td>EBS gp3</td><td>块存储</td><td>基线 3,000 IOPS / 125 MB/s，IOPS 与吞吐可独立配置，比 gp2 便宜</td></tr>
+<tr><td>EBS io2 Block Express</td><td>块存储</td><td>最高约 256,000 IOPS，亚毫秒延迟，支持 Multi-Attach（同 AZ 多实例）</td></tr>
+<tr><td>EBS st1 / sc1</td><td>HDD</td><td>大数据顺序吞吐 / 冷数据最便宜；不能做启动盘</td></tr>
+<tr><td>Instance Store</td><td>本地 NVMe</td><td>极高 IOPS，实例停止后数据丢失（临时数据、缓存）</td></tr>
+<tr><td>EFS</td><td>NFS（Linux）</td><td>多 AZ 共享，弹性伸缩；Standard/IA/Archive 存储类；Elastic Throughput</td></tr>
+<tr><td>FSx for Windows</td><td>SMB</td><td>AD 集成、DFS 命名空间、Windows ACL、Multi-AZ</td></tr>
+<tr><td>FSx for Lustre</td><td>Lustre</td><td>HPC/ML 高性能，与 S3 关联（懒加载 + 写回）；Scratch（临时）vs Persistent</td></tr>
+<tr><td>FSx for NetApp ONTAP</td><td>NFS + SMB + iSCSI</td><td>多协议、快照、SnapMirror、重复数据删除；迁移本地 NetApp 首选</td></tr>
+<tr><td>FSx for OpenZFS</td><td>NFS</td><td>迁移本地 ZFS，低延迟</td></tr>
+<tr><td>S3</td><td>对象</td><td>见下表</td></tr>
+</table></div>
+
+<h4>S3 存储类</h4>
+<div class="table-wrap"><table>
+<tr><th>存储类</th><th>最短存储期</th><th>检索</th><th>场景</th></tr>
+<tr><td>Standard</td><td>—</td><td>毫秒</td><td>热数据</td></tr>
+<tr><td>Intelligent-Tiering</td><td>—（小监控费）</td><td>毫秒（可选归档层）</td><td>访问模式未知/变化</td></tr>
+<tr><td>Standard-IA</td><td>30 天</td><td>毫秒，有检索费</td><td>不常访问但需立即可用</td></tr>
+<tr><td>One Zone-IA</td><td>30 天</td><td>毫秒</td><td>可重建的数据（单 AZ）</td></tr>
+<tr><td>Glacier Instant Retrieval</td><td>90 天</td><td>毫秒</td><td>每季度访问一次的归档</td></tr>
+<tr><td>Glacier Flexible Retrieval</td><td>90 天</td><td>加急 1–5 分钟 / 标准 3–5 小时 / 批量 5–12 小时</td><td>归档备份</td></tr>
+<tr><td>Glacier Deep Archive</td><td>180 天</td><td>标准 12 小时内 / 批量 48 小时内</td><td>合规长期保存（最便宜）</td></tr>
+</table></div>
+<ul>
+<li>性能：每个前缀 3,500 PUT / 5,500 GET 每秒，多前缀并行扩展；大文件分段上传；<b>Transfer Acceleration</b>（远距离上传）；Byte-range fetch 并行下载；S3 Express One Zone（单 AZ 极低延迟）。</li>
+<li>S3 Select / Athena 查询对象内容；S3 Inventory + Batch Operations 批量处理海量对象。</li>
+</ul>
+
+<h4>数据库选型</h4>
+<div class="table-wrap"><table>
+<tr><th>需求</th><th>服务</th></tr>
+<tr><td>关系型，高可用、自动扩展存储、读扩展</td><td>Aurora（6 副本 3 AZ，最多 15 个读副本，Serverless v2，Global Database）</td></tr>
+<tr><td>商业数据库/特定版本</td><td>RDS（Oracle、SQL Server、Db2）；需 OS 级访问 → RDS Custom</td></tr>
+<tr><td>Key-Value，毫秒级，无限扩展</td><td>DynamoDB（按需/预置；GSI/LSI；Streams；TTL）</td></tr>
+<tr><td>DynamoDB 微秒级读缓存</td><td>DAX</td></tr>
+<tr><td>缓存/会话/排行榜</td><td>ElastiCache（Redis/Valkey：持久化、复制、复杂数据结构；Memcached：简单多线程）</td></tr>
+<tr><td>持久化的 Redis 兼容主库</td><td>MemoryDB</td></tr>
+<tr><td>文档数据库（MongoDB 兼容）</td><td>DocumentDB</td></tr>
+<tr><td>图数据库（社交、欺诈、知识图谱）</td><td>Neptune</td></tr>
+<tr><td>时序数据（IoT、指标）</td><td>Timestream</td></tr>
+<tr><td>Cassandra 兼容</td><td>Keyspaces</td></tr>
+<tr><td>不可变账本</td><td>QLDB 已宣布停止服务 → 改用 Aurora PostgreSQL 等方案</td></tr>
+<tr><td>数据仓库 / OLAP</td><td>Redshift（RA3 计算存储分离、Spectrum 查询 S3、Data Sharing、Serverless、Concurrency Scaling）</td></tr>
+<tr><td>全文搜索 / 日志分析</td><td>OpenSearch Service</td></tr>
+<tr><td>S3 上即席 SQL</td><td>Athena（用 Parquet/ORC + 分区降低成本）</td></tr>
+</table></div>
+
+<h4>边缘加速</h4>
+<div class="table-wrap"><table>
+<tr><th></th><th>CloudFront</th><th>Global Accelerator</th></tr>
+<tr><td>协议</td><td>HTTP/HTTPS、WebSocket</td><td>TCP / UDP</td></tr>
+<tr><td>缓存</td><td>✓</td><td>✗</td></tr>
+<tr><td>IP</td><td>动态</td><td>2 个静态 Anycast IP（可 BYOIP）</td></tr>
+<tr><td>故障转移</td><td>源组（Origin Group）故障转移</td><td>基于健康检查，秒级跨区域切换，不受 DNS 缓存影响</td></tr>
+<tr><td>场景</td><td>静态/动态网站加速、视频</td><td>游戏、IoT、VoIP、需白名单固定 IP 的 API</td></tr>
+</table></div>
+<p>边缘计算：<b>CloudFront Functions</b>（轻量 JS，Header 改写、URL 重写，极低延迟）vs <b>Lambda@Edge</b>（更强能力，可访问网络、修改源响应）。</p>
+
+<h3 id="d2-cost">4.6 成本优化设计</h3>
+<div class="table-wrap"><table>
+<tr><th>购买方式</th><th>折扣</th><th>灵活性</th><th>适用</th></tr>
+<tr><td>On-Demand</td><td>—</td><td>最高</td><td>短期、不可预测</td></tr>
+<tr><td>Compute Savings Plans</td><td>较高</td><td>任意实例族/区域/OS，覆盖 EC2、Fargate、Lambda</td><td>负载会变化/迁移到容器或 Serverless</td></tr>
+<tr><td>EC2 Instance Savings Plans</td><td>更高</td><td>锁定区域 + 实例族</td><td>稳定的特定实例族</td></tr>
+<tr><td>Standard RI</td><td>最高</td><td>低；可在 RI Marketplace 出售</td><td>稳定负载；RDS、ElastiCache、Redshift、OpenSearch 也用 RI</td></tr>
+<tr><td>Convertible RI</td><td>较低</td><td>可更换实例族</td><td>需更换实例族但要 RI</td></tr>
+<tr><td>Zonal RI / On-Demand Capacity Reservation</td><td>ODCR 本身无折扣（可搭配 SP）</td><td>—</td><td><b>容量保证</b>（关键事件、DR 区域）</td></tr>
+<tr><td>Spot</td><td>最高可达 90%</td><td>可能被回收（2 分钟通知）</td><td>无状态、批处理、CI、容错工作负载</td></tr>
+</table></div>
+<ul>
+<li>其他：Graviton；S3 生命周期 + Intelligent-Tiering；关闭非工作时间开发环境（Instance Scheduler）；VPC 端点替代 NAT 网关访问 S3（节省 NAT 处理费）；CloudFront 降低源站出口流量费；Aurora Serverless v2 应对波动负载；DynamoDB 按需 vs 预置 + Auto Scaling。</li>
+<li>数据传输费：同 AZ 私有 IP 免费；跨 AZ 收费；跨区域收费；出公网收费；入站免费。</li>
+</ul>
+</section>
+
+<!-- ============ 5 Domain 3 ============ -->
+<section class="chapter" id="d3" data-title="域3 持续改进">
+<h2>5. 域 3：现有方案持续改进 <span class="tag">25%</span> <label class="chk"><input type="checkbox" data-done="d3">已读</label></h2>
+<p>典型题型："某公司现有架构如下……出现了 X 问题，如何<b>以最少改动</b>改进？"重点是识别瓶颈，选最小侵入的修复。</p>
+
+<h3 id="d3-ops">5.1 卓越运营</h3>
+<h4>可观测性</h4>
+<ul>
+<li><b>CloudWatch</b>：内存/磁盘指标需要 <b>CloudWatch Agent</b>；Logs Insights 查询；Metric Filter 从日志生成指标；复合告警（Composite Alarm）减少噪声；Anomaly Detection；Contributor Insights（Top-N 分析）；<b>Synthetics Canary</b>（主动探测端点/UI）；RUM（真实用户监控）；Application Signals（APM）。</li>
+<li><b>X-Ray / ADOT</b>：分布式追踪，找出微服务延迟瓶颈。</li>
+<li><b>AWS Health</b>：AWS 侧事件；组织视图；通过 EventBridge 自动化响应（例如计划维护时自动迁移实例）。</li>
+<li><b>Managed Grafana / Managed Prometheus</b>：开源监控栈托管版。</li>
+</ul>
+
+<h4>Systems Manager 全家桶</h4>
+<div class="table-wrap"><table>
+<tr><th>功能</th><th>用途</th></tr>
+<tr><td>Session Manager</td><td>无需 SSH/堡垒机/开放入站端口登录实例，会话记录到 S3/CloudWatch</td></tr>
+<tr><td>Run Command</td><td>批量执行命令</td></tr>
+<tr><td>Patch Manager</td><td>补丁基线 + Maintenance Window + 补丁合规报告</td></tr>
+<tr><td>Automation</td><td>运维手册（Runbook），Config 修复、审批步骤、跨账户跨区域执行</td></tr>
+<tr><td>State Manager</td><td>保持实例配置状态（如持续确保 Agent 安装）</td></tr>
+<tr><td>Inventory</td><td>软件清单收集</td></tr>
+<tr><td>OpsCenter / Incident Manager</td><td>运维事项聚合 / 事件响应、值班升级</td></tr>
+<tr><td>Distributor</td><td>分发软件包</td></tr>
+</table></div>
+<p>前提：实例要安装 SSM Agent、具备 <code>AmazonSSMManagedInstanceCore</code> 权限、能访问 SSM 端点（私有子网可用 VPC 接口端点 ssm / ssmmessages / ec2messages）。混合环境用激活码（Hybrid Activation）管理本地服务器。</p>
+
+<h4>韧性测试</h4>
+<ul>
+<li><b>AWS Fault Injection Service（FIS）</b>：混沌工程实验（终止实例、注入延迟、AZ 故障模拟）。</li>
+<li><b>AWS Resilience Hub</b>：根据 RTO/RPO 目标评估应用韧性并给出建议。</li>
+</ul>
+
+<h3 id="d3-sec">5.2 安全性改进</h3>
+<ul>
+<li>把 EC2 上的长期 Access Key 替换为 <b>实例角色</b>；本地服务器用 IAM Roles Anywhere。</li>
+<li>强制 IMDSv2（防 SSRF 窃取凭证）。</li>
+<li><b>IAM Access Analyzer</b>：外部访问发现、未使用访问发现、基于 CloudTrail 生成最小权限策略、策略校验。</li>
+<li>Config 规则检测 → EventBridge → SSM Automation/Lambda 自动修复（如自动关闭公开 S3、删除 0.0.0.0/0:22 规则）。</li>
+<li>密钥泄露响应：停用密钥 → 轮换 → 用 CloudTrail 检查使用情况 → 撤销角色活跃会话（Revoke active sessions 添加基于时间的 Deny）。</li>
+<li>被入侵 EC2 处理：隔离安全组（注意已有连接会被跟踪，需用 NACL 或无规则 SG 切断）、EBS 快照取证、从 ASG 分离、打标签，<b>不要直接终止</b>。</li>
+<li>Secrets 硬编码 → Secrets Manager + 自动轮换。</li>
+</ul>
+
+<h3 id="d3-perf">5.3 性能与可靠性改进</h3>
+<div class="table-wrap"><table>
+<tr><th>症状</th><th>改进</th></tr>
+<tr><td>RDS 读负载高 CPU</td><td>只读副本 + 读写分离；ElastiCache 缓存热点；迁移 Aurora</td></tr>
+<tr><td>数据库连接耗尽（Lambda）</td><td>RDS Proxy</td></tr>
+<tr><td>DynamoDB 热分区 / 限流</td><td>改进分区键设计（高基数、写分片）；DAX 缓存读；按需模式</td></tr>
+<tr><td>全球用户访问慢</td><td>CloudFront；Global Accelerator；多区域部署 + Route 53 延迟路由</td></tr>
+<tr><td>突发流量导致后端崩溃</td><td>SQS 缓冲解耦；API Gateway 节流；ASG 预测/计划伸缩</td></tr>
+<tr><td>单点故障（单 AZ / 单实例）</td><td>Multi-AZ、ASG 最小 2 跨 AZ、ELB</td></tr>
+<tr><td>批处理窗口不够</td><td>并行化（AWS Batch、Step Functions Map 状态、EMR）</td></tr>
+<tr><td>EC2 磁盘 IO 瓶颈</td><td>gp2 → gp3 提升 IOPS；io2；Instance Store</td></tr>
+<tr><td>共享文件系统性能不足</td><td>EFS 吞吐模式改 Elastic/Provisioned；FSx for Lustre</td></tr>
+<tr><td>S3 上传慢（远距离）</td><td>Transfer Acceleration + 分段上传</td></tr>
+<tr><td>同步调用链导致级联故障</td><td>异步化（SQS/SNS/EventBridge），重试 + 指数退避 + 抖动，DLQ</td></tr>
+</table></div>
+
+<h3 id="d3-cost">5.4 成本优化改进</h3>
+<div class="table-wrap"><table>
+<tr><th>工具</th><th>用途</th></tr>
+<tr><td>Cost Explorer</td><td>趋势分析、预测、RI/SP 购买建议与覆盖率/利用率</td></tr>
+<tr><td>Compute Optimizer</td><td>EC2、ASG、EBS、Lambda、ECS on Fargate、RDS 的规格建议（基于 CloudWatch 指标，内存指标需 Agent）</td></tr>
+<tr><td>Trusted Advisor</td><td>闲置资源、未关联 EIP、低利用率实例；全部检查项需 Business/Enterprise Support</td></tr>
+<tr><td>Cost Optimization Hub</td><td>集中汇总跨账户跨区域的优化建议并估算节省</td></tr>
+<tr><td>S3 Storage Lens</td><td>组织级 S3 用量与活动分析，发现未完成的分段上传、冷数据</td></tr>
+<tr><td>Budgets / Anomaly Detection</td><td>预警与自动动作</td></tr>
+</table></div>
+<p>常见省钱改进：删除未挂载 EBS 和旧快照、释放未关联 EIP、清理未完成分段上传（生命周期规则）、NAT 网关流量改 VPC 端点、gp2 → gp3、按需 → Savings Plans、无状态负载用 Spot、开发环境定时关停。</p>
+</section>
+
+<!-- ============ 6 Domain 4 ============ -->
+<section class="chapter" id="d4" data-title="域4 迁移与现代化">
+<h2>6. 域 4：加速迁移与现代化 <span class="tag">20%</span> <label class="chk"><input type="checkbox" data-done="d4">已读</label></h2>
+
+<h3 id="d4-assess">6.1 迁移评估与 7R 策略</h3>
+<div class="flow"><span>Assess 评估<br><small>Migration Evaluator · 业务案例</small></span><i>→</i><span>Mobilize 准备<br><small>ADS 发现 · Landing Zone · 迁移计划</small></span><i>→</i><span>Migrate &amp; Modernize<br><small>MGN · DMS · DataSync</small></span></div>
+<div class="table-wrap"><table>
+<tr><th>策略</th><th>含义</th><th>典型工具/例子</th></tr>
+<tr><td>Retire</td><td>下线不再需要的应用</td><td>发现阶段识别出无人使用的系统</td></tr>
+<tr><td>Retain</td><td>暂时保留在本地</td><td>近期刚升级、依赖未解决、合规限制</td></tr>
+<tr><td>Rehost（Lift &amp; Shift）</td><td>原样迁到 EC2</td><td>AWS MGN；最快、规模化</td></tr>
+<tr><td>Relocate</td><td>平台级整体迁移，不改应用</td><td>VMware Cloud on AWS、本地 VMware 迁移</td></tr>
+<tr><td>Replatform（Lift, Tinker &amp; Shift）</td><td>少量优化，不改核心架构</td><td>自建 DB → RDS；Tomcat → Beanstalk；容器化</td></tr>
+<tr><td>Repurchase（Drop &amp; Shop）</td><td>换成 SaaS</td><td>自建 CRM → Salesforce</td></tr>
+<tr><td>Refactor / Re-architect</td><td>重写为云原生</td><td>单体 → 微服务 + Serverless；成本最高收益最大</td></tr>
+</table></div>
+
+<h4>发现与评估工具</h4>
+<ul>
+<li><b>Migration Evaluator</b>（原 TSO Logic）：基于实际使用数据生成 TCO / 业务案例。</li>
+<li><b>Application Discovery Service（ADS）</b>：
+  <ul>
+  <li>Agentless Collector：通过 VMware vCenter 收集 VM 配置和使用率（无进程信息）。</li>
+  <li>Discovery Agent：安装在服务器上，收集<b>进程、网络连接 → 依赖关系</b>（物理机、非 VMware 也适用）。</li>
+  <li>数据可导出到 S3 用 Athena 分析。</li>
+  </ul></li>
+<li><b>Migration Hub</b>：跟踪迁移进度；Strategy Recommendations 给出 7R 建议；Orchestrator 迁移工作流模板。</li>
+<li><b>AWS Transform</b>：基于生成式 AI 的迁移/现代化服务（VMware、.NET、大型机等），属于较新的服务。</li>
+</ul>
+
+<h3 id="d4-tools">6.2 服务器与应用迁移</h3>
+<div class="table-wrap"><table>
+<tr><th>工具</th><th>用途</th><th>要点</th></tr>
+<tr><td>AWS Application Migration Service（MGN）</td><td>Rehost 首选</td><td>源服务器装复制 Agent → 持续块级复制到暂存区 → 测试启动 → 切换（分钟级停机）。支持物理机、VMware、Hyper-V、其他云。取代 SMS 和 CloudEndure Migration。</td></tr>
+<tr><td>Elastic Disaster Recovery（DRS）</td><td>DR（非迁移）</td><td>同样的复制技术，用于持续 DR。</td></tr>
+<tr><td>VM Import/Export</td><td>导入 VM 镜像为 AMI</td><td>一次性、少量 VM。</td></tr>
+<tr><td>App2Container</td><td>把 .NET/Java 应用容器化</td><td>生成 Dockerfile、ECS/EKS 部署产物。</td></tr>
+<tr><td>Mainframe Modernization</td><td>大型机迁移</td><td>自动重构（Blu Age）或重新平台（Rocket/Micro Focus 运行时）。</td></tr>
+<tr><td>VMware Cloud on AWS</td><td>Relocate</td><td>保持 vSphere 工具链（注意 Broadcom 收购后的销售模式变化）。</td></tr>
+</table></div>
+
+<h3 id="d4-data">6.3 数据迁移</h3><div class="callout warn"><b class="t">区分旧题能力与当前服务可用性</b>以下 Snowball 场景用于理解离线初始迁移加在线增量同步。Snowball Edge 目前仅对现有客户开放，实际新方案需先确认可用性。</div>
+<h4>先算带宽：传输时间估算</h4>
+<p>时间（秒）≈ 数据量（bit）÷ 实际带宽（bps）。例如 <b>10 TB</b> 经 <b>100 Mbps</b>：10×10<sup>12</sup>×8 ÷ 10<sup>8</sup> = 8×10<sup>5</sup> 秒 ≈ <b>9.3 天</b>（满速理想状态，实际按 70–80% 利用率算更久）。</p>
+<div class="table-wrap"><table>
+<tr><th>数据量 \ 带宽</th><th>100 Mbps</th><th>1 Gbps</th><th>10 Gbps</th></tr>
+<tr><td>1 TB</td><td>≈ 22 小时</td><td>≈ 2.2 小时</td><td>≈ 13 分钟</td></tr>
+<tr><td>10 TB</td><td>≈ 9 天</td><td>≈ 22 小时</td><td>≈ 2.2 小时</td></tr>
+<tr><td>100 TB</td><td>≈ 93 天</td><td>≈ 9 天</td><td>≈ 22 小时</td></tr>
+<tr><td>1 PB</td><td>≈ 2.5 年</td><td>≈ 93 天</td><td>≈ 9 天</td></tr>
+</table></div>
+<div class="callout tip"><b class="t">判断法则</b>网络传输时间超过题目要求（或超过约 1 周），且没有更高带宽可用 → Snowball Edge（多台并行）。若还需要迁移期间的增量 → Snowball 完成初始数据 + DataSync/DMS 同步增量。</div>
+
+<h4>数据迁移工具对比</h4>
+<div class="table-wrap"><table>
+<tr><th>工具</th><th>方式</th><th>源 → 目标</th><th>场景</th></tr>
+<tr><td>DataSync</td><td>在线，Agent，增量，加密，校验，调度</td><td>NFS/SMB/HDFS/对象存储/其他云 → S3/EFS/FSx（也可 AWS 存储之间）</td><td>一次性或周期性大规模文件迁移</td></tr>
+<tr><td>Snowball Edge</td><td>离线设备（Storage Optimized / Compute Optimized）</td><td>本地 → S3</td><td>带宽不足、TB–PB 级；边缘计算</td></tr>
+<tr><td>Storage Gateway – S3 File</td><td>NFS/SMB 前端 + 本地缓存</td><td>本地应用 → S3</td><td>混合存储、渐进迁移、备份到 S3</td></tr>
+<tr><td>Storage Gateway – Volume</td><td>iSCSI；Cached（主数据在 S3）/ Stored（主数据在本地，异步备份为 EBS 快照）</td><td>本地块存储 → AWS</td><td>块存储备份/扩容</td></tr>
+<tr><td>Storage Gateway – Tape</td><td>虚拟磁带库 VTL</td><td>备份软件 → S3/Glacier</td><td>替换物理磁带</td></tr>
+<tr><td>Transfer Family</td><td>SFTP/FTPS/FTP/AS2 托管端点</td><td>合作伙伴 → S3/EFS</td><td>不改变合作伙伴使用方式</td></tr>
+<tr><td>S3 Transfer Acceleration</td><td>经边缘位置加速</td><td>远距离客户端 → S3</td><td>全球上传</td></tr>
+<tr><td>DX / VPN</td><td>网络</td><td>—</td><td>长期混合连接</td></tr>
+</table></div>
+
+<h3 id="d4-db">6.4 数据库迁移</h3>
+<ul>
+<li><b>DMS</b>：全量加载（Full Load）+ <b>持续复制 CDC</b> → 最小停机；源库可继续服务。支持同构/异构；需要复制实例（或 DMS Serverless）。</li>
+<li><b>SCT / DMS Schema Conversion</b>：<b>异构迁移</b>时转换 Schema、存储过程（Oracle → Aurora PostgreSQL，SQL Server → Aurora MySQL 等），给出评估报告。</li>
+<li><b>同构迁移</b>常用原生工具更快：MySQL → Aurora MySQL 可用 Percona XtraBackup 从 S3 恢复、或先建 RDS MySQL 再创建 Aurora 只读副本并提升；PostgreSQL 用原生逻辑复制；SQL Server 原生备份恢复（.bak 存 S3）。</li>
+<li><b>大规模数据库 + 带宽不足</b>：Snowball Edge 运载初始数据 + DMS CDC 追增量。</li>
+<li><b>Babelfish for Aurora PostgreSQL</b>：让 SQL Server 应用（T-SQL/TDS 协议）几乎不改代码地连接 Aurora PostgreSQL。</li>
+<li>DMS 也可把数据库流式输出到 Kinesis / S3（数据湖）/ OpenSearch。</li>
+</ul>
+
+<h3 id="d4-modern">6.5 现代化</h3>
+<div class="table-wrap"><table>
+<tr><th>原架构</th><th>现代化方向</th></tr>
+<tr><td>单体应用在 EC2</td><td>拆分微服务 → ECS/EKS Fargate 或 Lambda；Strangler Fig（绞杀者）模式渐进迁移：用 API Gateway / ALB 路由逐步把功能导向新服务</td></tr>
+<tr><td>cron 定时任务服务器</td><td>EventBridge Scheduler + Lambda / ECS 任务</td></tr>
+<tr><td>文件上传后处理</td><td>S3 事件 → Lambda / Step Functions</td></tr>
+<tr><td>自建消息中间件</td><td>SQS/SNS（可改代码时）；Amazon MQ（不改代码）</td></tr>
+<tr><td>商业数据库许可贵</td><td>迁移 Aurora（PostgreSQL/MySQL）；Babelfish</td></tr>
+<tr><td>自建 Kubernetes</td><td>EKS（托管控制平面），Karpenter 节点伸缩</td></tr>
+<tr><td>本地 Hadoop</td><td>EMR（存算分离 S3）、Athena、Glue</td></tr>
+<tr><td>本地 ETL</td><td>AWS Glue（Serverless Spark、Data Catalog、爬网程序）</td></tr>
+<tr><td>本地数据仓库</td><td>Redshift</td></tr>
+<tr><td>Windows/.NET Framework</td><td>迁到 .NET Core 跑 Linux 容器（AWS Transform for .NET）</td></tr>
+</table></div>
+<p>数据湖治理：<b>Lake Formation</b> 提供表/列/行级权限、跨账户共享、标签化访问控制（LF-TBAC）。</p>
+</section>
+
+<!-- ============ 7 陷阱 ============ -->
+<section class="chapter" id="traps" data-title="易混淆与陷阱">
+<h2>7. 易混淆点与常见陷阱 <label class="chk"><input type="checkbox" data-done="traps">已读</label></h2>
+<div class="grid2">
+<div class="card"><h4>SCP 不授权</h4>SCP 只设定上限，用户仍需 IAM 策略授权。SCP <b>不影响管理账户</b>——题目要"限制所有账户"时，管理账户不在其中。</div>
+<div class="card"><h4>VPC Peering 不传递</h4>A↔B、B↔C 不代表 A↔C；也不能借对方的 IGW/NAT/VPN/DX 出去（edge-to-edge routing 不支持）。</div>
+<div class="card"><h4>网关端点只在本 VPC 有效</h4>本地/对等 VPC 访问 S3 走私网 → S3 接口端点。</div>
+<div class="card"><h4>DX ≠ 加密</h4>要求"加密 + 专线"→ MACsec 或 DX 上跑 VPN。</div>
+<div class="card"><h4>DX 开通需要时间</h4>"下周就要"→ 先 VPN，DX 作为长期方案。</div>
+<div class="card"><h4>Multi-AZ ≠ 读扩展</h4>RDS Multi-AZ 备用实例不可读（Multi-AZ DB Cluster 例外）；读扩展用只读副本。</div>
+<div class="card"><h4>只读副本 ≠ DR 的同步保障</h4>只读副本异步复制，有 RPO；同步 HA 用 Multi-AZ。</div>
+<div class="card"><h4>Firehose 不是实时</h4>有缓冲区（大小/时间），需要毫秒/秒级多消费者 → Kinesis Data Streams。</div>
+<div class="card"><h4>AWS 托管 KMS 密钥不能跨账户</h4>跨账户共享加密快照/AMI → 必须使用客户托管密钥。</div>
+<div class="card"><h4>CloudFront 证书在 us-east-1</h4>ALB 证书在 ALB 所在区域。</div>
+<div class="card"><h4>Object Lock 模式</h4>Governance 可被特权用户绕过；"任何人都不能删除" → Compliance。</div>
+<div class="card"><h4>aws:SourceIp 与 VPC 端点</h4>通过 VPC 端点访问时源 IP 是私网 IP，基于公网 IP 的条件会失效 → 用 <code>aws:SourceVpce</code>。</div>
+<div class="card"><h4>Spot 不适合有状态关键负载</h4>除非有检查点/可中断设计；关键容量用 On-Demand + SP/RI。</div>
+<div class="card"><h4>Savings Plans 不保证容量</h4>需要容量保证 → On-Demand Capacity Reservation 或 Zonal RI。</div>
+<div class="card"><h4>Lambda 15 分钟</h4>长任务 → Fargate / Batch / Step Functions 拆分。</div>
+<div class="card"><h4>安全组 vs NACL</h4>SG 有状态，只有 Allow；NACL 无状态，有 Deny，按规则号顺序评估，需放行临时端口（1024–65535）回包。封禁特定 IP → NACL 或 WAF。</div>
+<div class="card"><h4>Pilot Light vs Warm Standby</h4>备用区应用是否正在运行。</div>
+<div class="card"><h4>DataSync vs Storage Gateway</h4>DataSync = 迁移/同步数据；Storage Gateway = 本地应用持续使用云存储（混合）。</div>
+<div class="card"><h4>MGN vs DMS</h4>MGN 迁移整个服务器（包括其上的数据库，同构）；要换数据库引擎或迁移到 RDS → DMS。</div>
+<div class="card"><h4>Route 53 健康检查私有资源</h4>健康检查器在公网，无法直接检查私有 IP → 用 CloudWatch 告警作为健康检查依据。</div>
+</div>
+</section>
+
+<!-- ============ 8 数字 ============ -->
+<section class="chapter" id="numbers" data-title="数字速记">
+<h2>8. 数字速记 <label class="chk"><input type="checkbox" data-done="numbers">已读</label></h2>
+<div class="table-wrap"><table>
+<tr><th>项目</th><th>数值</th></tr>
+<tr><td>S3 单对象最大 / 单次 PUT</td><td>50 TB / 5 GB（旧资料的 5 TB 上限已更新；大对象使用分段上传）。<a href="https://aws.amazon.com/about-aws/whats-new/2025/12/amazon-s3-maximum-object-size-50-tb/" target="_blank" rel="noopener">官方更新</a></td></tr>
+<tr><td>S3 请求性能</td><td>每前缀 3,500 写 / 5,500 读 每秒</td></tr>
+<tr><td>S3 RTC</td><td>99.99% 对象 15 分钟内复制</td></tr>
+<tr><td>DynamoDB 单项目</td><td>400 KB</td></tr>
+<tr><td>DynamoDB PITR</td><td>最近 35 天</td></tr>
+<tr><td>Lambda</td><td>最长 15 分钟，内存最大 10,240 MB，/tmp 最大 10 GB，默认区域并发 1,000（可提升）</td></tr>
+<tr><td>API Gateway 集成超时</td><td>默认 29 秒</td></tr>
+<tr><td>SQS</td><td>保留 1 分钟–14 天（默认 4 天）；可见性超时默认 30 秒、最大 12 小时；长轮询最多 20 秒；延迟最多 15 分钟</td></tr>
+<tr><td>Kinesis Data Streams</td><td>保留 24 小时（默认）到 365 天；每分片写 1 MB/s 或 1,000 条/s，读 2 MB/s</td></tr>
+<tr><td>Step Functions Standard</td><td>最长运行 1 年</td></tr>
+<tr><td>Spot 中断通知</td><td>2 分钟（另有再平衡建议更早提醒）</td></tr>
+<tr><td>Site-to-Site VPN</td><td>每隧道约 1.25 Gbps，每连接 2 条隧道</td></tr>
+<tr><td>DX 专用连接</td><td>1 / 10 / 100 / 400 Gbps；托管连接 50 Mbps–25 Gbps</td></tr>
+<tr><td>Aurora</td><td>6 份副本跨 3 AZ；最多 15 个只读副本；Global Database 复制延迟通常 &lt;1 秒</td></tr>
+<tr><td>RDS 只读副本</td><td>MySQL/MariaDB/PostgreSQL 最多 15 个</td></tr>
+<tr><td>RDS 自动备份保留</td><td>最长 35 天</td></tr>
+<tr><td>Spread Placement Group</td><td>每 AZ 最多 7 个运行实例</td></tr>
+<tr><td>Glacier 最短存储期</td><td>Instant/Flexible 90 天，Deep Archive 180 天；IA 类 30 天</td></tr>
+<tr><td>CloudTrail 事件历史</td><td>控制台免费查看 90 天管理事件</td></tr>
+<tr><td>KMS 直接加密</td><td>最多 4 KB</td></tr>
+<tr><td>Global Accelerator</td><td>2 个静态 Anycast IP</td></tr>
+<tr><td>EBS gp3 基线</td><td>3,000 IOPS / 125 MB/s</td></tr>
+</table></div>
+<p class="muted">配额会随时间调整，以服务配额文档为准；考试中题目一般会给出关键数字。</p>
+</section>
+
+<!-- ============ 9 练习题 ============ -->
+<section class="chapter" id="practice" data-title="练习题">
+<h2>9. 练习题（原创，SAP 风格） <label class="chk"><input type="checkbox" data-done="practice">已读</label></h2>
+<p class="muted">先自己作答，再点击「查看答案与解析」。</p>
+
+<div class="q"><div class="stem">Q1. 一家公司使用 AWS Organizations 管理 120 个账户。安全团队要求：任何成员账户中的任何用户（包括 root）都不能停止或删除 CloudTrail 日志，也不能让账户离开组织。哪种方案运维开销最少？</div>
+<ol><li>在每个账户中创建 IAM 策略拒绝相关操作并附加给所有用户组</li><li>在组织根上附加一个 SCP，显式拒绝 <code>cloudtrail:StopLogging</code>、<code>cloudtrail:DeleteTrail</code> 和 <code>organizations:LeaveOrganization</code></li><li>使用 AWS Config 规则检测 CloudTrail 是否停止并用 Lambda 重新启用</li><li>在每个账户中启用 CloudTrail 并配置 S3 Object Lock</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：B</b>。SCP 对成员账户的所有主体（包括 root）生效，附加在根上自动覆盖所有现有和新账户。A 无法约束 root 且需逐账户维护；C 是检测后修复而非预防；D 不能阻止停止日志记录。</div></details></div>
+
+<div class="q"><div class="stem">Q2. 一家公司在 3 个区域有 60 个 VPC，并通过 2 条 10 Gbps Direct Connect 连接本地数据中心。所有 VPC 需要互通并能访问本地网络，未来还将增加 VPC。哪种方案最具可扩展性？</div>
+<ol><li>在所有 VPC 之间建立 VPC Peering，并为每个 VPC 创建 Private VIF</li><li>在每个区域部署 Transit Gateway 并建立跨区域 TGW Peering；通过 Direct Connect Gateway 的 Transit VIF 将 TGW 连接到本地</li><li>使用一个 Direct Connect Gateway 关联所有 VPC 的 VGW，实现 VPC 间互通</li><li>在每个 VPC 中部署 EC2 软件 VPN 设备建立全互联</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：B</b>。TGW 提供传递路由与集中化管理，跨区域 TGW Peering 连接多个区域，Transit VIF + DXGW 接入本地。C 错在 DX Gateway 不支持 VPC 间流量传递；A 管理复杂且 Private VIF 数量有限；D 运维负担大。</div></details></div>
+
+<div class="q"><div class="stem">Q3. 本地应用需要解析 AWS 中 Route 53 私有托管区 <code>aws.internal.example.com</code> 的记录，同时 VPC 中的 EC2 需要解析本地域 <code>corp.example.com</code>。应该如何配置？（选两项）</div>
+<ol><li>创建 Route 53 Resolver 入站端点，并在本地 DNS 服务器上为 <code>aws.internal.example.com</code> 配置条件转发到入站端点 IP</li><li>将私有托管区改为公有托管区</li><li>创建 Route 53 Resolver 出站端点，并创建转发规则把 <code>corp.example.com</code> 转发到本地 DNS 服务器，关联到 VPC</li><li>在 VPC DHCP 选项集中把 DNS 服务器改为本地 DNS 服务器 IP</li><li>在 EC2 上部署 BIND 并在每台实例上修改 resolv.conf</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：A、C</b>。入站端点处理"本地 → AWS"，出站端点 + 转发规则处理"AWS → 本地"。B 暴露内部记录；D 会让 VPC 失去解析私有托管区和 AWS 内部名称的能力；E 运维开销大。</div></details></div>
+
+<div class="q"><div class="stem">Q4. 一家 SaaS 提供商需要将 API 服务提供给 300 个客户的 VPC，很多客户 VPC 的 CIDR 与提供商 VPC 重叠。客户只应访问该 API，不能访问提供商的其他资源。最佳方案是？</div>
+<ol><li>与每个客户 VPC 建立 VPC Peering</li><li>使用 Transit Gateway 连接所有客户 VPC</li><li>在 API 前放置 NLB，创建 VPC Endpoint Service（PrivateLink），客户在自己的 VPC 中创建接口端点</li><li>将 API 通过公网 ALB 暴露并使用安全组白名单</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：C</b>。PrivateLink 支持 CIDR 重叠、单向访问、只暴露特定服务，可扩展到大量消费者。A、B 不支持 CIDR 重叠且暴露更广的网络访问；D 走公网，不满足私有访问需求。</div></details></div>
+
+<div class="q"><div class="stem">Q5. 某金融公司使用 Aurora MySQL，要求区域级故障时 RPO 小于 5 秒、RTO 小于 5 分钟，同时希望在次要区域提供低延迟读取。哪种方案最合适？</div>
+<ol><li>每小时将 Aurora 快照复制到另一区域</li><li>创建跨区域 Aurora MySQL 二进制日志只读副本</li><li>使用 Aurora Global Database，在次要区域部署应用读取次要集群，故障时提升次要区域</li><li>使用 AWS DMS 持续复制到另一区域的 RDS MySQL</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：C</b>。Aurora Global Database 存储层复制延迟通常低于 1 秒，可在分钟内完成跨区域故障转移，次要集群支持本地读取。A 的 RPO 为小时级；B 基于 binlog 复制延迟和提升时间更不可控；D 增加运维且 RTO 较长。</div></details></div>
+
+<div class="q"><div class="stem">Q6. 公司需在 3 周内把 150 TB 文件数据从本地 NAS 迁移到 S3，出口带宽为 500 Mbps 且白天已有 60% 被业务占用。迁移期间文件仍会持续变化。哪种方案最合适？</div>
+<ol><li>使用 DataSync 通过现有网络传输所有数据</li><li>在该企业已具备 Snowball Edge 使用资格的前提下，订购多台 Snowball Edge Storage Optimized 设备复制初始数据，导入 S3 后使用 DataSync 同步增量变化</li><li>使用 S3 Transfer Acceleration 上传</li><li>申请 10 Gbps Direct Connect 后再用 DataSync 传输</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：B</b>。150 TB 在约 200–500 Mbps 可用带宽下需要 1–2 个月，无法满足 3 周要求。Snowball Edge 搬运初始数据，DataSync 负责增量与最终切换。D 中 DX 开通通常需要数周，来不及；C 不解决带宽瓶颈。</div></details></div>
+
+<div class="q"><div class="stem">Q7. 一家公司要将本地 Oracle 数据库迁移到 Aurora PostgreSQL 以降低许可成本，数据库包含大量存储过程，业务只能接受几分钟停机。应采取哪些步骤？（选两项）</div>
+<ol><li>使用 AWS SCT（或 DMS Schema Conversion）转换 Schema 和存储过程，并人工处理无法自动转换的部分</li><li>使用 AWS MGN 复制 Oracle 服务器</li><li>使用 AWS DMS 执行全量加载并开启 CDC 持续复制，切换时停止写入并修改应用连接</li><li>使用 Oracle Data Pump 导出并在 Aurora 中导入</li><li>使用 DataSync 复制 Oracle 数据文件到 S3</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：A、C</b>。异构迁移需先转换 Schema，再用 DMS 全量 + CDC 实现最小停机。B 只会把 Oracle 原样搬到 EC2，不改变引擎；D、E 不适用于异构目标且停机长。</div></details></div>
+
+<div class="q"><div class="stem">Q8. 公司计划在 6 个月内把数据中心中 800 台 VMware 虚拟机迁移到 AWS，要求尽量不改动应用，切换停机时间以分钟计。最合适的工具是？</div>
+<ol><li>VM Import/Export</li><li>AWS Application Migration Service（MGN）</li><li>AWS DataSync</li><li>手动重建 AMI 并用 CloudFormation 部署</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：B</b>。MGN 提供持续块级复制、非破坏性测试和分钟级切换，适合大规模 Rehost。A 适合少量 VM 的一次性导入，停机长；C 迁移文件而非服务器；D 工作量巨大。</div></details></div>
+
+<div class="q"><div class="stem">Q9. 迁移前，架构师需要了解 400 台服务器（包含物理机和 VMware）之间的网络依赖关系，以便规划迁移波次。应使用什么？</div>
+<ol><li>Application Discovery Service Agentless Collector</li><li>在所有服务器上安装 Application Discovery Service Discovery Agent，在 Migration Hub 中查看网络依赖</li><li>VPC Flow Logs</li><li>Migration Evaluator</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：B</b>。Discovery Agent 收集进程和网络连接数据，可得到依赖关系，并适用于物理机。A 仅适用于 VMware 且不提供进程级依赖；C 只用于 AWS 中的 VPC；D 侧重 TCO 业务案例。</div></details></div>
+
+<div class="q"><div class="stem">Q10. 一家全球在线游戏公司在 2 个区域运行基于 UDP 的游戏服务器。玩家客户端需要访问固定 IP 地址，并要求区域故障时快速自动切换。应使用什么？</div>
+<ol><li>CloudFront 分发</li><li>Route 53 延迟路由 + 健康检查</li><li>AWS Global Accelerator，终端节点组指向两个区域的 NLB</li><li>每个区域使用弹性 IP，客户端内置两组 IP</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：C</b>。Global Accelerator 支持 UDP、提供静态 Anycast IP，并基于健康检查秒级切换，不受 DNS 缓存影响。A 不支持 UDP；B 不提供固定 IP 且受 TTL 影响；D 需要客户端逻辑。</div></details></div>
+
+<div class="q"><div class="stem">Q11. 合规要求本地数据中心到 AWS 的所有流量都必须加密，公司已有 10 Gbps 专用 Direct Connect 连接，需要尽量保持高吞吐。最佳方案是？</div>
+<ol><li>改用互联网上的 Site-to-Site VPN</li><li>在支持的 DX 位置和设备上启用 MACsec</li><li>依赖 Direct Connect 默认加密</li><li>在应用层改用 HTTP</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：B</b>。MACsec 在二层提供线速加密，适合 10/100 Gbps 专用连接。C 错误：DX 默认不加密；A 每隧道约 1.25 Gbps，吞吐不足；D 不安全。若设备不支持 MACsec，可在 DX 之上建立 IPsec VPN（结合 TGW ECMP 扩展吞吐）。</div></details></div>
+
+<div class="q"><div class="stem">Q12. 开发团队需要自助创建符合公司标准的 EMR 集群和 RDS 数据库，但安全团队不希望授予开发者创建这些资源的直接 IAM 权限。哪种方案最合适？</div>
+<ol><li>为开发者授予 AdministratorAccess 并用 Config 审计</li><li>使用 AWS Service Catalog 发布产品，设置 Launch Constraint 指定一个具备必要权限的 IAM 角色，并只授予开发者访问组合（Portfolio）的权限</li><li>让开发者向运维团队提交工单</li><li>使用 CloudFormation StackSets 部署所有可能的资源</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：B</b>。Service Catalog 的 Launch Constraint 让资源由指定角色创建，开发者仅需 Service Catalog 权限即可自助、合规地部署。</div></details></div>
+
+<div class="q"><div class="stem">Q13. 某公司计算支出稳定在每小时约 50 美元，但计划在一年内将部分 EC2 工作负载迁移到 Fargate 和 Lambda，同时可能更换实例族和区域。哪种购买方式最具成本效益？</div>
+<ol><li>3 年 Standard RI</li><li>EC2 Instance Savings Plans</li><li>Compute Savings Plans</li><li>Spot 实例</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：C</b>。Compute Savings Plans 适用于任意实例族、区域、OS，并覆盖 Fargate 与 Lambda，最适合计划变化的场景。A、B 绑定实例族/区域；D 不适合稳定的关键负载。</div></details></div>
+
+<div class="q"><div class="stem">Q14. 公司有 40 个 Spoke VPC 通过 Transit Gateway 互联，需要对所有 VPC 间流量和出站互联网流量进行有状态检查。部署 AWS Network Firewall 后发现部分连接被丢弃。最可能的原因和修复是？</div>
+<ol><li>Network Firewall 不支持 TGW，需改用 VPC Peering</li><li>在 Inspection VPC 的 TGW 挂载上未启用 Appliance Mode，导致非对称路由；启用 Appliance Mode</li><li>需为每个 Spoke VPC 部署 NAT Gateway</li><li>需要将安全组改为 NACL</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：B</b>。没有 Appliance Mode 时，TGW 可能将去程和回程流量送到不同 AZ 的防火墙端点，有状态检查会丢弃这些"半连接"。</div></details></div>
+
+<div class="q"><div class="stem">Q15. 一家公司有 2,000 台 EC2 Linux/Windows 实例分布在多个账户，安全团队要求每月按计划打补丁并提供合规报告，且禁止开放 SSH/RDP 端口。最佳方案是？</div>
+<ol><li>使用堡垒机手动登录打补丁</li><li>使用 Systems Manager Patch Manager 配置补丁基线与维护窗口，借助 Session Manager 在需要时访问实例，通过 Patch 合规报告和 Explorer 汇总</li><li>每月用新 AMI 替换所有实例</li><li>在用户数据中添加 yum update 并每月重启实例</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：B</b>。SSM Patch Manager 和 Maintenance Window 实现规模化补丁与合规报告；Session Manager 无需开放入站端口。C 对不可变架构可行，但对 2,000 台异构实例运维成本高且不提供合规报告。</div></details></div>
+
+<div class="q"><div class="stem">Q16. 监管要求某些交易记录保存 7 年，期间任何人（包括账户 root）都不能删除或覆盖。数据存储在 S3，读取频率极低。最具成本效益的方案是？</div>
+<ol><li>S3 Standard + 版本控制 + MFA Delete</li><li>启用 S3 Object Lock Compliance 模式，保留期 7 年，并使用生命周期规则将对象转为 Glacier Deep Archive</li><li>Object Lock Governance 模式 + S3 Standard-IA</li><li>使用 IAM 策略拒绝 s3:DeleteObject</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：B</b>。Compliance 模式下任何人都无法删除或缩短保留期；Deep Archive 成本最低。C 的 Governance 可被特权绕过；A、D 均可被 root 或管理员更改。</div></details></div>
+
+<div class="q"><div class="stem">Q17. 某 Serverless 应用使用 API Gateway + Lambda + RDS PostgreSQL。促销活动期间出现大量 "too many connections" 错误，数据库 CPU 并不高。改动最小的修复是？</div>
+<ol><li>将 RDS 实例升级到更大规格</li><li>部署 RDS Proxy，并让 Lambda 连接代理端点</li><li>改用 DynamoDB</li><li>将 Lambda 预留并发设为 1</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：B</b>。问题是连接数而非算力，RDS Proxy 对连接进行池化和复用。A 只能小幅提高 max_connections；C 需重构；D 会严重限制吞吐。</div></details></div>
+
+<div class="q"><div class="stem">Q18. 某公司希望保证组织中所有 S3 存储桶只能被本组织内的 IAM 主体访问（AWS 服务代表本组织访问的情况除外），即使某个账户管理员错误地在 bucket policy 中授予了外部账户访问。哪种方案最适合并能自动覆盖新账户？</div>
+<ol><li>在每个存储桶的 bucket policy 中加入 <code>aws:PrincipalOrgID</code> 条件</li><li>在组织根上附加 Resource Control Policy（RCP），拒绝 <code>aws:PrincipalOrgID</code> 不等于本组织 ID 的主体访问 S3（并为 AWS 服务主体设置例外）</li><li>使用 SCP 拒绝 s3:PutBucketPolicy</li><li>用 Macie 定期扫描公开存储桶</li></ol>
+<details><summary>查看答案与解析</summary><div class="ans"><b>答案：B</b>。RCP 在资源侧设定最大权限，集中强制数据边界，无论单个 bucket policy 如何配置，并自动覆盖新账户。A 需要逐桶维护且可被管理员修改；C 会阻碍正常运维；D 只是检测。</div></details></div>
+</section>
+
+<!-- ============ 10 计划 ============ -->
+<section class="chapter" id="plan" data-title="复习计划与资源">
+<h2>10. 复习计划与资源 <label class="chk"><input type="checkbox" data-done="plan">已读</label></h2>
+<h4>6 周复习计划（每天约 2 小时，可按基础调整）</h4>
+<div class="table-wrap"><table>
+<tr><th>周</th><th>内容</th><th>产出</th></tr>
+<tr><td>第 1 周</td><td>域 1：Organizations / SCP / RCP / Control Tower / Identity Center；网络（TGW、DX、VPN、PrivateLink、混合 DNS）</td><td>手绘一张"多账户 + 混合网络"参考架构</td></tr>
+<tr><td>第 2 周</td><td>域 2 上：部署策略、DR 四种模式、KMS、数据保护、边缘安全</td><td>为一个三层应用设计 4 种 DR 方案并估算 RTO/RPO</td></tr>
+<tr><td>第 3 周</td><td>域 2 下：解耦与消息、计算/存储/数据库选型、购买选项</td><td>整理一张自己的"选型决策树"</td></tr>
+<tr><td>第 4 周</td><td>域 3：可观测性、SSM、安全改进、性能与成本改进</td><td>每个症状写一条"最小改动"修复</td></tr>
+<tr><td>第 5 周</td><td>域 4：7R、MGN、DMS/SCT、DataSync/Snowball/Storage Gateway、现代化</td><td>熟练计算带宽传输时间</td></tr>
+<tr><td>第 6 周</td><td>全真模拟题 2–3 套（计时 180 分钟），逐题复盘错题</td><td>错题本：记录"为什么选项 X 比 Y 好"</td></tr>
+</table></div>
+
+<h4>推荐资源</h4>
+<ul>
+<li><b>官方 SAP-C02 考试指南（Exam Guide）</b>：逐条核对考试范围内的服务列表。</li>
+<li><b>AWS Skill Builder</b>：官方练习题集（Official Practice Question Set）、Exam Prep 课程、官方模拟考试（Official Practice Exam）。</li>
+<li><b>白皮书</b>：
+  <ul>
+  <li>AWS Well-Architected Framework（六大支柱）</li>
+  <li>Organizing Your AWS Environment Using Multiple Accounts</li>
+  <li>Disaster Recovery of Workloads on AWS</li>
+  <li>Hybrid Connectivity / Building a Scalable and Secure Multi-VPC AWS Network Infrastructure</li>
+  <li>AWS Security Reference Architecture（SRA）</li>
+  <li>AWS Prescriptive Guidance：Migration strategies（7Rs）</li>
+  </ul></li>
+<li><b>动手实验</b>：搭建 Organizations + SCP、TGW 多 VPC、Route 53 Resolver 端点、DMS 迁移、StackSets 部署——实践对记住细节帮助最大（注意清理资源控制费用）。</li>
+</ul>
+
+<h4>考前一天检查清单</h4>
+<ul>
+<li>复习本手册第 2、7、8 章（关键词、陷阱、数字）。</li>
+<li>确认已申请 ESL +30 分钟（如适用）。</li>
+<li>线上考试：提前测试网络摄像头、清理桌面；线下考场：带两种有效证件。</li>
+<li>考试中：先读问句，圈约束，排除法，标记难题回头再看。</li>
+</ul>
+</section>
+
+<footer>SAP-C02 复习手册 · 用户提供资料 · 接入于 2026-11-12。CodeCommit、Snowball Edge 与 S3 对象上限已核对官方更新；其余服务细节与考试安排请以最新官方资料为准。</footer>
+</main>
+</div>
+<button class="menu-btn" id="menuBtn" type="button">目录</button>
+
+<script src="../progress_model.js?v=profiles1"></script><script src="../progress_store.js?v=profiles1"></script><script src="review.js?v=profiles1"></script><script src="../account_config.js?v=profiles1"></script><script src="../account_sync.js?v=profiles1"></script>
+</body>
+</html>

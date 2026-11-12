@@ -1,0 +1,12 @@
+{
+  "$schema":"node_modules/wrangler/config-schema.json",
+  "name":"sap-learning-account",
+  "main":"worker.js",
+  "compatibility_date":"2026-11-12",
+  "compatibility_flags":["nodejs_compat"],
+  "vars":{
+    "AUTH_BASE_URL":"http://127.0.0.1:8787",
+    "ALLOWED_ORIGINS":"https://lajidonggua.github.io,http://127.0.0.1:8765,http://localhost:8765,http://127.0.0.1:8000,http://localhost:8000"
+  },
+  "d1_databases":[{"binding":"DB","database_name":"sap-learning-progress","database_id":"00000000-0000-0000-0000-000000000000","migrations_dir":"migrations"}]
+}

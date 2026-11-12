@@ -23,6 +23,9 @@ progress.md
 *.pem
 *.key
 node_modules/
+.wrangler/
+.dev.vars
+.dev.vars.*
 _site/
 dist/
 *.zip
