@@ -43,6 +43,9 @@
  function importBackup(raw){if(typeof raw!=='string'||raw.length>1500000)throw new Error('请选择本站导出的学习进度备份。');const data=JSON.parse(raw);if(data.format!=='sap-learning-progress'||data.version!==1)throw new Error('这不是本站的学习进度备份。');return merge(data.cells,'import');}
  function guestCells(){const guest=readProfile('guest');return M.clone(guest.cells);}
  function importGuest(){const cells=guestCells(),updates={};for(const [key,entry]of Object.entries(cells))if(!profile.cells[key])updates[key]={value:entry.value,stamp:tick()};return merge(updates,'import');}
+ // Import every supported legacy record before exporting or signing in,
+ // including modes the learner has not reopened since this update.
+ for(const key of M.known)migrate(key);
  root.LearningProgress={getItem,setItem,get:(key,fallback=null)=>{const raw=getItem(key);return raw?JSON.parse(raw):fallback;},put:(key,value)=>setItem(key,JSON.stringify(value)),snapshot:()=>M.clone(profile.cells),merge,setOwner,owner:()=>owner,guestCells,importGuest,exportBackup,importBackup,subscribe:fn=>{listeners.add(fn);return()=>listeners.delete(fn);},status:()=>({owner,storageOK,cells:Object.keys(profile.cells).length})};
  if(root.addEventListener)root.addEventListener('storage',event=>{if(event.key===PREFIX+owner&&event.newValue){try{const incoming=JSON.parse(event.newValue);merge(incoming.cells,'tab');}catch{}}else if(event.key===ACTIVE){notify('account-tab');}});
 })(globalThis);

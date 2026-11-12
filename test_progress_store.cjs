@@ -24,6 +24,9 @@ const saved=S.get(K.practice);saved.stars=saved.stars.filter(id=>id!==24);S.put(
 const exported=JSON.parse(S.exportBackup());assert.equal(exported.format,'sap-learning-progress');assert(!JSON.stringify(exported).includes('token'));assert(!JSON.stringify(exported).includes('password'));
 assert.throws(()=>S.importBackup(JSON.stringify({format:'sap-learning-progress',version:1,cells:{'sap-quick-practice-v1|__proto__':{value:{},stamp:'0001700000000000-device123'}}})));
 const destination=context().S;destination.importBackup(guest);assert.equal(destination.get(K.practice).last,24);
+const legacyModes=context(new Map([[K.flash,JSON.stringify({again:[24],known:[40],last:40})],[K.multi,JSON.stringify({wrongIds:[28],starredIds:[28],answeredIds:{28:false},filterNeed:3,seconds:20})]]));
+const allLegacy=JSON.parse(legacyModes.S.exportBackup()).cells;
+assert(allLegacy[K.flash+'|mark/24']&&allLegacy[K.multi+'|answeredIds/28'],'backups include legacy modes without first visiting their pages');
 assert.throws(()=>S.importBackup('{"format":"other"}'));
 // Recover the previous good snapshot when the main local record is corrupt.
 S.put(K.practice,{...S.get(K.practice),last:40});S.put(K.practice,{...S.get(K.practice),last:61});storage.set('sap-learning-profile-v1:user-a','{broken');assert.equal(context(storage).S.get(K.practice).last,40);
