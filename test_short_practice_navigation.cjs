@@ -7,7 +7,7 @@ const base=process.env.SAP_TEST_BASE||'http://127.0.0.1:8765/';
  try{
   const context=await browser.newContext({viewport:{width:390,height:844}});
   // Controlled content tests the navigation contract independently of curriculum edits.
-  const fixture={stage:'first',goal:'理解示例',terms:[{name:'名词',meaning:'职责'}],points:['一个要点'],flow:['条件','方案'],contrast:{a:'甲',b:'乙',rule:'不同职责'},recall:'如何选择？',quiz:{question:'示例条件',options:['甲','乙','丙'],answer:0,explanations:['正确','不适用','不适用'],change:'换一个条件'},chapter:'foundations'};
+  const fixture={stage:'first',goal:'理解示例',terms:[{name:'名词',meaning:'职责'}],points:['一个要点'],flow:['条件','方案'],contrast:{a:'甲',b:'乙',rule:'不同职责'},recall:'如何选择？',recallAnswer:{summary:'先明确条件，再比较方案职责。',checks:['核对题目条件。','排除职责不符的方案。']},takeaway:'按条件和职责选择方案。',quiz:{question:'示例条件',options:['甲','乙','丙'],answer:0,explanations:['正确','不适用','不适用'],change:'换一个条件'},chapter:'foundations'};
   const curriculum={stages:[{id:'first',title:'第一步',why:'建立概念'}],lessons:[{...fixture,id:'sample',title:'短时练习示例',questions:[24,40,61]},{...fixture,id:'intro',title:'概念入门',questions:[]}]};
   await context.route('**/learning_path_data.js*',route=>route.fulfill({contentType:'application/javascript',body:'globalThis.SAP_PATH='+JSON.stringify(curriculum)+';'}));
   const page=await context.newPage(),errors=[];

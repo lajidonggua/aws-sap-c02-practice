@@ -20,8 +20,10 @@ const base=process.env.SAP_TEST_BASE||'http://127.0.0.1:8000/';
   localStorage.setItem('sap-quick-practice-v1',JSON.stringify({answers:{40:{correct:false,selected:['A']},61:{correct:true,selected:['A']},[outside]:{correct:false,selected:['B']}},stars:[40,outside],last:2}));
   localStorage.setItem('sap-five-second-v1',JSON.stringify({again:[40,outside],known:[4],last:4}));
  },data);
- assert.equal(await page.locator('.practice-box .primary-link').getAttribute('href'),'../index.html?chapter=foundations&q=24');
- await page.locator('.practice-box .primary-link').click();await page.waitForLoadState('networkidle');await position(24);
+ assert.equal(await page.locator('.practice-box .primary-link').getAttribute('href'),'../index.html?chapter=foundations&count=5&from=24&q=24');
+ await page.locator('.practice-extra summary').click();
+ assert.equal(await page.locator('.all-practice-link').getAttribute('href'),'../index.html?chapter=foundations&count=all&q=24');
+ await page.locator('.all-practice-link').click();await page.waitForLoadState('networkidle');await position(24);
  assert((await page.locator('#practiceSetBanner').innerText()).includes('380 题'));
  assert((await page.locator('#position').innerText()).includes('1 / 380'));
  await page.locator('#next').click();await position(40);await page.locator('#next').click();await position(61);await page.locator('#prev').click();await position(40);
@@ -43,17 +45,17 @@ const base=process.env.SAP_TEST_BASE||'http://127.0.0.1:8000/';
  await mode('memory');await position(24);await page.locator('#reviewNext').click();await position(40);
  await mode('order');await jump(data.ids.at(-1));assert((await page.locator('#next').innerText()).includes('再练一轮'));await page.locator('#next').click();await position(24);
  await page.locator('#practiceSetBanner a').first().click();await page.waitForURL('**#foundations');
- await page.locator('.study-question-links a').nth(1).click();await position(40);assert((await page.locator('#position').innerText()).includes('2 / 380'));await page.locator('#next').click();await position(61);
- // Each chapter uses the exact list shown by its own guide.
+ await page.locator('.study-question-links a').nth(1).click();await position(40);assert((await page.locator('#position').innerText()).includes('2 / 5'));await page.locator('#next').click();await position(61);
+ // The optional full-collection link preserves the original chapter order.
  for(const chapter of data.chapters){
-  await goto('learn/index.html#'+chapter.id);await page.locator('.study-question-links a').first().click();await position(chapter.ids[0]);assert.deepEqual(await page.evaluate(()=>pool.map(q=>q.id)),chapter.ids);await page.locator('#next').click();await position(chapter.ids[1]);
+  await goto('learn/index.html#'+chapter.id);await page.locator('.practice-extra summary').click();await page.locator('.all-practice-link').click();await position(chapter.ids[0]);assert.deepEqual(await page.evaluate(()=>pool.map(q=>q.id)),chapter.ids);await page.locator('#next').click();await position(chapter.ids[1]);
  }
  await goto('learn/index.html#foundations');await page.locator('#term-vpc .term-links a').filter({hasText:'练习相关题'}).click();await position(data.term[0]);assert(new URL(page.url()).searchParams.get('term')==='vpc');assert.deepEqual(await page.evaluate(()=>pool.map(q=>q.id)),data.term);await page.locator('#next').click();await position(data.term[1]);await page.locator('#practiceSetBanner a').first().click();await page.waitForLoadState('networkidle');assert(new URL(page.url()).searchParams.get('term')==='vpc');assert.equal(await page.locator('#studySearch').inputValue(),'VPC');
- await goto('index.html?chapter=foundations&q=24');await page.setViewportSize({width:390,height:844});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:require('node:path').join(require('node:os').tmpdir(),'sap-practice-set-mobile.png')});await page.locator('#next').click();await position(40);
+ await goto('index.html?chapter=foundations&count=all&q=24');await page.setViewportSize({width:390,height:844});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:require('node:path').join(require('node:os').tmpdir(),'sap-practice-set-mobile.png')});await page.locator('#next').click();await position(40);
  await page.locator('#practiceSetBanner a').last().click();await position(2);assert(await page.locator('#practiceSetBanner').isHidden());
  await goto('index.html?q=24');await position(24);await page.locator('#next').click();await position(25);assert.equal(await page.evaluate(()=>LearningProgress.get(ProgressModel.KEYS.practice).last),25);
  await goto('index.html?chapter=invalid&q=24');await position(24);assert(await page.locator('#practiceSetBanner').isHidden());
- const blocked=await browser.newContext();await blocked.addInitScript(()=>Object.defineProperty(window,'localStorage',{get(){throw new DOMException('blocked','SecurityError')}}));const blockedPage=await blocked.newPage();await blockedPage.goto(base+'index.html?chapter=foundations&q=24');await blockedPage.waitForLoadState('networkidle');await blockedPage.locator('#next').click();await blockedPage.waitForFunction(()=>document.getElementById('position').textContent.endsWith('原题 40'));assert((await blockedPage.locator('#position').innerText()).endsWith('原题 40'));await blocked.close();
- assert.deepEqual(errors,[]);console.log('Scoped practice passed: 24→40→61, guide chips, all 13 chapters, term sets, answer-next, refresh, filters, flash, search, boundaries, preserved full-bank progress, mobile and blocked storage.');
+ const blocked=await browser.newContext();await blocked.addInitScript(()=>Object.defineProperty(window,'localStorage',{get(){throw new DOMException('blocked','SecurityError')}}));const blockedPage=await blocked.newPage();await blockedPage.goto(base+'index.html?chapter=foundations&count=all&q=24');await blockedPage.waitForLoadState('networkidle');await blockedPage.locator('#next').click();await blockedPage.waitForFunction(()=>document.getElementById('position').textContent.endsWith('原题 40'));assert((await blockedPage.locator('#position').innerText()).endsWith('原题 40'));await blocked.close();
+ assert.deepEqual(errors,[]);console.log('Scoped practice passed: explicit-all 24→40→61, bounded guide chips, all 13 full chapter collections, term sets, answer-next, refresh, filters, flash, search, boundaries, preserved full-bank progress, mobile and blocked storage.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1)});

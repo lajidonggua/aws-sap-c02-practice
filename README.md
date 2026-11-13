@@ -11,7 +11,8 @@ AWS Certified Solutions Architect – Professional（SAP-C02）中文刷题与�
 
 - 刷题前知识手册：13 个循序渐进的主题、核心名词与用法、易混对比、场景小测、已读进度和关联练习。
 
-- 章节和名词可进入对应题目集合，前后翻题、随机、闪记、错题和收藏都保留当前范围。
+- 章节练习默认5题，可选10题；到组末停止并进入下一章，也可自选再练一组。每组和题数分别记住位置，全部关联题保留在折叠入口。
+- 章节和名词集合中的前后翻题、随机、闪记、错题和收藏都保留当前范围。
 - 详细复习手册：11 章、4 大考试域、服务对比、易错陷阱和 18 道原创场景题。
 - 学习进度页：阅读位置、小测答案、刷题与章节进度、备份导出和合并恢复。
 - 账号与云同步：Cloudflare Workers + D1；访客和各账号分别保存，支持断网后继续同步。
@@ -89,6 +90,7 @@ node test_learning_path_content.cjs
 ```sh
 SAP_TEST_BASE=http://127.0.0.1:8000/ node test_practice_navigation.cjs
 SAP_TEST_BASE=http://127.0.0.1:8000/ node test_short_practice_navigation.cjs
+SAP_TEST_BASE=http://127.0.0.1:8000/ node test_chapter_batches.cjs
 SAP_TEST_BASE=http://127.0.0.1:8000/ node test_learning_path_browser.cjs
 ```
 
