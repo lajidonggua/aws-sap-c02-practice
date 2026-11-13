@@ -25,6 +25,12 @@ AWS Certified Solutions Architect – Professional（SAP-C02）中文刷题与�
 
 这是一个纯 HTML、CSS、JavaScript 网站，无需安装依赖、构建或运行后端服务。访客记录保存在浏览器中。配置并启用 Cloudflare 账号服务后，登录用户可以跨设备同步学习进度；未配置时，页面会说明当前仅使用本机保存。
 
+## 安装为应用
+
+使用 Chrome 打开网站，点击页面上的「安装应用」。浏览器允许时会打开安装窗口，否则会显示手动安装方法。电脑也可在 Chrome 菜单「投放、保存和分享 → 将网页安装为应用」安装；iPhone / iPad 可在 Safari 分享菜单中选择「添加到主屏幕」。自动提示由浏览器决定，可能需要访问和互动后才出现。
+
+安装后以独立窗口打开短时学习路线，不需要接入新的服务或上架应用商店。学习进度仍使用现有本机保存和账号同步。加载学习内容及云同步需要联网；当前只提供断网提示页，并未下载整套题库供离线使用。Service Worker 仅缓存断网提示页，不缓存账号响应、学习页或作答数据。
+
 ## 本地预览
 
 在项目目录中运行：
@@ -92,6 +98,12 @@ SAP_TEST_BASE=http://127.0.0.1:8000/ node test_practice_navigation.cjs
 SAP_TEST_BASE=http://127.0.0.1:8000/ node test_short_practice_navigation.cjs
 SAP_TEST_BASE=http://127.0.0.1:8000/ node test_chapter_batches.cjs
 SAP_TEST_BASE=http://127.0.0.1:8000/ node test_learning_path_browser.cjs
+```
+
+安装功能检查会自行启动临时预览，同时验证根路径与 GitHub Pages 子路径：
+
+```sh
+node test_pwa.cjs
 ```
 
 账号服务配置和验证见 [backend/README.md](backend/README.md)。本地服务启动后，可运行 `node test_account_api.mjs`，以及安装 Playwright 后运行 `node test_learning_profiles.cjs`，验证真实登录、账号隔离、两个浏览器同步和断网恢复。
