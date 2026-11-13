@@ -31,6 +31,14 @@ for (const card of route.lessons) {
   previousStage = currentStage;
   assert(chapterIds.has(card.chapter), label + ': broken reference chapter');
   for (const name of ['title', 'goal', 'recall']) assert(typeof card[name] === 'string' && card[name].trim(), label + ': ' + name);
+  assert(card.recallAnswer && typeof card.recallAnswer.summary === 'string' && card.recallAnswer.summary.trim(), label + ': recall needs a reference answer');
+  assert(card.recallAnswer.summary.length <= 100, label + ': keep reference answer concise');
+  assert(card.recallAnswer.summary !== card.goal, label + ': answer the recall question, not just repeat its goal');
+  assert(Array.isArray(card.recallAnswer.checks) && card.recallAnswer.checks.length >= 2 && card.recallAnswer.checks.length <= 3, label + ': provide 2–3 self-check points');
+  assert(card.recallAnswer.checks.every(item => typeof item === 'string' && item.trim() && item.length <= 60), label + ': concise, nonempty self-check points');
+  assert.equal(new Set(card.recallAnswer.checks).size, card.recallAnswer.checks.length, label + ': distinct self-check points');
+  assert(typeof card.takeaway === 'string' && card.takeaway.trim() && card.takeaway.length <= 70, label + ': concise specific takeaway');
+  assert(card.takeaway !== card.goal, label + ': takeaway must state usable knowledge');
   assert.equal(card.points.length, 3, label + ': keep concepts short');
   assert(card.terms.length >= 2 && card.terms.length <= 4, label + ': limit new jargon');
   assert(card.terms.every(t => t.name && t.meaning), label + ': unexplained term');
@@ -56,4 +64,4 @@ for (const stage of route.stages) assert.equal(route.lessons.filter(l => l.stage
 assert.equal(route.lessons[0].questions.length, 0, 'First architecture lesson should not force advanced bank questions');
 assert.equal(new Set(route.lessons.map(l => l.quiz.answer)).size, 3, 'Avoid every original quiz having the same answer position');
 for (const source of route.sources) assert.equal(new URL(source.url).hostname, 'docs.aws.amazon.com');
-console.log(`Learning path content passed: 24 lessons, 8 ordered stages, ${linked} verified bank links, 24 original scenarios.`);
+console.log(`Learning path content passed: 24 lessons with reference answers and takeaways, 8 ordered stages, ${linked} verified bank links, 24 original scenarios.`);
