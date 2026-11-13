@@ -79,6 +79,7 @@ node test_study_guide.cjs
 node test_practice_sets.cjs
 node test_progress_store.cjs
 node test_path_progress.cjs
+node test_account_sync.cjs
 node test_learning_path_model.cjs
 node test_learning_path_content.cjs
 ```
