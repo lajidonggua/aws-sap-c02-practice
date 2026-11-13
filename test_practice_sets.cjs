@@ -30,3 +30,14 @@ assert.equal(resolve('chapter=missing&q=24'), null);
 assert.equal(resolve('term=missing'), null);
 assert(resolve('chapter=foundations&q=25').ids.indexOf(25) > 1, 'Q25 must not follow Q24 in chapter order');
 console.log('Chapter/term collection links and ordering passed, including the reported 24 → 40 → 61 regression.');
+
+// New clients can scope one short lesson without changing existing chapter order.
+context.SAP_PATH = {lessons:[{id:'sample',title:'示例小节',questions:[24,40,61,69,999,24]},{id:'intro',title:'概念入门',questions:[]}]};
+assert.deepEqual(Array.from(resolve('lesson=sample&count=2').ids),[24,40]);
+assert.deepEqual(Array.from(resolve('lesson=sample&count=999').ids),[24,40,61]);
+assert.deepEqual(Array.from(resolve('lesson=sample&count=0').ids),[24]);
+assert.deepEqual(Array.from(resolve('lesson=sample&count=bad').ids),[24,40,61]);
+assert.equal(resolve('lesson=sample').returnHref,'path/index.html#sample');
+assert.equal(resolve('lesson=intro').ids.length,0,'Intro lessons must not fall through to the whole bank');
+assert.equal(resolve('lesson=unknown'),null);
+console.log('Short lesson scoping passed: count bounds, duplicate/invalid ID filtering, and no full-bank fallback for an empty introductory lesson.');

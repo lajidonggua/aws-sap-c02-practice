@@ -1,0 +1,290 @@
+/* Original, concise SAP-C02 lessons. Bank links are optional transfer practice. */
+'use strict';
+globalThis.SAP_PATH = {
+  stages: [
+    { id: 'foundations', title: '先看懂一张架构图', why: '先分清请求经过哪里、谁能访问，再记服务名。' },
+    { id: 'connectivity', title: '让请求走对路', why: '区分公网、私网和混合网络，避免“连得上”与“有权限”混淆。' },
+    { id: 'workloads', title: '放好程序和文件', why: '按运行方式、访问方式选计算与存储。' },
+    { id: 'data', title: '让数据和任务各司其职', why: '区分读写、缓存、队列，找到真正的瓶颈。' },
+    { id: 'protection', title: '保护访问和账号', why: '从网络防护走到身份、加密和多账号边界。' },
+    { id: 'resilience', title: '故障时还能恢复', why: '先问能停多久、能丢多少，再选冗余和灾备。' },
+    { id: 'migration-cost', title: '搬得稳，也花得值', why: '按要搬的对象选工具，满足约束后再省钱。' },
+    { id: 'operations', title: '能观察，也能安全改动', why: '用证据排障、控制发布风险，再把知识放进综合题。' }
+  ],
+  lessons: [
+    {
+      id: 'architecture', stage: 'foundations', title: '把网站拆成入口、计算、数据',
+      goal: '看到一串服务名，先说出每个服务负责什么。',
+      terms: [{ name: 'DNS / Route 53', meaning: '把域名解析到目标；像查地址。' }, { name: '计算', meaning: '执行程序，例如 EC2 虚拟机或 Lambda 函数。' }, { name: '数据层', meaning: '保存文件或业务记录，例如 S3、RDS。' }],
+      points: ['先沿一次用户请求看流程，再看安全和故障处理。', '入口接请求，计算做事情，数据层记结果。', '一个服务通常只解决其中一部分，不能替代整个架构。'],
+      contrast: { a: 'S3：保存对象文件', b: 'RDS：查询关系型业务记录', rule: '图片和订单不是同一种访问方式，先问数据怎么读写。' },
+      flow: ['用户输入域名', 'DNS 找到入口', '应用处理请求', '读写数据并返回'],
+      recall: '不看卡片，用“用户下订单”讲一遍：入口、计算、数据分别做什么？',
+      quiz: { question: '网站要持久保存上传图片，并频繁更新、关联查询订单。合理的职责划分是？', options: ['图片和订单都只存应用服务器的临时磁盘', '图片放 S3，订单由关系型数据库保存，应用负责处理请求', '图片放 S3，订单只放应用内存以加快查询'], answer: 1, explanations: ['临时磁盘可能随实例丢失，不满足可靠保存需求。', '文件、关系型记录和处理逻辑各有合适的职责。', '内存可用于缓存，但不能这样替代订单的持久存储。'], change: '如果题目改成“仅展示静态网页”，可能不需要自建应用服务器或关系型数据库。' },
+      questions: [], chapter: 'foundations'
+    },
+    {
+      id: 'network-boundary', stage: 'foundations', title: '网络通路和访问权限是两道检查',
+      goal: '知道“网络可达”不等于“操作被允许”。',
+      terms: [{ name: 'VPC', meaning: '你在 AWS 中划出的隔离网络。' }, { name: '子网 / 路由表', meaning: '子网是一段网络；路由表决定数据包往哪走。' }, { name: '安全组', meaning: '资源网卡旁的有状态流量规则。' }],
+      points: ['公网子网有指向互联网网关的路由；实例还需合适的地址和规则。', '私网中的程序可通过合适的 NAT 路径主动访问互联网。', '到达 S3 等服务之后，还要通过 IAM、资源策略等权限检查。'],
+      contrast: { a: '路由：往哪里走', b: '安全组：哪些流量能通过', rule: '再加一层 IAM：谁能对哪个资源做什么。排障时逐层检查。' },
+      flow: ['地址与 DNS', '路由是否可达', '流量规则是否放行', '服务权限是否允许'],
+      recall: '实例能连到 S3，却收到 AccessDenied，你会优先检查路由还是权限？为什么？',
+      quiz: { question: '私有子网中的应用能访问 S3 服务，但读取指定对象返回 AccessDenied。下一步最应检查什么？', options: ['检查角色、桶策略及相关加密密钥权限', '只增加 NAT 网关数量', '先把实例安全组放宽到所有公网地址'], answer: 0, explanations: ['先核对授权链；若对象使用 KMS，还要核对密钥权限。', '请求已到达服务，增加网络出口不能修复权限拒绝。', '服务已返回权限拒绝，放宽流量范围不会授予对象权限。'], change: '如果变成连接超时，先检查 DNS、路由、端点和流量规则，不要直接认定是 IAM。' },
+      questions: [], chapter: 'networking'
+    },
+    {
+      id: 'iam-role', stage: 'foundations', title: '角色像临时工作证',
+      goal: '区分“谁能扮演角色”和“角色能做什么”。',
+      terms: [{ name: 'IAM Role / 角色', meaning: '可被授权主体承担的一组权限身份。' }, { name: '信任策略', meaning: '规定谁可以承担这个角色。' }, { name: '权限策略', meaning: '规定可执行的操作及对应资源。' }],
+      points: ['应用优先使用角色和临时凭证，避免写死长期密钥。', '跨账号承担角色，要同时检查调用方权限与目标角色信任。', '遵循最小权限：只给任务需要的动作和资源。'],
+      contrast: { a: '信任策略：谁能拿工作证', b: '权限策略：持证后能做什么', rule: '获得角色身份，不表示可以访问所有资源。' },
+      flow: ['主体获准承担角色', '取得临时凭证', '调用服务', '按策略判断权限'],
+      recall: '用“工作证”比喻，解释信任策略与权限策略为什么缺一不可。',
+      quiz: { question: 'EC2 上的应用需要读取一个私有 S3 桶，应怎样提供凭证？', options: ['把桶改成公开读取，省去身份配置', '把管理员长期密钥写入应用代码', '给 EC2 配置具有所需 S3 权限的实例角色'], answer: 2, explanations: ['公开读取改变了私有数据的访问边界。', '长期管理员密钥增加泄露范围，也难以轮换。', '实例角色提供临时凭证，并可把权限限制到所需桶和操作。'], change: '如果换成另一个账号中的角色，还要检查跨账号信任与调用方的 AssumeRole 权限。' },
+      questions: [129, 65], chapter: 'security'
+    },
+    {
+      id: 'private-access', stage: 'connectivity', title: '访问 S3，不一定要绕 NAT',
+      goal: '按来源和目标区分 NAT、网关端点、接口端点。',
+      terms: [{ name: 'NAT 网关', meaning: '常用于私网 IPv4 资源主动访问互联网。' }, { name: 'Gateway Endpoint / 网关端点', meaning: '通过路由表访问 S3 或 DynamoDB 的端点。' }, { name: 'Interface Endpoint / 接口端点', meaning: '以私有 IP 接入受支持服务的端点，基于 PrivateLink。' }],
+      points: ['同一区域 VPC 内大量访问 S3，先评估网关端点以减少 NAT 处理费用。', '接口端点支持更多服务；仍需配置 DNS、安全组与权限。', '网关端点不能直接供本地网络或对等 VPC 借道使用；来源改变就要重选。'],
+      contrast: { a: '网关端点：路由表中的服务路径', b: '接口端点：子网里的私有 IP 入口', rule: '不要只背“S3 选网关”；还要看请求从哪里来。' },
+      flow: ['确认调用来源', '确认目标服务', '选择私有路径', '核对 DNS 与权限'],
+      recall: '同 VPC 内访问 S3 与本地机房私有访问 S3，为什么不能机械套同一端点？',
+      quiz: { question: '同一区域私有子网中的 EC2 经 NAT 读取大量 S3 数据。希望降低网络处理费用且不增加运维，优先评估什么？', options: ['配置 S3 网关端点及所需路由、端点策略', '把桶改成公开读取', '每天手工拷贝文件到 EC2'], answer: 0, explanations: ['符合 VPC 内访问 S3 的场景，仍保留权限控制。', '公开权限不必要，也改变了安全边界。', '增加运维和数据一致性负担。'], change: '若来源改为本地机房经专线访问，要评估 S3 接口端点等适合混合网络的方案。' },
+      questions: [40, 111], chapter: 'networking'
+    },
+    {
+      id: 'traffic-entry', stage: 'connectivity', title: '先看协议，再选流量入口',
+      goal: '分清域名解析、负载均衡和内容缓存。',
+      terms: [{ name: 'ALB', meaning: '应用型负载均衡器，理解 HTTP 请求，可按路径等规则转发。' }, { name: 'NLB', meaning: '网络型负载均衡器，面向 TCP、UDP 等连接流量。' }, { name: 'CloudFront', meaning: '在边缘分发和缓存内容，减少用户到源站的距离。' }],
+      points: ['先圈协议：HTTP 路径路由与 TCP 连接是不同需求。', '固定公网 IP、允许名单等约束，会影响入口选择。', 'Route 53 负责 DNS；CloudFront 缓存；负载均衡器把请求交给健康后端。'],
+      contrast: { a: 'ALB：按请求内容分发', b: 'NLB：按网络连接分发', rule: '“高性能”不是充分条件；协议、固定地址、路由规则更能区分答案。' },
+      flow: ['协议是什么', '是否需固定 IP', '是否按路径分流', '后端跨 AZ 部署'],
+      recall: 'HTTP 的 /images 与 /orders 分流，和固定 IP 的 TCP 服务，分别优先考虑什么？',
+      quiz: { question: '客户通过 TCP 访问服务，必须把固定公网 IP 加入允许名单，且服务跨多个可用区。优先考虑？', options: ['使用 ALB，并把它当前解析出的地址当作永久固定 IP', '通过 CloudFront 缓存任意 TCP 连接', 'NLB 配置各可用区的弹性 IP，并关联健康后端'], answer: 2, explanations: ['ALB 的地址不能这样作为固定公网 IP 保证。', 'CloudFront 面向受支持的 Web 内容分发，不是任意 TCP 代理。', 'NLB 符合 TCP 与固定地址的约束，仍需后端冗余。'], change: '若变成按 URL 路径分发 HTTP 请求，ALB 通常更贴合该需求。' },
+      questions: [24], chapter: 'networking'
+    },
+    {
+      id: 'hybrid-network', stage: 'connectivity', title: '机房和多个 VPC，别把对等连接当中转',
+      goal: '区分网络连接、集中路由和 DNS 解析。',
+      terms: [{ name: 'Site-to-Site VPN', meaning: '通过加密隧道连接机房与 AWS 网络。' }, { name: 'Direct Connect', meaning: '专用网络连接；连接本身不默认提供端到端加密。' }, { name: 'Transit Gateway / TGW', meaning: '连接多个 VPC 和本地网络的路由中枢。' }],
+      points: ['VPC 对等连接不提供传递路由：A 连 B、B 连 C，不代表 A 可经 B 到 C。', '很多 VPC 与机房互通时，可用 TGW 集中连接与管理路由。', '网络连通后，私有域名仍需设计 Route 53 Resolver 等解析路径。'],
+      contrast: { a: '连接与路由：找到网络路径', b: 'DNS：把名字变成地址', rule: '能解析不一定能连接；能连接 IP 也不代表私有域名能解析。' },
+      flow: ['机房 VPN / 专线', '集中路由入口', '目标 VPC', 'DNS 与访问规则'],
+      recall: '为什么机房已连 VPC A，再把 A 与 B 对等连接，通常仍不能借 A 访问 B？',
+      quiz: { question: '机房通过 VPN 连接 VPC A，A 与 B 已对等。IP 不重叠，希望机房也访问 B。合理做法是？', options: ['只在对等连接路由表中添加机房网段，继续借 A 中转', '使用 TGW 连接 VPN、A、B，并配置双向路由', '只配置 Resolver 入站端点，用 DNS 解析替代网络中转'], answer: 1, explanations: ['对等连接不支持这种传递路由，添加路由不能改变该能力边界。', 'TGW 提供中转连接；路由及安全规则仍需完整。', 'Resolver 解决域名解析，不替代业务流量的网络通路。'], change: '若只有两个 VPC 需要直接互通，且没有中转需求，对等连接可能已足够。' },
+      questions: [77, 1, 123], chapter: 'networking'
+    },
+    {
+      id: 'compute-scale', stage: 'workloads', title: '先选运行方式，再谈扩容',
+      goal: '按控制需求、执行时长和运维负担选择计算。',
+      terms: [{ name: 'EC2 / Auto Scaling', meaning: '虚拟机；自动扩缩组按规则增减实例。' }, { name: 'ECS / Fargate', meaning: '容器把程序及依赖打包；ECS 调度容器，Fargate 让你免管宿主服务器。' }, { name: 'Lambda', meaning: '按事件运行函数，需符合执行时长、资源和运行方式限制。' }],
+      points: ['需要控制操作系统或安装特殊组件时，EC2 更有弹性。', '已经容器化且希望少管服务器，可评估 ECS 配合 Fargate。', '扩容前检查会话、文件等状态是否留在单台机器；否则换机器就丢上下文。'],
+      contrast: { a: '扩容：多派工作者', b: '解耦状态：大家共享可靠记录', rule: '增加实例数不能自动修复单机状态或数据库瓶颈。' },
+      flow: ['运行方式与限制', '选择计算服务', '状态移出单机', '按负载扩缩'],
+      recall: '“容器化、少管服务器”为什么会让你想到 Fargate？还有哪些限制要核对？',
+      quiz: { question: '应用已打包为容器，流量可变，团队不希望维护容器宿主机。优先评估？', options: ['自建 EC2 容器集群，手工维护宿主机与容量', 'ECS 配合 Fargate，并配置服务自动扩缩', '只在一台固定大小的 EC2 上运行全部容器'], answer: 1, explanations: ['可运行容器，但没有满足免维护宿主机的目标。', '符合容器运行与减少宿主机运维的目标。', '仍需管理宿主机，且固定容量难以应对可变负载。'], change: '若必须控制宿主机内核或使用不支持的特性，需要重新评估 EC2 等运行方式。' },
+      questions: [7, 191, 14], chapter: 'compute'
+    },
+    {
+      id: 'storage-shapes', stage: 'workloads', title: '先问像文件、磁盘，还是对象',
+      goal: '用访问方式区分 S3、EBS、EFS 和 FSx。',
+      terms: [{ name: 'S3', meaning: '对象存储：通过对象键和 API 读写文件内容。' }, { name: 'EBS', meaning: '块存储：像 EC2 使用的磁盘，卷位于一个可用区。' }, { name: 'EFS / FSx', meaning: '托管文件系统；NFS 常见于 Linux 共享文件，SMB 常见于 Windows。' }],
+      points: ['需要多台 Linux 应用共享 NFS 文件，优先评估 EFS。', 'Windows SMB、Lustre 等协议或兼容性要求，要匹配相应 FSx 产品。', '不要把对象 API 当普通共享文件系统，也不要把所有磁盘都当跨 AZ 共享盘。'],
+      contrast: { a: 'EBS：块设备', b: 'EFS：共享文件系统', rule: '即使存在特定 EBS Multi-Attach 能力，也不等于通用跨 AZ 共享文件服务。' },
+      flow: ['读写接口', '谁需要同时访问', '所在 AZ / Region', '性能与备份'],
+      recall: '多台容器要读写同一套 NFS 文件，为什么不直接给每台机器一块独立磁盘？',
+      quiz: { question: '跨可用区运行的 Linux 容器需要读写同一套共享文件，希望使用托管 NFS。应评估？', options: ['EFS，并配置合适的挂载目标与访问权限', '单个 EBS 卷直接当跨 AZ 共享盘', '每个容器单独保存到临时磁盘'], answer: 0, explanations: ['EFS 符合共享 NFS 文件访问方式。', 'EBS 卷有可用区边界，不能如此跨 AZ 挂载。', '各自临时磁盘不能形成持久共享文件。'], change: '若需求改成 Windows SMB 和 Active Directory 集成，应评估 FSx for Windows File Server。' },
+      questions: [191, 175], chapter: 'storage'
+    },
+    {
+      id: 's3-lifecycle', stage: 'workloads', title: '存储省钱，要把“取回来”也算上',
+      goal: '根据访问频率、取回时间和保留要求选存储类别。',
+      terms: [{ name: 'S3 Lifecycle', meaning: '按规则转换存储类别或删除对象。' }, { name: 'Intelligent-Tiering', meaning: '按访问模式自动在相应层级间移动对象，需考虑适用条件与费用。' }, { name: '归档取回', meaning: '部分归档类别读取前需要恢复，时间和费用各不相同。' }],
+      points: ['“很少访问”还不够：继续问能等待多久、需要保留多久。', '生命周期转换与删除是两回事；合规保留不能误设为到期删除。', '比较存储、请求、取回和最短存储期限等费用，不只看每 GB 单价。'],
+      contrast: { a: '访问不可预测：评估自动分层', b: '长期不读且能等待：评估归档', rule: '不能把所有 Glacier 类别都记成“立即可读”或“都要等数小时”。' },
+      flow: ['多久访问一次', '多久必须取回', '至少保留多久', '核算总费用'],
+      recall: '合规日志一年后几乎不读，但必须保留，为什么“删除旧日志”不是节省成本的合格答案？',
+      quiz: { question: '历史日志必须保留多年，基本不访问，偶尔取回可等较长时间。怎样优化最合理？', options: ['一年后直接删除所有日志', '选择满足取回要求的归档类别并配置生命周期转换', '始终复制到多台 EC2 本地磁盘'], answer: 1, explanations: ['违反保留约束，即使最便宜也不合格。', '先满足保留和取回要求，再降低存储成本。', '增加管理和冗余成本，未对应需求。'], change: '若要求毫秒级直接读取，就应重新选择能满足读取延迟的类别。' },
+      questions: [92], chapter: 'storage'
+    },
+    {
+      id: 'database-replicas', stage: 'data', title: '故障接班和分担读取，目的不同',
+      goal: '看到数据库副本，先问它是为可用性还是为读扩展。',
+      terms: [{ name: 'Multi-AZ', meaning: '跨可用区部署，重点是可用性；具体读取能力依部署类型。' }, { name: 'Read Replica', meaning: '读副本，常用于分担查询，也可在相应方案中用于恢复。' }, { name: 'RDS Proxy', meaning: '管理和复用数据库连接，不是增加数据库写入能力的魔法。' }],
+      points: ['传统 RDS Multi-AZ DB instance 的备用实例不承担读流量。', 'RDS Multi-AZ DB cluster 的备用实例可读；Aurora 也有自己的副本机制。', '报表拖慢主库时考虑把合适查询分流到读副本，并检查复制延迟。'],
+      contrast: { a: '高可用：主库故障时接班', b: '读扩展：平时分担查询', rule: '先认清实例部署、集群部署和数据库引擎，别把“Multi-AZ 不能读”当通用结论。' },
+      flow: ['瓶颈是连接 / 读 / 写', '确认部署类型', '选择代理 / 副本 / 改造', '验证一致性需求'],
+      recall: '报表查询太多与连接数太多，为什么可能需要不同方案？',
+      quiz: { question: '应用写入正常，但允许少量延迟的报表查询占满主库资源。优先考虑？', options: ['认为任意 Multi-AZ 备用实例都能直接读', '只增加应用服务器，数据库保持不变', '创建合适的读副本，并把报表连接指向副本'], answer: 2, explanations: ['是否可读取决于具体数据库与部署类型。', '更多应用连接可能进一步增加主库压力。', '把可接受复制延迟的读取分离，直接处理读负载。'], change: '若主要问题是大量短连接而非查询量，先评估连接池或 RDS Proxy。' },
+      questions: [50, 201], chapter: 'databases'
+    },
+    {
+      id: 'database-choice', stage: 'data', title: '按查询方式选数据库',
+      goal: '分清关系型数据、键值访问和缓存。',
+      terms: [{ name: 'RDS / Aurora', meaning: '适合关系型数据与 SQL 查询的托管数据库选择。' }, { name: 'DynamoDB', meaning: '键值与文档数据库，设计时要先想访问模式和键。' }, { name: 'ElastiCache', meaning: '托管缓存服务，常用于减少重复读取或保存合适的短期状态。' }],
+      points: ['复杂关联查询与已有关系模型，先评估关系型数据库兼容性。', 'DynamoDB 应围绕访问模式设计分区键与索引，不是无条件替换 SQL。', '缓存会带来失效、过期与一致性问题；必须明确权威数据源。'],
+      contrast: { a: '数据库：可靠保存与查询记录', b: '缓存：加速合适的访问', rule: '“更快”不能覆盖交易一致性、持久性或查询能力的要求。' },
+      flow: ['业务如何查询', '一致性与事务要求', '键与数据模型', '是否需要缓存'],
+      recall: '为什么先问“怎样查询订单”，比先背“哪种数据库最快”更有用？',
+      quiz: { question: '现有应用依赖多表关联和关系型事务，希望尽量少改代码。第一步应评估？', options: ['兼容现有引擎的 RDS 或 Aurora，再验证功能差异', '直接换成 DynamoDB，假定无需调整 SQL 关联查询和数据模型', '直接用缓存替代数据库，保留全部原有查询不变'], answer: 0, explanations: ['兼容性与查询模型直接关系到改造成本和正确性。', '键值与文档模型需要围绕访问方式设计，不能假定兼容原查询。', '缓存不自动满足原有查询和持久化语义。'], change: '若业务是海量、明确的键值访问，且数据模型匹配，可重新评估 DynamoDB。' },
+      questions: [], chapter: 'databases'
+    },
+    {
+      id: 'async-messages', stage: 'data', title: '任务排队，通知广播，事件按规则分发',
+      goal: '区分 SQS、SNS、EventBridge 与 Step Functions。',
+      terms: [{ name: 'SQS', meaning: '任务队列，缓冲工作，让生产者与消费者分开运行。' }, { name: 'SNS / EventBridge', meaning: 'SNS 向订阅者发通知；EventBridge 按事件规则路由到目标。' }, { name: 'Step Functions', meaning: '编排多步骤流程，管理状态、分支和重试。' }],
+      points: ['慢任务能异步完成时，先排队，再按能力处理。', '标准队列可能重复投递，消费者应能安全处理重复请求。', '重试要有上限与失败处理；积压还需监控，不能只“加一个队列”。'],
+      contrast: { a: '队列：留给工作者取任务', b: '通知 / 事件：告诉目标发生了什么', rule: '一个事件需要多个独立消费者可靠处理时，可组合通知与各自队列。' },
+      flow: ['提交任务', '队列缓冲', '消费者处理', '成功删除 / 失败重试'],
+      recall: '订单消息重复到达时，怎样避免重复扣款？这和“消息已入队”有什么区别？',
+      quiz: { question: '第三方服务响应慢，业务允许稍后完成处理，希望请求与处理解耦。优先考虑？', options: ['只提高同步调用的 Lambda 并发上限', '让每个网页一直等待第三方返回', '将任务写入 SQS，由消费者处理并设计重试和幂等'], answer: 2, explanations: ['增加并发没有解除同步依赖，还可能进一步压垮慢服务。', '同步等待仍受慢服务影响。', '队列缓冲与消费者解耦；幂等表示重复执行不造成重复业务结果。'], change: '若必须立即获得第三方结果，异步队列会改变交互方式，不能直接套用。' },
+      questions: [100, 42], chapter: 'integration'
+    },
+    {
+      id: 'security-layers', stage: 'protection', title: '安全工具按拦截对象来记',
+      goal: '分清网络流量规则、Web 请求防护与身份授权。',
+      terms: [{ name: 'Security Group', meaning: '按来源、协议、端口控制资源流量；有状态。' }, { name: 'Network ACL', meaning: '子网层的无状态流量规则，需考虑返回流量。' }, { name: 'AWS WAF', meaning: '检查受支持入口的 Web 请求，可按应用层规则处理。' }],
+      points: ['IP 和端口限制，与 SQL 注入等 Web 请求检查处在不同层。', '新 WAF 规则可先计数观察，再调整并启用拦截，减少误伤。', '安全组不能替代 IAM；允许网络连接不会授予资源操作权限。'],
+      contrast: { a: '安全组：这条连接能进来吗', b: 'WAF：这个 Web 请求符合规则吗', rule: '按需要识别的信息选层次，别把所有安全题都交给同一个服务。' },
+      flow: ['确认威胁类型', '选择防护层', '观察与测试规则', '拦截并持续监控'],
+      recall: '拦截特定 HTTP 请求内容与限制数据库端口，为什么不能只用同一种规则？',
+      quiz: { question: '团队要新增 WAF 规则，同时尽量避免阻断合法用户。合理上线顺序是？', options: ['所有新规则立即设为阻断，等用户投诉再排查', '先计数并分析日志，调整误报后逐步启用阻断', '仅用安全组开放 443 端口，替代 WAF 内容检查'], answer: 1, explanations: ['未经观察就阻断，可能直接影响符合误报规则的合法请求。', '先观察规则影响，再按证据调整。', '端口规则不理解 Web 请求内容，不能代替这类应用层检查。'], change: '若目标是限制 EC2 的入站端口，应先评估安全组，而不是把 WAF 当通用网络防火墙。' },
+      questions: [97], chapter: 'security'
+    },
+    {
+      id: 'encryption-secrets', stage: 'protection', title: '密钥、密码、访问权限分开想',
+      goal: '区分加密数据、保存凭证和授权使用密钥。',
+      terms: [{ name: 'AWS KMS', meaning: '管理加密密钥并提供加解密相关操作。' }, { name: 'Secrets Manager', meaning: '保存机密值，并为支持的场景配置自动轮换。' }, { name: '信封加密', meaning: '用数据密钥加密内容，再用另一把密钥保护数据密钥。' }],
+      points: ['数据库密码的轮换，与 KMS 加密密钥的轮换不是同一件事。', '读取加密对象通常既要有数据访问权限，也要满足相应密钥授权。', '角色和临时身份适用时优先使用；仍需密码时用合适的机密管理。'],
+      contrast: { a: 'KMS：管理加密钥匙', b: 'Secrets Manager：保管并轮换机密值', rule: '不要把“已加密”误认为“所有获授权用户都能解密”或“密码已自动轮换”。' },
+      flow: ['确认是数据还是凭证', '选择加密与机密服务', '配置最小访问权限', '验证轮换和读取'],
+      recall: '自动轮换数据库密码，为什么不能只打开 KMS 密钥轮换？',
+      quiz: { question: '数据库密码目前写在配置文件里，需要安全保存并定期自动轮换。优先评估？', options: ['Secrets Manager 及适合该数据库的轮换配置', '只轮换 KMS 密钥，数据库密码永不改变', '把同一个密码存入加密 S3 对象，不配置轮换流程'], answer: 0, explanations: ['针对的是机密值的存储、访问与轮换。', '加密密钥变化不等于数据库凭证变化。', '加密存储能保护内容，但没有满足密码定期变化的要求。'], change: '若问题变成上传客户端加密对象失败，应检查数据密钥生成等具体 KMS 权限。' },
+      questions: [26, 96], chapter: 'security'
+    },
+    {
+      id: 'multi-account', stage: 'protection', title: 'SCP 是权限上限，不是授权书',
+      goal: '理解组织层限制和账号内授权的关系。',
+      terms: [{ name: 'Organizations / OU', meaning: '集中管理多个账号；OU 是组织账号的分组。' }, { name: 'SCP', meaning: '限制成员账号中身份可使用的最大权限。' }, { name: 'StackSets', meaning: '把同一基础设施模板部署到多个账号或区域。' }],
+      points: ['SCP 允许某动作，不代表身份已获授权；仍需合适的 IAM 等策略。', '上级有效限制不能靠下级再加 Allow 绕过；显式 Deny 尤其要先找。', 'SCP 不限制管理账号中的用户和角色；不要把例外误记为所有账号通用。'],
+      contrast: { a: 'SCP：最多允许做多少', b: 'IAM 授权：这个身份获准做什么', rule: '排障顺序：账号所在层级 → 上级限制 → 身份与资源策略。' },
+      flow: ['组织根与 OU', '成员账号权限边界', '身份 / 资源授权', '请求最终判定'],
+      recall: 'IAM 已给管理员权限，为什么组织成员账号仍可能无法操作某个服务？',
+      quiz: { question: '组织根上的 SCP 明确拒绝某操作，成员账号给角色新增 Allow。结果通常怎样？', options: ['下级 Allow 自动覆盖上级 Deny', '仍被适用的显式 Deny 阻止', '给角色附加 AdministratorAccess 就能绕过该 SCP'], answer: 1, explanations: ['Allow 不能如此覆盖显式拒绝。', '有效的显式拒绝优先，必须检查限制来源。', '成员账号中的管理员权限也受适用的 SCP 限制。'], change: '若题目主角是组织管理账号，要重新检查 SCP 是否适用于该主体。' },
+      questions: [3, 38], chapter: 'governance'
+    },
+    {
+      id: 'availability', stage: 'resilience', title: '副本放在哪里，比“有两台”更重要',
+      goal: '分清实例故障、可用区故障和区域灾难。',
+      terms: [{ name: 'AZ / 可用区', meaning: '一个区域内彼此隔离的基础设施位置。' }, { name: 'Region / 区域', meaning: '包含多个可用区的地理区域。' }, { name: '健康检查', meaning: '判断目标是否适合接收流量，供路由或替换机制使用。' }],
+      points: ['两台机器在同一可用区，仍共享该可用区故障风险。', '多 AZ 架构要覆盖入口、计算和数据层，避免只保护其中一层。', '跨区域灾备还需数据复制、容量、配置、权限与切流演练。'],
+      contrast: { a: '多 AZ：应对区域内局部故障', b: '跨 Region：应对更大范围故障', rule: '多副本不等于备份；误删除或错误写入也可能被复制。' },
+      flow: ['定义故障范围', '拆开共同故障点', '检查每个依赖层', '演练故障与恢复'],
+      recall: '应用跨了两个 AZ，但数据库只有一台且无恢复方案，为什么还存在单点？',
+      quiz: { question: '系统需承受一个可用区不可用。哪种设计最贴近目标？', options: ['在同一 AZ 增加第二台应用服务器即可', '仅让应用跨 AZ，数据库仍是没有备用的单 AZ 实例', '入口、计算及数据层都采用合适的跨 AZ 冗余与故障处理'], answer: 2, explanations: ['同一 AZ 的故障仍可能同时影响两台。', '数据库仍可能随所在 AZ 不可用而成为整个系统的单点。', '需要沿依赖链检查冗余，不能只数服务器。'], change: '若要求承受整个区域不可用，多 AZ 本身不够，还需跨区域设计。' },
+      questions: [69], chapter: 'resilience'
+    },
+    {
+      id: 'dr-targets', stage: 'resilience', title: 'RTO 问停多久，RPO 问丢多久',
+      goal: '先把业务容忍度译成时间目标。',
+      terms: [{ name: 'RTO', meaning: '恢复时间目标：希望在多长时间内恢复业务。' }, { name: 'RPO', meaning: '恢复点目标：可容忍丢失多长时间范围内的数据。' }, { name: '恢复演练', meaning: '实际验证数据、程序和流量能否在目标内恢复。' }],
+      points: ['恢复速度决定是否满足 RTO；备份或复制的新鲜度影响 RPO。', '每晚备份不自动满足“最多丢 5 分钟数据”。', '目标是需求，实际结果靠监控与演练验证；别背成服务必然保证。'],
+      contrast: { a: 'RTO：停机钟', b: 'RPO：数据倒退钟', rule: '同样每 5 分钟复制，恢复程序可能仍需 1 小时；两只钟分别检查。' },
+      flow: ['业务说最多停多久', '业务说最多丢多久', '设计恢复与复制', '演练测量结果'],
+      recall: '“最多停 30 分钟，最多丢 5 分钟数据”：哪个是 RTO，哪个是 RPO？',
+      quiz: { question: '备份每晚一次，恢复需 20 分钟。业务要求 RTO 30 分钟、RPO 5 分钟。主要缺口是什么？', options: ['RTO 一定不满足，因为没有零停机', '两项目标必然都满足', '备份新鲜度无法满足 RPO，需更频繁保护或持续复制'], answer: 2, explanations: ['20 分钟恢复在给定的 30 分钟目标内，仍需演练验证。', '只看恢复时间，遗漏了数据丢失窗口。', '夜间备份可能丢失远超 5 分钟的新数据。'], change: '若复制很及时但应用启动需要 2 小时，主要问题就转向 RTO。' },
+      questions: [], chapter: 'resilience'
+    },
+    {
+      id: 'dr-patterns', stage: 'resilience', title: '灾备按“平时开了多少”来记',
+      goal: '理解四种灾备方式的恢复工作量与成本取舍。',
+      terms: [{ name: 'Backup & Restore', meaning: '平时保留备份，故障后恢复数据和环境。' }, { name: 'Pilot Light', meaning: '关键数据等核心部分运行，应用部分故障时再启用或扩展。' }, { name: 'Warm Standby / Active-Active', meaning: '温备已有缩小版完整环境；双活环境都在服务流量。' }],
+      points: ['一般从备份恢复到双活，常驻资源与复杂度上升，恢复工作量下降。', 'Pilot Light 与温备的关键差别：备用环境是否已能以较小规模运行完整业务。', '选能满足 RTO、RPO 的方案后比较成本；具体时间必须实测。'],
+      contrast: { a: 'Pilot Light：点亮核心，故障后启动应用', b: 'Warm Standby：小规模完整业务已运行', rule: '不要只凭“有数据库副本”判断温备，还要看应用是否运行。' },
+      flow: ['备份恢复', '核心常开', '小规模完整运行', '多个站点同时服务'],
+      recall: '备用区域数据库在复制，但应用实例数为 0，更接近哪种思路？恢复时还要做什么？',
+      quiz: { question: '备用区域保持数据库复制，应用暂未运行；故障时启动应用、提升数据库并切流。更接近？', options: ['Pilot Light：核心常开', 'Warm Standby：缩小版完整业务已运行', 'Backup & Restore：只存备份，故障后恢复环境'], answer: 0, explanations: ['核心数据已准备，应用还需启动，符合核心常开的思路。', '应用尚未运行，与温备的完整业务已运行存在区别。', '持续运行的数据核心超出了只保留备份的模式。'], change: '若备用区域已运行缩小版完整业务，故障时主要扩容，更接近温备。' },
+      questions: [8], chapter: 'resilience'
+    },
+    {
+      id: 'migration-data', stage: 'migration-cost', title: '先认清搬的是数据库还是文件',
+      goal: '按数据类型和停机窗口选择迁移工具。',
+      terms: [{ name: 'AWS DMS', meaning: '迁移支持的数据库数据，可按条件进行全量与持续变更复制。' }, { name: 'CDC', meaning: '变更数据捕获：继续复制初次搬运之后的新变化。' }, { name: 'DataSync', meaning: '在支持的文件和对象存储之间自动化传输数据。' }],
+      points: ['数据库迁移关注引擎兼容、模式转换、事务变化与切换验证。', '文件迁移关注协议、权限、目录结构、带宽及增量同步。', '持续复制能缩短切换窗口，但不能省略数据校验与应用切换计划。'],
+      contrast: { a: 'DMS：数据库记录和变化', b: 'DataSync：文件 / 对象传输', rule: '工具名字都含“数据”，不代表能交换职责；先看源与目标是否支持。' },
+      flow: ['确认源与目标', '全量迁移', '追平增量并校验', '安排应用切换'],
+      recall: '数据库还在产生新订单时，为什么“拷贝一次后改地址”可能丢数据？',
+      quiz: { question: '本地数据库需要迁到兼容目标，迁移期间仍有写入，希望缩短最终切换窗口。优先评估？', options: ['只复制一次快照，忽略之后的写入', 'DMS 全量加持续变更复制，并验证后切换', '把 DataSync 复制活跃数据库目录当作通用事务迁移方案'], answer: 1, explanations: ['遗漏初次复制后的变化。', '初次搬运与追平变化配合，仍需核对支持条件和切换流程。', '文件传输不自动理解数据库事务与一致性，不能这样代替数据库迁移。'], change: '若搬的是 Windows 共享文件而非数据库，优先评估 DataSync 和兼容的文件系统。' },
+      questions: [50, 35], chapter: 'migration'
+    },
+    {
+      id: 'migration-app', stage: 'migration-cost', title: '先搬过去，还是顺便重写',
+      goal: '理解迁移速度与应用改造幅度的取舍。',
+      terms: [{ name: 'Rehost', meaning: '尽量少改应用，把现有服务器工作负载迁到云端。' }, { name: 'Replatform / Refactor', meaning: '前者调整平台，后者较深入地改造应用架构。' }, { name: 'Application Migration Service', meaning: '通过复制和测试切换等流程支持服务器迁移。' }],
+      points: ['期限紧且定制系统多时，先评估少改代码的迁移路径。', '想降低长期运维，可以分阶段采用托管数据库、容器或其他改造。', '应用服务器、共享文件、数据库可能需要不同工具一起迁。'],
+      contrast: { a: '迁移工具：把现有系统带过去', b: '现代化改造：改变系统如何运行', rule: '“最快迁移”与“长期最少运维”不是同一个优化目标。' },
+      flow: ['明确期限与目标', '盘点系统依赖', '复制并测试', '切换与回退准备'],
+      recall: '大量虚拟机加共享 NFS 文件，为什么不能只迁虚拟机就认为任务完成？',
+      quiz: { question: '公司有大量定制虚拟机，期限很紧，还依赖本地 NFS 文件。合理起点是？', options: ['评估服务器迁移服务，并为共享文件另配 DataSync 等迁移路径', '只迁虚拟机，假定本地共享文件也会随服务器自动迁移', '要求先把全部程序重写为函数再迁移'], answer: 0, explanations: ['将服务器与文件依赖分别处理，并在切换前联调。', '独立共享文件是另一项依赖，需要单独安排访问或迁移。', '大规模重写通常不贴合短期限与少改动约束。'], change: '若主要目标改为长期最少运维且有充足改造时间，可重新评估托管服务与重构。' },
+      questions: [302], chapter: 'migration'
+    },
+    {
+      id: 'cost-tradeoffs', stage: 'migration-cost', title: '先满足约束，再挑便宜方案',
+      goal: '区分折扣、容量保障与可中断资源。',
+      terms: [{ name: 'Savings Plans', meaning: '以一定期限的使用承诺换取合适计算用量的折扣。' }, { name: 'Spot', meaning: '使用可被收回的闲置计算容量，工作负载要能处理中断。' }, { name: 'Capacity Reservation', meaning: '在指定条件下预留 EC2 容量，不等于折扣本身。' }],
+      points: ['稳定长期基线可评估承诺折扣；先确认使用方式和承诺风险。', '可中断、可恢复的任务更适合评估 Spot；严格连续运行不能只靠 Spot。', '容量保证与价格优惠分开核对，网络和运维费用也算总成本。'],
+      contrast: { a: '折扣：花多少钱', b: '容量：需要时有没有资源', rule: '“便宜”只有在可用性、时限和中断约束全部满足后才成立。' },
+      flow: ['划分稳定与弹性负载', '确认能否中断', '检查容量与承诺', '比较总成本'],
+      recall: '为什么持续运行的在线服务与可重跑的夜间分析，可能采用不同购买方式？',
+      quiz: { question: '在线服务全年稳定运行，分析任务可中断后重跑。合理的成本方向是？', options: ['购买折扣后就不再需要容量与可用性设计', '全部只用 Spot，不处理被中断的情况', '稳定基线评估 Savings Plans，分析任务评估 Spot'], answer: 2, explanations: ['价格安排不自动解决容量、故障与扩展问题。', '在线服务的连续性约束没有被满足。', '按负载特性分别优化，同时验证承诺和恢复策略。'], change: '若明确“不接受长期承诺”，就不能因为折扣大而忽略该条件。' },
+      questions: [336, 25], chapter: 'cost'
+    },
+    {
+      id: 'observability', stage: 'operations', title: '谁做了什么、现在怎样、配置合规吗',
+      goal: '用要回答的问题区分 CloudTrail、CloudWatch 和 Config。',
+      terms: [{ name: 'CloudTrail', meaning: '记录相应 API 活动，帮助审计谁在何时做了什么。' }, { name: 'CloudWatch', meaning: '收集指标和日志，配置告警，观察系统运行情况。' }, { name: 'AWS Config', meaning: '记录资源配置变化，并用规则评估合规状态。' }],
+      points: ['追查 API 操作看 CloudTrail；并非所有数据事件都默认开启。', 'CPU、错误率、应用日志及告警，优先想到 CloudWatch。', '配置是否符合规则看 Config；不应把合规检测等同于自动阻止操作。'],
+      contrast: { a: 'CloudTrail：操作记录', b: 'CloudWatch：运行信号；Config：配置检查', rule: '先把题目改写成一个问题，再选择能提供证据的工具。' },
+      flow: ['明确要回答的问题', '选日志 / 指标 / 配置证据', '开启所需记录', '告警或治理响应'],
+      recall: '“谁删了资源”“错误率是否升高”“是否配置了加密”分别先查什么？',
+      quiz: { question: '要根据角色真实使用的 API 活动，辅助收紧过宽的 IAM 权限，应优先利用什么证据？', options: ['仅看 CloudWatch 的服务器 CPU 曲线', '仅看 AWS Config 中资源的当前配置快照', 'CloudTrail 活动记录，并审查生成的权限建议'], answer: 2, explanations: ['CPU 指标无法列出角色调用了哪些 API。', '配置状态不是角色历史 API 调用的完整记录。', '活动记录提供实际调用证据；仍需考虑未出现的合法场景。'], change: '若问题改成“延迟是否超过阈值并告警”，重点应转向运行指标与 CloudWatch 告警。' },
+      questions: [129], chapter: 'governance'
+    },
+    {
+      id: 'delivery', stage: 'operations', title: '发布前看变化，发布时少量试，出错能退',
+      goal: '把基础设施变更与应用发布风险分开控制。',
+      terms: [{ name: 'CloudFormation / Change Set', meaning: '用模板管理资源；变更集预览计划修改的资源。' }, { name: 'Canary / 金丝雀', meaning: '先把少量流量交给新版本，观察后再增加。' }, { name: 'Blue/Green / 蓝绿', meaning: '准备新旧两套环境，再切换流量。' }],
+      points: ['变更集帮助看清资源变化，不保证应用功能一定正确。', '用测试、指标与告警判断新版本，配合适用的自动回退。', '数据库模式等不可逆变化需要兼容与恢复设计；切回旧程序未必够。'],
+      contrast: { a: '金丝雀：逐步增加新版本流量', b: '蓝绿：在两套环境间切流', rule: '二者都要有验证和回退设计，不能只背发布名称。' },
+      flow: ['测试与查看变更', '部署新版本', '少量流量验证', '扩大或回退'],
+      recall: '为什么“能切回旧版本”不等于“任何数据库改动都能无损撤销”？',
+      quiz: { question: 'Lambda 新版本上线后偶尔报错，希望降低影响并缩短恢复时间。优先设计？', options: ['每次直接全量切换，出错后再人工决定如何恢复', '逐步转移流量，配合验证、CloudWatch 告警和回退', '只预览 CloudFormation 变更集，不验证应用运行指标'], answer: 1, explanations: ['全量切换扩大初始影响，人工决策也可能拖慢恢复。', '小范围验证再扩大，符合降低发布风险的目标。', '资源变更预览不能证明新版本业务逻辑正确。'], change: '若主要担心模板会替换数据库资源，还要在发布前检查 CloudFormation 变更集和数据保护。' },
+      questions: [19, 344], chapter: 'delivery'
+    },
+    {
+      id: 'analytics', stage: 'operations', title: '分析先记“数据在哪、怎么查、扫多少”',
+      goal: '把 S3、Glue、Athena 连成一条最小分析链。',
+      terms: [{ name: 'Glue Data Catalog', meaning: '保存表结构等元数据，让分析工具理解数据。' }, { name: 'Athena', meaning: '用 SQL 查询 S3 等支持的数据源，无需管理查询服务器。' }, { name: '分区 / 列式格式', meaning: '帮助查询只读相关数据，减少不必要扫描。' }],
+      points: ['对象放在 S3，表结构等信息可放入 Glue Data Catalog，再用 Athena 查询。', '按日期分区后，查询也要带合适的分区条件，才有机会减少扫描。', '持续增长的日志不应每次全扫；同时考虑压缩、格式和文件组织。'],
+      contrast: { a: '业务数据库：持续处理业务读写', b: '分析查询：从数据中汇总答案', rule: '看到 SQL 不必立刻选 RDS；先看数据在哪里及查询方式。' },
+      flow: ['S3 存放数据', 'Catalog 描述结构', '按分区过滤', 'Athena 执行查询'],
+      recall: '只查昨天日志，为什么给全历史数据加日期分区后，还要修改查询条件？',
+      quiz: { question: '每天只分析最近一天的 S3 日志，但同一查询越来越慢。优先评估？', options: ['按日期组织分区，并让查询只扫描相关分区', '仅创建日期分区，查询仍不加任何分区过滤', '仅开启 S3 版本控制，保留原有表布局和查询'], answer: 0, explanations: ['缩小需要读取的数据范围，直接应对历史数据增长。', '只建分区却不按需过滤，仍可能扫描不相关数据。', '版本控制用于保护对象版本，不会自动减少查询扫描量。'], change: '若需要持续低延迟处理实时流，而非偶尔查询已落盘日志，应重新评估流处理方案。' },
+      questions: [387, 92], chapter: 'analytics'
+    }
+  ],
+  sources: [
+    { title: 'AWS 官方 SAP-C02 考试指南', url: 'https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-professional-02/solutions-architect-professional-02.html' },
+    { title: 'VPC 网关端点：支持服务与路由', url: 'https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html' },
+    { title: 'S3 网关端点：来源限制与权限', url: 'https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html' },
+    { title: 'S3 存储类别与访问方式', url: 'https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html' },
+    { title: 'RDS Multi-AZ：实例与集群的区别', url: 'https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html' },
+    { title: 'IAM 策略评估逻辑', url: 'https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html' },
+    { title: 'Organizations SCP 的作用与例外', url: 'https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html' },
+    { title: 'AWS 灾难恢复策略与验证', url: 'https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html' }
+  ]
+};

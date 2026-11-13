@@ -18,7 +18,7 @@
  async function sync(){
   clearTimeout(timer);if(!base||!session)return;if(inFlight){again=true;return;}
   inFlight=true;const currentEpoch=epoch,owner=session.user.id;status='syncing';notify();
-  try{const {data}=await request('/api/progress',{cells:S.snapshot()});if(currentEpoch!==epoch||S.owner()!==owner)return;S.merge(data.cells,'cloud');lastSync=new Date();status='synced';message='学习进度已同步。';}
+  try{const {data}=await request('/api/progress',{schema:2,cells:S.snapshot()});if(currentEpoch!==epoch||S.owner()!==owner)return;S.merge(data.cells,'cloud');lastSync=new Date();status='synced';message='学习进度已同步。';}
   catch(error){if(currentEpoch!==epoch)return;status=error.status===401?'expired':'offline';message=error.status===401?'登录已失效，本机记录仍保留，重新登录后继续同步。':'暂时无法同步，记录已保存在本机，联网后会重试。';}
   finally{inFlight=false;if(currentEpoch===epoch)notify();if(again){again=false;timer=setTimeout(sync,800);}}
  }

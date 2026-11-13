@@ -28,7 +28,7 @@ jobs:
         run: |
           mkdir -p _site
           cp -- *.html *.css *.js _site/
-          cp -R choice multi exam disputed glossary learn review account vendor _site/
+          cp -R choice multi exam disputed glossary learn review account path vendor _site/
           touch _site/.nojekyll
 
       - name: Configure GitHub Pages

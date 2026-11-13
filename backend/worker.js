@@ -27,10 +27,10 @@ export default {
    if(url.pathname!=='/api/progress'||!['GET','POST'].includes(request.method))return cors(json({message:'页面不存在。'},404));
    const session=await auth.api.getSession({headers:request.headers});
    if(!session)return cors(json({message:'请先登录。'},401));
-   const userId=session.user.id;
+   const userId=session.user.id;let schema=url.searchParams.get('schema')==='2'?2:1;
    if(request.method==='POST'){
     const text=await readLimited(request,1100000);
-    let cells;try{cells=Model.validate(JSON.parse(text).cells);}catch{return cors(json({message:'学习记录格式不正确。'},400));}
+    let cells;try{const body=JSON.parse(text);schema=body.schema===2?2:1;cells=Model.validate(body.cells);}catch{return cors(json({message:'学习记录格式不正确。'},400));}
     if(Object.keys(cells).length){
      await env.DB.prepare(`INSERT INTO learning_progress (user_id,cell,stamp,value)
       SELECT ?,key,json_extract(value,'$.stamp'),value -> '$.value' FROM json_each(?) WHERE true
@@ -41,7 +41,7 @@ export default {
    }
    const result=await env.DB.prepare('SELECT cell,stamp,value FROM learning_progress WHERE user_id=?').bind(userId).all();
    const cells=Object.create(null);for(const row of result.results)cells[row.cell]={stamp:row.stamp,value:JSON.parse(row.value)};
-   return cors(json({cells}));
+   return cors(json({cells:Model.forSchema(cells,schema)}));
   }catch(error){if(error instanceof RangeError)return cors(json({message:'请求内容过大。'},413));console.error('Account request failed',error.name);return cors(json({message:'账号服务暂时不可用，请稍后重试。'},500));}
  }
 };

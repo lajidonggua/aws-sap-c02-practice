@@ -52,6 +52,15 @@ function studySearchTerms(query, includeExtended = false) {
     });
 }
 function getStudyPracticeSet(params) {
+  if (params.has('lesson') && typeof SAP_PATH !== 'undefined') {
+    const lesson = SAP_PATH.lessons.find(item => item.id === params.get('lesson'));
+    if (!lesson) return null;
+    const requested = Number(params.get('count') || 3);
+    const count = Number.isFinite(requested) ? Math.min(3, Math.max(1, Math.floor(requested))) : 3;
+    const available = new Set(CHOICE_QUESTIONS.map(q => q.id));
+    const ids = [...new Set(lesson.questions)].filter(id => available.has(id)).slice(0, count);
+    return { kind: 'lesson', title: lesson.title, ids, returnHref: 'path/index.html#' + lesson.id };
+  }
   if (params.has('chapter')) {
     const chapter = STUDY_CHAPTERS.find(item => item.id === params.get('chapter'));
     return chapter ? { kind: 'chapter', title: chapter.title, ids: getStudyChapterQuestions(chapter), returnHref: 'learn/index.html#' + chapter.id } : null;

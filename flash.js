@@ -5,14 +5,14 @@ try{const saved=JSON.parse(LearningProgress.getItem(FLASH_KEY));if(saved){for(co
 function renderFlashAvoid(text){return text?`<p><b>别选错：</b>${String(text).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}</p>`:'';}
 function saveFlash(){try{LearningProgress.setItem(FLASH_KEY,JSON.stringify({again:flash.again,known:flash.known,last:flash.last}));}catch{$('saveNote').textContent='浏览器未允许保存；本次闪记仍可继续。';}}
 function stopFlash(pause=true){clearInterval(flashTimer);flashTimer=null;if(pause)flashPlaying=false;}
-function flashMove(){if(at<pool.length-1){at++;render();}else{stopFlash();$('flashStatus').textContent='这一轮已结束。可重新过一轮，或只背没记住的题。';$('flashPlay').textContent='重新播放这一轮';$('flashPlay').onclick=()=>{if(flash.scope==='again')pool=PRACTICE_QUESTIONS.filter(q=>flash.again.includes(q.id));at=0;flashPlaying=true;render();};}}
+function flashMove(){if(practiceSet?.kind==='lesson'&&at>=pool.length-1){stopFlash();$('flashStatus').textContent='本组已看完。返回小节，试着解释选择理由，再安排复习。';$('flashPlay').textContent='返回小节，做回想 →';$('flashPlay').onclick=()=>{window.location.href=practiceSet.returnHref;};return;}if(at<pool.length-1){at++;render();}else{stopFlash();$('flashStatus').textContent='这一轮已结束。可重新过一轮，或只背没记住的题。';$('flashPlay').textContent='重新播放这一轮';$('flashPlay').onclick=()=>{if(flash.scope==='again')pool=PRACTICE_QUESTIONS.filter(q=>flash.again.includes(q.id));at=0;flashPlaying=true;render();};}}
 function flashMark(known){const q=pool[at];if(!q)return;flash.again=flash.again.filter(id=>id!==q.id);flash.known=flash.known.filter(id=>id!==q.id);flash[known?'known':'again'].push(q.id);saveFlash();flashMove();if($('flashAgainCount'))$('flashAgainCount').textContent=flash.again.filter(id=>PRACTICE_IDS.has(id)).length;}
 function flashScope(scope){stopFlash();flash.scope=scope;pool=PRACTICE_QUESTIONS.filter(q=>scope==='all'||flash.again.includes(q.id));at=0;render();}
 function revealFlash(){const a=$('flashAnswer');if(a){a.hidden=false;$('flashReveal').hidden=true;}}
 function runFlashTimer(){if(!flashPlaying||!pool[at])return;flashDeadline=Date.now()+5000;flashTimer=setInterval(()=>{const left=Math.max(0,flashDeadline-Date.now());const bar=$('flashClockBar');if(!bar){stopFlash();return;}bar.style.width=(left/50)+'%';$('flashSeconds').textContent=(left/1000).toFixed(1)+' 秒';if(flash.recall&&left<=3000)revealFlash();if(left===0){stopFlash(false);flashMove();}},100);}
 function renderFlash(){
  $('keywordTools').hidden=true;$('feedback').innerHTML='';$('options').innerHTML='';$('submit').hidden=true;$('selection').textContent='';stats();
- const q=pool[at];$('prev').disabled=!q||at===0;$('next').disabled=!q;$('star').hidden=!q;$('next').textContent=at===pool.length-1?'结束本轮':'下一张 →';
+ const q=pool[at];$('prev').disabled=!q||at===0;$('next').disabled=!q;$('star').hidden=!q;$('next').textContent=at===pool.length-1?(practiceSet?.kind==='lesson'?'返回小节，做回想 →':'结束本轮'):'下一张 →';
  if(!q){$('position').textContent='再背清单为空';$('progress').style.width='0';$('question').innerHTML=`<div class="empty"><h2>暂时没有要再背的题</h2><p>遇到卡住的题，按「没记住」收进这里。</p><button id="flashAll">${practiceSet?'背本集合全部题目':'背全部题目'}</button></div>`;$('flashAll').onclick=()=>flashScope('all');stopFlash();return;}
  rememberPracticeQuestion(q.id);if(!practiceSet){flash.last=q.id;saveFlash();}const c=FLASH_CARDS[q.id],full=QUICK_ANSWER_CARDS[q.id];
  $('position').textContent=`${flash.scope==='all'?(practiceSet?'当前集合':'全部题目'):'再背清单'} ${at+1} / ${pool.length} · 原题 ${q.id}`;$('progress').style.width=((at+1)/pool.length*100)+'%';$('star').textContent=state.stars.includes(q.id)?'★ 已收藏':'☆ 收藏';
@@ -33,4 +33,4 @@ function renderFlash(){
 }
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='flash'){stopFlash();if($('flashPlay'))$('flashPlay').textContent='继续 5 秒自动翻题';if($('flashSeconds'))$('flashSeconds').textContent='已暂停';}});
 document.addEventListener('keydown',e=>{if(mode!=='flash'||/INPUT|TEXTAREA|SELECT|BUTTON|SUMMARY/.test(e.target.tagName)||e.altKey||e.ctrlKey||e.metaKey||e.repeat)return;if(e.code==='Space'){e.preventDefault();$('flashPlay')?.click();}else if(e.code==='ArrowLeft'){e.preventDefault();flashMark(false);}else if(e.code==='ArrowRight'){e.preventDefault();flashMark(true);}});
-start('order');
+start(requestedPracticeMode);
