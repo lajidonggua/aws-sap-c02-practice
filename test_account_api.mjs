@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict';
 import {randomBytes} from 'node:crypto';
+import {writeFileSync} from 'node:fs';
+const fixtures=[];
 const base=process.env.SAP_API_BASE||'http://127.0.0.1:8787';
 const tag=Date.now().toString(36),password=randomBytes(20).toString('hex');
 const origin=process.env.SAP_TEST_ORIGIN||'http://127.0.0.1:8000';
-async function call(path,body,token,customOrigin=origin){const headers={'Content-Type':'application/json',Origin:customOrigin,'CF-Connecting-IP':'127.0.0.55'};if(token)headers.Authorization='Bearer '+token;const response=await fetch(base+path,{method:body===undefined?'GET':'POST',headers,body:body===undefined?undefined:JSON.stringify(body)});let data;try{data=await response.json();}catch{data={message:'invalid JSON'}};return{status:response.status,data,token:response.headers.get('set-auth-token'),headers:response.headers};}
-async function register(suffix){const result=await call('/api/auth/sign-up/email',{email:'sap-qa-'+tag+'-'+suffix+'@example.invalid',password,name:'QA '+suffix});assert.equal(result.status,200,JSON.stringify(result.data));assert(result.token,'signed bearer token required');assert.equal(result.headers.get('access-control-allow-origin'),origin);return result;}
+async function call(path,body,token,customOrigin=origin){const headers={'Content-Type':'application/json',Origin:customOrigin};if(base.startsWith('http://127.0.0.1')||base.startsWith('http://localhost'))headers['CF-Connecting-IP']='127.0.0.55';if(token)headers.Authorization='Bearer '+token;const response=await fetch(base+path,{method:body===undefined?'GET':'POST',headers,body:body===undefined?undefined:JSON.stringify(body)});let data;try{data=await response.json();}catch{data={message:'invalid JSON'}};return{status:response.status,data,token:response.headers.get('set-auth-token'),headers:response.headers};}
+async function register(suffix){const result=await call('/api/auth/sign-up/email',{email:'sap-qa-'+tag+'-'+suffix+'@example.invalid',password,name:'QA '+suffix});assert.equal(result.status,200,JSON.stringify(result.data));fixtures.push(result.data.user.id);if(process.env.SAP_TEST_FIXTURES)writeFileSync(process.env.SAP_TEST_FIXTURES,JSON.stringify(fixtures));assert(result.token,'signed bearer token required');assert.equal(result.headers.get('access-control-allow-origin'),origin);return result;}
 const a=await register('a'),b=await register('b');const token=a.token;
 assert.equal((await call('/api/progress')).status,401);
 assert.equal((await call('/api/progress',undefined,token+'tampered')).status,401);
@@ -21,4 +23,4 @@ const old=cell(24,'device-a',false);old['sap-quick-practice-v1|answers/24'].stam
 assert.equal((await call('/api/auth/sign-out',{},token)).status,200);assert.equal((await call('/api/progress',undefined,token)).status,401);
 const wrong=await call('/api/auth/sign-in/email',{email:a.data.user.email,password:'wrong-password-123'});assert.equal(wrong.status,401);
 const login=await call('/api/auth/sign-in/email',{email:a.data.user.email,password,rememberMe:true});assert.equal(login.status,200,JSON.stringify(login.data));assert(login.token);assert.equal(Object.keys((await call('/api/progress',undefined,login.token)).data.cells).length,3);
-console.log('Real local D1 API passed: registration, signed bearer login, revoked sessions, wrong passwords, per-user isolation, concurrent merge, stale writes, CORS and malformed input.');
+console.log('Account API passed: registration, signed bearer login, revoked sessions, wrong passwords, per-user isolation, concurrent merge, stale writes, CORS and malformed input.');

@@ -1,1 +1,15 @@
-{"name":"sap-learning-account","private":true,"type":"module","scripts":{"dev":"wrangler dev --port 8787","deploy":"wrangler deploy"},"dependencies":{"better-auth":"1.7.22"},"devDependencies":{"wrangler":"4.160.1"}}
+{
+  "name": "sap-learning-account",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --env development --port 8787",
+    "deploy": "wrangler deploy --env \"\""
+  },
+  "dependencies": {
+    "better-auth": "1.7.22"
+  },
+  "devDependencies": {
+    "wrangler": "4.160.1"
+  }
+}

@@ -1,5 +1,7 @@
 # Cloudflare 账号与学习进度
 
+正式接口：`https://sap-learning-account.dongguaxiami.workers.dev`。正式数据库与开发数据库分开配置，`npm run dev` 使用 development 环境；默认发布命令明确选择正式环境。
+
 前端继续使用 GitHub Pages；本目录提供 Cloudflare Worker 和 D1 数据库。登录使用 Better Auth 的邮箱和密码认证、scrypt 密码哈希与带签名的会话令牌。每次查询和更新的用户标识均来自服务端验证的会话。
 
 ## 本地验证
@@ -11,7 +13,7 @@ npm ci --legacy-peer-deps
 创建本地 `.dev.vars`，填入一个随机生成、至少 32 字符的 `BETTER_AUTH_SECRET`。此文件已忽略，不能提交到 Git。
 
 ```sh
-npx wrangler d1 migrations apply sap-learning-progress --local
+npx wrangler d1 migrations apply sap-learning-progress-local --env development --local
 npm run dev
 ```
 

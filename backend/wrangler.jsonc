@@ -1,12 +1,40 @@
 {
-  "$schema":"node_modules/wrangler/config-schema.json",
-  "name":"sap-learning-account",
-  "main":"worker.js",
-  "compatibility_date":"2026-11-12",
-  "compatibility_flags":["nodejs_compat"],
-  "vars":{
-    "AUTH_BASE_URL":"http://127.0.0.1:8787",
-    "ALLOWED_ORIGINS":"https://lajidonggua.github.io,http://127.0.0.1:8765,http://localhost:8765,http://127.0.0.1:8000,http://localhost:8000"
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sap-learning-account",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-12",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "vars": {
+    "AUTH_BASE_URL": "https://sap-learning-account.dongguaxiami.workers.dev",
+    "ALLOWED_ORIGINS": "https://lajidonggua.github.io"
   },
-  "d1_databases":[{"binding":"DB","database_name":"sap-learning-progress","database_id":"00000000-0000-0000-0000-000000000000","migrations_dir":"migrations"}]
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "sap-learning-progress",
+      "database_id": "ab750649-c1fa-4968-a020-405cb37e7777",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "account_id": "d75d7c4d607489e1b704122656978cd9",
+  "workers_dev": true,
+  "preview_urls": false,
+  "env": {
+    "development": {
+      "vars": {
+        "AUTH_BASE_URL": "http://127.0.0.1:8787",
+        "ALLOWED_ORIGINS": "http://127.0.0.1:8765,http://localhost:8765,http://127.0.0.1:8000,http://localhost:8000"
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "sap-learning-progress-local",
+          "database_id": "00000000-0000-0000-0000-000000000000",
+          "migrations_dir": "migrations"
+        }
+      ]
+    }
+  }
 }
