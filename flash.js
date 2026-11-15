@@ -33,4 +33,4 @@ function renderFlash(){
 }
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='flash'){stopFlash();if($('flashPlay'))$('flashPlay').textContent='继续 5 秒自动翻题';if($('flashSeconds'))$('flashSeconds').textContent='已暂停';}});
 document.addEventListener('keydown',e=>{if(batchFinished||mode!=='flash'||/INPUT|TEXTAREA|SELECT|BUTTON|SUMMARY/.test(e.target.tagName)||e.altKey||e.ctrlKey||e.metaKey||e.repeat)return;if(e.code==='Space'){e.preventDefault();$('flashPlay')?.click();}else if(e.code==='ArrowLeft'){e.preventDefault();flashMark(false);}else if(e.code==='ArrowRight'){e.preventDefault();flashMark(true);}});
-start(requestedPracticeMode);
+start(requestedPracticeMode,{initial:true});

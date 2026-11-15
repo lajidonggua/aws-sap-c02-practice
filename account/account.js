@@ -1,12 +1,22 @@
 (function(){
  'use strict';
- const S=LearningProgress,K=ProgressModel.KEYS,A=LearningAccount,$=id=>document.getElementById(id);
+ const S=LearningProgress,K=ProgressModel.KEYS,A=LearningAccount,P=PracticeProgress,$=id=>document.getElementById(id);
  let register=false,pendingImport=null,busy=false;
  function addResume(label,href){const a=document.createElement('a');a.textContent=label;a.href=href;$('resumeLinks').append(a);}
  function renderProgress(){
-  const practice=S.get(K.practice,{answers:{},stars:[],last:1}),study=S.get(K.study,{read:[],last:'foundations'}),review=S.get(K.review,{}),seen=S.get(K.reviewed,{}),path=S.get(K.path,{reviews:{}}),reviews=Object.values(path.reviews);
-  $('progressStats').replaceChildren();for(const [value,label]of [[reviews.length+' / 24','短课已完成一轮'],[reviews.filter(item=>item.dueAt<=Date.now()).length,'短课待巩固'],[Object.keys(practice.answers).length+' / 529','已练题目'],[Object.values(practice.answers).filter(answer=>!answer.correct).length,'错题'],[study.read.length+' / 13','入门章节已读'],[Object.values(review).filter(Boolean).length+' / 11','详细手册章节已读']]){const div=document.createElement('div');div.className='account-stat';const strong=document.createElement('strong');strong.textContent=value;const span=document.createElement('span');span.textContent=label;div.append(strong,span);$('progressStats').append(div);}
-  $('resumeLinks').replaceChildren();addResume('继续短时学习','../path/index.html'+(path.draft?.id||path.last?'#'+encodeURIComponent(path.draft?.id||path.last):''));addResume('继续刷题 · 第 '+practice.last+' 题','../index.html?q='+practice.last);addResume('继续入门知识手册','../learn/index.html#'+study.last);addResume('继续详细复习手册 · 已看 '+Object.values(seen).filter(Boolean).length+' / 18 道解析','../review/index.html');
+  const practice=S.get(K.practice,{answers:{},stars:[],last:1}),scopes=S.get(K.scopes,{}),study=S.get(K.study,{read:[],last:'foundations'}),review=S.get(K.review,{}),seen=S.get(K.reviewed,{}),path=S.get(K.path,{reviews:{}}),reviews=Object.values(path.reviews),summary=P.summarize(P.BANK_IDS,practice.answers),recent=P.recent(practice.answers);
+  $('progressStats').replaceChildren();for(const [value,label]of [[reviews.length+' / 24','短课已完成一轮'],[reviews.filter(item=>item.dueAt<=Date.now()).length,'短课待巩固'],[summary.answered+' / '+summary.total,'主刷题已作答'],[summary.remaining,'主刷题未做'],[summary.wrong,'主刷题待纠错'],[recent.rate===null?'—':recent.rate+'%','最近 '+(recent.total||10)+' 次正确率'],[study.read.length+' / 13','入门章节已读'],[Object.values(review).filter(Boolean).length+' / 11','详细手册章节已读']]){const div=document.createElement('div');div.className='account-stat';const strong=document.createElement('strong');strong.textContent=value;const span=document.createElement('span');span.textContent=label;div.append(strong,span);$('progressStats').append(div);}
+  $('recentPracticeNote').textContent=recent.total?'最近 '+recent.total+' 次作答，答对 '+recent.correct+' / '+recent.total+'；重复作答也计入。'+(recent.total<10?'当前不足 10 次，按已有记录计算。':'每次提交后更新最近 10 次。'):'最近正确率从新作答开始统计，尚无记录；原有已做题数继续保留。';
+  $('resumeLinks').replaceChildren();addResume('继续短时学习','../path/index.html'+(path.draft?.id||path.last?'#'+encodeURIComponent(path.draft?.id||path.last):''));
+  if(!summary.remaining)addResume('查看刷题小结','../index.html?mode=order');
+  else if(scopes[P.KEYS.mode]===2){
+   const saved=scopes[P.KEYS.random],next=P.BANK_IDS.includes(saved)&&!P.answered(practice.answers,saved)?saved:null;
+   addResume('继续随机刷未做题'+(next?' · 第 '+next+' 题':''),'../index.html?mode=random'+(next?'&q='+next:''));
+  }else{
+   const next=P.nextUnanswered(P.BANK_IDS,practice.answers,scopes[P.KEYS.order]||practice.last);
+   addResume('继续未做 · 第 '+next+' 题','../index.html?mode=order&q='+next);
+  }
+  addResume('继续入门知识手册','../learn/index.html#'+study.last);addResume('继续详细复习手册 · 已看 '+Object.values(seen).filter(Boolean).length+' / 18 道解析','../review/index.html');
  }
  function renderAccount(){
   const state=A.state(),signedIn=!!state.user&&state.status!=='expired';

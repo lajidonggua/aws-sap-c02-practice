@@ -16,7 +16,10 @@ AWS Certified Solutions Architect – Professional（SAP-C02）中文刷题与�
 - 详细复习手册：11 章、4 大考试域、服务对比、易错陷阱和 18 道原创场景题。
 - 学习进度页：阅读位置、小测答案、刷题与章节进度、备份导出和合并恢复。
 - 账号与云同步：Cloudflare Workers + D1；访客和各账号分别保存，支持断网后继续同步。
-- 顺序刷题、随机练习、错题重练和收藏。
+- 顺序和随机默认只做未做题，分别记住当前位置；刷新保留当前题，重新进入接着未做题继续。可主动切换回看全部，或进入错题、收藏复习。
+- 显示题库已做、未做、待纠错和当前题上次记录。每题提交过答案即计为已做，重复作答不重复计数；529 题都提交过后显示第一遍完成，不自动重刷。跳过、看解析和闪记不计作答。章节的5/10题仍保留所选集合。
+- 最近10次作答正确率随每次提交更新，重做同题计入次数，不足10次按实际样本计算。旧答案没有顺序记录，不虚构历史正确率；旧已做数量保持不变。
+- 主刷题进度包含顺序、随机及章节等主页面作答；旧版题库、多选专练和模拟考的记录单独管理。
 - 独立作答时默认隐藏提示；可主动展开，也保留闪记和速查模式。
 - 关键词支持检索中英文题干、全部选项和速记内容，精确题号优先。
 - 每题小白解析：题目条件、知识点、相关名词解释、生活类比、架构图和理解自测。
@@ -84,6 +87,7 @@ node test_quick_search.cjs
 node test_learning_review.cjs
 node test_study_guide.cjs
 node test_practice_sets.cjs
+node test_practice_progress_model.cjs
 node test_progress_store.cjs
 node test_path_progress.cjs
 node test_account_sync.cjs
@@ -104,6 +108,7 @@ SAP_TEST_BASE=http://127.0.0.1:8000/ node test_learning_path_browser.cjs
 
 ```sh
 node test_pwa.cjs
+node test_practice_progress.cjs
 ```
 
 账号服务配置和验证见 [backend/README.md](backend/README.md)。本地服务启动后，可运行 `node test_account_api.mjs`，以及安装 Playwright 后运行 `node test_learning_profiles.cjs`，验证真实登录、账号隔离、两个浏览器同步和断网恢复。
