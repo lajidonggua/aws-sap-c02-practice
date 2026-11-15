@@ -178,8 +178,8 @@ body {
       <div>
         <div class="title">⚠️ 争议题专区</div>
         <div class="subtitle">
-          以下题目的当前答案与社区投票尚未达成共识。<br>
-          建议自行判断后再参考；练习时答完才会显示详细说明。
+          以下题目经英文条件与资料核对后，仍有歧义、选项缺陷或历史服务限制。<br>
+          参考选择帮助理解，不计对错；请优先阅读限制和官方资料。
         </div>
       </div>
       <a href="../index.html" class="back-link">← 返回主选单</a>
@@ -193,7 +193,7 @@ body {
   <div class="disputed-list" id="disputedList"></div>
 </div>
 
-<script src="../sap_questions.js?v=simplified1"></script>
+<script src="../sap_questions.js?v=audit1"></script>
 <script>
 const QUESTIONS = CHOICE_QUESTIONS;
 const DISPUTED = typeof DISPUTED_QUESTIONS !== 'undefined' ? DISPUTED_QUESTIONS : {};
@@ -211,20 +211,21 @@ function getQuestion(qid) {
 function renderList() {
   const query = document.getElementById('searchBox').value.trim().toLowerCase();
   const list = document.getElementById('disputedList');
-  const ids = Object.keys(DISPUTED).map(Number).sort((a, b) => a - b);
+  const ids = QUESTIONS.filter(q => q.answer_audit ? q.answer_audit.status === 'ambiguous' : DISPUTED[q.id]).map(q => q.id).sort((a, b) => a - b);
 
   document.getElementById('totalCount').textContent = ids.length;
 
   const filtered = ids.filter(qid => {
     if (!query) return true;
     const q = getQuestion(qid);
-    const meta = DISPUTED[qid] || DISPUTED[String(qid)];
+    const meta = DISPUTED[qid] || DISPUTED[String(qid)] || {};
     const haystack = [
       `q${qid}`,
       String(qid),
       meta?.reason,
       meta?.current,
-      meta?.community,
+      q?.answer_audit?.caveat,
+      q?.answer_audit?.summary,
       q?.question,
       q?.question_zh,
     ].filter(Boolean).join(' ').toLowerCase();
@@ -240,7 +241,7 @@ function renderList() {
   }
 
   list.innerHTML = filtered.map(qid => {
-    const meta = DISPUTED[qid] || DISPUTED[String(qid)];
+    const meta = DISPUTED[qid] || DISPUTED[String(qid)] || {};
     const q = getQuestion(qid);
     const preview = q ? escapeHtml(q.question) : '';
     return `
@@ -248,13 +249,12 @@ function renderList() {
         <div class="card-top">
           <div class="card-id">Question ${qid}</div>
           <div class="card-badges">
-            <span class="badge badge-current">当前: ${meta.current}</span>
-            <span class="badge badge-community">社区: ${meta.community}</span>
-            <span class="badge badge-vote">${meta.vote}</span>
+            <span class="badge badge-current">参考: ${escapeHtml(q?.correct_answers.join(", ") || meta.current || "待核对")}</span>
+            <span class="badge badge-vote">不计对错</span>
           </div>
         </div>
         ${preview ? `<div class="card-preview">${preview}</div>` : ''}
-        <div class="card-reason">${escapeHtml(meta.reason)}</div>
+        <div class="card-reason">${escapeHtml(q?.answer_audit?.caveat || q?.answer_audit?.summary || meta.reason || "待核对")}</div>
         <a class="practice-link" href="../choice/index.html?q=${qid}">去做这道题 →</a>
       </div>
     `;

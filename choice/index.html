@@ -85,6 +85,7 @@ body {
 .option-text { flex: 1; min-width: 0; line-height: 1.5; white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere; }
 .feedback { margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 15px; display: none; word-break: break-word; }
 .feedback.correct { background: #1b5e20; color: #a5d6a7; display: block; }
+.feedback.review { background: #3d2e14; color: #ffe0a6; display: block; }
 .feedback.wrong { background: #b71c1c; color: #ef9a9a; display: block; }
 .controls { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
 .btn-exp { background: #26a69a; color: #fff; }
@@ -190,7 +191,7 @@ body {
 }
 </style>
 <link rel="stylesheet" href="../twenty_review.css?v=simplified1">
-<link rel="stylesheet" href="../learning_review.css?v=learning1"><link rel="manifest" href="../manifest.webmanifest">
+<link rel="stylesheet" href="../learning_review.css?v=audit1"><link rel="manifest" href="../manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="../icons/icon-192.png">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
 <meta name="theme-color" content="#1d6a52">
@@ -250,19 +251,24 @@ body {
   </div>
 </div>
 <script src="../vendor/mermaid.min.js?v=learning1"></script>
-<script src="../sap_questions.js?v=simplified1"></script>
-<script src="../sap_explanations.js?v=simplified1"></script>
+<script src="../sap_questions.js?v=audit1"></script>
+<script src="../sap_explanations.js?v=audit1"></script>
 <script src="../sap_glossary.js?v=learning1"></script>
-<script src="../learning_review.js?v=learning1"></script>
+<script src="../learning_review.js?v=audit1"></script>
 <script src="../quick_memory.js?v=simplified1"></script>
-<script src="../quick_answer_cards.js?v=merged9"></script>
-<script src="../flash_cards.js?v=simplified1"></script><script src="../twenty_review.js?v=merged9"></script>
-<script src="../explanation_shared.js?v=learning1"></script>
+<script src="../quick_answer_cards.js?v=audit1"></script>
+<script src="../flash_cards.js?v=simplified1"></script><script src="../twenty_review.js?v=audit1"></script>
+<script src="../explanation_shared.js?v=audit1"></script>
 <script>
 let QUESTIONS = CHOICE_QUESTIONS;
 const DISPUTED = typeof DISPUTED_QUESTIONS !== 'undefined' ? DISPUTED_QUESTIONS : {};
 
+function isAmbiguous(q) {
+  return q?.answer_audit?.status === 'ambiguous';
+}
+
 function isDisputed(q) {
+  if (q.answer_audit) return isAmbiguous(q);
   return Object.prototype.hasOwnProperty.call(DISPUTED, String(q.id)) || Object.prototype.hasOwnProperty.call(DISPUTED, q.id);
 }
 
@@ -271,13 +277,12 @@ function getDisputeInfo(q) {
 }
 
 function buildDisputeInfoHtml(q) {
+  const audit = q.answer_audit;
+  if (audit) return isAmbiguous(q)
+    ? `<strong>题目有歧义 · 不计对错</strong><br>${escapeHtml(audit.caveat || audit.summary || '请对照完整英文条件与资料中的限制。')}`
+    : '';
   const dispute = getDisputeInfo(q);
-  if (!isDisputed(q) || !dispute) return '';
-  return `
-    <strong>⚠️ 此题答案有争议</strong><br>
-    当前答案：<strong>${dispute.current}</strong> | 社区投票：<strong>${dispute.community}</strong>（${dispute.vote}）<br>
-    ${escapeHtml(dispute.reason)}
-  `;
+  return dispute ? `<strong>尚待校准</strong><br>${escapeHtml(dispute.reason || '')}` : '';
 }
 
 function showDisputeInfo(q) {
@@ -294,11 +299,9 @@ function showDisputeInfo(q) {
 }
 
 function buildVoteInfoHtml(q) {
-  if (isDisputed(q)) return '';
-  if (!q.community_vote || !q.community_vote.length || !q.vote_percentage) return '';
-  const isDifferent = JSON.stringify([...q.correct_answers].sort()) !== JSON.stringify([...q.community_vote].sort());
-  if (!isDifferent) return '';
-  return `<strong>📊 社区投票:</strong> ${q.community_vote.join(', ')} (${q.vote_percentage} 投票率)`;
+  const audit = q.answer_audit;
+  if (!audit || isAmbiguous(q)) return '';
+  return `<strong>${audit.status === 'corrected' ? '已校准答案' : '已核对英文条件'}</strong><br>${escapeHtml(audit.summary || '')}${audit.caveat ? '<br>' + escapeHtml(audit.caveat) : ''}`;
 }
 
 function showVoteInfo(q) {
@@ -412,9 +415,10 @@ function submitAnswer() {
 
   answered = true;
   const correct = q.correct_answers;
+  const ambiguous = isAmbiguous(q);
   const isCorrect = selected.length === correct.length && selected.every(s => correct.includes(s));
 
-  if (!isCorrect) {
+  if (!ambiguous && !isCorrect) {
     wrongCount++;
     document.getElementById('wrongCount').textContent = wrongCount;
 
@@ -431,11 +435,11 @@ function submitAnswer() {
     const isSelected = selected.includes(letter);
     const isCorrectOpt = correct.includes(letter);
 
-    if (isSelected && isCorrectOpt) {
+    if (!ambiguous && isSelected && isCorrectOpt) {
       o.classList.add('correct');
-    } else if (isSelected && !isCorrectOpt) {
+    } else if (!ambiguous && isSelected && !isCorrectOpt) {
       o.classList.add('wrong');
-    } else if (!isSelected && isCorrectOpt) {
+    } else if (!ambiguous && !isSelected && isCorrectOpt) {
       o.classList.add('missed');
     }
     o.style.pointerEvents = 'none';
@@ -443,7 +447,10 @@ function submitAnswer() {
 
   // Show feedback
   const fb = document.getElementById('feedback');
-  if (correct.length === 0) {
+  if (ambiguous) {
+    fb.className = 'feedback review';
+    fb.textContent = `已完成对照 · 参考选择 ${correct.join(', ')}，题目有歧义，不计对错。`;
+  } else if (correct.length === 0) {
     fb.className = 'feedback wrong';
     fb.textContent = 'No answer available for this question.';
   } else if (isCorrect) {

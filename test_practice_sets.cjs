@@ -16,7 +16,7 @@ assert.deepEqual(Array.from(resolve('chapter=foundations&count=all&q=24').ids.sl
   [24, 40, 61, 69, 121, 230, 269, 272, 293, 345, 361, 529]);
 assert.deepEqual(Array.from(resolve('chapter=foundations').ids), [24, 40, 61, 69, 121]);
 assert.equal(resolve('chapter=foundations&count=10').ids.length, 10);
-assert.equal(resolve('chapter=foundations&count=all').ids.length, 380);
+assert.equal(resolve('chapter=foundations&count=all').ids.length, 377, 'audited answers determine chapter relevance');
 for (const [index, chapter] of Array.from(api.chapters).entries()) {
   const all = api.chapterQuestions(chapter);
   const set = resolve('chapter=' + chapter.id + '&count=all');

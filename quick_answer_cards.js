@@ -70,18 +70,18 @@ const QUICK_ANSWER_CARDS = {
   },
   "5": {
     "when": "该公司希望将服务迁移到AWS + 该公司已将应用程式迁移为一组AWS Lambda函数",
-    "target": "创建一个Lambda@Edge函数",
-    "avoid": "别选“创建一个CloudFront函数”。",
+    "target": "创建一个CloudFront函数",
+    "avoid": "",
     "questionCues": [
       "该公司希望将服务迁移到AWS",
       "该公司已将应用程式迁移为一组AWS Lambda函数"
     ],
     "answerCues": {
-      "D": [
-        "创建一个Lambda@Edge函数"
+      "A": [
+        "创建一个CloudFront函数"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "6": {
@@ -102,7 +102,7 @@ const QUICK_ANSWER_CARDS = {
         "s3:ListBucket"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "7": {
@@ -327,18 +327,18 @@ const QUICK_ANSWER_CARDS = {
   },
   "20": {
     "when": "VPC + 可用性和检索速度不是公司关心的问题",
-    "target": "将S3储存桶配置为预设使用S3一区不频繁存取（S3一区-IA）储存类别",
-    "avoid": "",
+    "target": "连接Amazon Elastic File System (Amazon EFS) 档案系统",
+    "avoid": "别选“使用冷 HDD (sc1) 磁碟区类型”。",
     "questionCues": [
       "VPC",
       "可用性和检索速度不是公司关心的问题"
     ],
     "answerCues": {
-      "A": [
-        "将S3储存桶配置为预设使用S3一区不频繁存取（S3一区-IA）储存类别"
+      "B": [
+        "连接Amazon Elastic File System (Amazon EFS) 档案系统"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "21": {
@@ -532,7 +532,7 @@ const QUICK_ANSWER_CARDS = {
   "32": {
     "when": "OU + 解决方案架构师应该采取什么措施来消除开发人员使用本政策范围以外的服务的能力",
     "target": "从开发者帐户的 OU 中删除完整AWS存取权限 SCP",
-    "avoid": "",
+    "avoid": "别选“修改 FullAWSAccess SCP 以明确拒绝所有服务”。",
     "questionCues": [
       "OU",
       "解决方案架构师应该采取什么措施来消除开发人员使用本政策范围以外的服务的能力"
@@ -542,23 +542,23 @@ const QUICK_ANSWER_CARDS = {
         "从开发者帐户的 OU 中删除完整AWS存取权限 SCP"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "33": {
     "when": "该应用程式无法跟上流量 + 解决方案架构师需要实作一个解决方案",
-    "target": "更新Route 53记录以指向ALB",
-    "avoid": "别选“该函数对 Auto Scaling 组变更做出反应并更新 Route 53 记录”。",
+    "target": "将 API 分成单独的 AWS Lambda 函数",
+    "avoid": "",
     "questionCues": [
       "该应用程式无法跟上流量",
       "解决方案架构师需要实作一个解决方案"
     ],
     "answerCues": {
-      "D": [
-        "更新Route 53记录以指向ALB"
+      "A": [
+        "将 API 分成单独的 AWS Lambda 函数"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "34": {
@@ -613,7 +613,7 @@ const QUICK_ANSWER_CARDS = {
   "37": {
     "when": "公司管理层已下令将应用程式转移到AWS + 解决方案架构师必须设计可扩展且高度可用的解决方案",
     "target": "堆叠应启动具有保留删除策略的 Amazon Aurora MySQL 资料库集群的 Multi-AZ 部署",
-    "avoid": "",
+    "avoid": "别选“将 Amazon Route 53 与地理位置邻近路由策略结合使用”。",
     "questionCues": [
       "公司管理层已下令将应用程式转移到AWS",
       "解决方案架构师必须设计可扩展且高度可用的解决方案"
@@ -623,7 +623,7 @@ const QUICK_ANSWER_CARDS = {
         "堆叠应启动具有保留删除策略的 Amazon Aurora MySQL 资料库集群的 Multi-AZ 部署"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "38": {
@@ -729,31 +729,31 @@ const QUICK_ANSWER_CARDS = {
   },
   "44": {
     "when": "OU + 安全团队需要删除建立包含 0.0.0.0/0 作为来源的安全群组入站规则的功能",
-    "target": "值为 0.0.0.0/0 时拒绝 ec2:AuthorizeSecurityGroupIngress 操作",
-    "avoid": "",
+    "target": "修改EventBridge规则",
+    "avoid": "核对题目限制与完整选项。",
     "questionCues": [
       "OU",
       "安全团队需要删除建立包含 0.0.0.0/0 作为来源的安全群组入站规则的功能"
     ],
     "answerCues": {
-      "D": [
-        "值为 0.0.0.0/0 时拒绝 ec2:AuthorizeSecurityGroupIngress 操作"
+      "A": [
+        "修改EventBridge规则"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "45": {
     "when": "ALB + 该公司希望将解决方案迁移到无伺服器架构",
-    "target": "Amazon API Gateway HTTP API",
+    "target": "对于每个 Webhook",
     "avoid": "",
     "questionCues": [
       "ALB",
       "该公司希望将解决方案迁移到无伺服器架构"
     ],
     "answerCues": {
-      "B": [
-        "Amazon API Gateway HTTP API"
+      "A": [
+        "对于每个 Webhook"
       ]
     },
     "disputed": false,
@@ -813,7 +813,7 @@ const QUICK_ANSWER_CARDS = {
   "49": {
     "when": "Amazon EC2 + 安全性要求之一是在客户端和 Web 伺服器之间的传输中启用端对端加密",
     "target": "设定第三方 SSL 凭证并将其安装在每个 EC2 实例上",
-    "avoid": "",
+    "avoid": "别选“汇出 SSL 凭证并将其安装在每个 EC2 实例上”。",
     "questionCues": [
       "Amazon EC2",
       "安全性要求之一是在客户端和 Web 伺服器之间的传输中启用端对端加密"
@@ -823,7 +823,7 @@ const QUICK_ANSWER_CARDS = {
         "设定第三方 SSL 凭证并将其安装在每个 EC2 实例上"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "50": {
@@ -908,7 +908,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "55": {
     "when": "公司还必须能够创建报告来比较过去 12 个月的成本并帮助预测未来 12 个月的成本",
-    "target": "A：启动代表应用程式和团队的使用者定义成本分配标签；C：在计费和成本管理中为每个应用程式建立成本类别；F：启用 Cost Explorer",
+    "target": "A：启动代表应用程式和团队的使用者定义成本分配标签；D：启动IAM对计费和成本管理的存取权限；F：启用 Cost Explorer",
     "avoid": "",
     "questionCues": [
       "公司还必须能够创建报告来比较过去 12 个月的成本并帮助预测未来 12 个月的成本"
@@ -917,8 +917,8 @@ const QUICK_ANSWER_CARDS = {
       "A": [
         "启动代表应用程式和团队的使用者定义成本分配标签"
       ],
-      "C": [
-        "在计费和成本管理中为每个应用程式建立成本类别"
+      "D": [
+        "启动IAM对计费和成本管理的存取权限"
       ],
       "F": [
         "启用 Cost Explorer"
@@ -1097,7 +1097,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "66": {
     "when": "公司必须为开发商提供固定的每月预算 + 以限制他们的AWS成本",
-    "target": "B：作为帐户建立过程的一部分；C：创建 SCP 来拒绝访问昂贵的服务和组件；F：AWS Lambda",
+    "target": "B：作为帐户建立过程的一部分；C：创建 SCP 来拒绝访问昂贵的服务和组件；F：Amazon SNS",
     "avoid": "",
     "questionCues": [
       "公司必须为开发商提供固定的每月预算",
@@ -1111,7 +1111,7 @@ const QUICK_ANSWER_CARDS = {
         "创建 SCP 来拒绝访问昂贵的服务和组件"
       ],
       "F": [
-        "AWS Lambda"
+        "Amazon SNS"
       ]
     },
     "disputed": false,
@@ -1654,7 +1654,7 @@ const QUICK_ANSWER_CARDS = {
         "配置允许存取内部应用程式的所需路由"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "100": {
@@ -1675,18 +1675,18 @@ const QUICK_ANSWER_CARDS = {
   },
   "101": {
     "when": "该公司需要一种解决方案 + 能够跨 AWS 帐户安全地存取 S3 储存桶中的资料",
-    "target": "从行销帐户中",
-    "avoid": "",
+    "target": "授予 QuickSight 角色解密存取权限",
+    "avoid": "别选“建立 SCP 以向行销帐户授予对 S3 储存桶的存取权限”。",
     "questionCues": [
       "该公司需要一种解决方案",
       "能够跨 AWS 帐户安全地存取 S3 储存桶中的资料"
     ],
     "answerCues": {
-      "D": [
-        "从行销帐户中"
+      "C": [
+        "授予 QuickSight 角色解密存取权限"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "102": {
@@ -1896,7 +1896,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "114": {
     "when": "资料库无法扩展 + 缓冲区可自动扩展以符合资料吞吐量",
-    "target": "A：使用Amazon Kinesis Data Firehose来缓冲事件；D：使用透过 Amazon ES 部署的 Kibana 端点来建立近乎即时的视觉化和仪表板",
+    "target": "A：使用Amazon Kinesis Data Firehose来缓冲事件；D：Amazon Elasticsearch Service",
     "avoid": "",
     "questionCues": [
       "资料库无法扩展",
@@ -1907,7 +1907,7 @@ const QUICK_ANSWER_CARDS = {
         "使用Amazon Kinesis Data Firehose来缓冲事件"
       ],
       "D": [
-        "使用透过 Amazon ES 部署的 Kibana 端点来建立近乎即时的视觉化和仪表板"
+        "Amazon Elasticsearch Service"
       ]
     },
     "disputed": false,
@@ -1948,21 +1948,23 @@ const QUICK_ANSWER_CARDS = {
   },
   "117": {
     "when": "公司的安全团队必须批准所有新 IAM 用户的创建 + 安全团队必须收到批准用户的通知",
-    "target": "A：定义一个模式；D：呼叫 AWS Step Functions 状态机来删除存取权限；E：使用Amazon简单通知服务（Amazon SNS）通知安全团队",
-    "avoid": "",
+    "target": "A：Amazon EventBridge + 事件名称为 CreateUser；D：AWS Step Functions；E：Amazon SNS + 通知安全团队",
+    "avoid": "别选“使用 Amazon Pinpoint 通知安全团队”。",
     "questionCues": [
       "公司的安全团队必须批准所有新 IAM 用户的创建",
       "安全团队必须收到批准用户的通知"
     ],
     "answerCues": {
       "A": [
-        "定义一个模式"
+        "Amazon EventBridge",
+        "事件名称为 CreateUser"
       ],
       "D": [
-        "呼叫 AWS Step Functions 状态机来删除存取权限"
+        "AWS Step Functions"
       ],
       "E": [
-        "使用Amazon简单通知服务（Amazon SNS）通知安全团队"
+        "Amazon SNS",
+        "通知安全团队"
       ]
     },
     "disputed": false,
@@ -1970,7 +1972,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "118": {
     "when": "该公司希望使用多帐户结构来集中管理对所有帐户和应用程式的存取 + 公司必须为开发创建单独的帐户",
-    "target": "A：使用AWS Control Tower部署登陆区环境；C：配置适当的路由表；D：为现有帐户建立具有所需 MFA 的适当权限集",
+    "target": "A：AWS Organizations；C：配置适当的路由表；D：为现有帐户建立具有所需 MFA 的适当权限集",
     "avoid": "",
     "questionCues": [
       "该公司希望使用多帐户结构来集中管理对所有帐户和应用程式的存取",
@@ -1978,7 +1980,7 @@ const QUICK_ANSWER_CARDS = {
     ],
     "answerCues": {
       "A": [
-        "使用AWS Control Tower部署登陆区环境"
+        "AWS Organizations"
       ],
       "C": [
         "配置适当的路由表"
@@ -2059,7 +2061,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "123": {
     "when": "该公司希望在确定网路和安全策略后快速迁移应用程式并使其现代化 + 并且还必须能够与所有VPC通讯",
-    "target": "B：在中心网路帐户中建立Direct Connect网关和中转网关；D：与其他帐户共用中转网关；F：仅配置私有子网路",
+    "target": "B：在中心网路帐户中；D：与其他帐户共用中转网关；F：仅配置私有子网路",
     "avoid": "",
     "questionCues": [
       "该公司希望在确定网路和安全策略后快速迁移应用程式并使其现代化",
@@ -2067,7 +2069,7 @@ const QUICK_ANSWER_CARDS = {
     ],
     "answerCues": {
       "B": [
-        "在中心网路帐户中建立Direct Connect网关和中转网关"
+        "在中心网路帐户中"
       ],
       "D": [
         "与其他帐户共用中转网关"
@@ -2307,18 +2309,18 @@ const QUICK_ANSWER_CARDS = {
   },
   "137": {
     "when": "创意团队希望与策略团队分享S3储存桶 + 该解决方案必须仅向这些使用者提供他们所需的最低权限",
-    "target": "B：以授予S3 储存桶的完整权限；C：以向 Strategy_reviewer IAM 角色授予解密权限；F：以授予S3 储存桶的读取权限",
+    "target": "A：设定桶策略的principal为策略帐户的帐户ID；C：授予解密权限；F：以授予S3 储存桶的读取权限",
     "avoid": "",
     "questionCues": [
       "创意团队希望与策略团队分享S3储存桶",
       "该解决方案必须仅向这些使用者提供他们所需的最低权限"
     ],
     "answerCues": {
-      "B": [
-        "以授予S3 储存桶的完整权限"
+      "A": [
+        "设定桶策略的principal为策略帐户的帐户ID"
       ],
       "C": [
-        "以向 Strategy_reviewer IAM 角色授予解密权限"
+        "授予解密权限"
       ],
       "F": [
         "以授予S3 储存桶的读取权限"
@@ -2460,7 +2462,7 @@ const QUICK_ANSWER_CARDS = {
   "146": {
     "when": "应用程式必须能够在应用程式发生故障时恢复到单独的 AWS Region + 如果发生故障",
     "target": "在不同的 Region 中配置 Aurora 副本",
-    "avoid": "",
+    "avoid": "别选“设定 AWS DataSync 将资料连续复制到不同的 Region”。",
     "questionCues": [
       "应用程式必须能够在应用程式发生故障时恢复到单独的 AWS Region",
       "如果发生故障"
@@ -2470,7 +2472,7 @@ const QUICK_ANSWER_CARDS = {
         "在不同的 Region 中配置 Aurora 副本"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "147": {
@@ -2539,7 +2541,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "151": {
     "when": "解决方案架构师需要优化应用程式的基础架构成本 + 而不会对应用程式可用性产生负面影响",
-    "target": "B：将应用程式前端移至托管在 Amazon S3 上的静态网站；E：将后端 Python 应用程式部署到与现有 EC2 实例具有相同核心数量的通用可突发 EC2 实例",
+    "target": "B：将应用程式前端移至托管在 Amazon S3 上的静态网站；E：将后端 Python 应用程式",
     "avoid": "",
     "questionCues": [
       "解决方案架构师需要优化应用程式的基础架构成本",
@@ -2550,7 +2552,7 @@ const QUICK_ANSWER_CARDS = {
         "将应用程式前端移至托管在 Amazon S3 上的静态网站"
       ],
       "E": [
-        "将后端 Python 应用程式部署到与现有 EC2 实例具有相同核心数量的通用可突发 EC2 实例"
+        "将后端 Python 应用程式"
       ]
     },
     "disputed": false,
@@ -2558,23 +2560,23 @@ const QUICK_ANSWER_CARDS = {
   },
   "152": {
     "when": "并希望优化该平台的成本效益 + 可在 Amazon EKS 和 AWS Fargate 上运行",
-    "target": "根据高峰事件日期",
-    "avoid": "别选“为 EKS 集群在其基准负载中使用的 EC2 实例购买标准预留实例”。",
+    "target": "为 EKS 集群的预测基本负载购买计算节省计划",
+    "avoid": "",
     "questionCues": [
       "并希望优化该平台的成本效益",
       "可在 Amazon EKS 和 AWS Fargate 上运行"
     ],
     "answerCues": {
-      "B": [
-        "根据高峰事件日期"
+      "D": [
+        "为 EKS 集群的预测基本负载购买计算节省计划"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "153": {
     "when": "在应用程式无法使用期间 + 该公司希望访客收到资讯性讯息",
-    "target": "A：将静态资讯内容上传到S3储存桶；C：配置分配和 S3 储存桶以使用来源存取身分 (OAI)；D：维护完成后恢复变更",
+    "target": "A：将静态资讯内容上传到S3储存桶；C：将 S3 储存桶；D：维护完成后恢复变更",
     "avoid": "",
     "questionCues": [
       "在应用程式无法使用期间",
@@ -2585,7 +2587,7 @@ const QUICK_ANSWER_CARDS = {
         "将静态资讯内容上传到S3储存桶"
       ],
       "C": [
-        "配置分配和 S3 储存桶以使用来源存取身分 (OAI)"
+        "将 S3 储存桶"
       ],
       "D": [
         "维护完成后恢复变更"
@@ -2705,7 +2707,7 @@ const QUICK_ANSWER_CARDS = {
       ]
     },
     "disputed": false,
-    "legacyMismatch": true
+    "legacyMismatch": false
   },
   "161": {
     "when": "TLS 终止于ALB + 解决方案架构师必须开发一种解决方案",
@@ -2774,7 +2776,7 @@ const QUICK_ANSWER_CARDS = {
   "165": {
     "when": "在迁移过程中 + 该公司发现无法立即更新产生大量文件的处理伺服器以支援S3 API",
     "target": "当Amazon S3发生变更时",
-    "avoid": "别选“使用汇入和汇出策略为 Lustre 配置 Amazon FSx”。",
+    "avoid": "",
     "questionCues": [
       "在迁移过程中",
       "该公司发现无法立即更新产生大量文件的处理伺服器以支援S3 API"
@@ -2784,8 +2786,8 @@ const QUICK_ANSWER_CARDS = {
         "当Amazon S3发生变更时"
       ]
     },
-    "disputed": true,
-    "legacyMismatch": true
+    "disputed": false,
+    "legacyMismatch": false
   },
   "166": {
     "when": "公司需要能够根据请求删除用户资讯 + 其他所有微服务也必须立即删除其资料副本",
@@ -2821,7 +2823,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "168": {
     "when": "并希望将其生产应用程式迁移到 AWS + 该公司需要一个包含内建蓝图和护栏的解决方案",
-    "target": "C：将生产和开发帐户添加到生产和开发OUs；D：创建SCP以确保合规性；F：为生产OU 建立护栏以侦测EBS 加密",
+    "target": "C：在公司管理帐户中；D：创建SCP以确保合规性；F：为生产OU 建立护栏以侦测EBS 加密",
     "avoid": "",
     "questionCues": [
       "并希望将其生产应用程式迁移到 AWS",
@@ -2829,7 +2831,7 @@ const QUICK_ANSWER_CARDS = {
     ],
     "answerCues": {
       "C": [
-        "将生产和开发帐户添加到生产和开发OUs"
+        "在公司管理帐户中"
       ],
       "D": [
         "创建SCP以确保合规性"
@@ -2860,7 +2862,7 @@ const QUICK_ANSWER_CARDS = {
   "170": {
     "when": "解决方案架构师希望在单一 AWS 帐户中最佳化成本并适当调整 Amazon EC2 实例的大小",
     "target": "C：安装 Amazon CloudWatch 代理并在 EC2 实例上配置记忆体指标收集；D：在 AWS 帐户中配置 AWS 计算优化器以接收结果和最佳化建议",
-    "avoid": "别选“为 AWS Regions、实例系列和感兴趣的作业系统建立 EC2 实例节省计划”。",
+    "avoid": "",
     "questionCues": [
       "解决方案架构师希望在单一 AWS 帐户中最佳化成本并适当调整 Amazon EC2 实例的大小"
     ],
@@ -2873,7 +2875,7 @@ const QUICK_ANSWER_CARDS = {
       ]
     },
     "disputed": false,
-    "legacyMismatch": true
+    "legacyMismatch": false
   },
   "171": {
     "when": "AWS CodeCommit + 公司必须在第二个AWSRegion中储存储存库中资料的备份副本",
@@ -2974,7 +2976,7 @@ const QUICK_ANSWER_CARDS = {
   "177": {
     "when": "一家公司正在使用 Amazon Connect 建置呼叫中心",
     "target": "该模板提供已宣告的电话号码",
-    "avoid": "",
+    "avoid": "核对题目限制与完整选项。",
     "questionCues": [
       "一家公司正在使用 Amazon Connect 建置呼叫中心"
     ],
@@ -2983,7 +2985,7 @@ const QUICK_ANSWER_CARDS = {
         "该模板提供已宣告的电话号码"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "178": {
@@ -3004,18 +3006,18 @@ const QUICK_ANSWER_CARDS = {
   },
   "179": {
     "when": "解决方案必须能够根据解决方案接收的事件数量进行扩展和扩展 + 如果发生处理错误",
-    "target": "配置应用程式将失败的讯息写入死信伫列",
-    "avoid": "别选“将 AWS Lambda 函数配置为 SNS 主题的订阅者来处理事件”。",
+    "target": "Amazon SNS",
+    "avoid": "",
     "questionCues": [
       "解决方案必须能够根据解决方案接收的事件数量进行扩展和扩展",
       "如果发生处理错误"
     ],
     "answerCues": {
-      "B": [
-        "配置应用程式将失败的讯息写入死信伫列"
+      "A": [
+        "Amazon SNS"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "180": {
@@ -3101,7 +3103,7 @@ const QUICK_ANSWER_CARDS = {
   "185": {
     "when": "解决方案架构师应该如何为行销团队提供 DynamoDB 表的适当存取权限",
     "target": "与行销团队的帐户建立信任",
-    "avoid": "",
+    "avoid": "别选“将策略附加到 DynamoDB 表”。",
     "questionCues": [
       "解决方案架构师应该如何为行销团队提供 DynamoDB 表的适当存取权限"
     ],
@@ -3110,7 +3112,7 @@ const QUICK_ANSWER_CARDS = {
         "与行销团队的帐户建立信任"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "186": {
@@ -3137,7 +3139,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "187": {
     "when": "定期作业需要 120-600 秒才能运作 + 并且必须减少堆叠的营运开销",
-    "target": "B：AWS IoT Core；D：将元资料写入AmazonDocumentDB（相容于MongoDB）；E：使用 Amazon CloudFront 和 S3 来源来提供报告",
+    "target": "B：AWS IoT Core；D：将元资料写入AmazonDocumentDB（相容于MongoDB）；E：Amazon S3",
     "avoid": "",
     "questionCues": [
       "定期作业需要 120-600 秒才能运作",
@@ -3151,7 +3153,7 @@ const QUICK_ANSWER_CARDS = {
         "将元资料写入AmazonDocumentDB（相容于MongoDB）"
       ],
       "E": [
-        "使用 Amazon CloudFront 和 S3 来源来提供报告"
+        "Amazon S3"
       ]
     },
     "disputed": false,
@@ -3290,18 +3292,18 @@ const QUICK_ANSWER_CARDS = {
   },
   "196": {
     "when": "资料的储存格式必须允许薪资管理员执行月度报告 + 基础架构必须具有高可用性并可扩展",
-    "target": "B：并在多个 Availability Zones 之间进行负载平衡；E：将时间表提交资料储存在Amazon S3中",
+    "target": "C：将应用程式前端；E：Amazon Athena",
     "avoid": "",
     "questionCues": [
       "资料的储存格式必须允许薪资管理员执行月度报告",
       "基础架构必须具有高可用性并可扩展"
     ],
     "answerCues": {
-      "B": [
-        "并在多个 Availability Zones 之间进行负载平衡"
+      "C": [
+        "将应用程式前端"
       ],
       "E": [
-        "将时间表提交资料储存在Amazon S3中"
+        "Amazon Athena"
       ]
     },
     "disputed": false,
@@ -3310,7 +3312,7 @@ const QUICK_ANSWER_CARDS = {
   "197": {
     "when": "并且必须将日志保留 5 年 + 公司的安全团队也必须收到电子邮件通知",
     "target": "A：配置 AWS CloudTrail 以记录 S3 资料事件；D：Amazon SNS；F：设定新的 S3 储存桶来储存具有 S3 生命周期策略的日志",
-    "avoid": "",
+    "avoid": "别选“为S3储存桶配置S3伺服器存取日志记录”。",
     "questionCues": [
       "并且必须将日志保留 5 年",
       "公司的安全团队也必须收到电子邮件通知"
@@ -3326,13 +3328,13 @@ const QUICK_ANSWER_CARDS = {
         "设定新的 S3 储存桶来储存具有 S3 生命周期策略的日志"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "198": {
     "when": "该公司需要on-premises资料中心中的伺服器能够存取所有三个VPC中的EC2实例",
     "target": "A：在离资料中心最近的Region中建立Direct Connect网关；D：创建公共 VIF",
-    "avoid": "",
+    "avoid": "核对题目限制与完整选项。",
     "questionCues": [
       "该公司需要on-premises资料中心中的伺服器能够存取所有三个VPC中的EC2实例"
     ],
@@ -3344,12 +3346,12 @@ const QUICK_ANSWER_CARDS = {
         "创建公共 VIF"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "199": {
     "when": "一家公司正在使用 AWS Organizations 来管理数百个 AWS 帐户",
-    "target": "A：在所有帐户中启用 AWS Config；C：启用组织的所有功能；D：使用 AWS Firewall Manager 在所有 CloudFront 发行版的所有帐户中部署 AWS WAF 规则",
+    "target": "A：在所有帐户中启用 AWS Config；C：启用组织的所有功能；D：AWS Firewall Manager",
     "avoid": "",
     "questionCues": [
       "一家公司正在使用 AWS Organizations 来管理数百个 AWS 帐户"
@@ -3362,7 +3364,7 @@ const QUICK_ANSWER_CARDS = {
         "启用组织的所有功能"
       ],
       "D": [
-        "使用 AWS Firewall Manager 在所有 CloudFront 发行版的所有帐户中部署 AWS WAF 规则"
+        "AWS Firewall Manager"
       ]
     },
     "disputed": false,
@@ -3370,7 +3372,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "200": {
     "when": "他们无法存取 AWS 环境 + 解决方案架构师应检查哪些项目以确保身分联合配置正确",
-    "target": "B：SAML 提供者设定为主体；C：不属于公司 IdP 中的 AWSFederatedUsers 群组；E：DNS 主机名称可从 AWS 环境 VPC 存取",
+    "target": "B：设定为主体；D：Web 门户；F：使用者或群组的 SAML 断言",
     "avoid": "",
     "questionCues": [
       "他们无法存取 AWS 环境",
@@ -3378,13 +3380,13 @@ const QUICK_ANSWER_CARDS = {
     ],
     "answerCues": {
       "B": [
-        "SAML 提供者设定为主体"
+        "设定为主体"
       ],
-      "C": [
-        "不属于公司 IdP 中的 AWSFederatedUsers 群组"
+      "D": [
+        "Web 门户"
       ],
-      "E": [
-        "DNS 主机名称可从 AWS 环境 VPC 存取"
+      "F": [
+        "使用者或群组的 SAML 断言"
       ]
     },
     "disputed": false,
@@ -3457,7 +3459,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "205": {
     "when": "根据公司要求 + 所有资料在传输和静态时都必须加密",
-    "target": "A：为 Web 应用程式使用的 S3 储存桶开启 S3 伺服器端加密；C：建立一个储存桶策略；E：配置HTTP请求重定向到CloudFront中的HTTPS请求",
+    "target": "A：S3 伺服器端加密；C：储存桶策略 + 拒绝；E：HTTP请求重定向 + HTTPS请求",
     "avoid": "",
     "questionCues": [
       "根据公司要求",
@@ -3465,13 +3467,15 @@ const QUICK_ANSWER_CARDS = {
     ],
     "answerCues": {
       "A": [
-        "为 Web 应用程式使用的 S3 储存桶开启 S3 伺服器端加密"
+        "S3 伺服器端加密"
       ],
       "C": [
-        "建立一个储存桶策略"
+        "储存桶策略",
+        "拒绝"
       ],
       "E": [
-        "配置HTTP请求重定向到CloudFront中的HTTPS请求"
+        "HTTP请求重定向",
+        "HTTPS请求"
       ]
     },
     "disputed": false,
@@ -3622,7 +3626,7 @@ const QUICK_ANSWER_CARDS = {
   "215": {
     "when": "公司需要一个连接到 on-premises 网路的 VPC",
     "target": "B：将模板部署到共享服务帐户；D：使用 AWS Site-to-Site VPN 连接到 on-premises 网路",
-    "avoid": "别选“使用 AWS Resource Access Manager 共用中转网关”。",
+    "avoid": "",
     "questionCues": [
       "公司需要一个连接到 on-premises 网路的 VPC"
     ],
@@ -3635,7 +3639,7 @@ const QUICK_ANSWER_CARDS = {
       ]
     },
     "disputed": false,
-    "legacyMismatch": true
+    "legacyMismatch": false
   },
   "216": {
     "when": "公司需要能够对组织中所有 AWS 帐户的所有互联网出站流量添加集中管理的基于规则的过滤",
@@ -3737,25 +3741,25 @@ const QUICK_ANSWER_CARDS = {
   },
   "222": {
     "when": "以将流量引导至EC2 实例 + Auto Scaling组就会替换一个实例",
-    "target": "B：配置CloudWatch代理发送应用程式的进程指标；D：在 Amazon CloudWatch 中针对故障场景为自订指标建立警报；E：更新网路路由以指向替换实例",
-    "avoid": "别选“更新 CloudFormation 范本以在 EC2 执行个体上”。",
+    "target": "B：安装 Amazon CloudWatch 代理；D：Amazon Simple Notation Service；E：AWS Lambda",
+    "avoid": "",
     "questionCues": [
       "以将流量引导至EC2 实例",
       "Auto Scaling组就会替换一个实例"
     ],
     "answerCues": {
       "B": [
-        "配置CloudWatch代理发送应用程式的进程指标"
+        "安装 Amazon CloudWatch 代理"
       ],
       "D": [
-        "在 Amazon CloudWatch 中针对故障场景为自订指标建立警报"
+        "Amazon Simple Notation Service"
       ],
       "E": [
-        "更新网路路由以指向替换实例"
+        "AWS Lambda"
       ]
     },
     "disputed": false,
-    "legacyMismatch": true
+    "legacyMismatch": false
   },
   "223": {
     "when": "ECS + 应用程式必须自动调整任务数量以回应 Amazon CloudWatch 警报",
@@ -3871,7 +3875,7 @@ const QUICK_ANSWER_CARDS = {
   "230": {
     "when": "解决方案架构师需要降低成本 + 这些准则必须最大限度地减少整个环境的资料传输费用",
     "target": "C：关闭Network Load Balancer的跨区域负载平衡；D：Availability Zone 特定端点服务",
-    "avoid": "别选“使用 AWS 资源存取管理员与组织中的其他帐户共用托管服务提供者应用程式的子网路”。",
+    "avoid": "",
     "questionCues": [
       "解决方案架构师需要降低成本",
       "这些准则必须最大限度地减少整个环境的资料传输费用"
@@ -3885,7 +3889,7 @@ const QUICK_ANSWER_CARDS = {
       ]
     },
     "disputed": false,
-    "legacyMismatch": true
+    "legacyMismatch": false
   },
   "231": {
     "when": "该公司希望将备份移至Amazon S3上更强大的云端储存",
@@ -3905,7 +3909,7 @@ const QUICK_ANSWER_CARDS = {
   "232": {
     "when": "某公司需要建立on-premises资料中心到AWS的连线 + 公司还必须降低网路出站流量成本",
     "target": "配置中转 VIF",
-    "avoid": "",
+    "avoid": "别选“创建从中央 VPC 到所有其他 VPC 发起的 VPC 对等连接”。",
     "questionCues": [
       "某公司需要建立on-premises资料中心到AWS的连线",
       "公司还必须降低网路出站流量成本"
@@ -3915,7 +3919,7 @@ const QUICK_ANSWER_CARDS = {
         "配置中转 VIF"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "233": {
@@ -4007,7 +4011,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "238": {
     "when": "公司必须对资料备份进行以下更改 + 必须根据自订的每日、每周和每月要求保留Backup",
-    "target": "A：建立包含每个保留要求的备份规则的 AWS Backup 计划；B：配置一个 AWS Backup 计划将备份复制到另一个 Region；D：新增至备份计划",
+    "target": "A：建立包含每个保留要求的备份规则的 AWS Backup 计划；B：配置一个 AWS Backup 计划将备份；D：新增至备份计划",
     "avoid": "",
     "questionCues": [
       "公司必须对资料备份进行以下更改",
@@ -4018,7 +4022,7 @@ const QUICK_ANSWER_CARDS = {
         "建立包含每个保留要求的备份规则的 AWS Backup 计划"
       ],
       "B": [
-        "配置一个 AWS Backup 计划将备份复制到另一个 Region"
+        "配置一个 AWS Backup 计划将备份"
       ],
       "D": [
         "新增至备份计划"
@@ -4112,8 +4116,8 @@ const QUICK_ANSWER_CARDS = {
         "根据端点策略"
       ]
     },
-    "disputed": false,
-    "legacyMismatch": true
+    "disputed": true,
+    "legacyMismatch": false
   },
   "244": {
     "when": "EC2 执行个体从本地托管的多个 + 该公司希望近乎即时地监控哪些 EC2 实例连接到资料库",
@@ -4133,15 +4137,15 @@ const QUICK_ANSWER_CARDS = {
   },
   "245": {
     "when": "从AWS计费和成本管理控制台记录当前成本 + 公司有严格的合规要求",
-    "target": "B：确保每个帐户都接受邀请；D：创建一个 SCP；E：在管理帐户中建立IAM角色",
-    "avoid": "别选“建立一个 SCP”。",
+    "target": "B：启用所有功能；D：创建一个 SCP；E：在管理帐户中建立IAM角色",
+    "avoid": "",
     "questionCues": [
       "从AWS计费和成本管理控制台记录当前成本",
       "公司有严格的合规要求"
     ],
     "answerCues": {
       "B": [
-        "确保每个帐户都接受邀请"
+        "启用所有功能"
       ],
       "D": [
         "创建一个 SCP"
@@ -4151,7 +4155,7 @@ const QUICK_ANSWER_CARDS = {
       ]
     },
     "disputed": false,
-    "legacyMismatch": true
+    "legacyMismatch": false
   },
   "246": {
     "when": "建立和管理多个 AWS 帐户 + 安全团队要求自己的 AWS 帐户对所有帐户具有唯读存取权",
@@ -4400,8 +4404,8 @@ const QUICK_ANSWER_CARDS = {
   },
   "261": {
     "when": "该公司希望开始使用身份联合而不是手动用户管理 + 该公司还希望使用临时凭证而不是长期存取密钥",
-    "target": "A：确保每个帐户都接受邀请；C：配置 IAM Identity Center 以自动同步使用者和群组；E：建立 AWS IAM 身分中心（AWS Single Sign-On）权限集",
-    "avoid": "别选“以使用 AWS Managed Microsoft AD 进行身份验证和授权”。",
+    "target": "A：确保每个帐户都接受邀请；C：使用者和群组；E：将权限集",
+    "avoid": "",
     "questionCues": [
       "该公司希望开始使用身份联合而不是手动用户管理",
       "该公司还希望使用临时凭证而不是长期存取密钥"
@@ -4411,14 +4415,14 @@ const QUICK_ANSWER_CARDS = {
         "确保每个帐户都接受邀请"
       ],
       "C": [
-        "配置 IAM Identity Center 以自动同步使用者和群组"
+        "使用者和群组"
       ],
       "E": [
-        "建立 AWS IAM 身分中心（AWS Single Sign-On）权限集"
+        "将权限集"
       ]
     },
     "disputed": false,
-    "legacyMismatch": true
+    "legacyMismatch": false
   },
   "262": {
     "when": "迁移到 AWS 来管理与 20 个不经常 + 同时最大限度地降低成本",
@@ -4451,7 +4455,7 @@ const QUICK_ANSWER_CARDS = {
         "购买计算节省计划来满足按需实例的使用"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "264": {
@@ -4473,7 +4477,7 @@ const QUICK_ANSWER_CARDS = {
   "265": {
     "when": "AWS Organizations + 有 540 个开发者成员帐号必须迁移到新的开发者组织",
     "target": "B：在管理帐户中；E：以传送邀请给开发者帐户；F：让每个开发者登入他们的帐户并确认加入新的开发者组织",
-    "avoid": "核对题目限制与完整选项。",
+    "avoid": "",
     "questionCues": [
       "AWS Organizations",
       "有 540 个开发者成员帐号必须迁移到新的开发者组织"
@@ -4490,7 +4494,7 @@ const QUICK_ANSWER_CARDS = {
       ]
     },
     "disputed": false,
-    "legacyMismatch": true
+    "legacyMismatch": false
   },
   "266": {
     "when": "解决方案架构师必须推荐一种解决方案来整合检测逻辑 + 并在摄取和服务之间实现最小延迟",
@@ -4622,7 +4626,7 @@ const QUICK_ANSWER_CARDS = {
   "274": {
     "when": "Amazon S3 + 哪一组操作会立即修复安全性问题而不影响应用程式的正常工作流程",
     "target": "使用 Amazon S3 中的阻止公共存取功能将储存桶上的 IgnorePublicAcIs 选项设为 TRUE",
-    "avoid": "",
+    "avoid": "别选“查看 AWS Trusted Advisor 储存桶权限检查并实作建议的操作”。",
     "questionCues": [
       "Amazon S3",
       "哪一组操作会立即修复安全性问题而不影响应用程式的正常工作流程"
@@ -4632,7 +4636,7 @@ const QUICK_ANSWER_CARDS = {
         "使用 Amazon S3 中的阻止公共存取功能将储存桶上的 IgnorePublicAcIs 选项设为 TRUE"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "275": {
@@ -4655,7 +4659,7 @@ const QUICK_ANSWER_CARDS = {
       ]
     },
     "disputed": true,
-    "legacyMismatch": true
+    "legacyMismatch": false
   },
   "276": {
     "when": "后端处理逾时设定为10秒 + 解决方案架构师需要分析错误的订单讯息并确保系统继续处理后续讯息",
@@ -4692,7 +4696,7 @@ const QUICK_ANSWER_CARDS = {
       ]
     },
     "disputed": true,
-    "legacyMismatch": true
+    "legacyMismatch": false
   },
   "278": {
     "when": "解决方案架构师必须确保新服务可以解析 company.example 网域上的主机名",
@@ -4775,21 +4779,21 @@ const QUICK_ANSWER_CARDS = {
   },
   "283": {
     "when": "一家公司希望将资料从其 on-premises 系统传送到 Amazon S3 储存桶",
-    "target": "A：在 on-premises 环境与私有 VPC 之间建立与私有 VIF 的 AWS Direct Connect 连线；C：在网路帐户中建立Amazon S3介面端点",
-    "avoid": "别选“来自托管 S3 储存桶的帐户的对等 VPC 以及网路帐户中的 VPC”。",
+    "target": "A：建立与私有 VIF 的 AWS Direct Connect 连线；C：在网路帐户中建立Amazon S3介面端点",
+    "avoid": "",
     "questionCues": [
       "一家公司希望将资料从其 on-premises 系统传送到 Amazon S3 储存桶"
     ],
     "answerCues": {
       "A": [
-        "在 on-premises 环境与私有 VPC 之间建立与私有 VIF 的 AWS Direct Connect 连线"
+        "建立与私有 VIF 的 AWS Direct Connect 连线"
       ],
       "C": [
         "在网路帐户中建立Amazon S3介面端点"
       ]
     },
     "disputed": false,
-    "legacyMismatch": true
+    "legacyMismatch": false
   },
   "284": {
     "when": "该公司希望降低 DynamoDB 成本并最大限度地减少 IT 员工的营运开销",
@@ -4872,7 +4876,7 @@ const QUICK_ANSWER_CARDS = {
   "289": {
     "when": "欧洲客户必须能够存取与美国 (US) 客户相同的数据 + 并且不能容忍高应用程式延迟或过时的数据",
     "target": "暂停应用程式写入RDS 资料库实例",
-    "avoid": "核对题目限制与完整选项。",
+    "avoid": "",
     "questionCues": [
       "欧洲客户必须能够存取与美国 (US) 客户相同的数据",
       "并且不能容忍高应用程式延迟或过时的数据"
@@ -4882,8 +4886,8 @@ const QUICK_ANSWER_CARDS = {
         "暂停应用程式写入RDS 资料库实例"
       ]
     },
-    "disputed": true,
-    "legacyMismatch": true
+    "disputed": false,
+    "legacyMismatch": false
   },
   "290": {
     "when": "解决方案架构师必须实施一个解决方案来提高可用性、最大限度地降低基础设施管理的复杂性",
@@ -4967,7 +4971,7 @@ const QUICK_ANSWER_CARDS = {
   "295": {
     "when": "Amazon EC2 + 解决方案架构师需要实施一个解决方案来永久降低EC2成本并提高利用率",
     "target": "指定 CPU 和记忆体需求",
-    "avoid": "别选“修改 Auto Scaling 群组的启动范本配置以使用清单中的多种实例类型”。",
+    "avoid": "",
     "questionCues": [
       "Amazon EC2",
       "解决方案架构师需要实施一个解决方案来永久降低EC2成本并提高利用率"
@@ -4977,13 +4981,13 @@ const QUICK_ANSWER_CARDS = {
         "指定 CPU 和记忆体需求"
       ]
     },
-    "disputed": true,
-    "legacyMismatch": true
+    "disputed": false,
+    "legacyMismatch": false
   },
   "296": {
     "when": "该公司使用 AWS CloudFormation 实现基础设施配置自动化",
     "target": "使用 AWS Backup 在辅助 AWS Region 中建立 Aurora 资料库和 DynamoDB 资料库的备份",
-    "avoid": "别选“Lambda 将DynamoDB 资料库复制到辅助资料库⟦T12​​6⟧”。",
+    "avoid": "",
     "questionCues": [
       "该公司使用 AWS CloudFormation 实现基础设施配置自动化"
     ],
@@ -4992,8 +4996,8 @@ const QUICK_ANSWER_CARDS = {
         "使用 AWS Backup 在辅助 AWS Region 中建立 Aurora 资料库和 DynamoDB 资料库的备份"
       ]
     },
-    "disputed": true,
-    "legacyMismatch": true
+    "disputed": false,
+    "legacyMismatch": false
   },
   "297": {
     "when": "该应用程式利用 Amazon CloudFront 实现全局可扩展性和性能 + 随著时间的推移",
@@ -5191,20 +5195,23 @@ const QUICK_ANSWER_CARDS = {
   },
   "309": {
     "when": "解决方案架构师需要允许 Account A 中的 IAM 使用者承担Account B 中的角色",
-    "target": "A：将 SCP 配置为 Account A 以允许该操作；C：在 Account A 中为使用者配置基于身分的策略以允许该操作；E：在Account B中配置目标角色的信任策略以允许该操作",
+    "target": "A：SCP + Account A 以允许该操作；C：Account A 中为使用者 + 基于身分的策略；E：在Account B中配置目标角色 + 信任策略",
     "avoid": "",
     "questionCues": [
       "解决方案架构师需要允许 Account A 中的 IAM 使用者承担Account B 中的角色"
     ],
     "answerCues": {
       "A": [
-        "将 SCP 配置为 Account A 以允许该操作"
+        "SCP",
+        "Account A 以允许该操作"
       ],
       "C": [
-        "在 Account A 中为使用者配置基于身分的策略以允许该操作"
+        "Account A 中为使用者",
+        "基于身分的策略"
       ],
       "E": [
-        "在Account B中配置目标角色的信任策略以允许该操作"
+        "在Account B中配置目标角色",
+        "信任策略"
       ]
     },
     "disputed": false,
@@ -5334,7 +5341,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "317": {
     "when": "并从 DynamoDB 全域表检索资料 + 解决方案架构师需要更改公司 API 的 API 元件",
-    "target": "A：将 API 部署到多个 Regions；B：建立新的 KMS 多Region 客户管理金钥；C：选择适当的 KMS 金钥",
+    "target": "A：将 API 部署到多个 Regions；B：建立新的 KMS 客户管理副本金钥；C：选择适当的 KMS 金钥",
     "avoid": "",
     "questionCues": [
       "并从 DynamoDB 全域表检索资料",
@@ -5345,7 +5352,7 @@ const QUICK_ANSWER_CARDS = {
         "将 API 部署到多个 Regions"
       ],
       "B": [
-        "建立新的 KMS 多Region 客户管理金钥"
+        "建立新的 KMS 客户管理副本金钥"
       ],
       "C": [
         "选择适当的 KMS 金钥"
@@ -5372,14 +5379,14 @@ const QUICK_ANSWER_CARDS = {
   },
   "319": {
     "when": "此解决方案必须将集中用户管理与公司的on-premisesActive Directory整合",
-    "target": "使用者群组",
+    "target": "从公司网路连接到目标实例",
     "avoid": "",
     "questionCues": [
       "此解决方案必须将集中用户管理与公司的on-premisesActive Directory整合"
     ],
     "answerCues": {
-      "B": [
-        "使用者群组"
+      "C": [
+        "从公司网路连接到目标实例"
       ]
     },
     "disputed": false,
@@ -5462,7 +5469,7 @@ const QUICK_ANSWER_CARDS = {
       ]
     },
     "disputed": true,
-    "legacyMismatch": true
+    "legacyMismatch": false
   },
   "325": {
     "when": "迁移到 Amazon DocumentDB（具有 MongoDB 相容性）",
@@ -5494,39 +5501,39 @@ const QUICK_ANSWER_CARDS = {
       ]
     },
     "disputed": true,
-    "legacyMismatch": true
+    "legacyMismatch": false
   },
   "327": {
     "when": "迁移到AWS + 该公司还需要在另一个AWSRegion中实现复制以进行灾难复原",
-    "target": "建立一个 Amazon DynamoDB 全域表来托管使用者会话资料",
-    "avoid": "",
+    "target": "使用一张全域表来托管产品资料",
+    "avoid": "别选“建立一个 Amazon DynamoDB 全域表来托管使用者会话资料”。",
     "questionCues": [
       "迁移到AWS",
       "该公司还需要在另一个AWSRegion中实现复制以进行灾难复原"
     ],
     "answerCues": {
-      "D": [
-        "建立一个 Amazon DynamoDB 全域表来托管使用者会话资料"
+      "C": [
+        "使用一张全域表来托管产品资料"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "328": {
     "when": "该公司希望优化这些开发帐户的成本 + 该公司希望禁止使用其他不相关的服务",
-    "target": "在AWS Control Tower中建立自订预防控制（护栏）",
-    "avoid": "别选“配置 AWS Cong 规则以仅允许部署可突发实例并禁止不相关的服务”。",
+    "target": "建立自订SCP",
+    "avoid": "",
     "questionCues": [
       "该公司希望优化这些开发帐户的成本",
       "该公司希望禁止使用其他不相关的服务"
     ],
     "answerCues": {
-      "C": [
-        "在AWS Control Tower中建立自订预防控制（护栏）"
+      "A": [
+        "建立自订SCP"
       ]
     },
     "disputed": false,
-    "legacyMismatch": true
+    "legacyMismatch": false
   },
   "329": {
     "when": "24小时后将删除 + 解决方案架构师需要在不对应用程式架构进行重大变更的情况下解决此问题",
@@ -5563,7 +5570,7 @@ const QUICK_ANSWER_CARDS = {
   "331": {
     "when": "在迁移切换之前 + 解决方案架构师必须建立一个流程",
     "target": "使用私有 VIF",
-    "avoid": "",
+    "avoid": "别选“并将影像从Amazon S3复制到EFS档案系统”。",
     "questionCues": [
       "在迁移切换之前",
       "解决方案架构师必须建立一个流程"
@@ -5573,7 +5580,7 @@ const QUICK_ANSWER_CARDS = {
         "使用私有 VIF"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "332": {
@@ -5625,7 +5632,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "335": {
     "when": "以及 Amazon Aurora MySQL + 最佳性能是发布后一周的首要任务",
-    "target": "D：使用 Aurora 全域资料库进行实体交叉 Region 复制；E：引入基于延迟的路由和 Amazon CloudFront 分布的 Amazon Route 53",
+    "target": "D：使用 Aurora 全域资料库进行实体交叉 Region 复制；E：Amazon Route 53",
     "avoid": "",
     "questionCues": [
       "以及 Amazon Aurora MySQL",
@@ -5636,7 +5643,7 @@ const QUICK_ANSWER_CARDS = {
         "使用 Aurora 全域资料库进行实体交叉 Region 复制"
       ],
       "E": [
-        "引入基于延迟的路由和 Amazon CloudFront 分布的 Amazon Route 53"
+        "Amazon Route 53"
       ]
     },
     "disputed": false,
@@ -5661,8 +5668,8 @@ const QUICK_ANSWER_CARDS = {
   },
   "337": {
     "when": "AWS Backup + 即所有备份都必须能够抵御任何生产帐户中特权用户凭证的泄露",
-    "target": "A：使用指定非生产帐户中的AWSBackup保管库实施跨帐户备份；C：为分配给 AWS Backup 的 IAM 服务角色实现最小权限存取；D：确保冷层中始终存在至少一份备份",
-    "avoid": "",
+    "target": "A：使用指定非生产帐户中的AWSBackup保管库实施跨帐户备份；B：新增 SCP 限制对 AWS Backup 金库的修改；C：AWS Backup Vault Lock",
+    "avoid": "别选“为分配给 AWS Backup 的 IAM 服务角色实现最小权限存取”。",
     "questionCues": [
       "AWS Backup",
       "即所有备份都必须能够抵御任何生产帐户中特权用户凭证的泄露"
@@ -5671,26 +5678,26 @@ const QUICK_ANSWER_CARDS = {
       "A": [
         "使用指定非生产帐户中的AWSBackup保管库实施跨帐户备份"
       ],
-      "C": [
-        "为分配给 AWS Backup 的 IAM 服务角色实现最小权限存取"
+      "B": [
+        "新增 SCP 限制对 AWS Backup 金库的修改"
       ],
-      "D": [
-        "确保冷层中始终存在至少一份备份"
+      "C": [
+        "AWS Backup Vault Lock"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "338": {
     "when": "解决方案架构师必须设计一个能够处理需要摄取的大量日志记录资料的解决方案",
-    "target": "A：在中央日志记录帐户中建立目标 Amazon Kinesis 资料流；C：为每个日志组建立订阅过滤器；E：以规范中央日志记录帐户中的日志并将日志写入安全性工具",
+    "target": "A：建立目标 Amazon Kinesis 资料流；C：为每个日志组建立订阅过滤器；E：以规范中央日志记录帐户中的日志并将日志写入安全性工具",
     "avoid": "",
     "questionCues": [
       "解决方案架构师必须设计一个能够处理需要摄取的大量日志记录资料的解决方案"
     ],
     "answerCues": {
       "A": [
-        "在中央日志记录帐户中建立目标 Amazon Kinesis 资料流"
+        "建立目标 Amazon Kinesis 资料流"
       ],
       "C": [
         "为每个日志组建立订阅过滤器"
@@ -5704,8 +5711,8 @@ const QUICK_ANSWER_CARDS = {
   },
   "339": {
     "when": "一家公司正在将遗留应用程式从on-premises资料中心迁移到AWS + 迁移应用程式",
-    "target": "A：使用 AWS 伺服器迁移服务 (AWS SMS) 复制作业将资料库伺服器虚拟机器迁移到 AWS；D：使用 AWS 伺服器迁移服务 (AWS SMS) 复制作业将应用程式伺服器虚拟机器迁移到 AWS",
-    "avoid": "",
+    "target": "A：使用 AWS 伺服器迁移服务 (AWS SMS) 复制作业将资料库伺服器虚拟机器迁移到 AWS；D：复制作业将应用程式伺服器虚拟机器",
+    "avoid": "别选“AWS Snowball”。",
     "questionCues": [
       "一家公司正在将遗留应用程式从on-premises资料中心迁移到AWS",
       "迁移应用程式"
@@ -5715,15 +5722,15 @@ const QUICK_ANSWER_CARDS = {
         "使用 AWS 伺服器迁移服务 (AWS SMS) 复制作业将资料库伺服器虚拟机器迁移到 AWS"
       ],
       "D": [
-        "使用 AWS 伺服器迁移服务 (AWS SMS) 复制作业将应用程式伺服器虚拟机器迁移到 AWS"
+        "复制作业将应用程式伺服器虚拟机器"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "340": {
     "when": "该公司的AWS帐户包含数百个VPC + 该公司希望控制哪些VPC可以与其他VPC进行通讯",
-    "target": "A：在 AWS 帐户中建立中转网关；B：配置所有 VPC 和 VPN 的附件；C：设定中转网关路由表",
+    "target": "A：AWS RAM；B：配置所有 VPC 和 VPN 的附件；C：设定中转网关路由表",
     "avoid": "",
     "questionCues": [
       "该公司的AWS帐户包含数百个VPC",
@@ -5731,7 +5738,7 @@ const QUICK_ANSWER_CARDS = {
     ],
     "answerCues": {
       "A": [
-        "在 AWS 帐户中建立中转网关"
+        "AWS RAM"
       ],
       "B": [
         "配置所有 VPC 和 VPN 的附件"
@@ -5746,7 +5753,7 @@ const QUICK_ANSWER_CARDS = {
   "341": {
     "when": "AWS Lambda + 解决方案架构师必须设计一个可以扩展以处理流量变化的解决方案",
     "target": "将资料库迁移到Aurora Serverless v1",
-    "avoid": "",
+    "avoid": "别选“购买计算节省计划和 RDS 预留实例”。",
     "questionCues": [
       "AWS Lambda",
       "解决方案架构师必须设计一个可以扩展以处理流量变化的解决方案"
@@ -5756,7 +5763,7 @@ const QUICK_ANSWER_CARDS = {
         "将资料库迁移到Aurora Serverless v1"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "342": {
@@ -6072,7 +6079,7 @@ const QUICK_ANSWER_CARDS = {
   "361": {
     "when": "公司希望让新客户能够存取 SaaS 服务 + 但公司不希望立即在 us-east-1 中",
     "target": "建立一个 IP 目标群组",
-    "avoid": "核对题目限制与完整选项。",
+    "avoid": "",
     "questionCues": [
       "公司希望让新客户能够存取 SaaS 服务",
       "但公司不希望立即在 us-east-1 中"
@@ -6082,7 +6089,7 @@ const QUICK_ANSWER_CARDS = {
         "建立一个 IP 目标群组"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "362": {
@@ -6215,19 +6222,18 @@ const QUICK_ANSWER_CARDS = {
   },
   "370": {
     "when": "并确保将来能够自动侦测到未加密的磁碟区 + 该公司希望有一个解决方案能够集中管理多个AWS帐户",
-    "target": "C：建立每个未加密磁碟区的快照 + 将其替换为加密卷；D：开启强制控制（护栏）",
+    "target": "A：并开启强烈建议的控制项（护栏）；C：分离现有卷",
     "avoid": "",
     "questionCues": [
       "并确保将来能够自动侦测到未加密的磁碟区",
       "该公司希望有一个解决方案能够集中管理多个AWS帐户"
     ],
     "answerCues": {
-      "C": [
-        "建立每个未加密磁碟区的快照",
-        "将其替换为加密卷"
+      "A": [
+        "并开启强烈建议的控制项（护栏）"
       ],
-      "D": [
-        "开启强制控制（护栏）"
+      "C": [
+        "分离现有卷"
       ]
     },
     "disputed": false,
@@ -6267,24 +6273,24 @@ const QUICK_ANSWER_CARDS = {
   },
   "373": {
     "when": "他们希望 + 他们还希望将多个帐户作为一个整体进行管理",
-    "target": "C：查看AWS Trusted Advisor 报告以确定最近使用的服务；D：删除预设的 FullAWSAccess SCP；F：删除预设的 DenyAWSAccess SCP",
-    "avoid": "别选“查看 AWS IAM 中的访问顾问以确定最近使用的服务”。",
+    "target": "A：使用拒绝清单策略；B：查看 AWS IAM 中的访问顾问以确定最近使用的服务；E：定义组织单位 (OU) 并将成员帐户放置在 OU 中",
+    "avoid": "",
     "questionCues": [
       "他们希望",
       "他们还希望将多个帐户作为一个整体进行管理"
     ],
     "answerCues": {
-      "C": [
-        "查看AWS Trusted Advisor 报告以确定最近使用的服务"
+      "A": [
+        "使用拒绝清单策略"
       ],
-      "D": [
-        "删除预设的 FullAWSAccess SCP"
+      "B": [
+        "查看 AWS IAM 中的访问顾问以确定最近使用的服务"
       ],
-      "F": [
-        "删除预设的 DenyAWSAccess SCP"
+      "E": [
+        "定义组织单位 (OU) 并将成员帐户放置在 OU 中"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "374": {
@@ -6305,37 +6311,37 @@ const QUICK_ANSWER_CARDS = {
   },
   "375": {
     "when": "该公司不希望该解决方案消耗所有可用的网路频宽 + 因为其他应用程式需要频宽",
-    "target": "A：建立一个至少具有两个私有子网路、两个 NAT 闸道和一个虚拟私有闸道的 VPC；E：在配置复制伺服器期间；F：在设定目标伺服器的启动设定期间",
-    "avoid": "",
+    "target": "A：建立一个至少具有两个私有子网路、两个 NAT 闸道和一个虚拟私有闸道的 VPC。；D：Direct Connect；E：在配置复制伺服器期间",
+    "avoid": "核对题目限制与完整选项。",
     "questionCues": [
       "该公司不希望该解决方案消耗所有可用的网路频宽",
       "因为其他应用程式需要频宽"
     ],
     "answerCues": {
       "A": [
-        "建立一个至少具有两个私有子网路、两个 NAT 闸道和一个虚拟私有闸道的 VPC"
+        "建立一个至少具有两个私有子网路、两个 NAT 闸道和一个虚拟私有闸道的 VPC。"
+      ],
+      "D": [
+        "Direct Connect"
       ],
       "E": [
         "在配置复制伺服器期间"
-      ],
-      "F": [
-        "在设定目标伺服器的启动设定期间"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "376": {
     "when": "该解决方案必须能够处理需求的显著变化 + 并且能够在发生故障时重新执行处理作业",
-    "target": "执行 AWS Lambda 函数来调整影像大小",
+    "target": "使用AWS Step Functions处理使用者储存图片时发生的S3事件",
     "avoid": "别选“使用S3事件通知呼叫AWS Lambda函数”。",
     "questionCues": [
       "该解决方案必须能够处理需求的显著变化",
       "并且能够在发生故障时重新执行处理作业"
     ],
     "answerCues": {
-      "D": [
-        "执行 AWS Lambda 函数来调整影像大小"
+      "A": [
+        "使用AWS Step Functions处理使用者储存图片时发生的S3事件"
       ]
     },
     "disputed": true,
@@ -6376,18 +6382,18 @@ const QUICK_ANSWER_CARDS = {
   },
   "379": {
     "when": "财务部门需要一种集中的付款方式 + 安全团队需要一个集中机制来控制公司所有帐户中IAM的使用情况",
-    "target": "A：要求所有新帐户和现有帐户启动适当的堆叠以强制执行最小权限模型；B：邀请现有帐户加入组织并使用组织建立新帐户",
+    "target": "B：邀请现有帐户加入组织并使用组织建立新帐户；D：过滤IAM子帐户的权限",
     "avoid": "",
     "questionCues": [
       "财务部门需要一种集中的付款方式",
       "安全团队需要一个集中机制来控制公司所有帐户中IAM的使用情况"
     ],
     "answerCues": {
-      "A": [
-        "要求所有新帐户和现有帐户启动适当的堆叠以强制执行最小权限模型"
-      ],
       "B": [
         "邀请现有帐户加入组织并使用组织建立新帐户"
+      ],
+      "D": [
+        "过滤IAM子帐户的权限"
       ]
     },
     "disputed": false,
@@ -6411,23 +6417,23 @@ const QUICK_ANSWER_CARDS = {
   },
   "381": {
     "when": "营运团队恢复了 Web 伺服器建立的日志并审查了Aurora 资料库集群效能指标",
-    "target": "A：慢查询和错误日志发布到AmazonCloudWatch日志；E：AWS CloudTrail；F：效能基准测试并将串流发布到 AWS X-Ray",
-    "avoid": "别选“在 EC2 实例上安装并设定 Amazon CloudWatch 日志代理”。",
+    "target": "A：配置AuroraMySQL资料库集群将慢查询和错误日志发布到AmazonCloudWatch日志。；B：AWS X-Ray SDK；D：在 EC2 实例上",
+    "avoid": "",
     "questionCues": [
       "营运团队恢复了 Web 伺服器建立的日志并审查了Aurora 资料库集群效能指标"
     ],
     "answerCues": {
       "A": [
-        "慢查询和错误日志发布到AmazonCloudWatch日志"
+        "配置AuroraMySQL资料库集群将慢查询和错误日志发布到AmazonCloudWatch日志。"
       ],
-      "E": [
-        "AWS CloudTrail"
+      "B": [
+        "AWS X-Ray SDK"
       ],
-      "F": [
-        "效能基准测试并将串流发布到 AWS X-Ray"
+      "D": [
+        "在 EC2 实例上"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "382": {
@@ -6496,7 +6502,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "386": {
     "when": "以便使用者无法提供未经批准的服务 + 使用中央帐户来管理基础设施服务的建立",
-    "target": "B：与为公司创建的组织结构共享这些投资组合；D：复制TagOption；E：将 TagOption 应用于 AWS Service Catalog 产品或产品组合",
+    "target": "B：建立的投资组合；D：复制TagOption；E：AWS Service Catalog TagOption",
     "avoid": "",
     "questionCues": [
       "以便使用者无法提供未经批准的服务",
@@ -6504,13 +6510,13 @@ const QUICK_ANSWER_CARDS = {
     ],
     "answerCues": {
       "B": [
-        "与为公司创建的组织结构共享这些投资组合"
+        "建立的投资组合"
       ],
       "D": [
         "复制TagOption"
       ],
       "E": [
-        "将 TagOption 应用于 AWS Service Catalog 产品或产品组合"
+        "AWS Service Catalog TagOption"
       ]
     },
     "disputed": false,
@@ -6597,18 +6603,18 @@ const QUICK_ANSWER_CARDS = {
   },
   "392": {
     "when": "该公司需要提高支援额外使用的能力 + 同时最大限度地减少与解决方案相关的成本增加",
-    "target": "修改 Lambda 函数以使用快取",
-    "avoid": "",
+    "target": "在生产阶段启用缓存",
+    "avoid": "别选“在API Gateway生产阶段启用节流”。",
     "questionCues": [
       "该公司需要提高支援额外使用的能力",
       "同时最大限度地减少与解决方案相关的成本增加"
     ],
     "answerCues": {
-      "B": [
-        "修改 Lambda 函数以使用快取"
+      "A": [
+        "在生产阶段启用缓存"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "393": {
@@ -6630,7 +6636,7 @@ const QUICK_ANSWER_CARDS = {
   "394": {
     "when": "文件储存必须具有高可用性、具有弹性、必须与便携式作业系统介面 (POSIX) 相容",
     "target": "使用最大 I/O 效能模式的新 Amazon Elastic File System (Amazon EFS) 档案系统",
-    "avoid": "",
+    "avoid": "核对题目限制与完整选项。",
     "questionCues": [
       "文件储存必须具有高可用性、具有弹性、必须与便携式作业系统介面 (POSIX) 相容"
     ],
@@ -6639,7 +6645,7 @@ const QUICK_ANSWER_CARDS = {
         "使用最大 I/O 效能模式的新 Amazon Elastic File System (Amazon EFS) 档案系统"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "395": {
@@ -6661,15 +6667,15 @@ const QUICK_ANSWER_CARDS = {
   },
   "396": {
     "when": "解决方案架构师必须更新应用程序 + 以便应用程式具有高可用性",
-    "target": "为 Redis 设定 Amazon ElastiCache",
+    "target": "在内容更新之前配置EC2实例的计划扩充",
     "avoid": "",
     "questionCues": [
       "解决方案架构师必须更新应用程序",
       "以便应用程式具有高可用性"
     ],
     "answerCues": {
-      "B": [
-        "为 Redis 设定 Amazon ElastiCache"
+      "A": [
+        "在内容更新之前配置EC2实例的计划扩充"
       ]
     },
     "disputed": false,
@@ -6677,24 +6683,24 @@ const QUICK_ANSWER_CARDS = {
   },
   "397": {
     "when": "公司需要储存和处理将使用自订行动应用程式从行动装置上传的影像资料 + 每分钟上传数千次",
-    "target": "A：将手机软体中的档案直接上传至Amazon S3；C：当伫列中有讯息时；D：当伫列中有可用讯息时",
-    "avoid": "别选“将手机软体中的档案直接上传到Amazon S3”。",
+    "target": "B：Amazon SQS；C：当伫列中有讯息时；E：Amazon SNS",
+    "avoid": "",
     "questionCues": [
       "公司需要储存和处理将使用自订行动应用程式从行动装置上传的影像资料",
       "每分钟上传数千次"
     ],
     "answerCues": {
-      "A": [
-        "将手机软体中的档案直接上传至Amazon S3"
+      "B": [
+        "Amazon SQS"
       ],
       "C": [
         "当伫列中有讯息时"
       ],
-      "D": [
-        "当伫列中有可用讯息时"
+      "E": [
+        "Amazon SNS"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "398": {
@@ -6715,39 +6721,39 @@ const QUICK_ANSWER_CARDS = {
   },
   "399": {
     "when": "解决方案架构师必须创建满足安全要求的容器化架构 + 部署后需要采取哪些步骤才能满足要求",
-    "target": "C：将安全群组套用到Amazon EC2实例；D：将安全性群组应用于任务",
-    "avoid": "别选“并使用IAM任务角色来存取其他资源”。",
+    "target": "B：使用 awsvpc 网路模式建立任务；E：将安全群组应用于任务",
+    "avoid": "",
     "questionCues": [
       "解决方案架构师必须创建满足安全要求的容器化架构",
       "部署后需要采取哪些步骤才能满足要求"
     ],
     "answerCues": {
-      "C": [
-        "将安全群组套用到Amazon EC2实例"
+      "B": [
+        "使用 awsvpc 网路模式建立任务"
       ],
-      "D": [
-        "将安全性群组应用于任务"
+      "E": [
+        "将安全群组应用于任务"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "400": {
     "when": "该公司创建了需要 Lambda 函数来存取 Amazon Neptune 资料库集群的新功能",
-    "target": "A：并透过 Internet 网关路由流量；E：为DynamoDB建立VPC端点",
-    "avoid": "别选“并透过 NAT 网关路由互联网流量”。",
+    "target": "B：并透过 NAT 网关路由互联网流量；E：为DynamoDB建立VPC端点",
+    "avoid": "",
     "questionCues": [
       "该公司创建了需要 Lambda 函数来存取 Amazon Neptune 资料库集群的新功能"
     ],
     "answerCues": {
-      "A": [
-        "并透过 Internet 网关路由流量"
+      "B": [
+        "并透过 NAT 网关路由互联网流量"
       ],
       "E": [
         "为DynamoDB建立VPC端点"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "401": {
@@ -6960,7 +6966,7 @@ const QUICK_ANSWER_CARDS = {
   "414": {
     "when": "感测器不得将资料传送至AWS",
     "target": "指定配置模板",
-    "avoid": "",
+    "avoid": "别选“授予 AWS IoT Core 服务权限”。",
     "questionCues": [
       "感测器不得将资料传送至AWS"
     ],
@@ -6969,7 +6975,7 @@ const QUICK_ANSWER_CARDS = {
         "指定配置模板"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "415": {
@@ -7262,18 +7268,18 @@ const QUICK_ANSWER_CARDS = {
   },
   "433": {
     "when": "公司不需要保留比赛的任何数据 + 该公司必须设计一种新的架构来降低举办竞赛的成本",
-    "target": "ElastiCache",
-    "avoid": "别选“删除DynamoDB表”。",
+    "target": "在每个条目上设定 DynamoDB TTL 属性",
+    "avoid": "",
     "questionCues": [
       "公司不需要保留比赛的任何数据",
       "该公司必须设计一种新的架构来降低举办竞赛的成本"
     ],
     "answerCues": {
-      "C": [
-        "ElastiCache"
+      "D": [
+        "在每个条目上设定 DynamoDB TTL 属性"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "434": {
@@ -7326,7 +7332,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "437": {
     "when": "此资料库在具有两个私有子网路的 VPC 中运作 + 该网站在上个月遭受了几次中断",
-    "target": "A：Auto Scaling；C：并使用 Aurora 副本；F：在网站 VPC 的不同Availability Zone 中建立一个额外的公有子网路",
+    "target": "A：Auto Scaling；C：并使用 Aurora 副本；F：建立一个额外的公有子网路",
     "avoid": "",
     "questionCues": [
       "此资料库在具有两个私有子网路的 VPC 中运作",
@@ -7340,7 +7346,7 @@ const QUICK_ANSWER_CARDS = {
         "并使用 Aurora 副本"
       ],
       "F": [
-        "在网站 VPC 的不同Availability Zone 中建立一个额外的公有子网路"
+        "建立一个额外的公有子网路"
       ]
     },
     "disputed": false,
@@ -7349,7 +7355,7 @@ const QUICK_ANSWER_CARDS = {
   "438": {
     "when": "ALB偶尔会回传 502 状态码（网关错误）错误 + 解决方案架构师需要向访客提供自订错误页面",
     "target": "A：配置S3储存桶来托管静态网页；E：透过配置 CloudFront 自订错误页面来新增自订错误回应",
-    "avoid": "",
+    "avoid": "别选“透过新增健康检查来修改现有的Amazon Route 53记录”。",
     "questionCues": [
       "ALB偶尔会回传 502 状态码（网关错误）错误",
       "解决方案架构师需要向访客提供自订错误页面"
@@ -7362,12 +7368,12 @@ const QUICK_ANSWER_CARDS = {
         "透过配置 CloudFront 自订错误页面来新增自订错误回应"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "439": {
     "when": "在执行DNS切换到新资料库之前 + 公司必须尽量减少资料库服务中断",
-    "target": "A：与新的 AWS 帐户共用快照；B：使用 AWS Database Migration Service（AWSDMS）在两个Aurora资料库集群之间迁移资料",
+    "target": "A：与新的 AWS 帐户共用快照；B：AWS Database Migration Service",
     "avoid": "",
     "questionCues": [
       "在执行DNS切换到新资料库之前",
@@ -7378,7 +7384,7 @@ const QUICK_ANSWER_CARDS = {
         "与新的 AWS 帐户共用快照"
       ],
       "B": [
-        "使用 AWS Database Migration Service（AWSDMS）在两个Aurora资料库集群之间迁移资料"
+        "AWS Database Migration Service"
       ]
     },
     "disputed": false,
@@ -7386,7 +7392,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "440": {
     "when": "新功能还需要从每个客户的VPC到公司管理层VPC的单向访问 + 管理VPC托管运算资源",
-    "target": "A：建立中转网关；E：在公司管理层VPC和每个客户的VPC之间创建VPC对等连接",
+    "target": "A：建立中转网关；C：建立可供每位客户的 VPA",
     "avoid": "",
     "questionCues": [
       "新功能还需要从每个客户的VPC到公司管理层VPC的单向访问",
@@ -7396,8 +7402,8 @@ const QUICK_ANSWER_CARDS = {
       "A": [
         "建立中转网关"
       ],
-      "E": [
-        "在公司管理层VPC和每个客户的VPC之间创建VPC对等连接"
+      "C": [
+        "建立可供每位客户的 VPA"
       ]
     },
     "disputed": false,
@@ -7424,20 +7430,20 @@ const QUICK_ANSWER_CARDS = {
   },
   "442": {
     "when": "Route 53 不会自动将使用者重新导向到另一个 Region",
-    "target": "A：Web 伺服器停止的Region 的权重高于其他Region 的权重；E：尚未为与已停止的 Web 伺服器关联的一个或多个加权资源记录集设定 HTTP 运行状况检查",
-    "avoid": "别选“辅助 Region 中的其中一台 Web 伺服器未通过其 HTTP 运行状况检查”。",
+    "target": "D：未启用评估目标运作状况的设定；E：尚未为与已停止的 Web 伺服器关联的一个或多个加权资源记录集设定 HTTP 运行状况检查",
+    "avoid": "",
     "questionCues": [
       "Route 53 不会自动将使用者重新导向到另一个 Region"
     ],
     "answerCues": {
-      "A": [
-        "Web 伺服器停止的Region 的权重高于其他Region 的权重"
+      "D": [
+        "未启用评估目标运作状况的设定"
       ],
       "E": [
         "尚未为与已停止的 Web 伺服器关联的一个或多个加权资源记录集设定 HTTP 运行状况检查"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "443": {
@@ -7458,18 +7464,18 @@ const QUICK_ANSWER_CARDS = {
   },
   "444": {
     "when": "该应用程式遇到了中断 + Auto Scaling 在中断期间不断更换实例",
-    "target": "A：配置 Amazon RDS MySQL 的唯读副本；B：以评估完整的应用程式功能",
+    "target": "B：以评估完整的应用程式功能；E：以减少后端资料库层的负载",
     "avoid": "",
     "questionCues": [
       "该应用程式遇到了中断",
       "Auto Scaling 在中断期间不断更换实例"
     ],
     "answerCues": {
-      "A": [
-        "配置 Amazon RDS MySQL 的唯读副本"
-      ],
       "B": [
         "以评估完整的应用程式功能"
+      ],
+      "E": [
+        "以减少后端资料库层的负载"
       ]
     },
     "disputed": false,
@@ -7477,15 +7483,15 @@ const QUICK_ANSWER_CARDS = {
   },
   "445": {
     "when": "EKS + 该公司需要一个AWS托管解决方案来进行Kubernetes管理",
-    "target": "将 Amazon EKS 安装在 on-premises 资料中心的公司硬体上的任何位置",
-    "avoid": "别选“在 Outposts 伺服器上的任何位置安装 Amazon EKS”。",
+    "target": "透过在 Outposts 伺服器上使用本地集群配置来部署 Amazon EKS 用于生产工作负载",
+    "avoid": "别选“在 EKS Anywhere 集群上部署生产工作负载”。",
     "questionCues": [
       "EKS",
       "该公司需要一个AWS托管解决方案来进行Kubernetes管理"
     ],
     "answerCues": {
-      "B": [
-        "将 Amazon EKS 安装在 on-premises 资料中心的公司硬体上的任何位置"
+      "A": [
+        "透过在 Outposts 伺服器上使用本地集群配置来部署 Amazon EKS 用于生产工作负载"
       ]
     },
     "disputed": true,
@@ -7493,24 +7499,24 @@ const QUICK_ANSWER_CARDS = {
   },
   "446": {
     "when": "一家公司使用AWS Organizations来管理其开发环境 + 所有开发团队都需要",
-    "target": "与所有开发帐户共用资料库集群",
-    "avoid": "核对题目限制与完整选项。",
+    "target": "指示开发人员接受资源共享",
+    "avoid": "",
     "questionCues": [
       "一家公司使用AWS Organizations来管理其开发环境",
       "所有开发团队都需要"
     ],
     "answerCues": {
-      "A": [
-        "与所有开发帐户共用资料库集群"
+      "B": [
+        "指示开发人员接受资源共享"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "447": {
     "when": "此解决方案必须协助识别导致成本增加的资源 + 并且必须自动通知公司的营运团队",
     "target": "使用 AWS 成本异常侦测建立监控类型为 AWS 服务的成本监控器",
-    "avoid": "",
+    "avoid": "别选“使用 AWS Cost Explorer 确定过去 3 个月的平均每月成本”。",
     "questionCues": [
       "此解决方案必须协助识别导致成本增加的资源",
       "并且必须自动通知公司的营运团队"
@@ -7520,23 +7526,23 @@ const QUICK_ANSWER_CARDS = {
         "使用 AWS 成本异常侦测建立监控类型为 AWS 服务的成本监控器"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "448": {
     "when": "活动资料集的大小最大为 100 GB + 解决方案架构师必须设计一个 Multi-AZ 解决方案",
-    "target": "为档案系统配置突发吞吐量模式",
-    "avoid": "核对题目限制与完整选项。",
+    "target": "实现到 DR Region 中的档案系统的复制",
+    "avoid": "",
     "questionCues": [
       "活动资料集的大小最大为 100 GB",
       "解决方案架构师必须设计一个 Multi-AZ 解决方案"
     ],
     "answerCues": {
-      "B": [
-        "为档案系统配置突发吞吐量模式"
+      "A": [
+        "实现到 DR Region 中的档案系统的复制"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "449": {
@@ -7557,14 +7563,14 @@ const QUICK_ANSWER_CARDS = {
   },
   "450": {
     "when": "每个AWS帐户的管理员需要使用AmazonAthena查看其帐户的详细成本和利用率资料",
-    "target": "修改S3桶策略",
+    "target": "在每个成员帐户中",
     "avoid": "",
     "questionCues": [
       "每个AWS帐户的管理员需要使用AmazonAthena查看其帐户的详细成本和利用率资料"
     ],
     "answerCues": {
-      "B": [
-        "修改S3桶策略"
+      "D": [
+        "在每个成员帐户中"
       ]
     },
     "disputed": false,
@@ -7573,7 +7579,7 @@ const QUICK_ANSWER_CARDS = {
   "451": {
     "when": "公司必须更新现有的网路连线解决方案 + 以确保该解决方案具有高可用性、容错性和安全性",
     "target": "新增静态 AWS Site-to-Site VPN 作为辅助路径",
-    "avoid": "",
+    "avoid": "别选“设定 MACsec 以加密Direct Connect 连线内的流量”。",
     "questionCues": [
       "公司必须更新现有的网路连线解决方案",
       "以确保该解决方案具有高可用性、容错性和安全性"
@@ -7583,7 +7589,7 @@ const QUICK_ANSWER_CARDS = {
         "新增静态 AWS Site-to-Site VPN 作为辅助路径"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "452": {
@@ -7604,19 +7610,18 @@ const QUICK_ANSWER_CARDS = {
   },
   "453": {
     "when": "自动备份 + 解决方案架构师必须确保可以在 RPO 100 分钟内恢复已删除的文件",
-    "target": "使用现有的备份计划 + 启用连续备份以进行时间点复原",
-    "avoid": "别选“使用新的 IAM 角色建立备份”。",
+    "target": "为档案系统实施每小时备份计划",
+    "avoid": "",
     "questionCues": [
       "自动备份",
       "解决方案架构师必须确保可以在 RPO 100 分钟内恢复已删除的文件"
     ],
     "answerCues": {
-      "C": [
-        "使用现有的备份计划",
-        "启用连续备份以进行时间点复原"
+      "A": [
+        "为档案系统实施每小时备份计划"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "454": {
@@ -7686,7 +7691,7 @@ const QUICK_ANSWER_CARDS = {
   "458": {
     "when": "CloudWatch + 公司需要找出每个客户每天、每周和每月有多少唯一用户",
     "target": "将每次成功登入储存为指标",
-    "avoid": "",
+    "avoid": "别选“使每次成功登入都会产生对AWS SDK 的调用”。",
     "questionCues": [
       "CloudWatch",
       "公司需要找出每个客户每天、每周和每月有多少唯一用户"
@@ -7696,7 +7701,7 @@ const QUICK_ANSWER_CARDS = {
         "将每次成功登入储存为指标"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "459": {
@@ -7898,7 +7903,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "471": {
     "when": "每个防火墙设备都在手动配置的高可用Amazon EC2实例上运行 + 防火墙设备需要能够水平扩展",
-    "target": "A：部署Gateway Load Balancer；C：建立使用实例目标类型的目标群组；F：在集中网路帐号中建立 VPC 端点",
+    "target": "A：部署Gateway Load Balancer；C：建立使用实例目标类型的目标群组；E：更新路由表以指向 VPC 端点",
     "avoid": "",
     "questionCues": [
       "每个防火墙设备都在手动配置的高可用Amazon EC2实例上运行",
@@ -7911,8 +7916,8 @@ const QUICK_ANSWER_CARDS = {
       "C": [
         "建立使用实例目标类型的目标群组"
       ],
-      "F": [
-        "在集中网路帐号中建立 VPC 端点"
+      "E": [
+        "更新路由表以指向 VPC 端点"
       ]
     },
     "disputed": false,
@@ -8105,7 +8110,7 @@ const QUICK_ANSWER_CARDS = {
   "483": {
     "when": "排行榜需要微秒读取和个位数毫秒写入延迟 + 必须能够在不到一分钟的时间内接受写入",
     "target": "在Muit-AZ模式下为Redis集群建立AmazonMemoryDB 设定应用程式与主节点互动",
-    "avoid": "",
+    "avoid": "别选“配置备份到Amazon S3”。",
     "questionCues": [
       "排行榜需要微秒读取和个位数毫秒写入延迟",
       "必须能够在不到一分钟的时间内接受写入"
@@ -8115,7 +8120,7 @@ const QUICK_ANSWER_CARDS = {
         "在Muit-AZ模式下为Redis集群建立AmazonMemoryDB 设定应用程式与主节点互动"
       ]
     },
-    "disputed": false,
+    "disputed": true,
     "legacyMismatch": false
   },
   "484": {
@@ -8137,7 +8142,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "485": {
     "when": "DynamoDB + 工程师注意到 Lambda 函数需要 1 到 2 分钟才能完成",
-    "target": "A：DynamoDB；B：增加 Lambda 函数可用的记忆体",
+    "target": "A：DynamoDB；D：并批次处理资料",
     "avoid": "",
     "questionCues": [
       "DynamoDB",
@@ -8147,8 +8152,8 @@ const QUICK_ANSWER_CARDS = {
       "A": [
         "DynamoDB"
       ],
-      "B": [
-        "增加 Lambda 函数可用的记忆体"
+      "D": [
+        "并批次处理资料"
       ]
     },
     "disputed": false,
@@ -8156,15 +8161,15 @@ const QUICK_ANSWER_CARDS = {
   },
   "486": {
     "when": "部署在故障转移 Region 中 + 解决方案架构师应该做什么来配置解决方案的高可用性",
-    "target": "将连接别名与故障转移 Region 中的目录关联",
+    "target": "将连接别名与每个 Region 中的目录相关联",
     "avoid": "别选“建立 Route 53 多值应答路由策略”。",
     "questionCues": [
       "部署在故障转移 Region 中",
       "解决方案架构师应该做什么来配置解决方案的高可用性"
     ],
     "answerCues": {
-      "D": [
-        "将连接别名与故障转移 Region 中的目录关联"
+      "A": [
+        "将连接别名与每个 Region 中的目录相关联"
       ]
     },
     "disputed": true,
@@ -8173,7 +8178,7 @@ const QUICK_ANSWER_CARDS = {
   "487": {
     "when": "该公司已发起迁移评估员评估请求 + 该公司能够在其 on-premises 环境中安装收集器软体",
     "target": "在每个虚拟机器上安装 AWS 应用程式发现代理",
-    "avoid": "别选“从迁移中心下载快速洞察评估报告”。",
+    "avoid": "",
     "questionCues": [
       "该公司已发起迁移评估员评估请求",
       "该公司能够在其 on-premises 环境中安装收集器软体"
@@ -8183,7 +8188,7 @@ const QUICK_ANSWER_CARDS = {
         "在每个虚拟机器上安装 AWS 应用程式发现代理"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "488": {
@@ -8216,7 +8221,7 @@ const QUICK_ANSWER_CARDS = {
         "增加 Lambda 函数的预先配置并发性"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "490": {
@@ -8252,8 +8257,8 @@ const QUICK_ANSWER_CARDS = {
   },
   "492": {
     "when": "EC2 实例不会在 AWS Systems Manager 控制台中显示为托管实例",
-    "target": "A：验证 Systems Manager 代理程式是否已安装在实例上并且正在执行；D：确认AWS Application Discovery Agent 已配置",
-    "avoid": "别选“验证是否为实例指派了适当的 Systems Manager IAM 角色”。",
+    "target": "A：验证 Systems Manager 代理程式是否已安装在实例上并且正在执行；B：验证是否为实例指派了适当的 Systems Manager IAM 角色",
+    "avoid": "",
     "questionCues": [
       "EC2 实例不会在 AWS Systems Manager 控制台中显示为托管实例"
     ],
@@ -8261,11 +8266,11 @@ const QUICK_ANSWER_CARDS = {
       "A": [
         "验证 Systems Manager 代理程式是否已安装在实例上并且正在执行"
       ],
-      "D": [
-        "确认AWS Application Discovery Agent 已配置"
+      "B": [
+        "验证是否为实例指派了适当的 Systems Manager IAM 角色"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "493": {
@@ -8418,39 +8423,39 @@ const QUICK_ANSWER_CARDS = {
   },
   "502": {
     "when": "某公司需要将on-premises资料库群组迁移到Amazon RDS",
-    "target": "B：使用AWS应用迁移服务分析来源资料库并识别需要迁移的预存程序；D：使用 AWS Database Migration Service（AWSDMS）将来源资料库迁移到Amazon RDS",
-    "avoid": "别选“使用AWSDataSync将来源资料库中的资料迁移到Amazon RDS”。",
+    "target": "C：使用 AWS 架构转换工具 (AWS SCT) 分析来源资料库以寻找所需的变更；D：AWS Database Migration Service",
+    "avoid": "",
     "questionCues": [
       "某公司需要将on-premises资料库群组迁移到Amazon RDS"
     ],
     "answerCues": {
-      "B": [
-        "使用AWS应用迁移服务分析来源资料库并识别需要迁移的预存程序"
+      "C": [
+        "使用 AWS 架构转换工具 (AWS SCT) 分析来源资料库以寻找所需的变更"
       ],
       "D": [
-        "使用 AWS Database Migration Service（AWSDMS）将来源资料库迁移到Amazon RDS"
+        "AWS Database Migration Service"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "503": {
     "when": "一家公司正在将其部落格平台迁移到AWS + 公司需要在不耽误内容更新的情况下迁移部落格平台",
-    "target": "B：编写程式码以每周将 EBS 磁碟区与 NAS 伺服器同步；C：作为NAS伺服器",
-    "avoid": "核对题目限制与完整选项。",
+    "target": "C：作为NAS伺服器；D：AWS Snowball",
+    "avoid": "",
     "questionCues": [
       "一家公司正在将其部落格平台迁移到AWS",
       "公司需要在不耽误内容更新的情况下迁移部落格平台"
     ],
     "answerCues": {
-      "B": [
-        "编写程式码以每周将 EBS 磁碟区与 NAS 伺服器同步"
-      ],
       "C": [
         "作为NAS伺服器"
+      ],
+      "D": [
+        "AWS Snowball"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "504": {
@@ -8541,8 +8546,8 @@ const QUICK_ANSWER_CARDS = {
   },
   "509": {
     "when": "ALB + 解决方案架构师需要实施一个解决方案来实现这些目标并最大限度地减少管理开销",
-    "target": "A：包括Region；E：透过启用 DynamoDB 流来更新现有 DynamoDB 表的配置；F：为新表启用DynamoDB流",
-    "avoid": "别选“更新应用程式的Route 53托管区域记录以使用加权路由”。",
+    "target": "A：包括Region；D：使用基于延迟的路由；E：启用 DynamoDB 流来",
+    "avoid": "",
     "questionCues": [
       "ALB",
       "解决方案架构师需要实施一个解决方案来实现这些目标并最大限度地减少管理开销"
@@ -8551,14 +8556,14 @@ const QUICK_ANSWER_CARDS = {
       "A": [
         "包括Region"
       ],
-      "E": [
-        "透过启用 DynamoDB 流来更新现有 DynamoDB 表的配置"
+      "D": [
+        "使用基于延迟的路由"
       ],
-      "F": [
-        "为新表启用DynamoDB流"
+      "E": [
+        "启用 DynamoDB 流来"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "510": {
@@ -8598,7 +8603,7 @@ const QUICK_ANSWER_CARDS = {
   "512": {
     "when": "公司必须能够根据影片中的资讯进行搜索 + 该公司希望将这些影片迁移到AWS",
     "target": "使用 MAM 解决方案从目前档案中提取影片并将其推送到档案闸道中",
-    "avoid": "别选“建立一个 AWS Lambda 函数”。",
+    "avoid": "",
     "questionCues": [
       "公司必须能够根据影片中的资讯进行搜索",
       "该公司希望将这些影片迁移到AWS"
@@ -8608,19 +8613,19 @@ const QUICK_ANSWER_CARDS = {
         "使用 MAM 解决方案从目前档案中提取影片并将其推送到档案闸道中"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "513": {
     "when": "公司需要优化 AWS Organizations ​​组织中包含多个帐户的 AWS 环境的成本",
-    "target": "在管理帐户中购买 3 年计算节省计划",
+    "target": "延长 3 年期限",
     "avoid": "",
     "questionCues": [
       "公司需要优化 AWS Organizations ​​组织中包含多个帐户的 AWS 环境的成本"
     ],
     "answerCues": {
-      "C": [
-        "在管理帐户中购买 3 年计算节省计划"
+      "A": [
+        "延长 3 年期限"
       ]
     },
     "disputed": false,
@@ -8628,25 +8633,25 @@ const QUICK_ANSWER_CARDS = {
   },
   "514": {
     "when": "公司必须以最小延迟且不暴露于公共互联网的方式将on-premises资料路由到Amazon S3",
-    "target": "C：建立一个 AWS Lambda 函数来追踪客户端到 Regions 的路由；E：使用 AWS PrivateLink 和 AWS Direct Connect 连接到多Region 接入点",
-    "avoid": "别选“使用S3跨Region复制（CRR）将内容复制到不同的Regions”。",
+    "target": "A：实作 S3 多Region 接入点；E：AWS PrivateLink",
+    "avoid": "",
     "questionCues": [
       "公司必须以最小延迟且不暴露于公共互联网的方式将on-premises资料路由到Amazon S3"
     ],
     "answerCues": {
-      "C": [
-        "建立一个 AWS Lambda 函数来追踪客户端到 Regions 的路由"
+      "A": [
+        "实作 S3 多Region 接入点"
       ],
       "E": [
-        "使用 AWS PrivateLink 和 AWS Direct Connect 连接到多Region 接入点"
+        "AWS PrivateLink"
       ]
     },
-    "disputed": true,
+    "disputed": false,
     "legacyMismatch": false
   },
   "515": {
     "when": "需要尽快完成 + 该公司的合规团队要求每个虚拟机器的每次软体安装和修改都需要编辑和批准变更请求",
-    "target": "AWS Snowcone",
+    "target": "将 AWS 应用程式迁移服务无代理设备部署到 VMware vCenter",
     "avoid": "",
     "questionCues": [
       "需要尽快完成",
@@ -8654,7 +8659,7 @@ const QUICK_ANSWER_CARDS = {
     ],
     "answerCues": {
       "C": [
-        "AWS Snowcone"
+        "将 AWS 应用程式迁移服务无代理设备部署到 VMware vCenter"
       ]
     },
     "disputed": false,
@@ -8727,7 +8732,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "520": {
     "when": "Lambda 函数的子集必须接收自动程式码扫描 + 而不是针对所有 Lambda 函数",
-    "target": "A：启动自动 CVE 扫描；B：在AmazonInspector中启动Lambda标准扫描和Lambda扫码；E：在标签中",
+    "target": "A：自动 CVE 扫描；B：Lambda标准扫描和Lambda扫码；E：键 InspectorCodeExclusion + 值 LambdaCodeScanning",
     "avoid": "",
     "questionCues": [
       "Lambda 函数的子集必须接收自动程式码扫描",
@@ -8735,13 +8740,14 @@ const QUICK_ANSWER_CARDS = {
     ],
     "answerCues": {
       "A": [
-        "启动自动 CVE 扫描"
+        "自动 CVE 扫描"
       ],
       "B": [
-        "在AmazonInspector中启动Lambda标准扫描和Lambda扫码"
+        "Lambda标准扫描和Lambda扫码"
       ],
       "E": [
-        "在标签中"
+        "键 InspectorCodeExclusion",
+        "值 LambdaCodeScanning"
       ]
     },
     "disputed": false,
@@ -8799,15 +8805,15 @@ const QUICK_ANSWER_CARDS = {
   },
   "524": {
     "when": "迁移到 AWS 并 + 该公司希望跨 AWS 帐户监控 Amazon EC2 实例的成本效益",
-    "target": "配置 Amazon CloudWatch 仪表板",
+    "target": "并停止未充分利用的开发 EC2 实例",
     "avoid": "",
     "questionCues": [
       "迁移到 AWS 并",
       "该公司希望跨 AWS 帐户监控 Amazon EC2 实例的成本效益"
     ],
     "answerCues": {
-      "A": [
-        "配置 Amazon CloudWatch 仪表板"
+      "C": [
+        "并停止未充分利用的开发 EC2 实例"
       ]
     },
     "disputed": false,
@@ -8831,14 +8837,14 @@ const QUICK_ANSWER_CARDS = {
   },
   "526": {
     "when": "新的感测器资料必须在应用程式收集资料后 30 分钟内Amazon S3 可用",
-    "target": "配置AWS IoT 规则操作以呼叫 Lambda 函数",
+    "target": "将Kinesis资料Firehose缓冲间隔设定为900秒",
     "avoid": "",
     "questionCues": [
       "新的感测器资料必须在应用程式收集资料后 30 分钟内Amazon S3 可用"
     ],
     "answerCues": {
-      "A": [
-        "配置AWS IoT 规则操作以呼叫 Lambda 函数"
+      "B": [
+        "将Kinesis资料Firehose缓冲间隔设定为900秒"
       ]
     },
     "disputed": false,
@@ -8846,7 +8852,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "527": {
     "when": "资料储存在Amazon S3资料湖中 + 资料科学家需要从 EC2 实例存取资料湖",
-    "target": "B：在资料科学家的资料湖 AWS 帐户中建立一个 S3 存取点；C：更新 EC2 实例角色",
+    "target": "B：在资料科学家的资料湖 AWS 帐户中建立一个 S3 存取点；E：新增 S3 储存桶策略",
     "avoid": "别选“将 S3 流量路由至 S3 接入点”。",
     "questionCues": [
       "资料储存在Amazon S3资料湖中",
@@ -8856,8 +8862,8 @@ const QUICK_ANSWER_CARDS = {
       "B": [
         "在资料科学家的资料湖 AWS 帐户中建立一个 S3 存取点"
       ],
-      "C": [
-        "更新 EC2 实例角色"
+      "E": [
+        "新增 S3 储存桶策略"
       ]
     },
     "disputed": true,
@@ -8881,7 +8887,7 @@ const QUICK_ANSWER_CARDS = {
   },
   "529": {
     "when": "Auto Scaling 组使用预测扩展策略 + 公司需要在不降低平台可用性的情况下优化平台成本",
-    "target": "A：为 S3 储存桶建立网关 VPC 端点；C：在计划的扩展策略的时间段内为适用的实例类型建立按需容量预留",
+    "target": "A：为 S3 储存桶建立网关 VPC 端点；E：将预测扩展策略替换为计划事件的计划扩展策略",
     "avoid": "",
     "questionCues": [
       "Auto Scaling 组使用预测扩展策略",
@@ -8891,8 +8897,8 @@ const QUICK_ANSWER_CARDS = {
       "A": [
         "为 S3 储存桶建立网关 VPC 端点"
       ],
-      "C": [
-        "在计划的扩展策略的时间段内为适用的实例类型建立按需容量预留"
+      "E": [
+        "将预测扩展策略替换为计划事件的计划扩展策略"
       ]
     },
     "disputed": false,

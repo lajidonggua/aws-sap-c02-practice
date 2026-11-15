@@ -85,6 +85,7 @@ body {
 .option-text { flex: 1; min-width: 0; line-height: 1.5; white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere; }
 .feedback { margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 15px; display: none; word-break: break-word; }
 .feedback.correct { background: #1b5e20; color: #a5d6a7; display: block; }
+.feedback.review { background: #3d2e14; color: #ffe0a6; display: block; }
 .feedback.wrong { background: #b71c1c; color: #ef9a9a; display: block; }
 .controls { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
 .btn-exp { background: #26a69a; color: #fff; }
@@ -271,7 +272,7 @@ body {
 
 </style>
 <link rel="stylesheet" href="../twenty_review.css?v=simplified1">
-<link rel="stylesheet" href="../learning_review.css?v=learning1"><link rel="manifest" href="../manifest.webmanifest">
+<link rel="stylesheet" href="../learning_review.css?v=audit1"><link rel="manifest" href="../manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="../icons/icon-192.png">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
 <meta name="theme-color" content="#1d6a52">
@@ -343,14 +344,14 @@ body {
   </div>
 </div>
 <script src="../vendor/mermaid.min.js?v=learning1"></script>
-<script src="../sap_questions.js?v=simplified1"></script>
-<script src="../sap_explanations.js?v=simplified1"></script>
+<script src="../sap_questions.js?v=audit1"></script>
+<script src="../sap_explanations.js?v=audit1"></script>
 <script src="../sap_glossary.js?v=learning1"></script>
-<script src="../learning_review.js?v=learning1"></script>
+<script src="../learning_review.js?v=audit1"></script>
 <script src="../quick_memory.js?v=simplified1"></script>
-<script src="../quick_answer_cards.js?v=merged9"></script>
-<script src="../flash_cards.js?v=simplified1"></script><script src="../twenty_review.js?v=merged9"></script>
-<script src="../explanation_shared.js?v=learning1"></script>
+<script src="../quick_answer_cards.js?v=audit1"></script>
+<script src="../flash_cards.js?v=simplified1"></script><script src="../twenty_review.js?v=audit1"></script>
+<script src="../explanation_shared.js?v=audit1"></script>
 <script src="../progress_model.js?v=path2"></script><script src="../progress_store.js?v=path2"></script>
 <script>
 
@@ -370,7 +371,7 @@ let current = 0;
 let answered = false;
 let wrongIds = [];      // original question ids
 let starredIds = [];    // original question ids
-let answeredIds = {};   // id -> true/false last result
+let answeredIds = {};   // id -> last result or neutral comparison record
 let questionTranslated = false;
 let optionsTranslated = false;
 
@@ -383,7 +384,12 @@ function needCount(q) {
   return q.multi_count || (q.correct_answers ? q.correct_answers.length : 0);
 }
 
+function isAmbiguous(q) {
+  return q?.answer_audit?.status === 'ambiguous';
+}
+
 function isDisputed(q) {
+  if (q.answer_audit) return isAmbiguous(q);
   return Object.prototype.hasOwnProperty.call(DISPUTED, String(q.id)) || Object.prototype.hasOwnProperty.call(DISPUTED, q.id);
 }
 
@@ -477,17 +483,16 @@ function setFilter(need) {
 function updateDoneCount() {
   const doneInView = QUESTIONS.filter(q => Object.prototype.hasOwnProperty.call(answeredIds, String(q.id))).length;
   document.getElementById('doneCount').textContent = doneInView;
-  document.getElementById('wrongCount').textContent = wrongIds.filter(id => QUESTIONS.some(q => q.id === id)).length;
+  document.getElementById('wrongCount').textContent = wrongIds.filter(id => QUESTIONS.some(q => q.id === id && !isAmbiguous(q))).length;
 }
 
 function buildDisputeInfoHtml(q) {
+  const audit = q.answer_audit;
+  if (audit) return isAmbiguous(q)
+    ? `<strong>题目有歧义 · 不计对错</strong><br>${escapeHtml(audit.caveat || audit.summary || '请对照完整英文条件与资料中的限制。')}`
+    : '';
   const dispute = getDisputeInfo(q);
-  if (!isDisputed(q) || !dispute) return '';
-  return `
-    <strong>⚠️ 此题答案有争议</strong><br>
-    当前答案：<strong>${escapeHtml(dispute.current)}</strong> | 社区投票：<strong>${escapeHtml(dispute.community)}</strong>（${escapeHtml(dispute.vote)}）<br>
-    ${escapeHtml(dispute.reason)}
-  `;
+  return dispute ? `<strong>尚待校准</strong><br>${escapeHtml(dispute.reason || '')}` : '';
 }
 
 function showDisputeInfo(q) {
@@ -504,11 +509,9 @@ function showDisputeInfo(q) {
 }
 
 function buildVoteInfoHtml(q) {
-  if (isDisputed(q)) return '';
-  if (!q.community_vote || !q.community_vote.length || !q.vote_percentage) return '';
-  const isDifferent = JSON.stringify([...q.correct_answers].sort()) !== JSON.stringify([...q.community_vote].sort());
-  if (!isDifferent) return '';
-  return `<strong>📊 社区投票:</strong> ${q.community_vote.join(', ')} (${q.vote_percentage} 投票率)`;
+  const audit = q.answer_audit;
+  if (!audit || isAmbiguous(q)) return '';
+  return `<strong>${audit.status === 'corrected' ? '已校准答案' : '已核对英文条件'}</strong><br>${escapeHtml(audit.summary || '')}${audit.caveat ? '<br>' + escapeHtml(audit.caveat) : ''}`;
 }
 
 function showVoteInfo(q) {
@@ -677,14 +680,15 @@ function submitAnswer() {
 
   answered = true;
   const correct = [...q.correct_answers].sort();
+  const ambiguous = isAmbiguous(q);
   const isCorrect =
     selected.length === correct.length &&
     selected.every((s, i) => s === correct[i]);
 
   const idKey = String(q.id);
-  answeredIds[idKey] = isCorrect;
+  answeredIds[idKey] = ambiguous ? {neutral: true, selected: [...selected]} : isCorrect;
 
-  if (!isCorrect) {
+  if (!ambiguous && !isCorrect) {
     if (!wrongIds.includes(q.id)) wrongIds.push(q.id);
   } else {
     wrongIds = wrongIds.filter(id => id !== q.id);
@@ -698,14 +702,17 @@ function submitAnswer() {
     const letter = o.dataset.letter;
     const isSelected = selected.includes(letter);
     const isCorrectOpt = correct.includes(letter);
-    if (isSelected && isCorrectOpt) o.classList.add('correct');
-    else if (isSelected && !isCorrectOpt) o.classList.add('wrong');
-    else if (!isSelected && isCorrectOpt) o.classList.add('missed');
+    if (!ambiguous && isSelected && isCorrectOpt) o.classList.add('correct');
+    else if (!ambiguous && isSelected && !isCorrectOpt) o.classList.add('wrong');
+    else if (!ambiguous && !isSelected && isCorrectOpt) o.classList.add('missed');
     o.style.pointerEvents = 'none';
   });
 
   const fb = document.getElementById('feedback');
-  if (!correct.length) {
+  if (ambiguous) {
+    fb.className = 'feedback review';
+    fb.textContent = `已完成对照 · 参考选择 ${correct.join(', ')}，题目有歧义，不计对错。`;
+  } else if (!correct.length) {
     fb.className = 'feedback wrong';
     fb.textContent = 'No answer available for this question.';
   } else if (isCorrect) {
@@ -754,7 +761,7 @@ function indexOfId(id) {
 function updateWrongQuestionsNav() {
   const navContainer = document.getElementById('wrongQuestionsNav');
   const navList = document.getElementById('wrongNavList');
-  const visibleWrong = wrongIds.filter(id => QUESTIONS.some(q => q.id === id));
+  const visibleWrong = wrongIds.filter(id => QUESTIONS.some(q => q.id === id && !isAmbiguous(q)));
 
   if (!visibleWrong.length) {
     navContainer.style.display = 'none';
@@ -819,7 +826,7 @@ function updateStarredQuestionsNav() {
 }
 
 function visibleWrongIds() {
-  return wrongIds.filter(id => QUESTIONS.some(q => q.id === id));
+  return wrongIds.filter(id => QUESTIONS.some(q => q.id === id && !isAmbiguous(q)));
 }
 
 function visibleStarredIds() {

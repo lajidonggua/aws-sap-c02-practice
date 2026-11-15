@@ -138,18 +138,24 @@ function learningTerms(q, exp, uncertain) {
 }
 
 function getLearningLesson(q) {
-  if (learningLessonCache.has(q.id)) return learningLessonCache.get(q.id);
+  const cached = learningLessonCache.get(q.id);
+  if (cached && cached.audit === (q.answer_audit || null)) return cached;
   const original = typeof QUESTION_EXPLANATIONS === 'undefined' ? {} : QUESTION_EXPLANATIONS[q.id] || {};
-  const exp = { ...original, ...(LEARNING_QUESTION_GUIDES[q.id] || {}) };
+  const audit = q.answer_audit || null;
+  // A completed audit takes precedence over older beginner guides and vote metadata.
+  const exp = audit ? {
+    ...original, solutions: audit.summary, options: audit.optionReasons || {},
+    diagram_after: '', diagram_before: ''
+  } : { ...original, ...(LEARNING_QUESTION_GUIDES[q.id] || {}) };
   const card = typeof QUICK_ANSWER_CARDS === 'undefined' ? {} : QUICK_ANSWER_CARDS[q.id] || {};
   const dispute = typeof DISPUTED_QUESTIONS === 'undefined' ? null : DISPUTED_QUESTIONS[q.id];
   const markedAnswers = Object.keys(exp.options || {}).filter(letter => /^\s*[✓✔]/.test(exp.options[letter]));
   const mismatch = Boolean(card.legacyMismatch || (markedAnswers.length && markedAnswers.slice().sort().join() !== q.correct_answers.slice().sort().join()));
-  const uncertain = Boolean(mismatch || dispute || card.disputed);
+  const uncertain = audit ? audit.status === 'ambiguous' : Boolean(mismatch || dispute || card.disputed);
   const requirements = uncertain ? card.questionCues || [q.question_zh || q.question] : String(exp.requirements || '').split(/(?:\d+[)）]\s*)|[；;\n]+/).map(x => x.trim()).filter(Boolean);
   const answers = q.options.filter(o => q.correct_answers.includes(o.letter));
   const lesson = {
-    q, exp, card, dispute, mismatch, uncertain, answers,
+    q, exp, card, audit, dispute: audit ? null : dispute, mismatch: audit ? false : mismatch, uncertain, answers,
     scenario: learningPlain(uncertain ? q.question_zh || q.question : exp.blocker || q.question_zh || q.question),
     requirements: requirements.map(learningPlain),
     steps: (uncertain ? answers.map(o => `${o.letter}：${o.text_zh || o.text}`) : exp.steps || []).map(learningPlain),
@@ -169,13 +175,50 @@ function learningTermCard(term) {
 }
 
 function learningDiagram(code, caption, result) {
+  if (!code || !String(code).trim()) return '';
   return `<figure class="lesson-diagram"><figcaption>${learningEscape(caption)}<span class="lesson-diagram-hint">图较宽时，可以左右滑动查看</span></figcaption><div class="lesson-diagram-canvas" aria-label="${learningEscape(caption)}"><pre class="learning-mermaid" hidden>${learningEscape(learningPlain(code))}</pre><p class="lesson-diagram-status" role="status">正在绘制示意图…</p></div>${result ? `<p class="lesson-diagram-caption"><b>跟着箭头读</b>${learningEscape(result)}</p>` : ''}</figure>`;
+}
+
+function learningAuditLabel(audit) {
+  if (audit.status === 'ambiguous') return '有歧义 · 参考建议';
+  return audit.changed || audit.status === 'corrected' ? '答案已纠正' : '已核对';
+}
+
+function learningAuditSources(audit) {
+  const sources = (audit.sources || []).filter(source => /^https:\/\//i.test(source.url || ''));
+  return `<section class="lesson-audit-sources" aria-label="本题校对依据"><h3>校对依据</h3><p class="lesson-subtitle">按英文题干和选项，结合以下 AWS 资料作出判断；这是本站校对结论。</p><ol>${sources.map(source => `<li><a href="${learningEscape(source.url)}" target="_blank" rel="noopener noreferrer">${learningEscape(source.title || 'AWS 参考资料')} ↗</a>${source.supports ? `<p>${learningEscape(source.supports)}</p>` : ''}</li>`).join('')}</ol>${audit.revision ? `<p class="lesson-audit-date">校对版本：${learningEscape(audit.revision)}</p>` : ''}</section>`;
+}
+
+function buildAuditedLearningReview(q, l) {
+  const e = learningEscape, a = l.audit;
+  const suggested = a.answers || q.correct_answers;
+  const ambiguous = a.status === 'ambiguous';
+  const answerLabel = ambiguous ? '参考建议' : '校准答案';
+  const terms = l.terms.slice(0, 4).map(learningTermCard).join('');
+  const extraTerms = l.terms.length > 4 ? `<details class="lesson-more-terms"><summary>再认识 ${l.terms.length - 4} 个相关名词</summary><div class="lesson-term-grid">${l.terms.slice(4).map(learningTermCard).join('')}</div></details>` : '';
+  const optionReasons = q.options.map(o => {
+    const chosen = suggested.includes(o.letter);
+    return `<article class="lesson-option${chosen ? ' lesson-option-correct' : ''}"><h4>${e(o.letter)} · ${chosen ? (ambiguous ? '建议选项' : '符合题意') : '其他选项'}</h4><p>${e(learningPlain(o.text_zh || o.text))}</p><details class="lesson-option-original"><summary>核对英文选项</summary><p lang="en">${e(o.text)}</p></details><p class="lesson-option-reason">${e(a.optionReasons?.[o.letter] || '本项理由尚未补齐。')}</p></article>`;
+  }).join('');
+  const selectedReasons = q.options.filter(o => suggested.includes(o.letter)).map(o => `<p><b>${e(o.letter)}</b> ${e(a.optionReasons?.[o.letter] || o.text_zh || o.text)}</p>`).join('');
+  return `<section class="learning-review learning-review-audited" tabindex="-1" data-question-id="${e(q.id)}" data-audit-status="${e(a.status)}" aria-label="第 ${e(q.id)} 题，校准解析">
+    <header class="lesson-header"><div><span class="lesson-kicker">${e(learningAuditLabel(a))}</span><h2>把这道题讲明白</h2></div><span class="lesson-answer">${answerLabel} ${e(suggested.join(' + '))}</span></header>
+    ${ambiguous ? '<aside class="lesson-caution"><strong>题面存在歧义，先理解条件</strong><p>下面给出最可辩护的选择与限制，不能把一个字母当成无条件适用的规则。</p></aside>' : ''}
+    <div class="lesson-scenario"><h3>先看懂题目条件</h3><p>${e(learningPlain(q.question_zh || q.question))}</p><details class="lesson-question-original"><summary>校对使用的英文原题</summary><p lang="en">${e(q.question)}</p></details></div>
+    <section class="lesson-section"><h3><span>01</span> 为什么这样选</h3><p class="lesson-intro">${e(a.summary)}</p>${a.caveat ? `<aside class="lesson-caution"><strong>还要核对的限制</strong><p>${e(a.caveat)}</p></aside>` : ''}</section>
+    ${l.terms.length ? `<section class="lesson-section"><h3><span>02</span> 名词解释 · 不懂缩写也能看</h3><div class="lesson-term-grid">${terms}</div>${extraTerms}</section>` : ''}
+    <section class="lesson-section"><h3><span>03</span> 跟着判断过程走一遍</h3><div class="lesson-check-flow" aria-label="条件、逐项核对、校对结论"><div><b>条件</b><details><summary>对照本题完整条件</summary><p>${e(learningPlain(q.question_zh || q.question))}</p></details></div><span aria-hidden="true">↓</span><div><b>逐项核对</b>${selectedReasons}</div><span aria-hidden="true">↓</span><div><b>${ambiguous ? '结论与保留条件' : '校对结论'}</b><p>${answerLabel}：${e(suggested.join(' + '))}</p>${ambiguous && a.caveat ? `<p>${e(a.caveat)}</p>` : ''}</div></div></section>
+    <details class="lesson-options"><summary>逐项对照：为什么选它，其他选项差在哪里？</summary>${optionReasons}</details>
+    ${learningAuditSources(a)}
+    <section class="lesson-takeaway"><h3>用一句话检验理解</h3><p>为什么 ${e(suggested.join(' + '))} ${ambiguous ? '是这里的参考建议' : '更符合题目条件'}？</p><details><summary>展开参考回答</summary><p>${e(a.summary)}</p>${a.caveat ? `<p>${e(a.caveat)}</p>` : ''}</details></section>
+  </section>`;
 }
 
 function buildLearningReview(q) {
   const l = getLearningLesson(q);
+  if (l.audit) return buildAuditedLearningReview(q, l);
   const e = learningEscape;
-  const warning = l.uncertain ? `<aside class="lesson-caution"><strong>${l.mismatch ? '旧解析与当前答案不一致，先核对再记忆' : '这道题有争议，题库答案不等于通用结论'}</strong><p>${l.dispute ? e(learningPlain(l.dispute.reason)) : '下面保留当前题库选项，并解释相关名词；旧解析的结论和架构图暂不作为学习依据。'}</p>${l.dispute ? `<p>题库：${e(l.dispute.current)} · 社区：${e(l.dispute.community)}。社区投票也需要结合条件核对。</p>` : ''}</aside>` : '';
+  const warning = l.uncertain ? `<aside class="lesson-caution"><strong>${l.mismatch ? '旧解析与当前答案不一致，先核对再记忆' : '这道题有争议，题库答案不等于通用结论'}</strong><p>${l.dispute ? e(learningPlain(l.dispute.reason)) : '下面保留当前题库选项，并解释相关名词；旧解析的结论和架构图暂不作为学习依据。'}</p></aside>` : '';
   const terms = l.terms.slice(0, 4).map(learningTermCard).join('');
   const extraTerms = l.terms.length > 4 ? `<details class="lesson-more-terms"><summary>再认识 ${l.terms.length - 4} 个相关名词</summary><div class="lesson-term-grid">${l.terms.slice(4).map(learningTermCard).join('')}</div></details>` : '';
   const options = q.options.map(o => `<article class="lesson-option ${q.correct_answers.includes(o.letter) ? 'lesson-option-correct' : ''}"><h4>${e(o.letter)} · ${q.correct_answers.includes(o.letter) ? '题库答案' : '其他选项'}</h4><p>${e(learningPlain(o.text_zh || o.text))}</p>${!l.uncertain && l.exp.options?.[o.letter] ? `<p class="lesson-option-reason">${e(learningPlain(l.exp.options[o.letter]))}</p>` : ''}</article>`).join('');

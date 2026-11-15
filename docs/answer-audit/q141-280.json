@@ -1,0 +1,3819 @@
+[
+  {
+    "id": 141,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "视频处理中实例被缩容终止，消息未删除，再次接收即触发maxReceiveCount=1而进DLQ；在处理期间开启实例缩容保护、完成后解除。",
+    "optionReasons": {
+      "A": "EC2终止保护不阻止Auto Scaling缩容终止。",
+      "B": "处理30分钟且可见性已1小时，延长不能防止实例被杀。",
+      "C": "保护正在处理任务的实例免遭缩容。",
+      "D": "maxReceiveCount不能用0来解决任务中断。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-using-sqs-queue.html",
+        "title": "Scaling policy based on Amazon SQS",
+        "supports": "AWS示例在处理消息时启用instance scale-in protection，完成后解除。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 142,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "将REST API改为private，通过interface VPC endpoint访问，资源策略限制来源，同时保留原API Gateway身份认证。",
+    "optionReasons": {
+      "A": "ALB替换API Gateway会丢失现有API认证配置，改动较大。",
+      "B": "DNS隐藏不构成访问控制。",
+      "C": "私有API与接口端点、资源策略共同限制VPC访问。",
+      "D": "自建Apache代理增加维护，Lambda入VPC不等于API私有。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-private-api-create.html",
+        "title": "Create a private API",
+        "supports": "私有REST API通过接口端点调用，并用SourceVpc/SourceVpce资源策略授予访问。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 143,
+    "originalAnswers": [
+      "B",
+      "D"
+    ],
+    "answers": [
+      "B",
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "频繁更新使缓存未命中时跨大西洋回源，先复制到us-east-1，再用origin-request Lambda@Edge为北美用户选择当地S3源站。",
+    "optionReasons": {
+      "A": "Global Accelerator不能直接将S3桶设为标准加速器端点。",
+      "B": "跨区域复制提供本地源数据。",
+      "C": "Transfer Acceleration用于到桶传输，不是创建us-east-1内容副本。",
+      "D": "按用户地域切换到已复制的本地源站。",
+      "E": "S3不是Global Accelerator标准支持端点。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-examples.html",
+        "title": "Lambda@Edge example functions",
+        "supports": "官方示例通过CloudFront-Viewer-Country在origin-request改变S3源站区域以降低时延。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 144,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "先通过update-file-system扩容恢复空间，再监测FreeStorageCapacity并自动触发Lambda扩容，避免再次耗尽。",
+    "optionReasons": {
+      "A": "Lustre不是Windows用户配置文件SMB共享的直接替代。",
+      "B": "立即扩容与后续自动扩容兼顾。",
+      "C": "仅监测和描述Step Functions，未明确立即扩容或报警触发机制。",
+      "D": "拆分用户文件系统需要迁移管理，仍会再次满。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/automate-storage-capacity-increase.html",
+        "title": "Increasing FSx storage capacity dynamically",
+        "supports": "官方方案以空闲容量阈值、CloudWatch告警、Lambda增加容量。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 145,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "保留设备FTP协议，用Transfer Family托管上传至S3，通过事件驱动Lambda补充元数据和更新配送系统。",
+    "optionReasons": {
+      "A": "ALB不支持FTP，多台实例也不能修复协议支持问题。",
+      "B": "EFS方案仍由原EC2串行处理，保留瓶颈。",
+      "C": "托管FTP入口和事件处理消除单机上传处理瓶颈。",
+      "D": "题干明确设备不可修改。"
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/aws-transfer-family/faqs/",
+        "title": "AWS Transfer Family FAQs",
+        "supports": "Transfer Family支持FTP到S3及上传后事件/Lambda工作流。"
+      }
+    ],
+    "caveat": "FTP端点须经支持的VPC网络访问；事件处理需幂等与重试，不能承诺业务绝不丢失。",
+    "confidence": "medium"
+  },
+  {
+    "id": 146,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "ambiguous",
+    "summary": "A是选项中跨区域恢复运维最少的方案，但跨区域Aurora复制是异步，无法保证突发区域故障下RPO=0；本题的绝不丢数据要求无严格满足选项。",
+    "optionReasons": {
+      "A": "跨区域只读集群能容灾但有复制延迟，不等于零数据丢失。",
+      "B": "DataSync不用于持续同步Aurora数据库事务。",
+      "C": "DMS持续复制异步且运维更复杂，也不保证RPO=0。",
+      "D": "DLM管理EBS快照，不提供Aurora跨区域零损失恢复。"
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/rds/faqs/",
+        "title": "Amazon RDS FAQs",
+        "supports": "官方明确RDS/Aurora只读副本复制异步。"
+      }
+    ],
+    "caveat": "题干“no data can be lost”与所有选项冲突；保留A为最接近答案，不能当作严格标准答案。",
+    "confidence": "medium"
+  },
+  {
+    "id": 147,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "Glue以crawler/classifier识别数据格式，在ETL中遮蔽PAN、删除合并字段并输出JSON到另一S3桶，易扩展更多输入。",
+    "optionReasons": {
+      "A": "队列清空并不代表全部处理完成，多Lambda汇总复杂且不可靠。",
+      "B": "单容器轮询及清空判断增加编排和容量管理。",
+      "C": "Glue提供托管ETL与JSON输出，符合可扩展转换。",
+      "D": "Athena查询不是启动EMR作业的原生触发机制，且需管理EMR。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-format-json-home.html",
+        "title": "Using the JSON format in AWS Glue",
+        "supports": "Glue DynamicFrame写入支持format=json并输出S3。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 148,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "DRS将物理服务器块级复制到AWS，以恢复启动设置启动EC2，并执行灾备演练及回切，减少重建应用的工作。",
+    "optionReasons": {
+      "A": "描述较像一次性迁移，未明确DRS初始化及恢复流程。",
+      "B": "DRS专门处理持续灾备、恢复和回切。",
+      "C": "SCT不提供所述本地CDC任务，且手工重装应用开销高。",
+      "D": "需改造存储并依赖周期快照、手工恢复。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/drs/latest/userguide/quick-start-guide-gs.html",
+        "title": "Elastic Disaster Recovery quick start guide",
+        "supports": "DRS通过Replication Agent纳管源服务器，配置launch settings后启动drill/recovery实例。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 149,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "在公司账户建立只读跨账户角色，信任审计方账户并要求唯一ExternalId，以临时凭证授权并降低混淆代理风险。",
+    "optionReasons": {
+      "A": "并非所有资源支持资源策略，ExternalId是AssumeRole信任条件。",
+      "B": "跨账户角色、最小权限及ExternalId是推荐组合。",
+      "C": "共享长期访问密钥不符合最佳实践。",
+      "D": "逐人本地IAM用户增加长期凭证与人员管理。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_third-party.html",
+        "title": "Access to AWS accounts owned by third parties",
+        "supports": "第三方通过带ExternalId条件的信任策略承担角色，获得临时凭证。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 150,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "高可用DAX需至少3节点并分散AZ，读走缓存可降至微秒；B在给定选项中同时满足缓存读与容错。",
+    "optionReasons": {
+      "A": "两节点不满足DAX故障容错建议。",
+      "B": "三节点并缓存读；写直达表可省去缓存写路径。",
+      "C": "读直接DynamoDB不能获得DAX缓存读取时延优势。",
+      "D": "单节点不容错。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.concepts.cluster.html",
+        "title": "DAX cluster components",
+        "supports": "AWS明确生产容错至少三节点跨AZ部署。"
+      }
+    ],
+    "caveat": "写绕过DAX会导致缓存旧值保留到TTL；交易业务若要求强一致读取，DAX不适用。题干未要求强一致。",
+    "confidence": "medium"
+  },
+  {
+    "id": 151,
+    "originalAnswers": [
+      "B",
+      "E"
+    ],
+    "answers": [
+      "B",
+      "E"
+    ],
+    "status": "confirmed",
+    "summary": "静态前端迁到S3消除常驻EC2；后端长时间低负载、午间突发，适合可累积CPU积分的T系列突发型。",
+    "optionReasons": {
+      "A": "相同核数计算优化未必适配且不能消除低利用成本。",
+      "B": "S3托管静态资源无需两台Web服务器。",
+      "C": "Beanstalk沿用相同实例，成本没有根本降低。",
+      "D": "后端全Spot增加被中断风险。",
+      "E": "突发型在低负载积累积分以承接短高峰。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-credits-baseline-concepts.html",
+        "title": "Key concepts for burstable performance instances",
+        "supports": "低于baseline积累CPU credits，短时高于baseline消耗积分。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 152,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "corrected",
+    "summary": "按稳定基线购买Compute Savings Plans，兼容现有EC2及将来Fargate；短峰用Spot，RDS只为基线购全预付预留、峰期临时扩容。",
+    "optionReasons": {
+      "A": "数据库按全年峰值买RI导致长期闲置，且计算RI不能覆盖Fargate。",
+      "B": "按中位负载承诺容易浪费，容量预留本身不带折扣。",
+      "C": "EC2 Instance Savings Plans不能覆盖Fargate。",
+      "D": "基线Compute SP+峰值Spot兼顾折扣和Fargate灵活性。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/savingsplans/latest/userguide/sp-services.html",
+        "title": "Services eligible for Savings Plans benefits",
+        "supports": "Compute SP适用EC2、Fargate、Lambda；EC2 Instance SP仅EC2。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 153,
+    "originalAnswers": [
+      "A",
+      "C",
+      "D"
+    ],
+    "answers": [
+      "A",
+      "C",
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "将维护提示静态文件上传S3，把其添加为原CloudFront分配的第二源站，用OAI限制桶访问，维护期间切换默认行为的源站。",
+    "optionReasons": {
+      "A": "必须先有维护提示内容。",
+      "B": "新建分配需额外域名切换，非必要。",
+      "C": "原分配增加受保护S3源站。",
+      "D": "默认缓存行为可指向不同源站并在维护后恢复。",
+      "E": "另一个分配的行为不改变现有用户入口。",
+      "F": "Beanstalk没有将环境配置成S3静态源站的该功能。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html",
+        "title": "Cache behavior settings",
+        "supports": "行为Origin或Origin group指定匹配请求发送的源站。"
+      }
+    ],
+    "caveat": "已有缓存可能继续返回旧页面，需按实际需求失效缓存和映射请求路径；新实现优先OAC，OAI为旧机制。",
+    "confidence": "medium"
+  },
+  {
+    "id": 154,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "客户端只调用稳定alias ARN，测试后将别名指向新版本，不再每次改客户端版本ARN。",
+    "optionReasons": {
+      "A": "已发布版本配置含环境变量不可变。",
+      "B": "引入DynamoDB和代码改造比别名复杂。",
+      "C": "硬编码仍需发布新版本并修改客户端。",
+      "D": "别名为版本提供可切换的稳定引用。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html",
+        "title": "Create an alias for a Lambda function",
+        "supports": "Lambda alias是指向特定函数版本的指针，可重新指向新版本。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 155,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "Global Accelerator为多个区域ALB提供固定任播IP，现有DNS可在apex创建A记录，无需迁移DNS。",
+    "optionReasons": {
+      "A": "apex不能使用普通CNAME。",
+      "B": "CNAME不能指向IP且apex不能用普通CNAME。",
+      "C": "固定IP直接用于现有DNS顶级域A记录。",
+      "D": "额外代理且仍错误使用apex CNAME。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/global-accelerator/latest/dg/introduction-how-it-works.html",
+        "title": "How AWS Global Accelerator works",
+        "supports": "加速器固定IP关联一个或多个区域的ALB等端点。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 156,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "将代码与共享依赖打包为容器镜像、推送ECR，并作为Lambda镜像部署包复用；Lambda layer不是Docker镜像。",
+    "optionReasons": {
+      "A": "Layer必须zip，不能用S3 Docker镜像作layer。",
+      "B": "ECR镜像不能作为zip函数layer。",
+      "C": "ECS运行的容器不是Lambda layer。",
+      "D": "Lambda支持从ECR镜像部署，包含代码与依赖。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/lambda/latest/dg/images-create.html",
+        "title": "Create a Lambda function using a container image",
+        "supports": "镜像推送ECR并据此创建Lambda函数。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 157,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "在本地Linux运行Greengrass组件及模型，直接读取相机图像、推理并调用本地API，断网仍能反馈。",
+    "optionReasons": {
+      "A": "云视频与云推理依赖互联网。",
+      "B": "本地模型与处理组件消除实时云连接依赖。",
+      "C": "Snowball不能部署SageMaker托管endpoint服务，且额外设备非必要。",
+      "D": "Monitron用于设备状态监测，不是自定义相机视觉模型平台。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/greengrass/v2/developerguide/perform-machine-learning-inference.html",
+        "title": "Perform machine learning inference",
+        "supports": "Greengrass支持在边缘设备对本地产生数据运行云训练模型。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 158,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "Migration Evaluator专用于迁移商业论证，可用数据导入模板接收已有CMDB导出，避免重建自定义成本匹配工具。",
+    "optionReasons": {
+      "A": "Well-Architected评估架构最佳实践，不直接导入CMDB生成迁移成本论证。",
+      "B": "已有数据导入Migration Evaluator正合场景。",
+      "C": "自建实例匹配和价格分析工作量高。",
+      "D": "Application Discovery偏发现和迁移资产，不是此题最直接商业案例工具。"
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/migration-evaluator/getting-started/",
+        "title": "Getting Started with Migration Evaluator",
+        "supports": "官方提供Data Import Template接收本地服务器工作负载信息。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 159,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "攻击源IP不断变化，应利用Shield Advanced和WAF的应用层DDoS检测/缓解能力，避免手工维护单IP黑名单。",
+    "optionReasons": {
+      "A": "CloudWatch告警不能直接执行所述IP黑名单动作，需自定义流水线。",
+      "B": "Shield Advanced保护ALB并结合WAF识别应用层攻击。",
+      "C": "路由表不提供按来源IP拒绝规则。",
+      "D": "地理DNS策略不等于拒绝访问且易误伤。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/waf/latest/developerguide/ddos-automatic-app-layer-response.html",
+        "title": "Automating application layer DDoS mitigation with Shield Advanced",
+        "supports": "Shield Advanced对受保护ALB结合WAF自动管理应用层缓解规则。"
+      }
+    ],
+    "caveat": "保护资源后仍须按需配置WAF缓解；2026年官方优先推荐Anti-DDoS Managed Rule Group。",
+    "confidence": "medium"
+  },
+  {
+    "id": 160,
+    "originalAnswers": [
+      "A",
+      "D"
+    ],
+    "answers": [
+      "A",
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "Aurora启用global database并增加第二Region，DynamoDB添加global table副本，两者持续跨区复制支持分钟级恢复目标。",
+    "optionReasons": {
+      "A": "Aurora全球数据库在集群级添加区域副本。",
+      "B": "不是逐表添加Aurora区域。",
+      "C": "定时备份恢复难保几分钟RTO/RPO。",
+      "D": "DynamoDB global table提供跨区域数据副本。",
+      "E": "ARC不是通用数据库备份恢复服务。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html",
+        "title": "Using Amazon Aurora global databases",
+        "supports": "Aurora global database通过多个区域的集群提供跨区域灾备和低延迟复制。"
+      },
+      {
+        "url": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html",
+        "title": "DynamoDB global tables",
+        "supports": "global table托管多区域复制，提供各区域本地读写。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 161,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "内部NLB提供每AZ固定私有IP，把现有ALB注册为alb类型目标，保留TLS终止和路径路由，再将NLB地址加入防火墙白名单。",
+    "optionReasons": {
+      "A": "ALB不能由用户配置固定IP。",
+      "B": "NLB前置ALB同时提供固定IP与七层路由。",
+      "C": "删除ALB会失去URL路径路由。",
+      "D": "GWLB不是面向普通HTTPS客户端的NLB替代，也无alb目标类型。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/elasticloadbalancing/latest/network/application-load-balancer-target.html",
+        "title": "Use Application Load Balancers as targets of a Network Load Balancer",
+        "supports": "NLB可用ALB类型target group组合NLB固定IP与ALB七层路由。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 162,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "ALB安全组引用AWS托管CloudFront origin-facing前缀列表，无需自行维护变化的边缘IP范围。",
+    "optionReasons": {
+      "A": "复制WAF规则并不能禁止绕过CloudFront直接请求ALB。",
+      "B": "CloudFront全局ACL不能直接复用于区域ALB，且WAF本身不限制来源。",
+      "C": "托管前缀列表随AWS地址变化自动维护。",
+      "D": "手工维护IP段比托管前缀列表开销高。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/LocationsOfEdgeServers.html",
+        "title": "Use the CloudFront managed prefix list",
+        "supports": "CloudFront origin-facing托管前缀列表可用于源站安全组。"
+      }
+    ],
+    "caveat": "前缀列表允许来自所有CloudFront分配的流量；如需仅允许自己的分配，另加自定义源站header验证。",
+    "confidence": "medium"
+  },
+  {
+    "id": 163,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "ambiguous",
+    "summary": "A新建开启TLS和AUTH的集群在支持AUTH的版本中成立；但新版Redis OSS 7+允许现有集群就地开启TLS并启用AUTH，因此B也可能成立，题干缺少引擎版本无法唯一排除B。",
+    "optionReasons": {
+      "A": "新集群同时启用TLS/AUTH并安全保存token，方案有效。",
+      "B": "Redis7+可就地将TLS preferred迁到required，再以ROTATE/SET强制AUTH；旧版本须升级或重建。",
+      "C": "ElastiCache不支持用自建客户端证书替代AUTH来做mTLS。",
+      "D": "自建客户端证书不是ElastiCache支持的认证方案。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/in-transit-encryption.html",
+        "title": "ElastiCache in-transit encryption (TLS)",
+        "supports": "修改现有复制组TLS支持Redis OSS7+；ElastiCache不支持mTLS。"
+      }
+    ],
+    "caveat": "版本未注明；不能把B泛称为错误。A为跨版本稳妥方案，现代版本B同样可行。",
+    "confidence": "medium"
+  },
+  {
+    "id": 164,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "单实例类型Spot容量池不足造成启动失败，应在launch template采用属性选择，拓宽兼容实例池提升容量可用性。",
+    "optionReasons": {
+      "A": "属性选择依赖launch template，不应退回launch configuration。",
+      "B": "按vCPU、内存等属性选择多类型实例。",
+      "C": "增加placement group不能扩展实例类型容量池。",
+      "D": "仅换大规格仍是单一容量池。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-launch-template.html",
+        "title": "Create a launch template for an Auto Scaling group",
+        "supports": "launch template支持指定vCPU/内存等属性以自动匹配实例类型。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 165,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "S3 File Gateway提供NFS文件访问和本地缓存，写回S3；对象被其他S3应用修改后调用RefreshCache刷新网关目录/缓存，改造最少。",
+    "optionReasons": {
+      "A": "题干不能立即改造生成服务器，Lambda迁移违反前提。",
+      "B": "NFS挂载File Gateway保留文件接口，本地缓存支持低延迟。",
+      "C": "FSx Lustre须Lustre客户端以lustre协议挂载，不是NFS；选项包含致命协议错误。",
+      "D": "DataSync需管理任务且双向同步冲突及调度更复杂。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html",
+        "title": "Installing the Lustre client",
+        "supports": "FSx Lustre通过Lustre客户端访问，不支持该选项所说NFS挂载。"
+      }
+    ],
+    "caveat": "File Gateway异步上传，需保证带宽和缓存容量以满足30分钟目标；RefreshCache用于S3侧变更，不会强制上传本地写入。",
+    "confidence": "medium"
+  },
+  {
+    "id": 166,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "中心服务发布用户删除事件到EventBridge，各微服务各自规则订阅并删除自身数据副本，实现事件广播。",
+    "optionReasons": {
+      "A": "单SQS队列是竞争消费，不能保证每个微服务都收到。",
+      "B": "DynamoDB没有选项描述的原生SNS事件通知功能，应经Streams等处理。",
+      "C": "每服务独立EventBridge规则可扇出删除事件。",
+      "D": "SQS队列不提供给每个消费者的独立事件过滤订阅。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-bus.html",
+        "title": "Amazon EventBridge event bus",
+        "supports": "同一事件可匹配多个规则，每规则投递到目标。"
+      }
+    ],
+    "caveat": "异步系统为近实时最终一致，不能保证物理意义同时立即删除；生产须重试、DLQ与幂等。",
+    "confidence": "medium"
+  },
+  {
+    "id": 167,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "Global Accelerator为现有ALB提供固定公网IP，保留ALB上的WAF保护且不必重构。",
+    "optionReasons": {
+      "A": "NLB不能直接关联WAF web ACL，替换会丢失既有防护。",
+      "B": "不能将EIP直接绑定ALB。",
+      "C": "标准加速器可指向ALB并提供固定IP。",
+      "D": "CloudFront DNS解析出的共享边缘IP并非该分配固定地址。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/global-accelerator/latest/dg/introduction-how-it-works.html",
+        "title": "How AWS Global Accelerator works",
+        "supports": "Global Accelerator的固定任播IP可关联ALB端点。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 168,
+    "originalAnswers": [
+      "C",
+      "D",
+      "F"
+    ],
+    "answers": [
+      "C",
+      "D",
+      "F"
+    ],
+    "status": "confirmed",
+    "summary": "在组织管理账户设置Control Tower landing zone，将现有账户纳入组织并按生产/开发OU分组，对生产OU启用EBS加密控制，以覆盖其现有与新增受管账户。",
+    "optionReasons": {
+      "A": "单独StackSets无Control Tower内置蓝图体系。",
+      "B": "landing zone必须在组织管理账户，不应直接用开发成员账户。",
+      "C": "管理账户创建landing zone并分OU是正确基础。",
+      "D": "把现有账户纳入组织，SCP可限制不合规操作。",
+      "E": "管理账户级别不是仅生产OU的作用域。",
+      "F": "对生产OU启用EBS加密检测控制可涵盖该OU账户。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/controltower/latest/userguide/how-control-tower-works.html",
+        "title": "How AWS Control Tower works",
+        "supports": "Control Tower在管理账户创建多账户landing zone，并以OU和controls管理治理。"
+      }
+    ],
+    "caveat": "“detect”控制只能发现不合规，不能自动加密既有卷；严格enforce还应启用默认加密及预防性策略。",
+    "confidence": "medium"
+  },
+  {
+    "id": 169,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "confirmed",
+    "summary": "应用服务器用DRS持续块复制满足分钟内RPO，数据库用跨区只读副本，备用ALB及Global Accelerator提供恢复后的低时延入口。",
+    "optionReasons": {
+      "A": "持续DRS、RDS只读副本及双区域入口完整覆盖目标。",
+      "B": "周期EBS快照无法可靠满足2分钟RPO。",
+      "C": "计划备份恢复通常不能满足所需分钟级RPO/RTO。",
+      "D": "EBS周期快照不足2分钟RPO且未更新DNS入口。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/drs/latest/userguide/CloudEndure-Concepts.html",
+        "title": "Elastic Disaster Recovery Concepts",
+        "supports": "DRS可实现秒级RPO及通常5–20分钟恢复，取决于工作负载。"
+      }
+    ],
+    "caveat": "仍需演练验证RDS复制延迟及恢复流程达标。",
+    "confidence": "medium"
+  },
+  {
+    "id": 170,
+    "originalAnswers": [
+      "C",
+      "D"
+    ],
+    "answers": [
+      "C",
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "Compute Optimizer分析CPU、网络等利用率，额外安装CloudWatch agent提供EC2默认不采集的内存指标，使规格建议更完整。",
+    "optionReasons": {
+      "A": "付费支持不是启用Compute Optimizer的必要条件。",
+      "B": "Trusted Advisor低利用率检查不等于完整内存规格优化。",
+      "C": "代理补充内存指标。",
+      "D": "启用Compute Optimizer得到规格建议。",
+      "E": "Savings Plan给折扣，不评估实例是否合理。"
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/compute-optimizer/faqs/",
+        "title": "AWS Compute Optimizer FAQs",
+        "supports": "Compute Optimizer自动分析CWAgent namespace中发布的内存利用率。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 171,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "代码提交事件经EventBridge触发CodeBuild，克隆仓库打包并上传第二Region S3，建立事件驱动异地副本。",
+    "optionReasons": {
+      "A": "DRS复制服务器块设备，不直接保护CodeCommit托管仓库。",
+      "B": "AWS Backup无CodeCommit原生备份资源类型。",
+      "C": "Git克隆和S3异地归档是可实施方案。",
+      "D": "CodeCommit没有所述仓库快照API。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/deploy-code-in-multiple-aws-regions-using-aws-codepipeline-aws-codecommit-and-aws-codebuild.html",
+        "title": "Deploy code in multiple AWS Regions using CodePipeline CodeCommit CodeBuild",
+        "supports": "CodeCommit更新事件可触发流水线，CodeBuild能读取仓库并以S3作产物存储。"
+      }
+    ],
+    "caveat": "若需完整Git历史与所有分支标签，应clone --mirror并归档.git，而非只压缩工作树。",
+    "confidence": "medium"
+  },
+  {
+    "id": 172,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "PrivateLink按服务暴露应用，消费者在各自VPC中用私有接口端点连接，即使CIDR重叠也无需重编址。",
+    "optionReasons": {
+      "A": "只要任一IPv4 CIDR重叠，新增不重叠副段仍不能建立VPC peering。",
+      "B": "VPN和NAT虚拟设备管理复杂。",
+      "C": "PrivateLink支持重叠网段并按账户授权服务。",
+      "D": "API private integration仅使后端私有，不会自动使API前端私有。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/integrate-third-party-services/architecture-1.html",
+        "title": "Architecture 1 AWS PrivateLink",
+        "supports": "PrivateLink提供跨VPC/账户私有连接，允许重叠CIDR。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 173,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "Access Analyzer分析桶策略和公开访问，使用EventBridge只匹配公开finding再发SNS，避免任何策略变更都告警。",
+    "optionReasons": {
+      "A": "S3对象事件没有isPublic类型。",
+      "B": "Access Analyzer finding含isPublic，可按事件条件筛选并发SNS。",
+      "C": "PutBucketPolicy可能仍是私有策略，也遗漏ACL等公开路径。",
+      "D": "cloudtrail-s3-dataevents-enabled检查数据事件日志而非公开桶。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-eventbridge.html",
+        "title": "Monitoring IAM Access Analyzer with EventBridge",
+        "supports": "Access Analyzer finding事件含isPublic及资源信息，可创建EventBridge规则。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 174,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "Migration Evaluator收集资源利用率构建商业论证，Application Discovery收集依赖，Migration Hub呈现资产组合，持续观察才能覆盖月末批处理。",
+    "optionReasons": {
+      "A": "SMS/DMS用于迁移，Service Catalog不自动发现应用依赖。",
+      "B": "MGN偏复制迁移，Storage Gateway不发现数据库依赖。",
+      "C": "发现、成本评估和依赖可视化组合匹配前期评估。",
+      "D": "Control Tower不发现本地应用资产。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/migrationhub/latest/ug/network-diagram.html",
+        "title": "Viewing network connections in AWS Migration Hub",
+        "supports": "Migration Hub使用Application Discovery Service网络连接数据展示服务器依赖。"
+      }
+    ],
+    "caveat": "须收集足够长时间覆盖月末任务，瞬时清单不足以合理定容。",
+    "confidence": "medium"
+  },
+  {
+    "id": 175,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "confirmed",
+    "summary": "Regional EFS提供跨AZ共享文件系统，EKS各节点可挂载统一目录，AWS Backup设置一年保留。",
+    "optionReasons": {
+      "A": "共享NFS文件适配多AZ、多pod及小文件，配合Backup。",
+      "B": "EBS Multi-Attach限同AZ且需集群文件系统，不能跨AZ通用共享。",
+      "C": "S3对象存储不是原生低时延POSIX小文件共享；Mountpoint也不提供完整文件语义。",
+      "D": "本地pod存储不能让所有副本共享文件。"
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/efs/faq/",
+        "title": "Amazon EFS FAQs",
+        "supports": "Regional EFS跨多个AZ冗余存储，可用AWS Backup保护。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 176,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "confirmed",
+    "summary": "Connect托管联络中心，Pinpoint原有双向SMS能力支持交互式问卷，比自建呼叫硬件及消息会话管理省维护。",
+    "optionReasons": {
+      "A": "托管Connect与双向短信组合匹配历史题意。",
+      "B": "SNS SMS偏发送，不提供题目所需托管双向对话能力。",
+      "C": "迁移EC2仍需维护呼叫中心软件和服务器。",
+      "D": "Pinpoint不是替代电话呼叫中心的软件。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/pinpoint/latest/userguide/tutorials-two-way-sms.html",
+        "title": "Set up an SMS registration system in Amazon Pinpoint",
+        "supports": "原官方教程支持two-way SMS；当前通知说明短信API由AWS End User Messaging延续。"
+      }
+    ],
+    "caveat": "Pinpoint于2026-10-30结束支持；当前新设计应使用Connect配AWS End User Messaging SMS，A为历史题意答案。",
+    "confidence": "medium"
+  },
+  {
+    "id": 177,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "ambiguous",
+    "summary": "D预建备用实例、用户与流程，把灾时创建工作减到电话号码配置，在题给方案中接近最低RTO；但不能假设灾时重新认领号码就能自动转移原号码的来电。",
+    "optionReasons": {
+      "A": "灾后才创建实例、用户、流程最慢。",
+      "B": "灾后创建大量流程会延长RTO。",
+      "C": "灾后创建数百用户比预先配置慢，跨区号码也不能随意重复认领。",
+      "D": "预建用户及流程减少恢复步骤，但号码迁移描述不完整。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/connect/latest/APIReference/API_ClaimPhoneNumber.html",
+        "title": "ClaimPhoneNumber Amazon Connect",
+        "supports": "ClaimPhoneNumber认领可用号码到实例或traffic distribution group，并要求对应Region调用。"
+      }
+    ],
+    "caveat": "严格可用的跨区DR需预建副本及Global Resiliency/traffic distribution group等号码分流；所有选项对原号码连续性均不完整。",
+    "confidence": "medium"
+  },
+  {
+    "id": 178,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "Redshift datashare通过Data Exchange让订阅者查询实时共享数据，订阅验证在提供访问前核实身份，不必导出FTP文件。",
+    "optionReasons": {
+      "A": "API代理与Redshift Data API增加实现维护。",
+      "B": "原生Redshift datashare与订阅验证最直接。",
+      "C": "周期导出S3增加延迟和同步运维。",
+      "D": "Open Data不是按已核验付费订阅客户控制访问的方案，表也不是所述IAM资源策略对象。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publish-Redshift-product.html",
+        "title": "Publishing a product containing Redshift data sets",
+        "supports": "提供者创建Data Exchange Redshift datashare；订阅后可访问新增共享数据。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 179,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "corrected",
+    "summary": "SNS异步触发Lambda随事件负载扩缩，Lambda处理重试耗尽后用on-failure destination把失败记录送SQS供审查。",
+    "optionReasons": {
+      "A": "SNS到Lambda加失败目的地完整满足自动扩缩和失败队列。",
+      "B": "按最旧消息年龄不是按事件数量/每实例积压扩缩，且需应用自写失败转移。",
+      "C": "没有配置失败队列。",
+      "D": "ALB不是EventBridge原生target；按选项无法直接实现。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/lambda/latest/dg/invocation-async-retain-records.html",
+        "title": "Capturing records of Lambda asynchronous invocations",
+        "supports": "Lambda异步调用支持标准SQS作为on-failure destination，记录重试后仍失败事件。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 180,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "HTTP API原生SQS SendMessage集成先持久化流量，Lambda按队列处理，吸收突发并隔离接收和处理容量。",
+    "optionReasons": {
+      "A": "ALB不能把SQS队列作为target group目标。",
+      "B": "HTTP API支持SQS-SendMessage一等集成并由Lambda消费。",
+      "C": "不存在Auto Scaling group proxy integration类型，且无持久缓冲。",
+      "D": "Kinesis stream不是CloudFront可直接设置的HTTP源站。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services.html",
+        "title": "Create AWS service integrations for HTTP APIs",
+        "supports": "HTTP API first-class integration支持SQS-SendMessage。"
+      }
+    ],
+    "caveat": "要满足不丢数据，还需客户端确认与重试、SQS保留期、DLQ及消费幂等。",
+    "confidence": "medium"
+  },
+  {
+    "id": 181,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "每OU使用独立Transit Gateway，仅连接该OU的VPC，不互连各TGW，建立可管理的OU内传递路由和OU间隔离。",
+    "optionReasons": {
+      "A": "百账户全互联peering连接数量大。",
+      "B": "VPC共享不替代现有VPC路由，peering也不传递。",
+      "C": "RAM共享TGW并按OU连接VPC，避免mesh。",
+      "D": "VPN和第三方路由器运维重。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/vpc/latest/tgw/tgw-transit-gateways.html",
+        "title": "Transit gateways in AWS Transit Gateway",
+        "supports": "TGW可经RAM跨账户共享并连接VPC，路由表控制连接。"
+      }
+    ],
+    "caveat": "共享给组织不等于自动隔离OU；每个TGW必须只接本OU并限制共享/路由。",
+    "confidence": "medium"
+  },
+  {
+    "id": 182,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "S3提供托管耐久对象存储，桶策略拒绝非TLS访问并强制SSE-KMS，使用公司管理的customer managed KMS key并启用轮换。",
+    "optionReasons": {
+      "A": "EBS卷加密不能替代S3对象端到端要求，网关也非必要。",
+      "B": "S3+TLS策略+SSE-KMS满足大文档和自管密钥。",
+      "C": "DynamoDB单项400KB，不适合大文档对象。",
+      "D": "自管EC2存储不满足尽量全托管。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html",
+        "title": "SSE-KMS encryption",
+        "supports": "S3支持通过客户管理KMS密钥进行服务端加密。"
+      },
+      {
+        "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html",
+        "title": "S3 bucket policies",
+        "supports": "桶策略可使用aws:SecureTransport拒绝非TLS请求。"
+      }
+    ],
+    "caveat": "KMS应选customer managed key并显式启用符合要求的轮换，而非只写任意AWS托管key。",
+    "confidence": "medium"
+  },
+  {
+    "id": 183,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "WAF SQL database托管规则组识别SQL注入并Block，web ACL关联ALB，在攻击到达Fargate任务前拦截。",
+    "optionReasons": {
+      "A": "仅monitor不阻止攻击。",
+      "B": "Bot Control不是最直接SQLi检测规则，托管组不能这样直接添加任意规则。",
+      "C": "SQLi托管规则阻断、其余默认Allow符合条件。",
+      "D": "依赖日志识别单IP复杂且攻击者可换IP。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/waf/latest/developerguide/aws-managed-rule-groups-use-case.html",
+        "title": "Use-case specific rule groups",
+        "supports": "AWSManagedRulesSQLiRuleSet包含SQLi_BODY/QUERYARGUMENTS等Block规则。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 184,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "每区域配置IoT自定义域名和相应证书，DNS健康检查触发故障转移，DynamoDB global table让两区域可写入同一逻辑数据集。",
+    "optionReasons": {
+      "A": "不存在Aurora global tables这种DynamoDB替代形式，IoT端点也不是所述Route53 alias支持目标。",
+      "B": "MemoryDB方案改变数据库且未完整描述跨区可用接入。",
+      "C": "自定义域名、健康检查、故障DNS与global table匹配。",
+      "D": "仅地域端点DNS切换未解决自定义域名TLS配置，手工流复制开销高。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/iot/latest/developerguide/disaster-recovery-resiliency.html",
+        "title": "Resilience in AWS IoT Core",
+        "supports": "IoT资源按区域独立，跨区域需要显式复制和配置。"
+      }
+    ],
+    "caveat": "还须在两区域同步设备证书/策略/注册及规则；不能把DNS健康检查描述为IoT自动内建的跨区复制。",
+    "confidence": "medium"
+  },
+  {
+    "id": 185,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "ambiguous",
+    "summary": "B通过财务账户角色的dynamodb:Attributes等条件限制属性，营销账户承担此角色。当前DynamoDB也支持C的跨账户资源策略，原题未给限制而不再能唯一排除C。",
+    "optionReasons": {
+      "A": "SCP不授予访问权，也不能作为跨账户授权策略。",
+      "B": "角色信任加细粒度属性策略是有效传统方案。",
+      "C": "当前DynamoDB表支持资源策略和跨账户访问，配合双方授权及Attributes条件同样可行。",
+      "D": "权限边界只能限制已有授权；选项未建立跨账户角色信任。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-auth-iam-id-based-policies-DDB.html",
+        "title": "Authorization with IAM identity-based and DynamoDB resource-based policies",
+        "supports": "官方确认跨账户须身份与资源策略显式Allow，支持dynamodb:Attributes条件。"
+      }
+    ],
+    "caveat": "2024年以来DynamoDB新增资源策略，B与C均有效；B是保留的传统答案，不能称C不受支持。",
+    "confidence": "medium"
+  },
+  {
+    "id": 186,
+    "originalAnswers": [
+      "A",
+      "B",
+      "E"
+    ],
+    "answers": [
+      "A",
+      "B",
+      "E"
+    ],
+    "status": "confirmed",
+    "summary": "两桶开启Versioning并配置双向CRR，MRAP提供单一多区域访问入口，避免应用双写和手工Lambda复制。",
+    "optionReasons": {
+      "A": "MRAP按网络位置路由S3请求。",
+      "B": "双向CRR复制两侧新对象。",
+      "C": "应用双写增加失败补偿与运维。",
+      "D": "Lifecycle不复制到另一桶。",
+      "E": "CRR要求源与目标都启用Versioning。",
+      "F": "自建复制需管理幂等、循环与失败重试。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/mrap-create-two-way-replication-rules.html",
+        "title": "Create two-way replication rules for your Multi-Region Access Point",
+        "supports": "双向CRR用于同步多区域桶，所有参与桶必须启用Versioning。"
+      }
+    ],
+    "caveat": "复制是异步，MRAP本身不保证同步完成或跨区域读后写强一致。",
+    "confidence": "medium"
+  },
+  {
+    "id": 187,
+    "originalAnswers": [
+      "B",
+      "D",
+      "E"
+    ],
+    "answers": [
+      "B",
+      "D",
+      "E"
+    ],
+    "status": "confirmed",
+    "summary": "IoT Core托管MQTT接入，DocumentDB承接兼容MongoDB元数据，Step Functions+Lambda执行2–10分钟任务并写S3，再由CloudFront发布静态报表。",
+    "optionReasons": {
+      "A": "Lambda不适合长期保持所有设备MQTT连接。",
+      "B": "IoT Core托管设备消息协议接入。",
+      "C": "自管MongoDB保留数据库维护。",
+      "D": "DocumentDB提供托管MongoDB兼容存储。",
+      "E": "单任务最长600秒小于标准Lambda900秒上限，托管编排和静态发布省运维。",
+      "F": "EKS EC2与ingress引入节点和集群维护。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-timeout.html",
+        "title": "Configure Lambda function timeout",
+        "supports": "标准Lambda最长900秒，可覆盖120–600秒任务。"
+      }
+    ],
+    "caveat": "DocumentDB兼容性须测试；不是对任意MongoDB功能的100%兼容。",
+    "confidence": "medium"
+  },
+  {
+    "id": 188,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "Outposts把熟悉AWS服务和API带到本地以满足驻留与低延迟，受限网络工厂使用Snowball Edge Compute Optimized运行本地计算。",
+    "optionReasons": {
+      "A": "迁到Region不能保证本地数据驻留和个位毫秒时延。",
+      "B": "Storage Optimized不是此处计算优选；Wavelength依赖支持的运营商5G边缘。",
+      "C": "本地Outposts加离线边缘计算匹配原题混合场景。",
+      "D": "Local Zone不保证在指定机房/国家，Wavelength不是任意工厂可部署。"
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/outposts/rack/faqs/",
+        "title": "AWS Outposts racks FAQs",
+        "supports": "Outposts适用于本地低延迟、数据处理和驻留要求，复用AWS能力。"
+      }
+    ],
+    "caveat": "Snowball Edge可用性及新客户限制随时间变化；此题是既有服务能力架构题。Outposts需区域服务链路，不是长期完全离线平台。",
+    "confidence": "medium"
+  },
+  {
+    "id": 189,
+    "originalAnswers": [
+      "A",
+      "E"
+    ],
+    "answers": [
+      "A",
+      "E"
+    ],
+    "status": "confirmed",
+    "summary": "CloudFront前置ALB，使用秘密源站header并在ALB校验防止绕过入口；CloudFront关联WAF规则组在边缘过滤攻击。",
+    "optionReasons": {
+      "A": "CloudFront自定义源站header加ALB匹配限制直连绕过。",
+      "B": "双Region等权不是最划算的攻击过滤方式。",
+      "C": "扩容和DAX无法阻止恶意请求。",
+      "D": "ElastiCache不能代替安全过滤。",
+      "E": "WAF在CloudFront层过滤应用攻击。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/restrict-access-to-load-balancer.html",
+        "title": "Restrict access to Application Load Balancers",
+        "supports": "CloudFront给origin request添加自定义header，ALB listener检查该header；可再限制前缀列表。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 190,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "将动态请求也经CloudFront origin group，ALB作为主源，S3维护页为备源，将503设为failover code，收到该错误后切换源站。",
+    "optionReasons": {
+      "A": "DNS故障检测和缓存导致非即时，且影响全站。",
+      "B": "新分配加DNS切换额外复杂且非每请求错误处理。",
+      "C": "origin failover支持503触发备用S3。",
+      "D": "CloudFront Functions没有origin-response触发器，也不能进行网络读取S3。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/high_availability_origin_failover.html",
+        "title": "Optimize high availability with CloudFront origin failover",
+        "supports": "可设置503作为源站failover响应码并指定主/备用源。"
+      }
+    ],
+    "caveat": "需确保备用源对原请求路径返回维护页；failover仅适用GET/HEAD/OPTIONS。若只是统一错误页，生产更直接使用CloudFront custom error response。",
+    "confidence": "medium"
+  },
+  {
+    "id": 191,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "confirmed",
+    "summary": "Fargate托管容器基础设施，EFS提供NFSv4共享，任务定义设置EFS volume/mountPoints及taskRole IAM授权，安全且省运维。",
+    "optionReasons": {
+      "A": "Fargate+EFS是支持的托管NFS组合。",
+      "B": "Lustre不是NFS且Fargate不能使用该Lustre客户端挂载方式。",
+      "C": "EC2 launch type仍需管理容器宿主机。",
+      "D": "EBS Multi-Attach并非通用多机NFS，EC2基础设施也需管理。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html",
+        "title": "ECS task definition parameters for Fargate",
+        "supports": "Fargate任务支持EFS volume及task IAM role授权；IAM授权须开启传输加密。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 192,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "新旧版本使用独立target group，listener按90/10权重转发，并启用target group stickiness让同一客户保持同一版本。",
+    "optionReasons": {
+      "A": "DNS权重按解析而非精确客户分配，不能保证客户测试期固定版本。",
+      "B": "加权目标组与目标组粘性同时满足灰度比例和版本一致。",
+      "C": "MaxBatchSize是实例数而非10%客户，滚动更新不保会话版本。",
+      "D": "LOR按未完成请求负载分配，不保证10%灰度比例。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/rule-action-types.html",
+        "title": "Action types for listener rules",
+        "supports": "加权目标组须启用target group stickiness，ALB以AWSALBTG cookie固定目标组。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 193,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "当前FSx Windows支持将现有文件系统从HDD原地升级到SSD，并提高throughput至32MBps，无需迁移新文件系统，行政工作最少。",
+    "optionReasons": {
+      "A": "备份恢复可行但比当前原地修改更多工作。",
+      "B": "直接更新throughput与HDD→SSD为支持路径。",
+      "C": "DataSync迁移可行但需额外代理和切换。",
+      "D": "shadow copy不是创建另一FSx文件系统的完整恢复迁移机制。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/managing-storage-configuration.html",
+        "title": "Managing storage on FSx for Windows File Server",
+        "supports": "官方现已明确支持通过控制台/CLI把HDD存储类型改成SSD。"
+      }
+    ],
+    "caveat": "旧文档曾要求备份恢复；当前HDD→SSD可原地做，SSD→HDD仍需恢复新文件系统。",
+    "confidence": "medium"
+  },
+  {
+    "id": 194,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "两Region都可读写时需双向CRR，MRAP为应用提供统一访问端点并按区域路由，运维最少。",
+    "optionReasons": {
+      "A": "Global Accelerator不能直接将S3桶作为标准端点，CloudFront不负责双向数据复制。",
+      "B": "双向CRR+MRAP同时解决数据分布和单入口。",
+      "C": "单向复制不能传播第二Region的新写入回第一Region。",
+      "D": "S3 gateway endpoint是区域VPC路由目标，不是跨区应用源站。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiRegionAccessPointBucketReplication.html",
+        "title": "Configuring replication for use with Multi-Region Access Points",
+        "supports": "MRAP搭配双向CRR可保持两桶更新异步同步。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 195,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "计算密集应用用C系列，需稳定游戏服务用On-Demand；Redis sorted sets适合实时排行榜并兼容现有Redis状态。",
+    "optionReasons": {
+      "A": "M系列非计算优化，且全Spot可被中断。",
+      "B": "OpenSearch不是现有Redis实时排行榜最合适替代，全Spot有中断风险。",
+      "C": "C系列稳定计算加托管Redis实时排行。",
+      "D": "M系列及DynamoDB需重构排行逻辑，非本题性能最佳。"
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/blogs/database/building-a-real-time-gaming-leaderboard-with-amazon-elasticache-for-redis/",
+        "title": "Build a real-time gaming leaderboard with Amazon ElastiCache for Redis",
+        "supports": "Redis sorted set按分数排序提供低延迟实时排行榜。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 196,
+    "originalAnswers": [
+      "B",
+      "E"
+    ],
+    "answers": [
+      "C",
+      "E"
+    ],
+    "status": "corrected",
+    "summary": "静态前端S3+CloudFront、API Gateway+Lambda后端按请求自动扩缩，S3存考勤并用Athena/QuickSight按需报告，无需维护容器节点或数据库集群。",
+    "optionReasons": {
+      "A": "EC2定时扩容仍要维护实例。",
+      "B": "ECS容器方案比全托管函数组合增加运行和容量管理。",
+      "C": "S3与API Gateway/Lambda最少基础设施管理。",
+      "D": "常驻Redshift对低频月报开销更高。",
+      "E": "S3+Athena无服务器查询适合月报。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/decision-guides/latest/decision-guides/choosing-aws-serverless-service.html",
+        "title": "Choosing an AWS serverless service",
+        "supports": "API Gateway与Lambda用于Web/API后端，托管服务避免配置计算基础设施。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 197,
+    "originalAnswers": [
+      "A",
+      "D",
+      "F"
+    ],
+    "answers": [
+      "A",
+      "D",
+      "F"
+    ],
+    "status": "ambiguous",
+    "summary": "CloudTrail开启S3对象级data events并把日志保存专用S3桶以Lifecycle保留5年；EventBridge匹配删除API事件通知SNS邮件。",
+    "optionReasons": {
+      "A": "对象读写删除审计需CloudTrail data events。",
+      "B": "server access logging为best effort，不是完整审计首选。",
+      "C": "S3事件不能直接以SES为目标。",
+      "D": "EventBridge到SNS可通知，但必须基于CloudTrail删除API调用而非仅Object Deleted事件。",
+      "E": "Timestream不是最低成本长期审计日志存储。",
+      "F": "专用S3日志桶加生命周期控制成本与留存。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-s3-data-events-governance.html",
+        "title": "Logging CloudTrail S3 data events",
+        "supports": "S3失败请求如AccessDenied按原API名称记录，可审计删除尝试。"
+      }
+    ],
+    "caveat": "D若按原生S3 Object Deleted事件理解，只报告成功删除，漏掉失败尝试；应匹配CloudTrail DeleteObject/DeleteObjects事件。题给ADF为最接近组合。",
+    "confidence": "medium"
+  },
+  {
+    "id": 198,
+    "originalAnswers": [
+      "A",
+      "D"
+    ],
+    "answers": [
+      "A",
+      "D"
+    ],
+    "status": "ambiguous",
+    "summary": "利用既有物理DX：private VIF经全局DX gateway连接多Region VPC，public VIF访问AWS公共服务；D附加的VPN可走公共VIF访问远端Region。",
+    "optionReasons": {
+      "A": "DX gateway为全局资源可连多Region VGW；“在最近Region创建”措辞不严谨。",
+      "B": "新建两条物理专线成本更高。",
+      "C": "private VIF无法直接访问公网VPN端点。",
+      "D": "public VIF可到AWS公共端点，并可承载公网Site-to-Site VPN。",
+      "E": "VPC peering不支持让本地经DX传递到第三VPC。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways-intro.html",
+        "title": "Direct Connect gateways",
+        "supports": "DX gateway全局可用，可用单一专线private VIF连接多个Region VPC。"
+      }
+    ],
+    "caveat": "A经DX gateway已可达三VPC，D里的VPN冗余；真正最低成本架构只需private+public VIF，选项未提供单独public VIF。",
+    "confidence": "medium"
+  },
+  {
+    "id": 199,
+    "originalAnswers": [
+      "A",
+      "C",
+      "D"
+    ],
+    "answers": [
+      "A",
+      "C",
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "Organizations开All features、所有账户启用Config，然后由Firewall Manager集中施加WAF托管基础规则到现有及新增CloudFront。",
+    "optionReasons": {
+      "A": "Config用于Firewall Manager发现和合规追踪。",
+      "B": "GuardDuty检测威胁，不部署WAF规则。",
+      "C": "Firewall Manager组织集成要求All features。",
+      "D": "Firewall Manager提供集中WAF策略部署。",
+      "E": "Shield Advanced不是组织级WAF规则部署管理器。",
+      "F": "Security Hub汇总安全发现，不部署WAF策略。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/waf/latest/developerguide/fms-prereq.html",
+        "title": "AWS Firewall Manager prerequisites",
+        "supports": "Firewall Manager要求Organizations及Config等前提，可集中管理组织安全策略。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 200,
+    "originalAnswers": [
+      "B",
+      "C",
+      "E"
+    ],
+    "answers": [
+      "B",
+      "D",
+      "F"
+    ],
+    "status": "corrected",
+    "summary": "检查角色信任是否信任SAML provider、STS AssumeRoleWithSAML是否带正确provider/role ARN和断言，以及IdP用户/组到角色映射。",
+    "optionReasons": {
+      "A": "SAML联邦用户无需先有IAM user。",
+      "B": "角色信任必须指定正确SAML provider及AssumeRoleWithSAML。",
+      "C": "AWSFederatedUsers不是AWS强制要求的IdP组名。",
+      "D": "STS调用参数须正确。",
+      "E": "AWS VPC可达IdP DNS不是浏览器SAML联邦必要条件。",
+      "F": "断言Role映射决定哪些用户可以承担哪些角色。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_saml.html",
+        "title": "Troubleshoot SAML federation with IAM",
+        "supports": "SAML访问依赖角色信任sts:AssumeRoleWithSAML及正确SAML属性/断言。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high",
+    "optionTextZhRepairs": {
+      "D": "Web 门户使用 SAML 提供者 ARN、IAM 角色 ARN，以及 IdP 签发的 SAML 断言调用 AWS STS AssumeRoleWithSAML API。"
+    }
+  },
+  {
+    "id": 201,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "confirmed",
+    "summary": "RDS Proxy复用连接并吸收连接峰值，Secrets Manager保存数据库凭证并提供自动轮换。",
+    "optionReasons": {
+      "A": "连接池加Secrets Manager同时解决两问题。",
+      "B": "Parameter Store不提供相同内建数据库凭证自动轮换。",
+      "C": "只读副本不扩展主要INSERT写入连接。",
+      "D": "副本与Parameter Store均未完整解决要求。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy.html",
+        "title": "Amazon RDS Proxy",
+        "supports": "代理池化并复用数据库连接，支持Secrets Manager凭证认证。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 202,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "DRS持续复制EC2、RDS跨区只读副本及最小容量温备，故障时扩容并DNS failover，比全容量双活便宜。",
+    "optionReasons": {
+      "A": "Backup不支持每30秒快照，geolocation不是故障转移。",
+      "B": "持续复制和温备匹配秒级RPO、分钟级恢复意图。",
+      "C": "不支持30秒计划备份，simple routing不自动failover。",
+      "D": "全容量备用和更换Aurora成本更高。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/drs/latest/userguide/CloudEndure-Concepts.html",
+        "title": "Elastic Disaster Recovery Concepts",
+        "supports": "DRS复制可实现秒级RPO，恢复通常5–20分钟。"
+      }
+    ],
+    "caveat": "RDS异步副本不硬保证30秒RPO，DRS也不保证任何负载10分钟RTO；须监测复制延迟并演练验证。",
+    "confidence": "medium"
+  },
+  {
+    "id": 203,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "60TB经受限公网耗时一个月，物理Snowball Edge预装载到S3再由DMS导入可避免长网络传输。",
+    "optionReasons": {
+      "A": "专线交付时间通常较长且一次迁移不如物理预置。",
+      "B": "DataSync不能突破物理带宽，MGN不能转化为Aurora数据库。",
+      "C": "S3源DMS路径可行，但数据必须导出为DMS支持格式。",
+      "D": "MGN不能将S3备份转为Aurora。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.S3.html",
+        "title": "Using Amazon S3 as a source for AWS DMS",
+        "supports": "DMS从S3源迁移需符合指定CSV/表定义或所支持Parquet格式。"
+      }
+    ],
+    "caveat": "不能直接把任意MySQL备份/数据文件交给DMS；须先导出支持格式并考虑停机/CDC。Snowball新客户可用性需另核实。",
+    "confidence": "medium"
+  },
+  {
+    "id": 204,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "AWS Backup按日备份完整EC2配置及其EBS卷，并跨区复制到vault；恢复时配合现有网络模板重建，适合一天RPO/RTO。",
+    "optionReasons": {
+      "A": "手工Runbook、多卷快照和实例模板维护更多。",
+      "B": "DLM不提供所述完整EC2配置恢复与自动流量接管。",
+      "C": "集中计划、跨区副本和实例恢复最少运维。",
+      "D": "全天运行同规格备用实例成本高，DataSync也不复制完整实例配置。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/aws-backup/latest/devguide/restoring-ec2.html",
+        "title": "Restoring an Amazon EC2 instance",
+        "supports": "AWS Backup可从EC2恢复点还原EC2实例及EBS卷。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 205,
+    "originalAnswers": [
+      "A",
+      "C",
+      "E"
+    ],
+    "answers": [
+      "A",
+      "C",
+      "E"
+    ],
+    "status": "confirmed",
+    "summary": "S3开启服务端加密保护静态数据，桶策略拒绝非TLS访问，CloudFront强制HTTPS以覆盖客户端和源站传输路径。",
+    "optionReasons": {
+      "A": "S3 SSE保护静态对象。",
+      "B": "ACL不能包含aws:SecureTransport条件，必须桶策略。",
+      "C": "拒绝不安全传输需bucket policy。",
+      "D": "CloudFront没有由用户配置SSE-KMS缓存加密的此项设置。",
+      "E": "Viewer protocol policy可将HTTP改为HTTPS。",
+      "F": "S3预签名没有RequireSSL选项，直接签发HTTPS URL并用桶策略约束。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html",
+        "title": "SSE-KMS encryption",
+        "supports": "S3支持通过客户管理KMS密钥进行服务端加密。"
+      },
+      {
+        "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html",
+        "title": "S3 bucket policies",
+        "supports": "桶策略可使用aws:SecureTransport拒绝非TLS请求。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 206,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "生产凭证保存在Secrets Manager并用customer managed KMS key加密；仅安全团队拥有人员读取权限，Lambda执行角色获运行时读取/解密权，并定期轮换密钥。",
+    "optionReasons": {
+      "A": "SecureString可安全存储，但凭证管理与轮换集成不如Secrets Manager直接。",
+      "B": "AWS托管Lambda key不能用自定义key policy仅授权安全组。",
+      "C": "环境变量分散管理凭证，Secrets Manager更适合集中授权和轮换。",
+      "D": "Secret与自管KMS key支持集中访问控制和轮换。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/security-encryption.html",
+        "title": "Secret encryption and decryption in AWS Secrets Manager",
+        "supports": "Secrets Manager使用KMS加密，customer managed key允许自定义授权与管理。"
+      }
+    ],
+    "caveat": "IAM group不能直接作为KMS key policy Principal；通过组内用户身份策略配合key policy授权。Lambda角色也须获必要权限，“only security team”应理解为人员权限。",
+    "confidence": "medium"
+  },
+  {
+    "id": 207,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "confirmed",
+    "summary": "Web/应用层保留EC2 Auto Scaling，数据库改Aurora PostgreSQL+Babelfish以支持SQL Server协议/T-SQL并降低SQL Server许可成本。",
+    "optionReasons": {
+      "A": "Babelfish允许多数SQL Server客户端少量修改连接Aurora，兼顾降许可费。",
+      "B": "DMS不制作服务器镜像，DynamoDB需重写关系数据库逻辑。",
+      "C": "仍用SQL Server保留许可成本，容器化/EKS改造更大。",
+      "D": "拆Lambda及数据湖是大规模重写。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/babelfish.html",
+        "title": "Using Babelfish for Aurora PostgreSQL",
+        "supports": "Babelfish支持TDS并允许原SQL Server应用较少代码改动使用Aurora。"
+      }
+    ],
+    "caveat": "不是零修改或全部T-SQL兼容，迁移前必须评估未支持特性；题目“不重写”不等于完全不改代码。",
+    "confidence": "medium"
+  },
+  {
+    "id": 208,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "Global Accelerator工作在TCP/UDP层，可加速到ALB并透传自定义HTTP方法；不用多区域部署。",
+    "optionReasons": {
+      "A": "CloudFront只支持GET/HEAD/OPTIONS/PUT/PATCH/POST/DELETE，不支持列出方法。",
+      "B": "API Gateway普通REST方法集合不支持题中自定义方法。",
+      "C": "L4加速不限制应用层方法，ALB仍接原请求。",
+      "D": "多区域部署运维量更大。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_AllowedMethods.html",
+        "title": "AllowedMethods Amazon CloudFront",
+        "supports": "CloudFront允许的方法最多为七种标准方法，不含LINK/UNLINK/LOCK/UNLOCK。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 209,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "用IoT Core替代单机MQTT broker，自定义域名保留iot.example.com，IoT rule将遥测写DynamoDB，免除单点容量瓶颈。",
+    "optionReasons": {
+      "A": "ALB不支持原生MQTT协议。",
+      "B": "托管IoT MQTT接入与规则写库匹配。",
+      "C": "NLB和GA不移除单台broker处理/存储瓶颈。",
+      "D": "Greengrass是边缘运行时，不提供所述全局托管MQTT云端点。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/iot/latest/developerguide/iot-custom-endpoints-configurable-custom.html",
+        "title": "Configurable endpoints AWS IoT custom domains",
+        "supports": "IoT Core支持自定义域名及匹配证书，通过域名配置接入托管端点。"
+      },
+      {
+        "url": "https://docs.aws.amazon.com/iot/latest/developerguide/iot-ddb-rule.html",
+        "title": "Storing device data in DynamoDB",
+        "supports": "AWS IoT rule可把MQTT设备消息数据写入DynamoDB。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 210,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "confirmed",
+    "summary": "Secrets Manager加密保存每机独立私钥，自定义Lambda轮换生成新keypair、更新实例authorized_keys及secret，可按需触发且无需重启实例。",
+    "optionReasons": {
+      "A": "Secrets Manager支持自定义Lambda轮换任意secret类型。",
+      "B": "明文String不是安全加密参数，且维护窗口不等于按需自动安全轮换。",
+      "C": "KMS自动轮换密钥材料不轮换实例SSH authorized_keys。",
+      "D": "Fleet Manager脚本未解决私钥安全集中保存。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotate-secrets_lambda-functions.html",
+        "title": "Lambda rotation functions",
+        "supports": "可创建自定义轮换Lambda，更新secret及对应服务。"
+      }
+    ],
+    "caveat": "先部署并验证新公钥，再移除旧钥，避免中断；修改EC2 keypair元数据本身不会自动更新已运行实例公钥。",
+    "confidence": "medium"
+  },
+  {
+    "id": 211,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "Migration Evaluator的无代理采集器利用虚拟化管理信息收集VM清单和利用率，识别闲置服务器后构建迁移成本评估，比逐VM装代理省维护。",
+    "optionReasons": {
+      "A": "Migration Evaluator不是按选项通过Patch Manager逐VM部署的工具；高利用率不应直接剔除。",
+      "B": "只看磁盘利用率不足定容，MGN不是资产CSV成本评估工具。",
+      "C": "无代理采集与评估最符合已知甚少的VMware资产。",
+      "D": "MGN复制代理加自建Redshift/QuickSight成本分析过于复杂。"
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/cn/migration-evaluator/features/",
+        "title": "Migration Evaluator Features",
+        "supports": "Migration Evaluator无代理采集器本地部署，通过只读接口收集VMware等基础设施的清单与利用率，可视化依赖。"
+      }
+    ],
+    "caveat": "采集器部署为可访问VMware管理接口的虚拟机，不是往ESXi内核安装插件。",
+    "confidence": "medium"
+  },
+  {
+    "id": 212,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "confirmed",
+    "summary": "SQS持久排队吸收突发，Lambda reserved concurrency限制同时写库数在本地数据库连接上限以下。",
+    "optionReasons": {
+      "A": "排队和保留并发硬上限同时解决缓冲与连接保护。",
+      "B": "DataSync不能直接把SQL数据库迁到Aurora，且改变数据库非必要。",
+      "C": "RDS Proxy只支持受支持RDS/Aurora数据库，不能直接代理本地SQL。",
+      "D": "provisioned concurrency预热执行环境，不设置并发最大值。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/lambda/latest/dg/provisioned-concurrency.html",
+        "title": "Configuring provisioned concurrency",
+        "supports": "reserved concurrency可限制函数并发以避免压垮下游数据库连接。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 213,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "Amazon Managed Grafana托管服务承接现有仪表盘JSON导入，保留已有投入并消除单EC2维护与可用性责任。",
+    "optionReasons": {
+      "A": "重做CloudWatch dashboards浪费现有Grafana资产。",
+      "B": "托管workspace支持导入dashboard。",
+      "C": "仅一个ASG实例故障后要重建，且自管Grafana/EFS仍需维护。",
+      "D": "小时备份恢复不能可靠保证小于10分钟停机。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/grafana/latest/userguide/v12-dash-importing.html",
+        "title": "Importing dashboards Amazon Managed Grafana",
+        "supports": "Managed Grafana允许上传或粘贴已有dashboard JSON定义。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 214,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "RDS for Oracle保留关系数据库引擎并降低运维，Secrets Manager提供数据库凭证自动轮换，可设年度cron计划。",
+    "optionReasons": {
+      "A": "DynamoDB重构量大，CloudWatch alarm不是年度调度。",
+      "B": "托管Oracle加Secrets Manager轮换最少维护。",
+      "C": "EC2自管Oracle与轮换函数比RDS维护更多。",
+      "D": "Neptune图数据库不适合直接替代Oracle事务库。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotate-secrets_schedule.html",
+        "title": "Rotation schedules Secrets Manager",
+        "supports": "支持cron/rate轮换窗口，最长不超过一年。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 215,
+    "originalAnswers": [
+      "B",
+      "D"
+    ],
+    "answers": [
+      "B",
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "同Region多团队共用由共享服务账户管理的VPC/subnets，RAM共享子网；低于50Mbps的本地连接选Site-to-Site VPN，无需TGW或专线。",
+    "optionReasons": {
+      "A": "每账户独立VPC增加网络互联成本。",
+      "B": "共享VPC减少重复网络基础设施。",
+      "C": "单共享VPC不需额外TGW小时及流量费。",
+      "D": "VPN足以满足小流量经济连接。",
+      "E": "专线交付与成本对该小流量非最划算。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html",
+        "title": "Share your VPC subnets with other accounts",
+        "supports": "同组织多个账户可在共享的中央管理VPC子网创建资源。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 216,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "现有TGW汇聚到集中出口VPC，每AZ部署Network Firewall端点加NAT，并统一调整路由强制出站流量经过规则检查。",
+    "optionReasons": {
+      "A": "ASG不能直接作为VPC route target，且自管代理工作量大。",
+      "B": "托管Network Firewall支持集中出口规则过滤。",
+      "C": "每账户部署增加重复成本与规则管理。",
+      "D": "各账户自管代理运维最高。"
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/network-firewall/faqs/",
+        "title": "AWS Network Firewall FAQs",
+        "supports": "Network Firewall支持集中TGW部署并过滤internet/NAT等路径流量。"
+      }
+    ],
+    "caveat": "须正确配置对称路由、跨AZ路径及TGW appliance mode，不能只把所有路由粗略改同一端点。",
+    "confidence": "medium"
+  },
+  {
+    "id": 217,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "应用实例在多AZ ASG，ALB关联WAF managed规则过滤漏洞攻击，WAF日志经Firehose送第三方审计。",
+    "optionReasons": {
+      "A": "Inspector扫描漏洞不是ALB请求实时过滤，报告不能替代拒绝请求日志。",
+      "B": "原实例仍单AZ，不满足所有资源高可用。",
+      "C": "缺少多AZ实例组。",
+      "D": "多AZ应用、WAF过滤与Firehose审计均完整。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/waf/latest/developerguide/logging.html",
+        "title": "Logging AWS WAF web ACL traffic",
+        "supports": "WAF日志支持CloudWatch Logs、S3或Amazon Data Firehose，可记录动作与请求信息。"
+      }
+    ],
+    "caveat": "AWS Managed Rules本身通过WAF配置；Marketplace供应商规则组才需相应订阅，原选项用语混合但不影响架构选择。",
+    "confidence": "medium"
+  },
+  {
+    "id": 218,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "将API Gateway REST API设private，VPC interface endpoint及API资源策略限制来源，流量留在AWS私网。",
+    "optionReasons": {
+      "A": "不存在VPC到API Gateway的该VPN连接方式；API key也不是身份认证。",
+      "B": "private API加接口端点与双策略满足私有访问。",
+      "C": "IAM授权不等于私有端点，API Gateway不部署在客户VPC里。",
+      "D": "Global Accelerator不支持API Gateway作为标准端点，API key不能代替认证。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-private-api-create.html",
+        "title": "Create a private API",
+        "supports": "私有REST API经interface endpoint调用，资源策略可限制SourceVpce。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 219,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "AWS Config记录安全组配置历史并按managed/custom规则评估合规，SNS发送变更与不合规通知，最快形成检测闭环。",
+    "optionReasons": {
+      "A": "SCP限制操作，不记录变更或主动告警。",
+      "B": "CloudTrail记录API但单靠事件规则无法判断所有配置是否合规。",
+      "C": "SCP不会主动发告警。",
+      "D": "Config具配置记录及规则合规评估。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/config/latest/developerguide/notifications-for-AWS-Config.html",
+        "title": "Notifications AWS Config sends to SNS",
+        "supports": "Config通过SNS发送配置变更和规则评估通知。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 220,
+    "originalAnswers": [
+      "A",
+      "C",
+      "E"
+    ],
+    "answers": [
+      "A",
+      "C",
+      "E"
+    ],
+    "status": "confirmed",
+    "summary": "增加分片提高总读容量，enhanced fan-out为每个消费者提供每分片独立读吞吐，对暂时限流用指数退避重试。",
+    "optionReasons": {
+      "A": "扩分片增加总吞吐。",
+      "B": "KPL是生产者库，不解决消费者读限流。",
+      "C": "EFO避免多个消费者共享每分片读上限。",
+      "D": "减少分片会降低容量。",
+      "E": "退避重试防止立即重试放大限流。",
+      "F": "动态分区是Firehose等场景能力，不增加Kinesis读配额。"
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/kinesis/data-streams/faqs/",
+        "title": "Amazon Kinesis Data Streams FAQs",
+        "supports": "enhanced fan-out为每消费者/分片提供独立2MB/s读取通道。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 221,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "用Systems Manager批量安装CloudWatch agent补充内存，在组织管理账户集中获取Cost Explorer rightsizing建议，避免逐账户自建分析。",
+    "optionReasons": {
+      "A": "自建监控和匹配脚本维护量高。",
+      "B": "中央建议和agent内存指标最少工作。",
+      "C": "逐成员账户检索比管理账户汇总多操作。",
+      "D": "Lambda/Athena自建评估不如原生建议直接。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/cost-management/latest/userguide/rr-getting-started.html",
+        "title": "Getting started with rightsizing recommendations",
+        "supports": "Cost Explorer可用已发布的内存/磁盘指标改进建议，管理与成员账户有相应访问设置。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 222,
+    "originalAnswers": [
+      "B",
+      "D",
+      "E"
+    ],
+    "answers": [
+      "B",
+      "D",
+      "E"
+    ],
+    "status": "confirmed",
+    "summary": "CloudWatch agent procstat监控进程，告警发SNS，Lambda负责实例退出服务/替换并在新实例就绪后修正路由。",
+    "optionReasons": {
+      "A": "EC2状态检查不能检测任意应用进程停止，也不更新路由。",
+      "B": "procstat能发送进程运行状态和资源指标。",
+      "C": "SSM agent不是指定procstat指标采集器。",
+      "D": "自定义进程失败指标触发SNS。",
+      "E": "Lambda执行替换与网络路由更新。",
+      "F": "CloudFormation condition只在创建/更新stack求值，不在ASG自动替换时回调。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-procstat-process-metrics.html",
+        "title": "Collect process metrics with the procstat plugin",
+        "supports": "CloudWatch agent procstat支持监控单独进程并导出指标。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 223,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "ECS服务蓝绿部署使用ALB转发HTTPS流量，Service Auto Scaling根据CloudWatch指标调节Fargate任务数。",
+    "optionReasons": {
+      "A": "只调task quota不提供自动任务扩缩。",
+      "B": "Cluster Autoscaler是Kubernetes节点机制，不适用于ECS Fargate。",
+      "C": "同样错误使用Cluster Autoscaler和EC2 ASG。",
+      "D": "服务层自动扩缩匹配Fargate任务容量控制。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-type-bluegreen.html",
+        "title": "CodeDeploy blue green deployments for ECS",
+        "supports": "ECS蓝绿支持ALB/NLB并可与service auto scaling使用。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 224,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "confirmed",
+    "summary": "ECR scan-on-push在每个新镜像上传后扫描，EventBridge捕获scan completed及severity counts，经Step Functions删除风险tag并SNS通知。",
+    "optionReasons": {
+      "A": "扫描事件到自动编排可实施删除及告警。",
+      "B": "扫描不会按此选项自动把结果直接推送SQS。",
+      "C": "小时扫描延后处置，不如push事件及时。",
+      "D": "periodic scan和直接SQS/Step Functions触发描述不完整。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonECR/latest/userguide/ecr-eventbridge.html",
+        "title": "Amazon ECR events and EventBridge",
+        "supports": "基本扫描完成事件含finding-severity-counts及镜像标识。"
+      }
+    ],
+    "caveat": "删除tag不一定删除被其他tag引用的manifest；必须按需求调用BatchDeleteImage并避免误删其他标签。",
+    "confidence": "medium"
+  },
+  {
+    "id": 225,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "Compute Savings Plans覆盖EC2、Fargate、Lambda，管理账户按全组织聚合建议购买并共享优惠，利用跨账户负载互补减少承诺浪费。",
+    "optionReasons": {
+      "A": "EC2 RI不能覆盖Fargate/Lambda。",
+      "B": "Compute SP涵盖全部题定计算服务并支持组织共享。",
+      "C": "仅按高峰账户买EC2 RI覆盖窄且易闲置。",
+      "D": "EC2 Instance SP不涵盖Lambda/Fargate且限制更多。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/savingsplans/latest/userguide/sp-services.html",
+        "title": "Services eligible for Savings Plans benefits",
+        "supports": "Compute Savings Plans适用于EC2、Lambda及Fargate。"
+      }
+    ],
+    "caveat": "购买额仍应基于稳定可承诺的基线，六个月均值不保证未来每小时全部用满。",
+    "confidence": "medium"
+  },
+  {
+    "id": 226,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "confirmed",
+    "summary": "在组织管理账户创建每日成本预算、80% actual cost阈值并用SNS通知财务，覆盖合并账单。",
+    "optionReasons": {
+      "A": "Budgets原生支持成本阈值及SNS通知。",
+      "B": "Trusted Advisor不是按日预算告警器。",
+      "C": "Control Tower没有所述80%成本guardrail参数。",
+      "D": "自建CUR/Athena计算和CloudWatch告警繁琐且描述缺少实现。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/cost-management/latest/userguide/bcm-lite-use-budget.html",
+        "title": "Use a budget in Billing and Cost Management",
+        "supports": "成本预算在接近/超出阈值时通知，可投递SNS。"
+      }
+    ],
+    "caveat": "账单数据有延迟，预算通知不是实时硬性停止花费。",
+    "confidence": "medium"
+  },
+  {
+    "id": 227,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "欧洲到美东大文件上传使用S3 Transfer Acceleration边缘接入和AWS优化骨干传输，提高长距离上传性能。",
+    "optionReasons": {
+      "A": "multipart可并行但不专门解决跨洲网络路径问题，且与加速可组合。",
+      "B": "应用自定义origin的CloudFront分配不自动加速直接S3上传。",
+      "C": "S3加速专为长距离桶传输设计。",
+      "D": "EC2扩容不改变S3跨洲上传链路。"
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/s3/faqs/",
+        "title": "Amazon S3 FAQs Transfer Acceleration",
+        "supports": "通过CloudFront边缘站点及优化网络路径改善远距离传输。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 228,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "EKS managed nodes减少节点管理，Kubernetes deployment管理副本，DynamoDB外置会话支持Web水平扩展，EFS跨实例共享频繁访问文件。",
+    "optionReasons": {
+      "A": "SQS是消息队列，不能当随机读取的持久会话存储。",
+      "B": "EBS Multi-Attach限同AZ，无法按选项跨AZ共享。",
+      "C": "EFS可存文件但会话数据库方案D更适合高并发会话与文件分离，ReplicaSet也较低级。",
+      "D": "DynamoDB会话加EFS共享文件同时满足条件。"
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/documentation-overview/efs/",
+        "title": "Amazon EFS Documentation",
+        "supports": "EFS提供跨AZ共享文件系统，支持EKS/容器与多连接共享访问。"
+      },
+      {
+        "url": "https://docs.aws.amazon.com/sdk-for-ruby/aws-sessionstore-dynamodb/api/",
+        "title": "AWS DynamoDB Session Store",
+        "supports": "DynamoDB可在应用扩展到多个Web服务器后安全且可扩展地集中保存共享会话。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 229,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "用原生SQL Server可用性/复制技术把源库持续同步到RDS，最后切换以减少停机，避免经S3全量重新导入。",
+    "optionReasons": {
+      "A": "应用迁移后再导出Aurora增加多次切换和停机。",
+      "B": "同步到S3后再加载RDS仍有导入停机窗口。",
+      "C": "原生备份/日志恢复或支持的复制方案可做低停机RDS迁移。",
+      "D": "RDS不支持直接detach/attach本地数据库文件。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/migration-sql-server/native-backup-restore.html",
+        "title": "Native SQL Server backup restore",
+        "supports": "RDS SQL Server支持full/differential/log restore用于最小停机迁移。"
+      }
+    ],
+    "caveat": "RDS不能任意作为SQL Server Always On AG副本；须选官方支持原生复制/日志恢复方法，不能把本题泛化成任意HA连接。",
+    "confidence": "medium"
+  },
+  {
+    "id": 230,
+    "originalAnswers": [
+      "C",
+      "D"
+    ],
+    "answers": [
+      "C",
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "NLB关闭跨区分发并在每AZ部署服务后端，消费者使用本AZ endpoint DNS，将流量保持AZ内以避免regional跨AZ传输费。",
+    "optionReasons": {
+      "A": "子网共享不能跨不同组织，并非一般PrivateLink跨AZ费用解决方式。",
+      "B": "组织归属不取消跨AZ网络收费。",
+      "C": "关闭NLB cross-zone避免跨AZ送到目标。",
+      "D": "使用zonal endpoint并同AZ消费减少跨AZ路径。",
+      "E": "Savings Plans不覆盖跨AZ数据传输用量。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/vpc/latest/privatelink/create-endpoint-service.html",
+        "title": "Create a service powered by AWS PrivateLink",
+        "supports": "官方指出启用cross-zone负载均衡产生regional data transfer charges。"
+      }
+    ],
+    "caveat": "关cross-zone前每个启用AZ必须有足够健康目标，避免为省费损失可用性。",
+    "confidence": "medium"
+  },
+  {
+    "id": 231,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "confirmed",
+    "summary": "S3 File Gateway提供SMB共享，将SQL Server备份写成S3对象，利用现有10Gbps DX，不需昂贵常驻FSx容量。",
+    "optionReasons": {
+      "A": "File Gateway支持SMB与S3持久存储。",
+      "B": "FSx加其备份成本高于只保存导出的S3方案。",
+      "C": "Multi-AZ FSx更昂贵且非必要文件处理。",
+      "D": "Volume Gateway提供iSCSI块卷，不提供所述SMB共享。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/filegateway/latest/files3/SQL-Backup-Best-Practices.html",
+        "title": "Optimizing S3 File Gateway for SQL Server database backups",
+        "supports": "官方推荐数据库备份使用S3 File Gateway，并可lifecycle降低存储成本。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 232,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "ambiguous",
+    "summary": "专线+transit VIF+DX gateway+每Region TGW提供本地到多区域VPC的专用连接及区域内传递路由；跨Region VPC互通还必须配置TGW peering。",
+    "optionReasons": {
+      "A": "VPC peering不传递路由且VPN不满足专线的稳定吞吐。",
+      "B": "所需专线与多Region骨干基础正确，但缺TGW跨区peering。",
+      "C": "单Region TGW不能直接附加其他Region VPC，且VPN非稳定专线。",
+      "D": "混用所有VPC VPN/peering复杂且peering不传递。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways-intro.html",
+        "title": "Direct Connect gateways",
+        "supports": "DX gateway不允许同一gateway上的不同gateway associations互相发送流量。"
+      }
+    ],
+    "caveat": "如果题干要求所有跨区域VPC彼此传递互通，B按文字并不完整；须补TGW peering与路由。",
+    "confidence": "medium"
+  },
+  {
+    "id": 233,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "IAM角色应建在资源所在成员账户，授予停止/终止权限并信任管理账户用户；该用户再获sts:AssumeRole权限。",
+    "optionReasons": {
+      "A": "仅在管理账户建角色不会自动获得成员资源权限。",
+      "B": "方向反了，用户应位于题定管理账户、角色位于目标账户。",
+      "C": "不能把外账户IAM用户添加到本账户IAM group。",
+      "D": "目标账户角色+跨账户信任为正确模式。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html",
+        "title": "Create a role to give permissions to an IAM user",
+        "supports": "跨账户角色信任源账户principal，源用户需AssumeRole权限。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 234,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "DRS持续复制Windows服务器并原生执行恢复/回切，共享SMB数据用FSx Windows与DataSync复制，符合原有共享访问模型。",
+    "optionReasons": {
+      "A": "每日备份无法5分钟RPO，恢复慢。",
+      "B": "EFS不是Windows原生SMB共享，DataSync非服务器原生故障恢复工具。",
+      "C": "双活全容量成本高，s3 sync不复制完整Windows/共享文件语义。",
+      "D": "DRS与FSx Windows最匹配灾备及Windows共享。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/drs/latest/userguide/CloudEndure-Concepts.html",
+        "title": "Elastic Disaster Recovery Concepts",
+        "supports": "DRS可提供秒级RPO、分钟级RTO并支持恢复工作流。"
+      }
+    ],
+    "caveat": "FSx共享的复制频率和耗时需单独验证5分钟RPO；DataSync常规计划最短间隔不能直接当作5分钟保证，需自定义触发与测试。",
+    "confidence": "medium"
+  },
+  {
+    "id": 235,
+    "originalAnswers": [
+      "A",
+      "C",
+      "F"
+    ],
+    "answers": [
+      "A",
+      "C",
+      "F"
+    ],
+    "status": "confirmed",
+    "summary": "紧耦合HPC需要同AZ低时延网络、支持EFA的实例及并行共享FSx Lustre，以避免多AZ时延和EFS小文件吞吐瓶颈。",
+    "optionReasons": {
+      "A": "同AZ减低节点往返时延。",
+      "B": "没有按四倍数附加ENI的通用优化规则。",
+      "C": "EFA优化紧耦合节点间通信。",
+      "D": "多AZ增加时延，不利最大紧耦合性能。",
+      "E": "EBS RAID不提供千实例共享并行文件系统。",
+      "F": "Lustre专为高性能并行文件访问。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/fsx/latest/LustreGuide/configure-efa-clients.html",
+        "title": "Configuring EFA clients FSx for Lustre",
+        "supports": "EFA Lustre客户端须在文件系统同AZ并使用支持的EFA实例。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 236,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "confirmed",
+    "summary": "SCP拒绝缺少必需request tags的创建请求，tag policy在各OU标准化允许值和键名格式，两者配合控制标签。",
+    "optionReasons": {
+      "A": "SCP补齐缺标签控制，各OU policy限定其值。",
+      "B": "仅附管理账户不能按成员OU区分值，SCP也不限制管理账户。",
+      "C": "SCP Allow不能对其他已Allow路径形成有效显式限制，Deny策略更可靠。",
+      "D": "只列标签并附SCP缺少题定标签值标准化策略，虽可手工写条件但描述不完整。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies.html",
+        "title": "Managing organization policies",
+        "supports": "Tag policies标准化资源标签，SCP用于权限上限而非资源元数据本身。"
+      }
+    ],
+    "caveat": "Tag policy本身不强制所有资源都具备标签，仅覆盖支持的资源类型；SCP须针对支持request tags的创建API。",
+    "confidence": "medium"
+  },
+  {
+    "id": 237,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "IoT Core托管MQTT接入，规则写Firehose，Lambda做转换后Firehose交付S3，消除单机broker与处理瓶颈。",
+    "optionReasons": {
+      "A": "两台自管Kafka加DNS对持久消息高可用的配置描述不足且维护高。",
+      "B": "MSK支持Kafka协议，不直接支持MQTT客户端。",
+      "C": "IoT Core+Firehose/Lambda为托管弹性消息数据管道。",
+      "D": "单EC2 Kafka仍是处理单点。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/iot/latest/developerguide/kinesis-firehose-rule-action.html",
+        "title": "Amazon Data Firehose AWS IoT rule action",
+        "supports": "IoT rule可将消息数据发送Data Firehose，再交付存储。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 238,
+    "originalAnswers": [
+      "A",
+      "B",
+      "D"
+    ],
+    "answers": [
+      "A",
+      "B",
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "AWS Backup统一管理EC2/EFS/RDS，多条rule实现日周月保留，跨Region copy规则复制恢复点，失败事件通知SNS。",
+    "optionReasons": {
+      "A": "每保留要求一条规则提供集中策略。",
+      "B": "原生copy action最少自建复制工作。",
+      "C": "Lambda复制非必要且增加维护。",
+      "D": "失败通知应通过vault通知或EventBridge筛选job状态发送SNS。",
+      "E": "DLM主要EBS，不能统一EFS/RDS。",
+      "F": "逐库快照缺跨服务统一管理。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/aws-backup/latest/devguide/backup-notifications.html",
+        "title": "Notification options with AWS Backup",
+        "supports": "AWS Backup可配置SNS通知备份事件及失败。"
+      }
+    ],
+    "caveat": "D写“把SNS加到backup plan”不精确：配置于backup vault或EventBridge。跨区copy为异步，不能保证捕获后零延迟完成。",
+    "confidence": "medium"
+  },
+  {
+    "id": 239,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "Kinesis Data Streams为持续8KB/s事件提供持久分片和并行消费者，EMR可读取分析流并将结果装入Redshift数据仓库。",
+    "optionReasons": {
+      "A": "Firehose不是供Kinesis client多消费者读取的stream，RDS不是数据仓库。",
+      "B": "Streams+流消费者/EMR+Redshift满足实时处理与仓库目标。",
+      "C": "SQS不能按选项直接由Kinesis消费者分析，缺流处理路径。",
+      "D": "队列方案没有题意并行流分析机制，额外EMR环节表述不合理。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/streams/latest/dev/using-other-services-emr.html",
+        "title": "Read data from Kinesis Data Streams using EMR",
+        "supports": "EMR可以直接读取和处理Kinesis Streams，支持与其他数据集联结。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 240,
+    "originalAnswers": [
+      "B",
+      "C",
+      "E"
+    ],
+    "answers": [
+      "B",
+      "C",
+      "E"
+    ],
+    "status": "confirmed",
+    "summary": "双区域热备Web/应用组跨AZ部署，DynamoDB global table持续复制数据，Route53 failover短TTL快速引导到灾备，稳定基线用zonal RI保留容量。",
+    "optionReasons": {
+      "A": "1小时TTL不满足1分钟故障切换目标。",
+      "B": "failover记录和30秒TTL是题给快速DNS切换方案。",
+      "C": "global table令备用区域无需现场恢复数据库。",
+      "D": "小时备份与导入无法1分钟恢复。",
+      "E": "热备容量可立即接流量，多AZ保证区域内HA。",
+      "F": "Spot中断风险不适合全部必需资源及快速恢复保证。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-configuring.html",
+        "title": "Configuring DNS failover",
+        "supports": "Route53健康检查与failover路由可在主资源不健康时返回备用记录。"
+      }
+    ],
+    "caveat": "30秒TTL不保证端到端1分钟RTO，仍受健康检查阈值、递归缓存和客户端行为影响；需演练或更直接流量切换机制。",
+    "confidence": "medium"
+  },
+  {
+    "id": 241,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "历史架构以IoT Core接收MQTT，经Firehose写S3，Kinesis Data Analytics for SQL可把Firehose delivery stream作输入做异常分析。",
+    "optionReasons": {
+      "A": "Greengrass到MSK加自建Kafka应用及预训练异常模型管理更多。",
+      "B": "在旧版KDA SQL支持FirehoseInput时该管道有效。",
+      "C": "Glue内建ML transforms不能泛指任意实时车辆异常检测。",
+      "D": "Amazon MQ for RabbitMQ不支持题中MQTT接入方式，Lookout也有停服变更。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_KinesisFirehoseInput.html",
+        "title": "KinesisFirehoseInput",
+        "supports": "官方API明确Firehose delivery stream可作旧KDA SQL streaming source。"
+      }
+    ],
+    "caveat": "Kinesis Data Analytics for SQL已于2026-01停止运行；当前需改用Kinesis Data Streams+Managed Service for Apache Flink等。B是历史能力答案，不能直接作为新部署方案。",
+    "confidence": "medium"
+  },
+  {
+    "id": 242,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "CodeCommit push trigger调用Lambda扫描提交内容，发现泄露access key后立即IAM禁用并通知责任人，及时事件驱动处置。",
+    "optionReasons": {
+      "A": "夜间扫描不及时且Secrets Manager不能自动轮换未纳管IAM keys。",
+      "B": "定时扫描慢，KMS不是存放任意访问密钥的secret库。",
+      "C": "Macie原生扫描S3而非CodeCommit。",
+      "D": "push trigger支持Lambda，Lambda可自定义扫描与禁用IAM key。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-notify.html",
+        "title": "Manage triggers for a CodeCommit repository",
+        "supports": "代码push事件可直接触发Lambda函数。"
+      }
+    ],
+    "caveat": "禁用泄露key后还需清理Git历史并改用角色临时凭证，扫描不能追回已经泄露的数据。",
+    "confidence": "medium"
+  },
+  {
+    "id": 243,
+    "originalAnswers": [
+      "A",
+      "C"
+    ],
+    "answers": [
+      "A",
+      "C"
+    ],
+    "status": "ambiguous",
+    "summary": "VPC限制的每应用Access Point配合各应用VPC内的S3 gateway endpoint及最小权限策略实现私网访问；但当前也支持D的跨账户Access Point，因此创建位置不再唯一。",
+    "optionReasons": {
+      "A": "桶拥有账户创建AP是有效模式，需为目标VPC和跨账户权限配置。",
+      "B": "interface endpoint没有所述VPC gateway attachment，混淆接口/网关端点。",
+      "C": "各消费VPC gateway endpoint与对应route tables提供私网S3路径。",
+      "D": "当前可在消费账户创建关联另一账户桶的AP，桶主须显式授权；不是天然错误。",
+      "E": "只在数据湖VPC创建endpoint不能供其他不互通VPC自动使用。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-access-points.html",
+        "title": "Creating an access point",
+        "supports": "官方支持关联其他AWS账户桶的cross-account access point，需桶拥有者授予访问。"
+      }
+    ],
+    "caveat": "A+C为原保留组合；当前D+C也可成立，不能再以AP必须与桶同账户排除D。",
+    "confidence": "medium"
+  },
+  {
+    "id": 244,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "VPC Flow Logs提供源/目标IP与端口连接元数据，写CloudWatch Logs后订阅Firehose，经解包预处理投递Splunk，近实时且少手动搬运。",
+    "optionReasons": {
+      "A": "周期导出S3延迟高并使用长期密钥。",
+      "B": "Flow Logs到Logs subscription到Firehose/Splunk是流式路径。",
+      "C": "要求应用逐请求写日志再多次导出查询过于复杂。",
+      "D": "普通应用日志未必包含连接信息，异常检测也不是本题连接清单需要。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/firehose/latest/dev/writing-with-cloudwatch-logs-decompression.html",
+        "title": "Decompress CloudWatch Logs",
+        "supports": "Firehose可接CloudWatch Logs订阅并解压日志记录供交付。"
+      }
+    ],
+    "caveat": "Flow Logs不是数据包镜像且有聚合/交付延迟；需选最短支持聚合窗口。",
+    "confidence": "medium"
+  },
+  {
+    "id": 245,
+    "originalAnswers": [
+      "B",
+      "D",
+      "E"
+    ],
+    "answers": [
+      "B",
+      "D",
+      "E"
+    ],
+    "status": "confirmed",
+    "summary": "Organizations All features集中组织账单与SCP，将成员放开发OU并显式拒绝非美国区域操作；财务承担管理账户只读账单角色看Cost Explorer。",
+    "optionReasons": {
+      "A": "只建管理账户和CUR而不组织现有账户不解决聚合。",
+      "B": "邀请全部账户进入组织形成合并账单和治理。",
+      "C": "单独Allow规则不能覆盖其他Allow路径中的非美国操作。",
+      "D": "显式Deny非美国区域能可靠收紧权限。",
+      "E": "管理账户账单只读角色提供集中访问。",
+      "F": "逐账户角色比集中管理费时，不能解决创建区域约束。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/multi-region-architecture.html",
+        "title": "Multi Region Architecture AWS SRA",
+        "supports": "使用aws:RequestedRegion显式Deny SCP并对全球服务配置例外。"
+      }
+    ],
+    "caveat": "全局IAM/Route53等服务需NotAction例外，SCP只影响受管成员账户而非管理账户。",
+    "confidence": "medium"
+  },
+  {
+    "id": 246,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "用管理账户原组织访问角色在每个成员账户创建安全团队专用ReadOnly角色，信任安全账户并授权承担，避免授予管理员角色。",
+    "optionReasons": {
+      "A": "IAM policy不能有跨账户可assume的信任关系，必须role。",
+      "B": "每成员账户专用只读role符合最小权限。",
+      "C": "OrganizationAccountAccessRole主要位于成员账户且授管理员权，不在管理账户提供所有只读。",
+      "D": "原角色通常信任管理账户并有管理员权，不能直接当安全团队只读。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access-cross-account-role.html",
+        "title": "Accessing member account with OrganizationAccountAccessRole",
+        "supports": "组织创建成员账户时默认角色拥有该成员完整管理员权限，信任管理账户。"
+      }
+    ],
+    "caveat": "被邀请的既有账户不自动有此角色，需另建访问或用StackSets等部署。",
+    "confidence": "medium"
+  },
+  {
+    "id": 247,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "共享TGW连接各spoke及egress VPC，spoke默认路由经TGW到出口NAT，返回路径也经对应TGW，实现集中出网。",
+    "optionReasons": {
+      "A": "peering不支持借用对端NAT实现传递出网。",
+      "B": "TGW提供多账户spoke到中央egress的路由。",
+      "C": "NAT不是可直接附加TGW的资源，应附egress VPC。",
+      "D": "PrivateLink暴露服务，不提供任意互联网转发。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/vpc/latest/tgw/transit-gateway-nat-igw.html",
+        "title": "Transit Gateway centralized egress",
+        "supports": "TGW与集中出口VPC中的NAT/IGW组合提供出站路径。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 248,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "WAF rate-based规则按请求速率自动阻断超量来源，IP每周变化仍可工作，ALB前拦截登录洪泛。",
+    "optionReasons": {
+      "A": "安全组只支持Allow，不能配置显式Deny。",
+      "B": "托管速率规则无需每周维护攻击IP清单。",
+      "C": "固定允许CIDR不适合全球学生公网来源。",
+      "D": "固定IP set需持续更新，不如速率规则自动。"
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/waf/faqs/",
+        "title": "AWS WAF FAQs",
+        "supports": "rate-based rules适用于暴力登录、坏bot和Web层DDoS。"
+      }
+    ],
+    "caveat": "应以登录路径scope-down，分布式低速攻击可能需聚合键/ATP规则，单IP阈值不保证覆盖所有botnet。",
+    "confidence": "medium"
+  },
+  {
+    "id": 249,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "confirmed",
+    "summary": "将符合BYOIP要求的原有公网地址段引入AWS并分配EIP，绑定Transfer Family internet-facing VPC endpoint，保持客户白名单IP并托管SFTP到S3。",
+    "optionReasons": {
+      "A": "BYOIP EIP+Transfer Family保留原IP且少运维。",
+      "B": "不能向ALB绑定EIP，且FTP不等于SFTP。",
+      "C": "Route53不注册BYOIP地址段，EC2自管也更重。",
+      "D": "S3 endpoint不能这样绑定EIP或启用桶原生SFTP。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/transfer/latest/userguide/create-server-in-vpc.html",
+        "title": "Create a server in a VPC AWS Transfer Family",
+        "supports": "VPC-hosted internet-facing SFTP端点可关联EIP，客户用固定IP防火墙白名单。"
+      }
+    ],
+    "caveat": "前提必须拥有可引入AWS的IP前缀及路由授权；无法保留ISP不允许转移的普通租用IP。",
+    "confidence": "medium"
+  },
+  {
+    "id": 250,
+    "originalAnswers": [
+      "A"
+    ],
+    "answers": [
+      "A"
+    ],
+    "status": "confirmed",
+    "summary": "cluster placement group把实例集中在同AZ低时延网络位置，配合enhanced networking提供高吞吐低时延，不要求故障隔离。",
+    "optionReasons": {
+      "A": "cluster placement专门面向紧密网络互联。",
+      "B": "额外ENI不自动提高实例网络上限，ASG也不保证紧邻放置。",
+      "C": "partition为故障域隔离，不是最低网络时延。",
+      "D": "spread分散硬件，与低时延集中放置目标相反。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-strategies.html",
+        "title": "Placement strategies for placement groups",
+        "supports": "cluster group推荐低时延/高吞吐应用，enhanced networking提升包性能。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 251,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "六家固定合作伙伴用WAF IP allowlist限制来源，API Gateway usage plan+API key设置每客户请求配额与节流，无需CloudFront额外层。",
+    "optionReasons": {
+      "A": "OAI用于S3，不能授权API Gateway；WAF速率窗口不支持按天5次该方式。",
+      "B": "额外CloudFront不必要，API key不构成安全身份认证。",
+      "C": "resource policy不设置请求数量配额。",
+      "D": "WAF限制IP并用usage plan管理配额是题给完整方案。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html",
+        "title": "Usage plans and API keys for REST APIs",
+        "supports": "usage plan以API key识别客户端并定义目标速率/配额。"
+      }
+    ],
+    "caveat": "API key用于计量不是认证；实际敏感API还应IAM/Lambda/Cognito认证，配额为best effort而非严格限额。",
+    "confidence": "medium"
+  },
+  {
+    "id": 252,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "Aurora Database Activity Streams在集群级记录所有实例数据库活动并推到自动创建的Kinesis stream，Firehose可消费归档到S3。",
+    "optionReasons": {
+      "A": "DMS CDC只捕捉数据变更，不覆盖全部查询与审计活动。",
+      "B": "活动流原生目标是Kinesis Data Streams而非EventBridge。",
+      "C": "DAS+Kinesis+Firehose是官方支持管道。",
+      "D": "DMS没有该Firehose目标，CDC也不记录所有活动。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html",
+        "title": "Monitoring Aurora with Database Activity Streams",
+        "supports": "DAS在集群级开启，活动近实时推Kinesis，可由Firehose/Lambda消费。"
+      }
+    ],
+    "caveat": "DAS负载经KMS数据密钥加密，明文分析前需正确解密/解压，Firehose归档不等于自动明文解析。",
+    "confidence": "medium"
+  },
+  {
+    "id": 253,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "CPU和内存同时约为原配置四分之一，r6g.4xlarge保持相同内存CPU比例且为16xlarge的四分之一；ASG从3台到12台按需求弹性。",
+    "optionReasons": {
+      "A": "c6g同核数内存明显更少，不能保原内存需求。",
+      "B": "m6g内存比例低于r6g，可能内存不足。",
+      "C": "同系列四分之一规格适配观察到的CPU/内存比。",
+      "D": "8xlarge仍是原一半规格，对当前负载偏大。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/ec2/latest/instancetypes/mo.html",
+        "title": "Memory optimized instances",
+        "supports": "R系列为内存优化，r6g规格随尺寸增加维持同系列内存/CPU比例。"
+      }
+    ],
+    "caveat": "仍需验证三台最小容量在游戏会话、网络带宽及单节点失效下可用，观察数据不是无限期容量保证。",
+    "confidence": "medium"
+  },
+  {
+    "id": 254,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "重复少量热点键适合DAX缓存减少读容量，改provisioned并autoscaling让容量随需求调整，比仅按需读更可能省费。",
+    "optionReasons": {
+      "A": "ElastiCache可缓存但需自定义DynamoDB集成与缓存失效。",
+      "B": "未切provisioned不能使用表读写auto scaling，且Savings Plan不是题目主要缓存方案。",
+      "C": "缺少DAX热点缓存及自动扩缩，不能完整对应需求。",
+      "D": "DAX降低重复读，provisioned配auto scaling降低容量成本。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/optimize-costs-microsoft-workloads/net-caching.html",
+        "title": "Use caching to reduce database demand",
+        "supports": "DAX对热点键重复读取可减少DynamoDB RCU和过度预配成本。"
+      }
+    ],
+    "caveat": "预配autoscaling有响应延迟，已知午夜批量写应预先计划扩容；现今Database Savings Plans能力不应与旧Compute SP混淆。",
+    "confidence": "medium"
+  },
+  {
+    "id": 255,
+    "originalAnswers": [
+      "A",
+      "C"
+    ],
+    "answers": [
+      "A",
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "PrivateLink后端看到的客户端源地址为NLB私有IP，EC2安全组允许NLB子网/相应来源，NACL需允许NLB与EC2子网双向通信及返回端口。",
+    "optionReasons": {
+      "A": "NLB与后端EC2的双向stateless ACL必查。",
+      "B": "endpoint ENI子网不是后端看到的原始路由源。",
+      "C": "允许NLB来源符合PrivateLink源IP处理。",
+      "D": "仅允许终端客户源IP不能匹配PrivateLink到后端流量。",
+      "E": "新NLB可有安全组，需按实际inbound规则检查；但它不替代题意后端来源检查。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/elasticloadbalancing/latest/network/edit-target-group-attributes.html",
+        "title": "Edit target group attributes for NLB",
+        "supports": "PrivateLink流量不保留原客户端IP，后端源为NLB地址。"
+      }
+    ],
+    "caveat": "旧解析“NLB永远没有SG”已过时；2023后创建NLB可附SG。若附SG且强制PrivateLink inbound检查也需检查它，但A/C是题干既有架构预期检查。",
+    "confidence": "medium"
+  },
+  {
+    "id": 256,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "题给选项中改SSE-S3消除KMS逐次请求成本，且无客户密钥管理逻辑改造；高频访问无需转冷层。",
+    "optionReasons": {
+      "A": "SSE-C要求应用每次请求携带客户密钥，开销大。",
+      "B": "SSE-S3由S3托管密钥，不产生该KMS请求费用。",
+      "C": "CloudHSM不能按选项直接作S3原生SSE密钥源，成本维护高。",
+      "D": "频繁访问对象不会冷归档，也不解决KMS请求费。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html",
+        "title": "Using server side encryption with AWS KMS keys",
+        "supports": "AWS说明S3 Bucket Keys可减少KMS请求费用；SSE-KMS按KMS调用产生费用。"
+      }
+    ],
+    "caveat": "实际最少改动通常先启用S3 Bucket Keys保留SSE-KMS；选项未提供。若合规强制KMS，则B不满足，需核验要求。",
+    "confidence": "medium"
+  },
+  {
+    "id": 257,
+    "originalAnswers": [
+      "B",
+      "D"
+    ],
+    "answers": [
+      "B",
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "写入失败应提高DynamoDB WCU，S3事件先入SQS后Lambda按可用并发消费并重试，防止高峰耗尽并发导致处理丢失。",
+    "optionReasons": {
+      "A": "问题是保存写入，读容量不是主要瓶颈。",
+      "B": "提升WCU处理写峰。",
+      "C": "缓存不能解决图片处理并发与写限流。",
+      "D": "队列缓冲、重试与DLQ增加可靠性。",
+      "E": "上传加速不增加Lambda/DynamoDB处理能力。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html",
+        "title": "Using Lambda with Amazon SQS",
+        "supports": "Lambda通过event source mapping轮询SQS并处理批次，失败消息重试。"
+      },
+      {
+        "url": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/read-write-operations.html",
+        "title": "DynamoDB read and write operations",
+        "supports": "插入/更新/删除消耗write capacity，写入高峰应调整WCU。"
+      }
+    ],
+    "caveat": "需配置足够visibility timeout、部分批次失败响应、最大并发及DLQ；重复投递要求处理幂等。",
+    "confidence": "medium"
+  },
+  {
+    "id": 258,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "Amplify加速前端开发与托管，CloudFront分发网站，Cognito认证后直接上传S3，消除原服务器上传/存储瓶颈。",
+    "optionReasons": {
+      "A": "EC2+ALB仍需应用和基础设施维护。",
+      "B": "Identity Center主要服务员工AWS访问，非此公网客户认证首选。",
+      "C": "AppSync/Lambda中转媒体多一层复杂性和负载限制。",
+      "D": "Amplify Hosting+S3 Storage+Cognito为托管Web上传组合。"
+    },
+    "sources": [
+      {
+        "url": "https://aws.amazon.com/blogs/storage/allowing-external-users-to-securely-and-directly-upload-files-to-amazon-s3/",
+        "title": "Allowing external users to securely directly upload to S3",
+        "supports": "官方方案用Amplify、CloudFront和Cognito使浏览器用户认证后直接上传S3，避免服务器中转。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 259,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "统一CloudWatch agent实时把实例应用日志送CloudWatch Logs，日志独立于EC2寿命，在缩容后仍可分析。",
+    "optionReasons": {
+      "A": "ALB access log不含应用内部日志。",
+      "B": "外部日志收集不随实例终止消失。",
+      "C": "更换扩缩策略不保存日志。",
+      "D": "X-Ray追踪不能替代完整应用日志归档。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html",
+        "title": "Configure CloudWatch Logs agent on EC2",
+        "supports": "统一CloudWatch agent可从EC2收集日志和指标。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 260,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "浏览器从网站跨源调用API，必须由API响应包含正确CORS header并处理preflight，修改S3静态源站头不能授权另一个API域。",
+    "optionReasons": {
+      "A": "S3 CORS只影响访问S3，不影响API Gateway端点。",
+      "B": "WAF没有该一键CORS设置。",
+      "C": "在实际被跨源访问的API配置CORS。",
+      "D": "Lambda proxy可返回CORS header但Lambda本身无通用“开启CORS”开关，仍须处理API预检/错误响应。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-cors.html",
+        "title": "Configure CORS for HTTP APIs",
+        "supports": "API Gateway可为不同origin的浏览器API请求配置allowOrigins和预检。"
+      }
+    ],
+    "caveat": "Access-Control-Allow-Origin须精确为https://www.example.com等带scheme的origin，裸www.example.com无效；REST proxy需Lambda正确返回各类响应头。",
+    "confidence": "medium"
+  },
+  {
+    "id": 261,
+    "originalAnswers": [
+      "A",
+      "C",
+      "E"
+    ],
+    "answers": [
+      "A",
+      "C",
+      "E"
+    ],
+    "status": "confirmed",
+    "summary": "Organizations集中账户账单；Identity Center联接Azure AD外部IdP并同步用户组，permission sets按组与账户授予短期联邦会话。",
+    "optionReasons": {
+      "A": "邀请现有账户形成集中组织。",
+      "B": "邮箱别名不集中权限或账单。",
+      "C": "IdP集成与SCIM自动同步避免本地IAM用户管理。",
+      "D": "已有Azure AD无需新建Managed AD。",
+      "E": "permission set定义多账户授权。",
+      "F": "IAM不能按描述直接接Managed AD完成全账户身份管理。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsets.html",
+        "title": "Create manage delete permission sets",
+        "supports": "permission sets定义用户组对一个或多个AWS账户的授权和会话时长。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 262,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "将Java/Node应用统一容器化运行ECS EC2，按任务和内存扩缩；数小时关键报表超出标准Lambda15分钟限制，不能全量迁函数。",
+    "optionReasons": {
+      "A": "标准Lambda最长15分钟，无法直接跑数小时报表。",
+      "B": "ECS支持长期任务、容器复用和实例按负载扩缩。",
+      "C": "每应用独立Beanstalk环境有更多最低实例开销。",
+      "D": "按GroupMaxSize买3年RI把偶发峰值固化成长期费用。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-timeout.html",
+        "title": "Configure Lambda function timeout",
+        "supports": "标准Lambda最长900秒，无法单次执行数小时。"
+      }
+    ],
+    "caveat": "应避免24小时保持不用的EC2节点，按需求容量提供者/调度实现成本控制。",
+    "confidence": "medium"
+  },
+  {
+    "id": 263,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "保留主/core On-Demand保护集群稳定，将可中断任务节点用Spot，作业结束终止整个临时EMR集群，避免剩18小时空转。",
+    "optionReasons": {
+      "A": "全Spot可能中断primary/core，业务关键作业需允许重做才适用。",
+      "B": "可靠主/core、Spot任务、全终止同时减运行时和单价。",
+      "C": "全On-Demand错过容错任务的Spot节省。",
+      "D": "只停task仍让primary/core全天空转，EMRFS数据在S3不需常驻集群。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-instances-guidelines.html",
+        "title": "EMR instance types and Spot best practices",
+        "supports": "官方推荐主/core On-Demand、task Spot以平衡稳定与节省；可接受丢部分工作才考虑全Spot。"
+      }
+    ],
+    "caveat": "Compute SP是每小时持续承诺，单集群每天仅6小时不宜承诺全天峰额；需靠其他组织负载消化闲时。若完全接受重跑，A也可能更便宜，题目business-critical支持B。",
+    "confidence": "medium"
+  },
+  {
+    "id": 264,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "只有一个固定EIP可用，单NAT网关承担出站SNAT，检测故障后删除/替换到另一AZ并重新绑定EIP及更新路由。",
+    "optionReasons": {
+      "A": "同一个EIP不能同时分给三台NAT网关。",
+      "B": "NLB是入站负载均衡，不为应用出站执行NAT。",
+      "C": "单EIP约束下自动NAT重建是可用方案。",
+      "D": "ALB不能绑定EIP且不承担出站SNAT。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-working-with.html",
+        "title": "Work with NAT gateways",
+        "supports": "公网NAT关联EIP，删除NAT后EIP可用于重新配置。"
+      }
+    ],
+    "caveat": "须先释放旧NAT对EIP的关联、等待新NAT就绪并更新私网默认路由；故障迁移有中断，不是三AZ同时高可用。",
+    "confidence": "medium"
+  },
+  {
+    "id": 265,
+    "originalAnswers": [
+      "B",
+      "E",
+      "F"
+    ],
+    "answers": [
+      "B",
+      "E",
+      "F"
+    ],
+    "status": "confirmed",
+    "summary": "旧组织管理账户逐个RemoveAccountFromOrganization，随后新组织管理账户InviteAccountToOrganization，各账户接受邀请。",
+    "optionReasons": {
+      "A": "MoveAccount仅在同组织OU之间移动，不跨组织。",
+      "B": "RemoveAccountFromOrganization仅管理账户可调用。",
+      "C": "成员账户应调用LeaveOrganization，不是RemoveAccountFromOrganization。",
+      "D": "不需占位账户。",
+      "E": "新组织必须发邀请。",
+      "F": "账户接受邀请后加入新组织。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/organizations/latest/APIReference/API_RemoveAccountFromOrganization.html",
+        "title": "RemoveAccountFromOrganization",
+        "supports": "该操作仅原组织management account可调用，移除后成为独立账户。"
+      }
+    ],
+    "caveat": "先提高新组织账户配额、检查委派管理员/控制集成与账单接管；邀请与接受期间账户临时独立。",
+    "confidence": "medium"
+  },
+  {
+    "id": 266,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "S3 ObjectCreated异步调用既有Python Lambda检测图像，在上传后尽快校验，比等请求到边缘才检测更适合。",
+    "optionReasons": {
+      "A": "viewer-response阶段无法直接读取完整源站响应图像字节，且每访问执行。",
+      "B": "origin-response也不提供原始响应body供该检测逻辑直接读取。",
+      "C": "上传事件触发能直接GetObject检测并隔离坏图。",
+      "D": "S3事件通知不能直接以Step Functions作目标，且单函数无需编排。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/lambda/latest/dg/with-s3.html",
+        "title": "Process S3 event notifications with Lambda",
+        "supports": "S3可在对象创建事件异步调用Lambda。"
+      }
+    ],
+    "caveat": "存在上传后校验前的竞态；如绝不允许坏图对外服务，使用隔离上传桶/前缀，验证通过才发布。",
+    "confidence": "medium"
+  },
+  {
+    "id": 267,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "把CodeDeploy agent预装AMI纳入launch template，将deployment group关联ASG，扩容新实例可自动部署所需版本。",
+    "optionReasons": {
+      "A": "手工Lambda关联逐实例不如原生ASG集成。",
+      "B": "暂停扩缩及重打AMI流程复杂并降低可靠性。",
+      "C": "构建不可变AMI可行但不是24小时内最少改动。",
+      "D": "CodeDeploy原生追踪ASG实例并在launch lifecycle部署。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html",
+        "title": "Integrating CodeDeploy with EC2 Auto Scaling",
+        "supports": "deployment group可包含ASG，并支持预装agent AMI或启动安装。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 268,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "保留现有ALB，新建ASG与launch template并把运行中的EC2加入ASG/target group，避免迁移入口或先删实例。",
+    "optionReasons": {
+      "A": "删除已有ALB导致不必要停机。",
+      "B": "保留入口并纳管现有实例最平滑。",
+      "C": "先删已有资源造成停机。",
+      "D": "ALB不会自动把已有target加入ASG成员。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html",
+        "title": "Attach a load balancer to Auto Scaling group",
+        "supports": "ASG关联target group并启用ELB health checks后可替换ALB判不健康实例。"
+      }
+    ],
+    "caveat": "必须显式启用ELB健康检查并配置grace period，ASG默认EC2检查不等于ALB应用健康。",
+    "confidence": "medium"
+  },
+  {
+    "id": 269,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "Service Catalog提供预批准VPC+S3 gateway endpoint及实例产品，以launch role部署，开发者自助快速使用且不能绕过模板；S3 gateway endpoint不收小时/处理费。",
+    "optionReasons": {
+      "A": "S3 interface endpoint有小时/处理费，不如gateway经济。",
+      "B": "预算告警在资源创建后，且所述自动终止VPC不是标准预算动作。",
+      "C": "预批准产品和launch constraint在创建前强制标准。",
+      "D": "Config事后终止会影响开发进度且非预防。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/servicecatalog/latest/adminguide/constraints-launch.html",
+        "title": "Service Catalog Launch Constraints",
+        "supports": "launch constraint指定Service Catalog代终端用户执行部署的IAM role。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 270,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "Control Tower建立多账户landing zone并按OU挂载显式deny非批准区域的SCP，统一覆盖百账户。",
+    "optionReasons": {
+      "A": "逐账户Allow策略难集中维护且其他授权可能绕过。",
+      "B": "逐用户策略维护量高。",
+      "C": "OU级SCP提供组织级region限制。",
+      "D": "Security Hub检测安全发现，不是区域操作权限执行层。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/multi-region-architecture.html",
+        "title": "Multi Region Architecture AWS SRA",
+        "supports": "Region deny SCP按OU附加并用aws:RequestedRegion限制非批准区域。"
+      }
+    ],
+    "caveat": "须为全球服务及必要应急角色配置例外；SCP不限制组织管理账户。",
+    "confidence": "medium"
+  },
+  {
+    "id": 271,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "静态S3网站、AppSync API、SQS解耦及Lambda按量处理，SQS DLQ保留超过重试次数的失败订单，低空闲成本。",
+    "optionReasons": {
+      "A": "long polling只是降低空轮询，不保留失败消息。",
+      "B": "Beanstalk/MQ常驻成本更高，Deep Archive非失败队列。",
+      "C": "serverless组件及DLQ完整满足要求。",
+      "D": "SES不是订单消息队列，EKS/OpenSearch增加成本。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-dead-letter-queue.html",
+        "title": "Configure an SQS dead letter queue",
+        "supports": "DLQ接收未被成功处理的源队列消息，需配置redrive。"
+      }
+    ],
+    "caveat": "",
+    "confidence": "high"
+  },
+  {
+    "id": 272,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "Aurora Global Database以存储层跨区复制通常低于秒级延迟，支持快速提升备用区，最接近<1分钟RPO和<5分钟RTO。",
+    "optionReasons": {
+      "A": "RDS跨区read replica依赖引擎异步复制、延迟和提升时间不如Aurora global优化。",
+      "B": "全球数据库专为低RPO跨区恢复设计。",
+      "C": "Multi-AZ限同Region，不是跨区DR。",
+      "D": "自建MySQL standby需自行复制监测提升，运维更多。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html",
+        "title": "Using switchover or failover in Aurora Global Database",
+        "supports": "全球数据库支持计划switchover与非计划cross Region failover以缩短恢复。"
+      }
+    ],
+    "caveat": "实际RTO/RPO需综合复制延迟、提升及DNS缓存演练验证，非无条件SLA保证。",
+    "confidence": "medium"
+  },
+  {
+    "id": 273,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "将特定受限账户分组到新OU，在OU附加Region条件SCP及tag policy，集中继承治理而不影响其他账户。",
+    "optionReasons": {
+      "A": "Config为事后检测，不能阻止创建。",
+      "B": "Billing控制台不能按此方式全面禁用成员区域。",
+      "C": "根策略会波及全部成员，范围不匹配。",
+      "D": "OU选择性继承SCP与标签标准化，配置最少。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies.html",
+        "title": "Managing organization policies",
+        "supports": "SCP限制权限、tag policy标准化标签，可按OU继承。"
+      }
+    ],
+    "caveat": "tag policy单独不要求所有资源必须有标签，严格必填须加入request tag SCP或支持的预防控制。",
+    "confidence": "medium"
+  },
+  {
+    "id": 274,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "ambiguous",
+    "summary": "若公开来自object ACL，IgnorePublicAcls=true立即使全部公共ACL失效，合法预签名URL仍以签名主体权限授权，改动最少。",
+    "optionReasons": {
+      "A": "定时Lambda不立即且粗暴Deny会阻止正常流程。",
+      "B": "Trusted Advisor建议审查不是立即执行阻断。",
+      "C": "遍历修改百万对象ACL慢且易漏新对象。",
+      "D": "BPA忽略公共ACL可集中即时处理已存对象。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html",
+        "title": "Blocking public access to S3 storage",
+        "supports": "IgnorePublicAcls忽略公共ACL；public bucket policy由其他BPA开关处理。"
+      }
+    ],
+    "caveat": "题干未说明公开来源。若桶策略公开，D单独不阻断，须移除public policy或RestrictPublicBuckets；按原文没有对所有公开路径充分的唯一选项。",
+    "confidence": "medium"
+  },
+  {
+    "id": 275,
+    "originalAnswers": [
+      "A",
+      "C",
+      "E"
+    ],
+    "answers": [
+      "A",
+      "C",
+      "E"
+    ],
+    "status": "ambiguous",
+    "summary": "SCT转换Oracle到PostgreSQL schema，私有VPC peering提供跨账户连接，DMS full load+CDC搬已有数据并追增量，切换时修改CNAME。",
+    "optionReasons": {
+      "A": "先创建目标实例并用SCT转schema。",
+      "B": "SCT不按描述自动创建实例并迁移全部业务数据。",
+      "C": "私有peering及安全组允许数据库端口。",
+      "D": "不应为迁移把私有源库暴露公网。",
+      "E": "full load+CDC同时覆盖存量和变化。",
+      "F": "仅CDC不会迁移初始数据。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html",
+        "title": "Creating tasks for ongoing replication using DMS",
+        "supports": "full load+CDC先迁现有数据再以源日志持续应用变化；不是实时复制。"
+      }
+    ],
+    "caveat": "异构引擎切换通常须应用兼容改造并短暂停止写入等待CDC追平；仅CNAME无法把Oracle客户端无缝改为PostgreSQL，严格零停机/完全相同不成立。",
+    "confidence": "medium"
+  },
+  {
+    "id": 276,
+    "originalAnswers": [
+      "D"
+    ],
+    "answers": [
+      "D"
+    ],
+    "status": "confirmed",
+    "summary": "给standard源队列配置standard DLQ及maxReceiveCount，将持续报错消息隔离后可独立分析，正常订单继续消费。",
+    "optionReasons": {
+      "A": "延长处理时间不修复毒消息逻辑错误。",
+      "B": "visibility超时只让消息重现，不自动删除。",
+      "C": "FIFO DLQ必须与FIFO源搭配，不能接standard源。",
+      "D": "同类型standard DLQ支持redrive隔离失败。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-dead-letter-queue.html",
+        "title": "Configure an SQS dead letter queue",
+        "supports": "DLQ类型必须匹配源队列，standard只可用standard DLQ。"
+      }
+    ],
+    "caveat": "standard队列自身没有严格头阻塞；题中阻塞是消费者处理方式造成，需改为独立处理/部分批次失败。",
+    "confidence": "medium"
+  },
+  {
+    "id": 277,
+    "originalAnswers": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answers": [
+      "A",
+      "B",
+      "C"
+    ],
+    "status": "ambiguous",
+    "summary": "SNS邮件订阅加Email publish task，并给可catch的Task/Map/Parallel使用States.ALL跳转通知，可捕获多数业务错误；但无法覆盖题称所有失败类型。",
+    "optionReasons": {
+      "A": "SNS邮件订阅提供通知出口。",
+      "B": "Step Functions可用SNS Publish task发送错误上下文。",
+      "C": "States.ALL捕获大多数已知错误，应放最后且单独使用。",
+      "D": "SES不是此组合必需。",
+      "E": "增加SES没提供广泛失败捕捉。",
+      "F": "仅States.Runtime不是全错误捕获，Runtime也不能按此方式正常catch。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html",
+        "title": "Handling errors in Step Functions workflows",
+        "supports": "States.ALL不能捕获States.Runtime或DataLimitExceeded等终端错误（后者需显式匹配）。"
+      }
+    ],
+    "caveat": "严格“all types”无充分选项；应再用EventBridge监听执行FAILED/TIMED_OUT/ABORTED至SNS，覆盖工作流级失败。",
+    "confidence": "medium"
+  },
+  {
+    "id": 278,
+    "originalAnswers": [
+      "B"
+    ],
+    "answers": [
+      "B"
+    ],
+    "status": "confirmed",
+    "summary": "VPC内查询本地域名属于AWS→本地DNS方向，需Resolver outbound endpoint与company.example转发规则指向本地DNS，经VPN可达。",
+    "optionReasons": {
+      "A": "空PHZ会遮蔽本地区域，NS委派不能这样指向私有zone公网名服。",
+      "B": "outbound endpoint和转发规则方向正确。",
+      "C": "inbound用于本地查询AWS，方向反了。",
+      "D": "hosts文件手动同步不支持动态DNS维护。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-overview-DSN-queries-to-vpc.html",
+        "title": "Resolving DNS queries between VPCs and your network",
+        "supports": "Resolver端点与转发规则连接VPC Resolver和本地DNS。"
+      }
+    ],
+    "caveat": "须同时启用VPC DNS support，并放通UDP/TCP53与VPN往返路由。",
+    "confidence": "medium"
+  },
+  {
+    "id": 279,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "每attachment关联专用或按授权组分段的TGW route table，仅传播/静态路由到授权VPC及必要共享出口，中央强制隔离。",
+    "optionReasons": {
+      "A": "NACL逐子网维护繁复且可能阻断internet出口，非集中路由隔离。",
+      "B": "安全组不能添加Deny规则。",
+      "C": "TGW入站attachment关联路由表决定可达目标。",
+      "D": "默认公网出口仍指TGW时，VPC路由不能仅靠目标列表消除所有经TGW可达性。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/solutions/latest/network-orchestration-aws-transit-gateway/using-and-customizing-route-tables.html",
+        "title": "Using and customizing Transit Gateway route tables",
+        "supports": "TGW segmentation由attachment关联及route propagation共同形成。"
+      }
+    ],
+    "caveat": "具有相同访问矩阵的VPC可共用路由表，不要求每VPC物理独立一张；同时排查经共享VPC转发绕行。",
+    "confidence": "medium"
+  },
+  {
+    "id": 280,
+    "originalAnswers": [
+      "C"
+    ],
+    "answers": [
+      "C"
+    ],
+    "status": "confirmed",
+    "summary": "AppStream用含现有Windows软件的image与弹性On-Demand fleet，经HTML5浏览器跨Linux/Windows访问；user pool托管认证避免重写应用。",
+    "optionReasons": {
+      "A": "WorkSpaces不按选项通过Cognito identity pool认证桌面，每人整桌面开销更高。",
+      "B": "自管Windows EC2/RDP和域加入管理工作较大。",
+      "C": "应用流式传送复用现有桌面程序，浏览器跨平台。",
+      "D": "改Web并容器化是大量重构。"
+    },
+    "sources": [
+      {
+        "url": "https://docs.aws.amazon.com/appstream2/latest/developerguide/user-pool.html",
+        "title": "Amazon AppStream user pools",
+        "supports": "AppStream用户池可创建和管理用户，并通过浏览器访问分配的应用。"
+      }
+    ],
+    "caveat": "user pool为独立用户库，不与本地AD自动同步；如须统一现有身份，用SAML联邦。AppStream服务命名可能更新，题目沿用旧名。",
+    "confidence": "medium"
+  }
+]

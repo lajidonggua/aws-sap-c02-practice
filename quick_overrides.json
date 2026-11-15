@@ -5,6 +5,24 @@
       "所有VPC应该能够解析"
     ]
   },
+  "2": {
+    "answerCues": {
+      "C": [
+        "故障转移记录",
+        "将DynamoDB表转换为全局表"
+      ]
+    }
+  },
+  "4": {
+    "answerCues": {
+      "C": [
+        "为Aurora Replicas启用Aurora Auto Scaling",
+        "粘性会话",
+        "Application Load Balancer"
+      ]
+    },
+    "targetLimit": 80
+  },
   "6": {
     "answerCues": {
       "C": [
@@ -17,6 +35,24 @@
       ]
     },
     "avoid": "C 看 Bucket Policy；D 看用户权限，两边都要授权。"
+  },
+  "28": {
+    "questionCues": [
+      "JSON 文件中定义",
+      "接受 HTTP 和 HTTPS 请求的重定向服务"
+    ],
+    "answerCues": {
+      "B": [
+        "Application Load Balancer"
+      ],
+      "C": [
+        "建立一个 AWS Lambda 函数"
+      ],
+      "F": [
+        "AWS 证书管理器 (ACM)",
+        "主题备用名称"
+      ]
+    }
   },
   "36": {
     "answerCues": {
@@ -40,13 +76,7 @@
       ]
     }
   },
-  "44": {
-    "answerCues": {
-      "D": [
-        "值为 0.0.0.0/0 时拒绝 ec2:AuthorizeSecurityGroupIngress 操作"
-      ]
-    }
-  },
+  "44": {},
   "51": {
     "answerCues": {
       "B": [
@@ -119,6 +149,21 @@
       ]
     }
   },
+  "117": {
+    "answerCues": {
+      "A": [
+        "Amazon EventBridge",
+        "事件名称为 CreateUser"
+      ],
+      "D": [
+        "AWS Step Functions"
+      ],
+      "E": [
+        "Amazon SNS",
+        "通知安全团队"
+      ]
+    }
+  },
   "132": {
     "answerCues": {
       "C": [
@@ -178,16 +223,19 @@
       ]
     }
   },
-  "200": {
+  "200": {},
+  "205": {
     "answerCues": {
-      "B": [
-        "SAML 提供者设定为主体"
+      "A": [
+        "S3 伺服器端加密"
       ],
       "C": [
-        "不属于公司 IdP 中的 AWSFederatedUsers 群组"
+        "储存桶策略",
+        "拒绝"
       ],
       "E": [
-        "DNS 主机名称可从 AWS 环境 VPC 存取"
+        "HTTP请求重定向",
+        "HTTPS请求"
       ]
     }
   },
@@ -274,6 +322,22 @@
       ]
     }
   },
+  "309": {
+    "answerCues": {
+      "A": [
+        "SCP",
+        "Account A 以允许该操作"
+      ],
+      "C": [
+        "Account A 中为使用者",
+        "基于身分的策略"
+      ],
+      "E": [
+        "在Account B中配置目标角色",
+        "信任策略"
+      ]
+    }
+  },
   "310": {
     "answerCues": {
       "D": [
@@ -318,17 +382,7 @@
       ]
     }
   },
-  "370": {
-    "answerCues": {
-      "C": [
-        "建立每个未加密磁碟区的快照",
-        "将其替换为加密卷"
-      ],
-      "D": [
-        "开启强制控制（护栏）"
-      ]
-    }
-  },
+  "370": {},
   "377": {
     "answerCues": {
       "C": [
@@ -337,19 +391,7 @@
       ]
     }
   },
-  "381": {
-    "answerCues": {
-      "A": [
-        "慢查询和错误日志发布到AmazonCloudWatch日志"
-      ],
-      "E": [
-        "AWS CloudTrail"
-      ],
-      "F": [
-        "效能基准测试并将串流发布到 AWS X-Ray"
-      ]
-    }
-  },
+  "381": {},
   "394": {
     "answerCues": {
       "D": [
@@ -373,14 +415,7 @@
       ]
     }
   },
-  "453": {
-    "answerCues": {
-      "C": [
-        "使用现有的备份计划",
-        "启用连续备份以进行时间点复原"
-      ]
-    }
-  },
+  "453": {},
   "466": {
     "answerCues": {
       "B": [
@@ -399,19 +434,7 @@
       ]
     }
   },
-  "471": {
-    "answerCues": {
-      "A": [
-        "部署Gateway Load Balancer"
-      ],
-      "C": [
-        "建立使用实例目标类型的目标群组"
-      ],
-      "F": [
-        "在集中网路帐号中建立 VPC 端点"
-      ]
-    }
-  },
+  "471": {},
   "484": {
     "answerCues": {
       "A": [
@@ -420,19 +443,19 @@
       ]
     }
   },
-  "489": {
-    "answerCues": {
-      "B": [
-        "为资料库建立一个 RDS 代理端点",
-        "增加 Lambda 函数的预先配置并发性"
-      ]
-    }
-  },
   "488": {
     "answerCues": {
       "C": [
         "保护 API Gateway API",
         "监控对 API 存取的恶意尝试"
+      ]
+    }
+  },
+  "489": {
+    "answerCues": {
+      "B": [
+        "为资料库建立一个 RDS 代理端点",
+        "增加 Lambda 函数的预先配置并发性"
       ]
     }
   },
@@ -458,39 +481,17 @@
       ]
     }
   },
-  "2": {
+  "520": {
     "answerCues": {
-      "C": [
-        "故障转移记录",
-        "将DynamoDB表转换为全局表"
-      ]
-    }
-  },
-  "4": {
-    "answerCues": {
-      "C": [
-        "为Aurora Replicas启用Aurora Auto Scaling",
-        "粘性会话",
-        "Application Load Balancer"
-      ]
-    },
-    "targetLimit": 80
-  },
-  "28": {
-    "questionCues": [
-      "JSON 文件中定义",
-      "接受 HTTP 和 HTTPS 请求的重定向服务"
-    ],
-    "answerCues": {
+      "A": [
+        "自动 CVE 扫描"
+      ],
       "B": [
-        "Application Load Balancer"
+        "Lambda标准扫描和Lambda扫码"
       ],
-      "C": [
-        "建立一个 AWS Lambda 函数"
-      ],
-      "F": [
-        "AWS 证书管理器 (ACM)",
-        "主题备用名称"
+      "E": [
+        "键 InspectorCodeExclusion",
+        "值 LambdaCodeScanning"
       ]
     }
   }

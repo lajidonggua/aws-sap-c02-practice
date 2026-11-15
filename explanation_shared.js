@@ -37,14 +37,7 @@ function normalizeMermaid(code) {
 }
 
 function renderDiagramBlock(title, mermaidCode, variant) {
-  if (!mermaidCode || !String(mermaidCode).trim()) {
-    return `
-      <div class="exp-diagram exp-diagram-${variant}">
-        <div class="exp-diagram-title">${escapeHtml(title)}</div>
-        <p class="exp-diagram-missing">此题暂无架构图。</p>
-      </div>
-    `;
-  }
+  if (!mermaidCode || !String(mermaidCode).trim()) return '';
   const code = normalizeMermaid(mermaidCode);
   return `
     <div class="exp-diagram exp-diagram-${variant}">
@@ -84,6 +77,7 @@ async function renderMermaidIn(container) {
 }
 
 function buildFullExplanationHtml(q) {
+  if (q.answer_audit && typeof buildLearningReview === 'function') return buildLearningReview(q);
   const exp = getExplanation(q);
   if (!exp) {
     return '<p class="exp-missing">此题暂无详细解释，稍后会补充。</p>';
@@ -204,6 +198,7 @@ function closeExplanation() {
 }
 
 function buildExplanationHtml(q) {
+  if (q.answer_audit) return typeof buildTwentyReview === 'function' ? buildTwentyReview(q) : buildFullExplanationHtml(q);
   if (typeof getLearningLesson === 'function' && getLearningLesson(q).uncertain) return buildTwentyReview(q);
   const full = buildFullExplanationHtml(q);
   if (typeof buildTwentyReview !== 'function') return full;

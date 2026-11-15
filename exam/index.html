@@ -80,6 +80,7 @@ h1 { color: #ab47bc; font-size: clamp(1.35rem, 5vw, 1.75rem); margin-bottom: 8px
 .option-text { flex: 1; min-width: 0; line-height: 1.5; white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere; }
 .feedback { margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 15px; display: none; word-break: break-word; }
 .feedback.correct { background: #1b5e20; color: #a5d6a7; display: block; }
+.feedback.review { background: #3d2e14; color: #ffe0a6; display: block; }
 .feedback.wrong { background: #b71c1c; color: #ef9a9a; display: block; }
 .nav-buttons { display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
 .btn-exp { background: #26a69a; color: #fff; }
@@ -181,7 +182,7 @@ h1 { color: #ab47bc; font-size: clamp(1.35rem, 5vw, 1.75rem); margin-bottom: 8px
 }
 </style>
 <link rel="stylesheet" href="../twenty_review.css?v=simplified1">
-<link rel="stylesheet" href="../learning_review.css?v=learning1"><link rel="manifest" href="../manifest.webmanifest">
+<link rel="stylesheet" href="../learning_review.css?v=audit1"><link rel="manifest" href="../manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="../icons/icon-192.png">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
 <meta name="theme-color" content="#1d6a52">
@@ -268,19 +269,24 @@ h1 { color: #ab47bc; font-size: clamp(1.35rem, 5vw, 1.75rem); margin-bottom: 8px
   </div>
 </div>
 <script src="../vendor/mermaid.min.js?v=learning1"></script>
-<script src="../sap_questions.js?v=simplified1"></script>
-<script src="../sap_explanations.js?v=simplified1"></script>
+<script src="../sap_questions.js?v=audit1"></script>
+<script src="../sap_explanations.js?v=audit1"></script>
 <script src="../sap_glossary.js?v=learning1"></script>
-<script src="../learning_review.js?v=learning1"></script>
+<script src="../learning_review.js?v=audit1"></script>
 <script src="../quick_memory.js?v=simplified1"></script>
-<script src="../quick_answer_cards.js?v=merged9"></script>
-<script src="../flash_cards.js?v=simplified1"></script><script src="../twenty_review.js?v=merged9"></script>
-<script src="../explanation_shared.js?v=learning1"></script>
+<script src="../quick_answer_cards.js?v=audit1"></script>
+<script src="../flash_cards.js?v=simplified1"></script><script src="../twenty_review.js?v=audit1"></script>
+<script src="../explanation_shared.js?v=audit1"></script>
 <script>
 let QUESTIONS = CHOICE_QUESTIONS;
 const DISPUTED = typeof DISPUTED_QUESTIONS !== 'undefined' ? DISPUTED_QUESTIONS : {};
 
+function isAmbiguous(q) {
+  return q?.answer_audit?.status === 'ambiguous';
+}
+
 function isDisputed(q) {
+  if (q.answer_audit) return isAmbiguous(q);
   return Object.prototype.hasOwnProperty.call(DISPUTED, String(q.id)) || Object.prototype.hasOwnProperty.call(DISPUTED, q.id);
 }
 
@@ -397,13 +403,12 @@ function loadExamQuestion() {
   const disputed = isDisputed(q);
   const dispute = getDisputeInfo(q);
   const disputedBadge = disputed ? '<span class="disputed-badge">⚠️ 争议题</span>' : '';
-  const disputeInfo = disputed && dispute && isReviewMode ? `
-    <div class="dispute-info">
-      <strong>⚠️ 此题答案有争议</strong><br>
-      当前答案：<strong>${dispute.current}</strong> | 社区投票：<strong>${dispute.community}</strong>（${dispute.vote}）<br>
-      ${escapeHtml(dispute.reason)}
-    </div>
+  const audit = q.answer_audit;
+  const auditText = audit ? (audit.caveat || audit.summary) : dispute?.reason;
+  const disputeInfo = isReviewMode && auditText ? `
+    <div class="dispute-info"><strong>${isAmbiguous(q) ? '题目有歧义 · 已从计分中剔除' : '英文原题校准说明'}</strong><br>${escapeHtml(auditText)}</div>
   ` : '';
+
 
   let html = `
     <div class="q-number${disputed ? ' disputed' : ''}">${examLanguage === 'zh' ? '题目' : 'Question'} ${q.id} (${currentQuestion + 1}/${examQuestions.length})${disputedBadge}</div>
@@ -420,9 +425,9 @@ function loadExamQuestion() {
     if (isReviewMode) {
       const isCorrect = q.correct_answers.includes(opt.letter);
       let reviewClass = '';
-      if (isSelected && isCorrect) reviewClass = 'correct';
-      else if (isSelected && !isCorrect) reviewClass = 'wrong';
-      else if (!isSelected && isCorrect) reviewClass = 'missed';
+      if (!isAmbiguous(q) && isSelected && isCorrect) reviewClass = 'correct';
+      else if (!isAmbiguous(q) && isSelected && !isCorrect) reviewClass = 'wrong';
+      else if (!isAmbiguous(q) && !isSelected && isCorrect) reviewClass = 'missed';
       
       html += `
         <label class="option ${selectedClass} ${reviewClass}" style="pointer-events: none;">
@@ -445,8 +450,8 @@ function loadExamQuestion() {
   if (isReviewMode) {
     const isCorrectAnswer = userAnswer.length === q.correct_answers.length && 
                             userAnswer.every(a => q.correct_answers.includes(a));
-    const feedbackClass = isCorrectAnswer ? 'correct' : 'wrong';
-    const feedbackText = examLanguage === 'zh'
+    const feedbackClass = isAmbiguous(q) ? 'review' : isCorrectAnswer ? 'correct' : 'wrong';
+    const feedbackText = isAmbiguous(q) ? `已完成对照 · 参考选择 ${q.correct_answers.join(', ')}，题目有歧义，不计对错。` : examLanguage === 'zh'
       ? (isCorrectAnswer ? '回答正确！' : `回答错误！正确答案：${q.correct_answers.join(', ')}`)
       : (isCorrectAnswer ? 'Correct!' : `Wrong! Correct answer: ${q.correct_answers.join(', ')}`);
     html += `<div class="feedback ${feedbackClass}">${feedbackText}</div>`;
@@ -520,7 +525,10 @@ function submitExam() {
 
   // Calculate score
   let correctCount = 0;
+  const scoredCount = examQuestions.filter(q => !isAmbiguous(q)).length;
+  const excludedCount = examQuestions.length - scoredCount;
   for (let i = 0; i < examQuestions.length; i++) {
+    if (isAmbiguous(examQuestions[i])) continue;
     const userAnswer = userAnswers[i] || [];
     const correctAnswer = examQuestions[i].correct_answers;
     if (userAnswer.length === correctAnswer.length && 
@@ -529,16 +537,16 @@ function submitExam() {
     }
   }
 
-  const percentage = Math.round((correctCount / examQuestions.length) * 100);
-  const passed = percentage >= 70;
+  const percentage = scoredCount ? Math.round((correctCount / scoredCount) * 100) : null;
+  const passed = percentage !== null && percentage >= 70;
 
   document.getElementById('examMode').classList.add('hidden');
   document.getElementById('resultMode').classList.remove('hidden');
   
-  document.getElementById('resultScore').textContent = `${percentage}%`;
+  document.getElementById('resultScore').textContent = percentage === null ? '—' : `${percentage}%`;
   document.getElementById('resultScore').className = `result-score ${passed ? 'result-pass' : 'result-fail'}`;
-  document.getElementById('resultDetails').textContent = `答对 ${correctCount} 题，共 ${examQuestions.length} 题`;
-  document.getElementById('resultTitle').textContent = passed ? '🎉 恭喜通过！' : '未能通过';
+  document.getElementById('resultDetails').textContent = `可计分 ${scoredCount} 题，答对 ${correctCount} 题；${excludedCount} 道歧义题已剔除。此为练习分，不代表真实考试成绩或通过保证。`;
+  document.getElementById('resultTitle').textContent = percentage === null ? '本轮仅含歧义题，不计分' : passed ? '练习达到参考线' : '继续巩固薄弱点';
 }
 
 function reviewExam() {

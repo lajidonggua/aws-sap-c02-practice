@@ -75,3 +75,32 @@ const restored=Progress.decode(Progress.KEYS.practice,answerFields);
 assert.deepEqual(M.recent(restored.answers),M.recent(attempted),'existing serialization preserves attempt history');
 assert.deepEqual(restored.stars,[24]);assert.equal(restored.last,40);
 console.log('Practice progress passed: unique coverage, bounded navigation, recent10 attempts including repeats, monotonic timestamps, legacy history, dedup/validation, and deployed-schema serialization.');
+
+// Revised answer keys derive the latest result from selections, never mutate saved history.
+const calibrated=[
+ {id:1,correct_answers:['B'],answer_audit:{status:'corrected',changed:true,revision:'2026-11-16'}},
+ {id:2,correct_answers:['A'],answer_audit:{status:'confirmed',changed:false,revision:'2026-11-16'}},
+ {id:3,correct_answers:['C'],answer_audit:{status:'ambiguous',changed:true,revision:'2026-11-16'}}
+];
+const oldResults={1:{correct:true,selected:['A'],attempts:[{id:'old-key-attempt',at:5000,correct:true}]},2:{correct:false,selected:['A'],attempts:[{id:'unchanged-attempt',at:5001,correct:true}]},3:{correct:false,selected:['A'],attempts:[{id:'ambiguous-attempt',at:5002,correct:false}]}};
+const oldSnapshot=JSON.stringify(oldResults);
+assert.equal(M.result(calibrated[0],oldResults[1]),false,'old answer now wrong is derived from selected letters');
+assert.equal(M.result(calibrated[1],oldResults[2]),true,'old false flag cannot override correct selection');
+assert.equal(M.result(calibrated[2],oldResults[3]),null,'ambiguous items have no scored result');
+assert.deepEqual(M.summarize(calibrated,oldResults),{total:3,answered:3,remaining:0,correct:1,wrong:1},'ambiguous submissions cover the question but are neither right nor wrong');
+assert.equal(M.recent(oldResults,10,calibrated).total,1,'old attempts of changed keys and all ambiguous attempts are omitted');
+assert.equal(M.recent(oldResults,10,calibrated).rate,100);
+assert.equal(JSON.stringify(oldResults),oldSnapshot,'calculating corrected views preserves original saved records');
+const revised={...oldResults,1:M.recordAnswer(oldResults,calibrated[0],true,['B'],6000,'new-key-attempt')};
+assert.equal(revised[1].attempts.length,1,'new submission prunes unrescorable pre-revision attempts only for that question');
+assert.ok(revised[1].attempts[0].id.startsWith('audit:2026-11-16:'));
+assert.equal(M.recent(revised,10,calibrated).total,2,'post-revision submissions count normally');
+revised[1]=M.recordAnswer(revised,calibrated[0],false,['A'],6001,'new-wrong');
+assert.equal(M.recent(revised,10,calibrated).total,3,'multiple post-revision submissions remain in recent history');
+assert.equal(M.recent(revised,10,calibrated).rate,67);
+revised[3]=M.recordAnswer(revised,calibrated[2],true,['C'],6002,'neutral-new');
+assert.equal(M.recent(revised,10,calibrated).total,3,'even matching the reference on an ambiguous item is not scored');
+const revisedFields=Progress.encode(Progress.KEYS.practice,{answers:revised,stars:[],last:3});
+const revisedCells=Object.fromEntries(Object.entries(revisedFields).map(([key,value])=>[Progress.KEYS.practice+'|'+key,{value,stamp:'0000000000000001-test-device'}]));
+assert.deepEqual(Progress.validate(revisedCells),revisedCells,'revision IDs and neutral-compatible boolean storage stay valid in deployed schema');
+console.log('Calibration scoring passed: selection-derived current results, neutral ambiguity, legacy attempts excluded, fresh attempts counted, original history preserved.');

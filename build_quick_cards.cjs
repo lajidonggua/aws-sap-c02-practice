@@ -215,7 +215,7 @@ function makeCard(q) {
     throw new Error(`Q${q.id}: invalid curated target length budget`);
   }
   const labelOverhead = multi ? orderedCorrectLetters.length * 2 + Math.max(0, orderedCorrectLetters.length - 1) : 0;
-  const perOptionLimit = targetLimit - labelOverhead;
+  const perOptionLimit = multi ? Math.floor((targetLimit - labelOverhead) / orderedCorrectLetters.length) : targetLimit - labelOverhead;
   const automaticAnswerCues = Object.fromEntries(correctOptions.map(option => [
     option.letter,
     extractAnswerCues(option.text_zh, q.options.filter(item => item !== option).map(item => item.text_zh), perOptionLimit)
@@ -235,7 +235,7 @@ function makeCard(q) {
   }).join('；');
   const explanation = context.explanations[q.id] || {};
   const source = explanation.solutions || explanation.solution || '';
-  const disputed = Boolean(context.disputes[q.id]) || /依题库|题库.*(?:有误|冲突|争议)|实务.*(?:更常|正解)/.test(source);
+  const disputed = q.answer_audit ? q.answer_audit.status === 'ambiguous' : Boolean(context.disputes[q.id]) || /依题库|题库.*(?:有误|冲突|争议)|实务.*(?:更常|正解)/.test(source);
   const mismatch = legacyMismatch(q, explanation);
   const correctIsWrongSubset = correctOptions.some(correct => wrongOptions.some(wrong => compact(wrong.text_zh).includes(compact(correct.text_zh))));
   const needsCombinedCue = Object.values(answerCues).some(cues => cues.length > 1 &&
