@@ -1,0 +1,270 @@
+[
+  {
+    "id": 499,
+    "reviewed": true,
+    "options": {},
+    "notes": "已完整核对前180天频繁/之后少见、指定及匿名用户、通常大于100MB、网络差导致分段上传失败、优化成本与选择两项。C启动7天后处理未完成分段、D一天转Instant Retrieval、E180天转Standard-IA的数值和方向准确。"
+  },
+  {
+    "id": 500,
+    "reviewed": true,
+    "options": {},
+    "notes": "英文Amazon ROS明显为RDS的OCR错误，原中文保留ROS且RDS for MySQL产品名语序颠倒，重译题干。核对12个月稳定用量、按需数据库、SQL注入/Web攻击、高峰冷启动；四个选项的超时/内存/预置并发、RI/Redshift/Aurora及Shield/Inspector/WAF均准确。",
+    "question_zh": "一家公司在 AWS 上运行电子商务 Web 应用程序。该应用以静态网站形式托管在 Amazon S3 上，并使用 Amazon CloudFront 分发内容。一个 Amazon API Gateway API 调用 AWS Lambda 函数，处理用户请求和订单。Lambda 函数将数据存储在一个使用按需实例的 Amazon RDS for MySQL 数据库集群中。数据库集群的使用量在过去 12 个月一直保持稳定。最近，网站遭遇 SQL 注入和 Web 漏洞利用尝试。客户还反馈，在使用高峰期，订单处理耗时增加；此时 Lambda 函数经常出现冷启动。随着公司发展，方案需要保证高峰流量下的可扩展性和低延迟访问，同时优化数据库成本，并增加对 SQL 注入和 Web 漏洞利用尝试的防护。哪种方案能够满足这些要求？"
+  },
+  {
+    "id": 501,
+    "reviewed": true,
+    "options": {},
+    "notes": "已完整核对CPU持续超过95%、用户数据安装包需数分钟、混合实例/不同CPU/最大容量、降低新实例启动时应用延迟。predictive/dynamic、instance maintenance/lifecycle hooks、warm pools、0秒预热各选项均与英文一致。"
+  },
+  {
+    "id": 502,
+    "reviewed": true,
+    "options": {},
+    "notes": "已完整核对本地SQL Server/MySQL/Oracle混合数据库、自定义schema和存储过程及选择两项。Migration Evaluator、Application Migration Service、SCT、DMS、DataSync的对象和动作均准确，未按正确答案改写干扰项。"
+  },
+  {
+    "id": 503,
+    "reviewed": true,
+    "options": {
+      "C": "将 Amazon Elastic File System (Amazon EFS) 文件系统挂载到本地服务器，作为 NAS 服务器使用。将博客数据复制到 EFS 文件系统。将该 EFS 文件系统挂载到 EC2 实例，以提供内容。",
+      "D": "订购一个 AWS Snowball Edge Storage Optimized 设备。将静态数据文件复制到设备，然后将设备寄送给 AWS。",
+      "E": "订购一个 AWS Snowcone SSD 设备。将静态数据文件复制到设备，然后将设备寄送给 AWS。"
+    },
+    "notes": "英文stops应为steps的OCR错误，原中文误成停靠点，题干改为步骤。C的C2从上下文明确指已部署EC2，E的Snowcons为Snowcone服务名错误，均披露并在中文还原；D恢复完整设备名称。核对实时更新、200TB尽快归档、每周同步两干扰项和两选要求。",
+    "question_zh": "一家公司正在将其部落格平台迁移到AWS。公司的 on-premises 伺服器透过 AWS Site-to-Site VPN 连接连接到 AWS。部落格内容每天由多个作者更新多次，并透过网路附加储存 (NAS) 伺服器上的档案共用提供。公司需要在不耽误内容更新的情况下迁移部落格平台。该公司已在多个 Availability Zones 上部署了 Amazon EC2 实例，以在 Application Load Balancer 后面运行博客平台。该公司还需要尽快将 200 TB 存档资料从其on-premises 伺服器移至Amazon S3。哪一种步骤组合可以满足这些要求？ （选两个。）"
+  },
+  {
+    "id": 504,
+    "reviewed": true,
+    "options": {
+      "A": "在多个可用区启动 Amazon EC2 实例。使用 Amazon Elastic File System (Amazon EFS) 挂载点，在所有实例上部署 Tomcat 和 PostgreSQL。使用 AWS Step Functions 部署额外的 EC2 实例，通过扩容应对流量增长。",
+      "B": "在一个跨多个 AWS 区域的 Auto Scaling 组中配置 Amazon Elastic Kubernetes Service (Amazon EKS)。在容器镜像中部署 Tomcat 和 PostgreSQL。使用 Network Load Balancer 扩展，以应对流量增长。",
+      "C": "将 Java 应用程序重构为基于 Python 的容器。使用 AWS Lambda 函数运行应用程序逻辑。将应用程序数据存储在 Amazon DynamoDB 全局表中。使用 AWS Storage Gateway 和 Lambda 并发能力扩展，以应对流量增长。",
+      "D": "使用 AWS Elastic Beanstalk，在多个可用区部署可自动扩展的 Tomcat 服务器。将应用程序数据存储在 Amazon RDS for PostgreSQL 数据库中。部署 Amazon CloudFront 和 Application Load Balancer，以应对流量增长。"
+    },
+    "notes": "四个选项均把scale for increased traffic误成扩展以增加流量，因果倒置，应为扩展以应对流量增长；逐项修正，D恢复RDS for PostgreSQL名。核对无源码但能部署JAR、Tomcat/PostgreSQL、月末高峰和最少运维，不更改各干扰项本身设计。"
+  },
+  {
+    "id": 505,
+    "reviewed": true,
+    "options": {
+      "A": "创建使用 AWS Lambda 任务的 AWS Step Functions 状态机，生成报告并将报告写入 Amazon S3。配置一个以 S3 为源站的 Amazon CloudFront 分发，提供这些报告。",
+      "E": "将 MongoDB 集群迁移到 Amazon DocumentDB（兼容 MongoDB）。"
+    },
+    "notes": "已核对MongoDB、MQTT每5分钟、报告作业120–600秒、公众访问、保性能且最少运维及三选。A的AUS Lambda为AWS Lambda拼写错误，中文残留已修；CloudFront distribution误成发行版，改为分发。B用Lambda layer临时存消息为原文方案，未修成别的存储。 E恢复官方产品名空格。"
+  },
+  {
+    "id": 506,
+    "reviewed": true,
+    "options": {
+      "B": "为每个 Lambda 函数配置预置并发。使用 AWS Application Auto Scaling，将 Lambda 函数注册为扩展目标。设置计划扩展，根据 API 使用量变化增加或减少容量。",
+      "C": "创建一个 API Gateway API 密钥和一个 AWS WAF 区域级 Web ACL。将 Web ACL 关联到 Production 阶段。向 Web ACL 添加一条基于速率的规则，指定速率限制，并配置使用 X-API-Key 请求头的自定义请求聚合。将 API 密钥提供给外部开发团队。",
+      "D": "创建一个 API Gateway API 密钥和使用计划。在使用计划中定义节流限制和配额。将使用计划关联到 Production 阶段及该 API 密钥。将 API 密钥提供给外部开发团队。"
+    },
+    "notes": "已核对唯一外部团队、Production阶段、突发用量、不重写Lambda及最经济。B恢复完整AWS Application Auto Scaling服务名；C/D保留精确阶段标识Production，D明确throttling为节流限制；C X-API-Key准确。"
+  },
+  {
+    "id": 507,
+    "reviewed": true,
+    "options": {
+      "B": "创建一个 AWS Lambda 函数，每当定价文件更新时，就用该文件更新 Amazon Elastic File System (Amazon EFS) 文件共享。修改票务服务，通过 Amazon EFS 访问定价文件。",
+      "C": "在 EC2 实例的 AMI 中安装 Mountpoint for Amazon S3。配置 Mountpoint for Amazon S3，挂载包含定价文件的 S3 存储桶。修改票务服务，使其通过该挂载点和路径访问 S3 对象。"
+    },
+    "notes": "line items是定价文件条目而非订单项目，题干修正。C的Mountpoint for Amazon S3是具体产品，原译成普通装载点；$3是S3 OCR错误，中文已还原并记录。B更新EFS文件的宾语关系澄清。核对每1–15分钟更新、启动时下载、最低成本。",
+    "question_zh": "一家娱乐公司在 Auto Scaling 群组中的一组 Linux Amazon EC2 实例上托管票务服务。票务服务使用定价文件。定价文件储存在具有 S3 标准储存的 Amazon S3 储存桶中。由第三方托管的中央定价解决方案更新定价文件。定价文件每 1-15 分钟更新一次，包含数千个价格条目。当实例启动时，定价档案会下载到每个 EC2 实例。 EC2 实例有时会使用过时的定价讯息，这可能会导致客户收取不正确的费用。哪一种解决方案能够最经济有效地解决这个问题？"
+  },
+  {
+    "id": 508,
+    "reviewed": true,
+    "options": {
+      "B": "使用环境模板创建一个 AWS Service Catalog 产品。为该产品添加启动约束，并在约束中指定现有角色。仅授予 QA 部门用户使用 AWS Service Catalog API 的权限。培训用户从 AWS Service Catalog 控制台启动该模板。"
+    },
+    "notes": "题干manager误译管理器，明确为部门经理。B launch constraint using existing role原中文修饰关系错误，已明确使用现有角色配置启动约束。核对短时测试环境、经理原有权限、不给各测试人员广泛权限；A/C/D的授权对象和角色传递保持英文原意。",
+    "question_zh": "某公司有一个应用程序，该应用程式使用 Auto Scaling 组中的 Amazon EC2 实例。品质保证 (QA) 部门需要启动大量短期环境来测试应用程式。应用程式环境目前由部门经理使用AWS CloudFormation模板启动。为了启动堆叠，经理使用有权使用 CloudFormation、EC2 和 Auto Scaling API 的角色。经理希望允许测试人员启动自己的环境，但不希望向每个使用者授予广泛的权限。哪种设定可以实现这些目标？"
+  },
+  {
+    "id": 509,
+    "reviewed": true,
+    "options": {
+      "C": "更新应用程序的 Route 53 托管区域记录，使用加权路由，将 50% 的流量发送到每个区域的 ALB。"
+    },
+    "notes": "已完整核对单区域全栈、ALB/TLS/DynamoDB、无CDN、双区域灾备/增长/访问时间、最少管理和三选。C明确为把总流量的50%送往各区域ALB，修正原每个区域发送50%的主语歧义。D延迟路由、E改现表/F新表一次性复制差异准确。"
+  },
+  {
+    "id": 510,
+    "reviewed": true,
+    "options": {
+      "B": "为数据科学家用户组创建一个 IAM Identity Center 角色，授予该角色 Amazon S3 读取和写入权限。添加一条 S3 存储桶策略，允许该 IAM Identity Center 角色访问存储桶。",
+      "E": "启用 S3 访问日志，将日志写入 EMR File System (EMRFS)。使用 Amazon S3 Select 查询日志并生成报告。"
+    },
+    "notes": "已核对单一S3桶、Identity Center认证、每用户仅自己的文件、每月按用户报告与两选。B原中文把S3读写权限修饰给用户组而不是角色，已明确角色权限；E恢复产品名Amazon S3 Select，并明确to EMRFS为日志目标，不修正原干扰项设计。A精确变量${aws:PrincipalTag/userName}/*保持不变。"
+  },
+  {
+    "id": 511,
+    "reviewed": true,
+    "options": {},
+    "notes": "已完整核对轮询EFS、按文件内容选Docker镜像、文件路径参数、最长2小时、写回EFS及移除EC2。A/B保留原文EFS事件机制，C S3事件→Lambda选择→Fargate，D Lambda容器处理各动作准确，未将错误机制改成正确架构。"
+  },
+  {
+    "id": 512,
+    "reviewed": true,
+    "options": {
+      "A": "在本地部署一个 AWS Storage Gateway 文件网关设备。使用 MAM 解决方案从现有归档中提取视频，并将视频推送到文件网关。利用现有的人脸目录，在 Amazon Rekognition 中创建一个集合。编写一个 AWS Lambda 函数，调用 Rekognition JavaScript SDK，让 Rekognition 从文件网关后端的 Amazon S3 文件中读取视频，提取所需元数据，再将元数据写入 MAM 解决方案。",
+      "C": "使用 Amazon Kinesis Video Streams 配置一个视频摄取流。利用现有的人脸目录，在 Amazon Rekognition 中创建一个集合。将视频从 MAM 解决方案流式传输到 Kinesis Video Streams。配置 Amazon Rekognition 处理这些视频流。然后使用流消费者获取所需元数据，并将元数据写入 MAM 解决方案。配置该流，将视频存储到 Amazon S3。"
+    },
+    "notes": "英文30-T8明显为30-TB的OCR错误，原中文残留T8，改为30TB。A首句file gateway appliance漏掉file，补为本地文件网关设备。C恢复Kinesis Video Streams产品名并明确stream consumer为流消费者。核对磁带旧库、脸部集合、MAM元数据回写、高速DX、最小干扰及最少持续管理。",
+    "question_zh": "一家媒体公司拥有 30 TB 的数位新闻影片储存库。这些影片储存在on-premises磁带库中的磁带上，并由媒体资产管理 (MAM) 系统引用。该公司希望以自动化的方式丰富这些影片的元数据，并使用 MAM 功能将它们放入可搜寻的目录中。公司必须能够根据影片中的资讯进行搜索，例如物体、风景或人脸。提供了一个目录，其中包含影片中出现的人员的脸孔，其中包括每个人的图像。该公司希望将这些影片迁移到AWS。该公司拥有与 AWS 的高速AWS Direct Connect 连接，并希望直接从其当前的档案系统移动 MAM 解决方案视讯内容。如何透过使用最少的持续管理开销并对现有系统造成最小的干扰来满足这些要求？"
+  },
+  {
+    "id": 513,
+    "reviewed": true,
+    "options": {},
+    "notes": "已完整核对3年前RI刚到期、未来仍需EC2三年、新serverless工作负载和最大节省；四选项的1/3年、全预付/零预付、管理/成员账户、Compute/EC2 Instance Savings Plan组合均准确，未把技术方案优劣当翻译问题改写。"
+  },
+  {
+    "id": 514,
+    "reviewed": true,
+    "options": {},
+    "notes": "题干客户从自己的AWS账户访问内容，不代表内容位于客户账户，原中文有此歧义，修正首段。核对S3 File Gateway、本地上传需低延迟且不走公网、按地理最近区域提供内容、最少运维及两选；各选项MRAP/CRR/Lambda/VPN/PrivateLink+DX均准确。",
+    "question_zh": "一家公司经营一个为全球客户提供服务的静态内容分发平台。客户从各自的 AWS 账户访问这些内容。该公司透过 Amazon S3 储存桶提供其内容。该公司使用 S3 档案闸道将内容从其 on-premises 环境上传到 S3 储存桶。该公司希望透过从距离客户最近的AWS Region 提供内容来提高平台的性能和可靠性。公司必须以最小延迟且不暴露于公共互联网的方式将on-premises资料路由到Amazon S3。哪种步骤组合能够以最少的营运开销满足这些要求？ （选两个。）"
+  },
+  {
+    "id": 515,
+    "reviewed": true,
+    "options": {
+      "A": "使用 VM Import/Export 创建每个虚拟机的镜像。使用 AWS Application Migration Service 管理和查看这些镜像。将 Windows 文件共享中的数据复制到一个 Amazon Elastic File System (Amazon EFS) 文件系统。迁移后，将文件共享重新映射到 EFS 文件系统。",
+      "B": "将 AWS Application Discovery Service 无代理设备部署到 VMware vCenter。在 AWS Migration Hub 中查看发现的虚拟机资源清单。",
+      "C": "将 AWS Application Migration Service 无代理设备部署到 VMware vCenter。将 Windows 文件共享中的数据复制到一个新的 Amazon FSx for Windows File Server 文件系统。迁移后，将各虚拟机上的文件共享重新映射到该 FSx for Windows File Server 文件系统。",
+      "D": "在 AWS Migration Hub 中创建并审查迁移资源清单。订购一个 AWS Snowcone 设备。将 AWS Application Migration Service 部署到 VMware vCenter，并将所有虚拟机导出到 Snowcone 设备。将所有 Windows 文件共享数据复制到 Snowcone 设备，然后将设备寄送给 AWS。使用 Application Migration Service 部署所有已迁移实例。",
+      "E": "将 AWS Application Discovery Service Agent 和 AWS Application Migration Service Agent 直接部署到每个 VMware 虚拟机监控程序上。在 AWS Migration Hub 中审查迁移资源清单。将每个虚拟机的文件共享数据复制到一个新的 Amazon FSx for Windows File Server 文件系统。迁移后，将各虚拟机上的文件共享重新映射到该 FSx for Windows File Server 文件系统。"
+    },
+    "notes": "题干英文be ed为filed的OCR缺损，变更请求应提交审批而非编辑，修正。核对数百VM、Windows共享>100GB及迁移用时最短；原文带宽10 GB单位本身可疑，忠实保留未擅改Gbps。A还原VM Import/Export名称；C/E FSx产品名语序错误修复；B/D/E portfolio明确为迁移资源清单，避免投资组合误义。",
+    "question_zh": "某公司正在将资料中心迁移至AWS云，需要尽快完成迁移。该公司有许多应用程序在数据中心的数百个 VMware 虚拟机上运行。每个虚拟机器都配置有一个共用 Windows 资料夹，其中包含常见的共用档案。档案共享大小超过 100 GB。该公司的合规团队要求每个虚拟机器的每次软体安装和修改都必须提交变更请求并获得批准。该公司在 AWS 和资料中心之间拥有 10 GB 频宽的 AWS Direct Connect 连线。公司应采取哪一组步骤才能在最短的时间内完成迁移？"
+  },
+  {
+    "id": 516,
+    "reviewed": true,
+    "options": {
+      "A": "在每个账户中创建一个 AWS CloudTrail 跟踪，为跟踪指定 CloudTrail 管理事件。配置 CloudTrail 将事件发送到 Amazon CloudWatch Logs。配置 CloudWatch 跨账户可观测性。使用 CloudWatch Logs Insights 查询数据。",
+      "B": "使用委派管理员账户创建一个 AWS CloudTrail Lake 数据存储，为其指定 CloudTrail 管理事件。为组织中的所有账户启用该数据存储。在 CloudTrail Lake 中查询数据。",
+      "C": "使用委派管理员账户创建一个 AWS CloudTrail 跟踪，为跟踪指定 CloudTrail 管理事件。为组织中的所有账户启用该跟踪。其他所有设置保留默认值。从 CloudTrail 事件历史记录页面查询 CloudTrail 数据。"
+    },
+    "notes": "英文CloudTraii/CloudTral均为CloudTrail OCR错误，A/C中文也残留，已还原。A/C的trail被译为路径，应为跟踪；B CloudTrail Lake不可译湖。核对组织多账户、集中存活动并SQL查询，D每账户data store与B组织data store区别保留。"
+  },
+  {
+    "id": 517,
+    "reviewed": true,
+    "options": {
+      "C": "将公司的第三方身份提供商与 AWS IAM Identity Center 集成。配置 API Gateway 使用 IAM Identity Center，进行零配置的身份验证和授权。更新 Web 应用程序，使其从 IAM Identity Center 获取 AWS Security Token Service (AWS STS) 令牌，并在调用 API Gateway HTTP API 时将这些令牌放入 Authorization 请求头。"
+    },
+    "notes": "题干OAuth token误译代币，改令牌。C末句重复且断裂，完整重译为从Identity Center取STS令牌，并放入调用HTTP API的Authorization头；未把该干扰项错误认证机制替换为可用方案。核对Lambda authorizer/Directory Service/Identity Center/IAM用户四选项区别。",
+    "question_zh": "一家公司正在使用 AWS 来开发和管理其生产 Web 应用程式。该应用程式包括呼叫 AWS Lambda 函数的 Amazon API Gateway HTTP API。 Lambda 函数处理数据，然后将数据储存在资料库中。该公司希望以整合的方式实现Web应用程式的用户授权。该公司已经使用第三方身分提供者为公司的其他应用程式发行OAuth 令牌。哪种解决方案可以满足这些要求？"
+  },
+  {
+    "id": 518,
+    "reviewed": true,
+    "options": {
+      "A": "配置一个可识别未加密 EBS 卷的 AWS Config 托管规则，并设置自动修复操作。关联一个 AWS Systems Manager Automation 运行手册，包含创建新加密 EBS 卷的步骤。创建一个 AWS Key Management Service (AWS KMS) 客户管理密钥，在密钥策略中加入拒绝创建未加密 EBS 卷的语句。",
+      "B": "使用 AWS Systems Manager Fleet Manager，创建未加密 EBS 卷的列表。创建一个 Systems Manager Automation 运行手册，包含创建新加密 EBS 卷的步骤。创建一个 SCP，拒绝创建未加密的 EBS 卷。",
+      "C": "使用 AWS Systems Manager Fleet Manager，创建未加密 EBS 卷的列表。创建一个 Systems Manager Automation 运行手册，包含创建新加密 EBS 卷的步骤。修改 AWS 账户的 EBS 加密设置，使新建 EBS 卷始终加密。",
+      "D": "配置一个可识别未加密 EBS 卷的 AWS Config 托管规则，并设置自动修复操作。关联一个 AWS Systems Manager Automation 运行手册，包含创建新加密 EBS 卷的步骤。修改 AWS 账户的 EBS 加密设置，使新建 EBS 卷始终加密。"
+    },
+    "notes": "B/C把Fleet Manager误成队列管理器，修为准确服务名；A/D恢复明确AWS Config名称。完整核对现有未加密卷自动修复和阻止以后新建未加密卷；KMS key policy/SCP/账户默认加密及Config/Fleet Manager的差异均保留。"
+  },
+  {
+    "id": 519,
+    "reviewed": true,
+    "options": {
+      "A": "使用 Amazon CloudWatch 监控 ECS 集群中各服务的 Sample Count 统计值。当数学表达式 sample count/SERVICE_QUOTA(service)*100 大于 80 时触发告警。使用 Amazon Simple Notification Service (Amazon SNS) 通知开发团队。",
+      "B": "使用 Amazon CloudWatch 监控 AWS/Usage 指标命名空间中发布的服务配额。当数学表达式 metric/SERVICE_QUOTA(metric)*100 大于 80 时触发告警。使用 Amazon Simple Notification Service (Amazon SNS) 通知开发团队。"
+    },
+    "notes": "已完整核对约100服务、迁至Fargate、最大任务数80%通知。A/B数学表达式中的变量被翻译成中文，已保留原表达式标识；A样本数与B使用量指标不同，C/D绝对80不是80%也忠实保留。原文告警greater than 80不自行改成大于等于。"
+  },
+  {
+    "id": 520,
+    "reviewed": true,
+    "options": {
+      "B": "在 Amazon Inspector 中启用 Lambda 标准扫描和 Lambda 代码扫描。",
+      "F": "使用 Amazon Inspector 扫描存有 Lambda .zip 部署包和 Lambda 层 .zip 文件的 S3 存储桶，以进行代码扫描。"
+    },
+    "notes": "B的code scanning被误缩成扫码，修正代码扫描；F英文3 bucket漏S，原中文误成第3个桶，应为S3桶。核对Python ZIP部署与layer、全部CVE扫描/仅选定代码扫描、InspectorCodeExclusion=LambdaCodeScanning标签键值及三选；不替F改成实际支持的扫描路径。"
+  },
+  {
+    "id": 521,
+    "reviewed": true,
+    "options": {
+      "A": "创建一条网络 ACL，阻止端口 80 的出站流量，并将其关联到应用账户中的所有子网。在应用账户和核心账户中各部署一个运行自定义 VPN 服务器的 EC2 实例。创建 VPN 隧道以访问私有 VPC。更新应用账户中的路由表。"
+    },
+    "notes": "已完整核对应用账户实例不得上互联网、需访问S3/Systems Manager及核心账户私有补丁库。A说明两个账户各部署一台VPN实例，避免原中文被理解为合计一台；A出站80/D入站80、B private VIF/C VPC endpoint和路由更新账户差异准确。"
+  },
+  {
+    "id": 522,
+    "reviewed": true,
+    "options": {},
+    "notes": "已完整核对us-east-2五个应用VPC、仅访问eu-west-1一个VPC、CIDR不重叠、同组织与最经济。A单TGW跨区域附加/B每区域TGW对等/C全网状peering/D五条点对点peering的范围区别均准确。"
+  },
+  {
+    "id": 523,
+    "reviewed": true,
+    "options": {
+      "A": "创建一个 Amazon SES 配置集，将 Amazon Data Firehose 设为目标，并选择将日志发送到一个 Amazon S3 存储桶。",
+      "C": "使用 Amazon Athena，按收件人、主题和发送时间查询 Amazon S3 存储桶中的日志。",
+      "E": "使用 Amazon Athena，按收件人、主题和发送时间查询 Amazon CloudWatch 中的日志。"
+    },
+    "notes": "已完整核对SES投递排查及按收件人、主题、发送时间查询、选择两项。A恢复准确Amazon Data Firehose产品名；C/E明确三字段是查询依据，保留S3/CloudWatch两个不同日志位置和原方案。"
+  },
+  {
+    "id": 524,
+    "reviewed": true,
+    "options": {},
+    "notes": "已完整核对Business Support、跨账户/三种标签、仅开发实例、过去14天至少4天且每日平均CPU≤10%并且网络I/O≤5MB。四选项中的CloudWatch/Systems Manager/Trusted Advisor/自建DynamoDB+QuickSight流程、停止动作和最少运维均准确。"
+  },
+  {
+    "id": 525,
+    "reviewed": true,
+    "options": {
+      "B": "创建一个请求类型为 request 的 Spot Fleet（Spot 实例集）。将 TotalTargetCapacity 参数设为 20，将 DefaultTargetCapacityType 参数设为 On-Demand。在创建 Spot Fleet 时指定 NLB。",
+      "C": "创建一个请求类型为 maintain 的 Spot Fleet（Spot 实例集）。将 TotalTargetCapacity 参数设为 20，将 DefaultTargetCapacityType 参数设为 Spot。将 NLB 替换为 Application Load Balancer。"
+    },
+    "notes": "题干application误成申请，修正为应用程序。B/C Spot Fleet被误译为Spot队列，改为Spot实例集；C request type的maintain须保留精确值，不译普通维护。核对未来3年、20个按需实例、双AZ无状态全天、CPU10%/忙时100%、A最小20期望28/D最小4最大28及RI数量。",
+    "question_zh": "一家公司正在 AWS 上托管一个应用程序，用于未来 3 年持续运行的项目。该应用程式由 20 个 Amazon EC2 按需实例组成，这些实例在 Network Load Balancer (NLB) 的目标群组中注册。这些实例分布在两个Availability Zones上。该应用程式是无状态的，每周 7 天、每天 24 小时运行。该公司收到用户的报告，称应用程式响应缓慢。效能指标显示，在正常应用程式使用期间，执行个体的 CPU 使用率为 10%。然而，CPU 使用率在繁忙时会增加到 100%，通常会持续几个小时。公司需要一种新的架构来解决应用程式响应缓慢的问题。哪一种解决方案能够最具成本效益地满足这些要求？"
+  },
+  {
+    "id": 526,
+    "reviewed": true,
+    "options": {
+      "A": "在 AWS IoT Core 中创建一个主题，摄取传感器数据。创建一个 AWS Lambda 函数，丰富数据并将其写入 Amazon S3。配置一个 AWS IoT 规则操作来调用该 Lambda 函数。",
+      "B": "使用 AWS IoT Core Basic Ingest 摄取传感器数据。配置一个 AWS IoT 规则操作，将数据写入 Amazon Kinesis Data Firehose。将 Kinesis Data Firehose 的缓冲间隔设为 900 秒。使用 Kinesis Data Firehose 调用 AWS Lambda 函数丰富数据，再配置 Kinesis Data Firehose 将数据传送到 Amazon S3。",
+      "C": "在 AWS IoT Core 中创建一个主题，摄取传感器数据。配置一个 AWS IoT 规则操作，将数据发送到一个 Amazon Timestream 表。创建一个 AWS Lambda 函数，从 Timestream 读取数据，对数据进行丰富处理，并将其写入 Amazon S3。",
+      "D": "使用 AWS IoT Core Basic Ingest 摄取传感器数据。配置一个 AWS IoT 规则操作，将数据写入 Amazon Kinesis Data Streams。创建一个消费者 AWS Lambda 函数，处理 Kinesis Data Streams 中的数据并丰富数据。在该 Lambda 函数中调用 S3 PutObject API，将数据写入 Amazon S3。"
+    },
+    "notes": "英文Accompany是A company的粘连，中文误当公司名，重译题干；目标严格少于30分钟，原30分钟内边界不精确，修正。A/C ingest明确为摄取非提取；B恢复一致Kinesis Data Firehose名称；D loT为IoT的OCR错误。核对每5秒、数百设备、无其他消费者、900秒缓冲和最经济。",
+    "question_zh": "一家公司正在构建一个应用程序，用于收集并传输工厂的传感器数据。应用程序将使用 AWS IoT Core，把数百个设备的数据发送到一个 Amazon S3 数据湖。公司必须在将数据加载到 Amazon S3 之前对其进行丰富处理。应用程序每 5 秒传输一次传感器数据。从应用程序收集到新数据开始，必须在少于 30 分钟的时间内让数据在 Amazon S3 中可用。没有其他应用程序处理来自 AWS IoT Core 的这些传感器数据。哪种方案能够以最经济的方式满足这些要求？"
+  },
+  {
+    "id": 527,
+    "reviewed": true,
+    "options": {
+      "B": "在数据科学家的 AWS 账户中，为该数据湖创建一个 S3 接入点。"
+    },
+    "notes": "题干perform analytics on EC2误成对EC2实例进行分析，明确为在实例上分析数据。B原中文将数据科学家账户与数据湖账户混为一处，修为在数据科学家账户为数据湖建access point。核对独立账户、双公有子网、现有实例角色、仅授权网络和两选；两个s3:DataAccessPointArn及s3:GetObject精确字符串保留。",
+    "question_zh": "一家公司从大量 IoT 设备收集数据，并将数据存储在一个 Amazon S3 数据湖中。数据科学家在 Amazon EC2 实例上分析这些数据。这些实例位于另一个 AWS 账户中某个 VPC 的两个公有子网内。数据科学家需要从 EC2 实例访问该数据湖，实例已被分配一个具有 Amazon S3 访问权限的角色。公司规定，只有获得授权的网络才能访问这些 IoT 数据。解决方案架构师应采取哪组步骤来满足这些要求？（选择两项。）"
+  },
+  {
+    "id": 528,
+    "reviewed": true,
+    "options": {},
+    "notes": "已完整核对自管Kubernetes迁EKS、托管节点组且节点数固定、本地PostgreSQL迁RDS、迁前TCO估算。题干RDS for PostgreSQL产品名语序错误修正；四个选项的工具/评估报告/计算器/TCO报告/Cloud Value Framework内容均按原文保留。",
+    "question_zh": "一家公司想要将其网站迁移到AWS。该网站使用部署在 on-premises、自我管理的 Kubernetes 集群中的容器。网站的所有资料都储存在 on-premises PostgreSQL 资料库中。公司决定将on-premisesKubernetes集群迁移至Amazon Elastic Kubernetes Service (Amazon EKS)集群。 EKS 集群将使用具有静态节点数的 EKS 受管节点组。该公司也将把on-premises资料库迁移到 Amazon RDS for PostgreSQL 数据库。解决方案架构师需要在迁移之前估算此工作负载的总拥有成本 (TCO)。哪种解决方案将提供所需的 TCO 资讯？"
+  },
+  {
+    "id": 529,
+    "reviewed": true,
+    "options": {
+      "E": "将预测扩展策略替换为针对已安排活动的计划扩展策略。"
+    },
+    "notes": "已完整核对已知每活动时间、ECS用EC2按需ASG、当前predictive scaling、同区域同账户S3请求经NAT、不降可用性和两选。E明确为针对已经排期的活动使用scheduled scaling，避免原中文计划事件的计划策略含糊；B同权重Spot、C容量预留及D传输加速原意保留。"
+  }
+]

@@ -215,11 +215,11 @@ check(cards[4]?.target.includes('粘性会话') && cards[4]?.target.includes('Au
 check(cards[2]?.target.includes('故障转移记录') && cards[2]?.target.includes('全局表'), 'Q2: preserve both failover routing and data replication');
 check(cards[6]?.target.includes('Principal') && cards[6]?.target.includes('在Account B中') && cards[6]?.target.includes('s3:ListBucket'), 'Q6: target must distinguish the bucket policy and user permission options');
 check(cards[1]?.when.includes('本地系统应该能够解析') && cards[1]?.when.includes('所有VPC应该能够解析'), 'Q1: question cues must retain both DNS requirements');
-check(cards[471]?.when.includes('防火墙设备需要能够水平扩展'), 'Q471: question cue must retain the horizontal-scaling requirement');
+check(/防火墙.*水平扩展/.test(cards[471]?.when), 'Q471: question cue must retain the horizontal-scaling requirement');
 check(cards[240]?.when.includes('AWS Region 内的高可用性') && cards[240]?.when.includes('1 分钟内故障转移'), 'Q240: question cues must retain high availability and one-minute failover requirements');
 check(cards[411]?.target === 'Amazon Cognito', 'Q411: compressed answer must retain the literal spaced product name');
 check(cards[86]?.target.includes('交换暂存环境和生产环境 URL'), 'Q86: answer cue must retain the deployment action, not a connector fragment');
-check(cards[144]?.target.includes('update-le-system 指令增加容量'), 'Q144: answer cue must retain the capacity action, not a generic connector fragment');
+check(cards[144]?.target.includes('update-file-system 命令增加容量'), 'Q144: answer cue must retain the exact command and capacity action');
 check(cards[360]?.target.includes('AWS Service Catalog'), 'Q360: answer cue must retain the identifying service, not a connector fragment');
 check(context.flashAnswerWords('AWS Backup') === 'AWS Backup', 'flash answer words must preserve an unlabeled AWS product name');
 check(typeof quickRenderContext.renderAvoidForTest === 'function', 'keyword cards need an avoid renderer');
@@ -255,7 +255,7 @@ for (const [id, override] of Object.entries(overrides)) {
 }
 check(cards[28]?.when.includes('HTTP 和 HTTPS') && cards[28]?.target.includes('ACM') && cards[28]?.target.includes('主题备用名称'), 'Q28: preserve redirect protocols, certificate service and domain coverage');
 check(cards[51]?.target.includes('重新上传') && cards[51]?.target.includes('KMS'), 'Q51: preserve existing-object encryption action');
-check(cards[518]?.target.includes('自动修复') && cards[518]?.target.includes('始终加密新的 EBS 卷'), 'Q518: preserve remediation and prevention');
+check(cards[518]?.target.includes('自动修复') && cards[518]?.target.includes('使新建 EBS 卷始终加密'), 'Q518: preserve remediation and prevention');
 
 const averageTotalLength = Object.values(cards).reduce((sum, card) => sum + card.when.length + card.target.length + card.avoid.length, 0) / questions.length;
 check(averageTotalLength <= 118.65, `average card length too high (${averageTotalLength.toFixed(1)} > 118.65)`);

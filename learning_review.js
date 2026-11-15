@@ -98,6 +98,11 @@ function learningEscape(value) {
   return String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+// This disclosure is a sibling of the answer control, so opening it cannot submit an answer.
+function renderOriginalOption(option) {
+  return `<details class="option-original" data-original-letter="${learningEscape(option.letter)}"><summary>查看 ${learningEscape(option.letter)} 的英文原选项</summary><p lang="en">${learningEscape(option.text || '')}</p></details>`;
+}
+
 function learningPlain(value) {
   const replacements = {
     '唔可以': '不能', '唔好': '不要', '唔系': '不是', '唔係': '不是', '唔使': '不需要', '唔到': '不到', '唔啱': '不合适',

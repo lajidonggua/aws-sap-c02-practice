@@ -1,4 +1,4 @@
-/* Source-backed individual option analysis; not an official AWS exam answer key. */
+/* Individually reviewed reasoning; not an official AWS exam answer key. */
 const QUESTION_EXPLANATIONS = {
   "1": {
     "blocker": "一家公司需要设计一个混合DNS解决方案。该解决方案将为存储在VPC内的资源使用Amazon Route 53私有托管区域，域名为cloud.example.com。公司有以下DNS解析要求：本地系统应该能够解析并连接到cloud.example.com。所有VPC应该能够解析cloud.example.com。已经有AWS Direct Connect连接介于本地公司网络和AWS Transit Gateway之间。哪种架构能够以最高性能满足这些要求？",
@@ -49,7 +49,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "3": {
-    "blocker": "一家公司使用AWS Organizations，其中有一个名为Production的单一OU来管理多个账户。所有账户都是Production OU的成员。管理员在组织根目录使用拒绝列表SCP来管理对受限服务的访问。该公司最近收购了一个新的业务部门，并邀请该新部门的现有AWS账户加入组织。加入后，新业务部门的管理员发现他们无法更新现有的AWS Config规则以符合公司的政策。哪个选项将允许管理员进行更改并继续执行当前政策，而不引入额外的长期维护？",
+    "blocker": "一家公司使用 AWS Organizations 管理多个账户，只有一个名为 Production 的组织单元（OU），所有账户都属于该 OU。管理员在组织根上使用拒绝列表式服务控制策略（SCP）限制对特定服务的访问。公司最近收购了一个业务部门，并邀请该部门现有的 AWS 账户加入组织。加入后，新业务部门的管理员发现无法更新现有 AWS Config 规则来满足公司政策。哪个选项能够让管理员进行调整，同时继续执行现有政策，并且不增加额外的长期维护工作？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：移动拒绝的附着层级，正确隔离临时例外。"
@@ -73,7 +73,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "4": {
-    "blocker": "一家公司在其数据中心运行一个两层Web应用程式。应用程式层由运行有状态应用程式的单一伺服器组成。应用程式连接到运行在另一台伺服器上的PostgreSQL数据库。该应用程式的用户群预计会显著增长，因此公司正在将应用程式和数据库迁移到AWS。解决方案将使用Amazon Aurora PostgreSQL、Amazon EC2 Auto Scaling和Elastic Load Balancing。哪种解决方案将提供一致的用户体验，同时允许应用程式层和数据库层扩展？",
+    "blocker": "一家公司在其数据中心运行一个两层Web应用程序。应用程序层由运行有状态应用程序的单一服务器组成。应用程序连接到运行在另一台服务器上的PostgreSQL数据库。该应用程序的用户群预计会显著增长，因此公司正在将应用程序和数据库迁移到AWS。解决方案将使用Amazon Aurora PostgreSQL、Amazon EC2 Auto Scaling和Elastic Load Balancing。哪种解决方案将提供一致的用户体验，同时允许应用程序层和数据库层扩展？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：副本伸缩和ALB黏性会话均为正确机制。"
@@ -97,7 +97,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "5": {
-    "blocker": "一家公司使用一个服务来收集其本地托管的应用程式的元数据。像电视和网络收音机这样的消费设备访问这些应用程式。许多旧设备不支持某些HTTP标头，当响应中包含这些标头时会出现错误。该公司已配置本地负载均衡器，从发送给旧设备的响应中移除不支持的标头，这些设备通过User-Agent标头进行识别。该公司希望将服务迁移到AWS，采用无伺服器技术，并保留对旧设备的支持能力。该公司已将应用程式迁移为一组AWS Lambda函数。哪种解决方案能满足这些要求？",
+    "blocker": "一家公司使用一个服务来收集其本地托管的应用程序的元数据。像电视和网络收音机这样的消费设备访问这些应用程序。许多旧设备不支持某些HTTP标头，当响应中包含这些标头时会出现错误。该公司已配置本地负载均衡器，从发送给旧设备的响应中移除不支持的标头，这些设备通过User-Agent标头进行识别。该公司希望将服务迁移到AWS，采用无服务器技术，并保留对旧设备的支持能力。该公司已将应用程序迁移为一组AWS Lambda函数。哪种解决方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：在viewer-response函数里读取request.headers并删除response.headers即可。"
@@ -147,7 +147,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "7": {
-    "blocker": "一家公司在Amazon EC2实例上运行传统的Web应用程式。该公司需要将应用程式重构为在容器中运行的微服务。该应用程式有两个独立的版本存在于两个不同的环境中：生产和测试。应用程式的负载是可变的，但最小负载和最大负载是已知的。解决方案架构师需要使用最小化操作复杂性的无伺服器架构来设计更新的应用程式。哪种解决方案能以最具成本效益的方式满足这些要求？",
+    "blocker": "一家公司在Amazon EC2实例上运行传统的Web应用程序。该公司需要将应用程序重构为在容器中运行的微服务。该应用程序有两个独立的版本存在于两个不同的环境中：生产和测试。应用程序的负载是可变的，但最小负载和最大负载是已知的。解决方案架构师需要使用最小化操作复杂性的无服务器架构来设计更新的应用程序。哪种解决方案能以最具成本效益的方式满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：ECR、ECS服务自动伸缩、Fargate及ALB满足容器与免节点运维。"
@@ -171,7 +171,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "8": {
-    "blocker": "一家公司拥有一个多层Web应用程式，该应用程式运行在Application Load Balancer（ALB）后面的一组Amazon EC2实例上。这些实例在一个Auto Scaling组中。ALB和Auto Scaling组已在备份AWS区域中复制。Auto Scaling组的最小值和最大值设置为零。Amazon RDS Multi-AZ数据库实例存储应用程式的数据。该数据库实例在备份区域有一个读副本。应用程式使用Amazon Route 53记录向最终用户呈现端点。该公司需要通过使应用程式能够自动故障转移到备份区域来将其RTO降低到15分钟以下。该公司没有足够的预算来实施主动-主动策略。解决方案架构师应该推荐什么来满足这些要求？",
+    "blocker": "一家公司拥有一个多层Web应用程序，该应用程序运行在Application Load Balancer（ALB）后面的一组Amazon EC2实例上。这些实例在一个Auto Scaling组中。ALB和Auto Scaling组已在备份AWS区域中复制。Auto Scaling组的最小值和最大值设置为零。Amazon RDS Multi-AZ数据库实例存储应用程序的数据。该数据库实例在备份区域有一个读副本。应用程序使用Amazon Route 53记录向最终用户呈现端点。该公司需要通过使应用程序能够自动故障转移到备份区域来将其RTO降低到15分钟以下。该公司没有足够的预算来实施主动-主动策略。解决方案架构师应该推荐什么来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：健康检查、SNS/Lambda恢复动作和failover DNS构成完整自动流程。"
@@ -195,7 +195,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "9": {
-    "blocker": "一家公司在单个Amazon EC2实例上托管一个关键应用程式。该应用程式使用Amazon ElastiCache for Redis单节点集群作为内存数据存储。该应用程式使用Amazon RDS for MariaDB数据库实例作为关系型数据库。为了使应用程式正常运行，基础架构的每个部分都必须健康且处于活动状态。解决方案架构师需要改进应用程式的架构，以便基础架构能够以最少的停机时间自动从故障中恢复。哪些步骤组合将满足这些要求？（选择三个。）",
+    "blocker": "一家公司在单个Amazon EC2实例上托管一个关键应用程序。该应用程序使用Amazon ElastiCache for Redis单节点集群作为内存数据存储。该应用程序使用Amazon RDS for MariaDB数据库实例作为关系型数据库。为了使应用程序正常运行，基础架构的每个部分都必须健康且处于活动状态。解决方案架构师需要改进应用程序的架构，以便基础架构能够以最少的停机时间自动从故障中恢复。哪些步骤组合将满足这些要求？（选择三个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：多实例ASG加负载均衡可自动补充失败实例。",
@@ -223,7 +223,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "10": {
-    "blocker": "一家零售公司在AWS上运行其电子商务应用程式。该应用程式运行在Application Load Balancer（ALB）后面的Amazon EC2实例上。该公司使用Amazon RDS数据库实例作为数据库后端。Amazon CloudFront配置了一个指向ALB的源。静态内容被缓存。Amazon Route 53用于托管所有公共区域。在应用程式更新后，ALB偶尔返回502状态码（Bad Gateway）错误。根本原因是返回给ALB的HTTP标头格式错误。当解决方案架构师在错误发生后立即重新加载网页时，网页成功返回。在公司解决问题的同时，解决方案架构师需要为访问者提供自定义错误页面，而不是标准的ALB错误页面。哪些步骤组合将以最少的操作开销满足这一要求？（选择两个。）",
+    "blocker": "一家零售公司在 AWS 上运行电商应用。应用运行在 Application Load Balancer（ALB）后面的 Amazon EC2 实例上，并使用 Amazon RDS 数据库实例作为后端。Amazon CloudFront 配置了一个指向 ALB 的源站，并缓存静态内容。所有公有 DNS 托管区域都由 Amazon Route 53 托管。应用更新后，ALB 偶尔返回 502（Bad Gateway）错误，根因是后端返回给 ALB 的 HTTP 头格式不正确。错误发生后立即刷新网页，页面便能正常返回。在公司修复问题期间，解决方案架构师需要向访问者显示自定义错误页，以替代标准 ALB 错误页。哪两项操作组合能以最少的运维工作满足要求？（选择两项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：提供独立、低运维的错误页面源。",
@@ -249,7 +249,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "11": {
-    "blocker": "某公司拥有多个AWS帐户，并使用AWS Organizations来管理所有帐户。解决方案架构师必须实施一个解决方案，公司可以使用该解决方案在多个帐户之间共用公共网路。该公司的基础设施团队有一个专用的基础设施帐户，该帐户有VPC。基础设施团队必须使用此帐户来管理网路。个人帐户无法管理自己的网路。但是，个人帐户必须能够在子网内建立 AWS 资源。解决方案架构师应该执行哪些操作组合来满足这些要求？ （选两个。）",
+    "blocker": "一家公司有多个 AWS 账户，并使用 AWS Organizations 统一管理。解决方案架构师必须让多个账户共用同一个网络。基础设施团队拥有一个专用基础设施账户，账户中已建有一个 VPC，团队必须使用这个账户管理网络。各成员账户不能自行管理网络，但必须能够在子网中创建 AWS 资源。解决方案架构师应执行哪两项操作？（选择两项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：启用组织共享是共享给OU的前提。",
@@ -275,7 +275,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "12": {
-    "blocker": "一家公司想要使用第三方软体即服务 (SaaS) 应用程式。第三方 SaaS 应用程式透过多个 API 呼叫来使用。第三方 SaaS 应用程式也在 VPC 内的 AWS 上运行。该公司将从 VPC 内使用第三方 SaaS 应用程式。该公司制定了内部安全政策，要求使用不穿越网路的私人连线。不允许从公司VPC外部存取在公司VPC内运作的资源。所有权限都必须符合最小权限原则。哪种解决方案满足这些要求？",
+    "blocker": "一家公司希望使用第三方软件即服务（SaaS）应用，通过多次 API 调用使用该应用。第三方应用也运行在 AWS 的一个 VPC 中。公司将从自己的 VPC 内调用该应用。内部安全政策要求使用不经过互联网的私有连接，并且公司 VPC 内的任何资源都不允许从该 VPC 外部访问。所有权限都必须遵循最小权限原则。哪种方案满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：消费者端创建接口端点，方向与最小权限正确。"
@@ -299,7 +299,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "13": {
-    "blocker": "一家公司需要为其伺服器实施修补流程。 on-premises伺服器和Amazon EC2实例使用各种工具来执行修补。管理需要一份显示所有伺服器和实例的补丁状态的单一报告。解决方案架构师应该采取哪一组操作来满足这些要求？",
+    "blocker": "一家公司需要为服务器建立补丁管理流程。目前，本地服务器和 Amazon EC2 实例使用多种不同工具打补丁。管理层要求用一份统一报告展示所有服务器和实例的补丁状态。解决方案架构师应采取哪组操作来满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：Patch Manager覆盖混合环境并提供补丁合规数据。"
@@ -323,7 +323,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "14": {
-    "blocker": "一家公司在Application Load Balancer后面的Auto Scaling组中的多个Amazon EC2实例上运行应用程式。应用程式的负载在一天中变化，EC2实例定期扩展和缩减。来自EC2实例的日志文件每15分钟复制到一个中央Amazon S3存储桶。安全团队发现一些已终止的EC2实例的日志文件缺失。哪组操作将确保日志文件从已终止的EC2实例复制到中央S3存储桶？",
+    "blocker": "一家公司在Application Load Balancer后面的Auto Scaling组中的多个Amazon EC2实例上运行应用程序。应用程序的负载在一天中变化，EC2实例定期扩展和缩减。来自EC2实例的日志文件每15分钟复制到一个中央Amazon S3存储桶。安全团队发现一些已终止的EC2实例的日志文件缺失。哪组操作将确保日志文件从已终止的EC2实例复制到中央S3存储桶？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：暂停、远程执行、完成后继续三个步骤正确。"
@@ -347,7 +347,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "15": {
-    "blocker": "一家公司正在使用多个 AWS 帐户。 DNS 记录储存在 Account A 中 Amazon Route 53 的私人托管区域。公司的应用程式和资料库运行在Account B。解决方案架构师将在新的VPC中部署两层应用程式。为了简化配置，Amazon RDS端点的 db.example.com CNAME 记录集是在Amazon Route 53的私有托管区域中建立的。部署期间，应用程式无法启动。故障排除显示 db.example.com 在 Amazon EC2 实例上无法解析。解决方案架构师确认在Route 53中正确创建了记录集。解决方案架构师应采取哪些步骤组合来解决此问题？ （选两个。）",
+    "blocker": "一家公司正在使用多个 AWS 账户。 DNS 记录存储在 Account A 中 Amazon Route 53 的私人托管区域。公司的应用程序和数据库运行在Account B。解决方案架构师将在新的VPC中部署两层应用程序。为了简化配置，Amazon RDS端点的 db.example.com CNAME 记录集是在Amazon Route 53的私有托管区域中建立的。部署期间，应用程序无法启动。故障排除显示 db.example.com 在 Amazon EC2 实例上无法解析。解决方案架构师确认在Route 53中正确创建了记录集。解决方案架构师应采取哪些步骤组合来解决此问题？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：由私有托管区域账户创建关联授权。",
@@ -373,7 +373,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "16": {
-    "blocker": "一家公司使用Amazon EC2实例部署了一个Web机群来托管博客网站。EC2实例位于Application Load Balancer（ALB）后面，并配置在Auto Scaling组中。Web应用程式将所有博客内容存储在Amazon EFS卷上。该公司最近为博客作者添加了在帖子中添加视频的功能，吸引了以前10倍的用户流量。在一天的高峰时段，用户报告在尝试访问网站或观看视频时出现缓冲和超时问题。哪种最具成本效益和可扩展的部署将解决用户的问题？",
+    "blocker": "一家公司使用Amazon EC2实例部署了一个Web机群来托管博客网站。EC2实例位于Application Load Balancer（ALB）后面，并配置在Auto Scaling组中。Web应用程序将所有博客内容存储在Amazon EFS卷上。该公司最近为博客作者添加了在帖子中添加视频的功能，吸引了以前10倍的用户流量。在一天的高峰时段，用户报告在尝试访问网站或观看视频时出现缓冲和超时问题。哪种最具成本效益和可扩展的部署将解决用户的问题？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：对象存储加CDN最适合视频分发。"
@@ -397,7 +397,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "17": {
-    "blocker": "一家拥有全球办公室的公司有一个 1 Gbps AWS Direct Connect 连接到一个AWS Region。本公司的on-premises网路使用该连线与AWS云端中的公司资源进行通讯。此连接具有连接到单一VPC的单一私有虚拟介面。解决方案架构师必须实作一个在同一 Region 中新增冗余 Direct Connect 连接的解决方案。当公司扩展到其他 Regions 时，此解决方案也必须透过同一对 Direct Connect 连接提供与其他 Regions 的连接。哪种解决方案满足这些要求？",
+    "blocker": "一家拥有全球办公室的公司有一个 1 Gbps AWS Direct Connect 连接到一个AWS Region。本公司的on-premises网络使用该连接与AWS云端中的公司资源进行通讯。此连接具有连接到单一VPC的单一私有虚拟接口。解决方案架构师必须实作一个在同一 Region 中新增冗余 Direct Connect 连接的解决方案。当公司扩展到其他 Regions 时，此解决方案也必须通过同一对 Direct Connect 连接提供与其他 Regions 的连接。哪种解决方案满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：通过DX gateway汇聚两条private VIF，再关联VPC的VGW。"
@@ -421,7 +421,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "18": {
-    "blocker": "一家公司有一个网路应用程序，允许用户上传短视频。影片储存在AmazonEBS卷中，并透过自订识别软体进行分析以进行分类。该网站包含的静态内容具有可变流量，并在某些月份达到高峰。此架构由在 Auto Scaling 群组中运行的用于 Web 应用程式的 Amazon EC2 实例和在 Auto Scaling 群组中运行的用于处理 Amazon SQS 伫列的 EC2 实例组成。该公司希望重新建构应用程序，以尽可能使用AWS托管服务来减少营运开销，并消除对第三方软体的依赖。哪种解决方案满足这些要求？",
+    "blocker": "一家公司有一个网络应用程序，允许用户上传短视频。影片存储在AmazonEBS卷中，并通过自定义识别软件进行分析以进行分类。该网站包含的静态内容具有可变流量，并在某些月份达到高峰。此架构由在 Auto Scaling 群组中运行的用于 Web 应用程序的 Amazon EC2 实例和在 Auto Scaling 群组中运行的用于处理 Amazon SQS 队列的 EC2 实例组成。该公司希望重新建构应用程序，以尽可能使用AWS托管服务来减少运维开销，并消除对第三方软件的依赖。哪种解决方案满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：托管对象存储、事件、队列和函数覆盖整个流程。"
@@ -445,7 +445,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "19": {
-    "blocker": "一家公司有一个由 Amazon CloudFront、Amazon API Gateway 和 AWS Lambda 函数组成的无伺服器应用程式。目前应用程式程式码的部署过程是建立 Lambda 函数的新版本号并执行 AWS CLI 脚本进行更新。如果新函数版本出现错误，另一个 CLI 脚本将透过部署函数的先前工作版本来还原。该公司希望减少部署 Lambda 函数提供的新版本应用程式逻辑的时间，并减少发现错误时检测和复原的时间。如何才能做到这一点？",
+    "blocker": "一家公司有一个由 Amazon CloudFront、Amazon API Gateway 和 AWS Lambda 函数组成的无服务器应用程序。目前应用程序代码的部署过程是建立 Lambda 函数的新版本号并执行 AWS CLI 脚本进行更新。如果新函数版本出现错误，另一个 CLI 脚本将通过部署函数的先前工作版本来还原。该公司希望减少部署 Lambda 函数提供的新版本应用程序逻辑的时间，并减少发现错误时检测和恢复的时间。如何才能做到这一点？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：原生部署、钩子、渐变与回滚正好满足。"
@@ -469,7 +469,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "20": {
-    "blocker": "一家公司计划储存大量存档文档，并透过公司内部网路向员工提供这些文档。员工将透过连接到 VPC 的客户端 VPN 服务连接来存取系统。这些数据不得对公众开放。本公司储存的文件是其他地方实体媒体上保存的资料的副本。请求的数量将会很少。可用性和检索速度不是公司关心的问题。哪一种解决方案能够以最低的成本满足这些要求？",
+    "blocker": "一家公司计划存储大量存档文档，并通过公司内部网络向员工提供这些文档。员工将通过连接到 VPC 的客户端 VPN 服务连接来访问系统。这些数据不得对公众开放。本公司存储的文件是其他地方实体媒体上保存的数据的副本。请求的数量将会很少。可用性和检索速度不是公司关心的问题。哪一种解决方案能够以最低的成本满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：EC2私有Web加EFS One Zone-IA可行，按实际存储付费，访问安全组限制到私网。"
@@ -493,7 +493,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "21": {
-    "blocker": "一家公司正在使用 on-premises Active Directory 服务进行使用者验证。该公司希望使用相同的身份验证服务登入该公司使用 AWS Organizations ​​的 AWS 帐户。 on-premises 环境与公司所有 AWS 帐户之间已存在AWS Site-to-Site VPN 连接。本公司的安全策略要求根据使用者群组和角色对帐户进行有条件的存取。使用者身分必须在单一位置进行管理。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在使用 on-premises Active Directory 服务进行用户验证。该公司希望使用相同的身份验证服务登录该公司使用 AWS Organizations 的 AWS 账户。 on-premises 环境与公司所有 AWS 账户之间已存在AWS Site-to-Site VPN 连接。本公司的安全策略要求根据用户群组和角色对账户进行有条件的访问。用户身份必须在单一位置进行管理。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：支持外部IdP的正确整体架构，但需AD联合身份提供者桥接。"
@@ -517,7 +517,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "22": {
-    "blocker": "一家软体公司部署了一个应用程序，该应用程式透过使用 Amazon API Gateway、AWS Lambda 函数和 Amazon DynamoDB 表来使用 REST API。应用程式显示 PUT 请求期间的错误数量有所增加。大多数 PUT 呼叫来自少数使用特定 API 金钥进行身份验证的用户端。解决方案架构师发现大量 PUT 请求源自于一个客户端。该 API 并不重要，客户端可以容忍重试不成功的呼叫。然而，这些错误会向客户显示，并对 API 的声誉造成损害。解决方案架构师应该建议什么来改善客户体验？",
+    "blocker": "一家软件公司部署了一个使用 REST API 的应用，该 API 采用 Amazon API Gateway、AWS Lambda 函数和 Amazon DynamoDB 表。PUT 请求的错误数量不断增加，大部分 PUT 调用来自少数使用特定 API 密钥进行身份验证的客户端。解决方案架构师发现，大量 PUT 请求来自同一个客户端。该 API 并非关键业务，客户端可以重试失败的调用，但这些错误会显示给客户并损害 API 的声誉。解决方案架构师应推荐什么做法来改善客户体验？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：API key关联usage plan可设限流及配额。"
@@ -541,7 +541,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "23": {
-    "blocker": "一家公司正在 AWS 上运行资料密集型应用程式。该应用程式在数百个 Amazon EC2 实例的集群上运行。共享档案系统也在多个储存 200 TB 资料的 EC2 实例上运作。应用程式读取并修改共享档案系统上的资料并产生报告。该作业每月运行一次，从共享档案系统读取档案的子集，大约需要 72 小时才能完成。计算实例在Auto Scaling组中扩展，但托管共享档案系统的实例持续运行。计算实例和储存实例都位于同一个 AWS Region 中。解决方案架构师需要透过取代共享档案系统实例来降低成本。文件系统必须在 72 小时运行期间提供对所需资料的高效能存取。哪一种解决方案能够在满足这些要求的同时最大程度地降低整体成本？",
+    "blocker": "一家公司正在 AWS 上运行数据密集型应用程序。该应用程序在数百个 Amazon EC2 实例的集群上运行。共享文件系统也在多个存储 200 TB 数据的 EC2 实例上运作。应用程序读取并修改共享文件系统上的数据并产生报告。该作业每月运行一次，从共享文件系统读取文件的子集，大约需要 72 小时才能完成。计算实例在Auto Scaling组中扩展，但托管共享文件系统的实例持续运行。计算实例和存储实例都位于同一个 AWS Region 中。解决方案架构师需要通过取代共享文件系统实例来降低成本。文件系统必须在 72 小时运行期间提供对所需数据的高性能访问。哪一种解决方案能够在满足这些要求的同时最大程度地降低整体成本？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：按需加载子集并按作业窗口付文件系统费用，最符合访问模式。"
@@ -565,7 +565,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "24": {
-    "blocker": "一家公司正在开发一项新服务，将在静态连接埠上使用 TCP 进行存取。解决方案架构师必须确保服务高度可用，在 Availability Zones 上具有冗余，并且可以使用可公开存取的 DNS 名称 my.service.com 进行存取。该服务必须使用固定地址分配，以便其他公司可以将地址新增至其允许清单。假设将资源部署在单一Region中的多个Availability Zones中，哪一种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在开发一项新服务，将在静态连接埠上使用 TCP 进行访问。解决方案架构师必须确保服务高度可用，在 Availability Zones 上具有冗余，并且可以使用可公开访问的 DNS 名称 my.service.com 进行访问。该服务必须使用固定地址分配，以便其他公司可以将地址新增至其允许清单。假设将资源部署在单一Region中的多个Availability Zones中，哪一种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：NLB每AZ静态EIP、实例目标组、DNS alias组成正确。"
@@ -589,7 +589,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "25": {
-    "blocker": "一家公司使用on-premises数据分析平台。该系统在公司资料中心的 12 台伺服器上采用完全冗余配置，具有高可用性。除了使用者的一次性请求之外，系统每小时和每天运行预定作业。排程作业可能需要 20 分钟到 2 小时才能完成执行并具有严格的 SLA。计划作业占系统使用量的 65%。使用者作业通常在 5 分钟内完成运行，并且没有 SLA。使用者作业占系统使用量的 35%。在系统故障期间，已排程的作业必须继续满足 SLA。但是，使用者作业可能会延迟。解决方案架构师需要将系统迁移到Amazon EC2实例，并采用基于消耗的模型来降低成本，而无需做出长期承诺。此解决方案必须保持高可用性，且不得影响 SLA。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司使用本地数据分析平台，在数据中心的 12 台服务器上采用完全冗余的高可用配置。除用户的一次性请求外，系统还执行每小时和每日的计划作业。计划作业需要 20 分钟至 2 小时完成，有严格 SLA，占系统使用量的 65%。用户作业通常在不到 5 分钟内完成，没有 SLA，占使用量的 35%。发生系统故障时，计划作业仍必须满足 SLA，而用户作业可以延后。解决方案架构师需要将系统迁到 Amazon EC2，采用按实际用量付费且无需长期承诺的模式降低成本，同时保持高可用且不影响 SLA。哪种方案最具成本效益？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：9台按需跨3AZ并预留容量，3台Spot用于可延迟负载。"
@@ -613,7 +613,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "26": {
-    "blocker": "安全工程师确定现有应用程式从 Amazon S3 中的加密档案撷取 MySQL 资料库的 Amazon RDS 凭证。对于应用程式的下一版本，安全工程师希望实施以下应用程式设计变更以提高安全性： 资料库必须使用储存在安全的 AWS 托管服务中的随机产生的强密码。应用资源必须透过AWS CloudFormation进行部署。应用程式必须每 90 天轮换资料库的凭证。解决方案架构师将产生一个CloudFormation模板来部署应用程式。 CloudFormation 范本中指定的哪些资源能够以最少的营运开销满足安全工程师的要求？",
+    "blocker": "安全工程师发现，现有应用从 Amazon S3 中的加密文件读取 Amazon RDS for MySQL 数据库凭证。下一版应用需要以下安全改进：数据库使用随机生成的强密码，并把密码保存在安全的 AWS 托管服务中；应用资源必须通过 AWS CloudFormation 部署；数据库凭证必须每 90 天轮换一次。解决方案架构师将编写 CloudFormation 模板部署应用。模板中指定哪组资源，能以最少的运维工作满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：原生Secret、Lambda轮换、RotationSchedule满足要求。"
@@ -637,7 +637,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "27": {
-    "blocker": "一家公司将资料储存在多个 Amazon DynamoDB 表中。解决方案架构师必须使用无伺服器架构，透过HTTPS透过简单的 API 公开存取资料。该解决方案必须根据需求自动扩展。哪些解决方案满足这些要求？ （选两个。）",
+    "blocker": "一家公司把数据保存在多个 Amazon DynamoDB 表中。解决方案架构师必须采用无服务器架构，通过基于 HTTPS 的简单 API 向公众提供这些数据。方案必须能随需求自动扩展。哪些方案满足要求？（选择两项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：REST API的AWS integration可直接调用DynamoDB。",
@@ -663,7 +663,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "28": {
-    "blocker": "某公司注册了 10 个新网域。该公司使用这些网域进行线上行销。该公司需要一种解决方案，将线上访客重新导向到每个网域的特定 URL。所有网域和目标 URL 均在 JSON 文件中定义。所有DNS记录皆由Amazon Route 53管理。解决方案架构师必须实现接受 HTTP 和 HTTPS 请求的重定向服务。解决方案架构师应采取哪种步骤组合才能以最少的操作工作量满足这些要求？ （选择三项。）",
+    "blocker": "某公司注册了 10 个新网域。该公司使用这些网域进行在线行销。该公司需要一种解决方案，将在线访客重新导向到每个网域的特定 URL。所有网域和目标 URL 均在 JSON 文件中定义。所有DNS记录皆由Amazon Route 53管理。解决方案架构师必须实现接受 HTTP 和 HTTPS 请求的重定向服务。解决方案架构师应采取哪种步骤组合才能以最少的操作工作量满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：ALB提供两个协议监听及Lambda target集成。",
@@ -691,7 +691,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "29": {
-    "blocker": "拥有多个 AWS 帐户的公司正在使用 AWS Organizations。公司的 AWS 帐户托管 VPC、Amazon EC2 实例和容器。公司的合规团队已在公司部署的每个VPC中部署了安全工具。安全工具在 EC2 实例上运行，并将资讯传送至合规团队专用的 AWS 帐户。该公司已使用键“costCenter”和值或“compliance”标记所有与合规性相关的资源。该公司希望确定在 EC2 实例上运行的安全工具的成本，以便公司可以向合规团队的 AWS 帐户收费。成本计算必须尽可能准确。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家使用多个 AWS 账户的公司通过 AWS Organizations 管理账户。这些账户中运行着 VPC、Amazon EC2 实例和容器。合规团队在公司开展部署的每个 VPC 中都部署了安全工具。工具运行在 EC2 实例上，并将信息发送到合规团队专用的 AWS 账户。所有合规相关资源都已添加标签，键为 costCenter，值为 compliance。公司希望计算这些 EC2 上安全工具的成本，以将费用分摊给合规团队的 AWS 账户，并要求计算尽可能准确。解决方案架构师应如何做？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：管理账户激活、集中CUR、按标签聚合正确。"
@@ -715,7 +715,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "30": {
-    "blocker": "一家公司有 50 个 AWS 帐户，这些帐户是 AWS Organizations ​​组织的成员。每个帐户包含多个VPC。该公司希望使用 AWS Transit Gateway 在每个成员帐户中的 VPC 之间建立连接。每次建立新的会员帐户时，该公司都希望自动执行建立新 VPC 和中转网关附件的过程。哪一种步骤组合可以满足这些要求？ （选两个。）",
+    "blocker": "一家公司有 50 个 AWS 账户，均属于 AWS Organizations 中的同一组织，每个账户包含多个 VPC。公司希望使用 AWS Transit Gateway 让各成员账户的 VPC 互通。每当创建新的成员账户时，公司都希望自动创建一个新 VPC 及其 Transit Gateway 连接。哪两项操作组合满足要求？（选择两项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：RAM是TGW跨账户共享方式。",
@@ -741,7 +741,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "31": {
-    "blocker": "一家企业公司希望允许其开发人员透过AWS Marketplace 购买第三方软体。该公司使用启用了全部功能的 AWS Organizations ​​帐户结构，并在每个组织单位 (OU) 中拥有一个供采购经理使用的共享服务帐户。采购团队的政策表明，开发者应该只能从批准的清单中获取第三方软体，并使用AWS Marketplace中的Private Marketplace来实现这一要求。采购团队希望私人市场的管理仅限于名为采购经理角色的角色，该角色可以由采购经理承担。公司中的其他 IAM 使用者、群组、角色和帐户管理员应被拒绝 Private Marketplace 管理存取权限。设计架构以满足这些要求的最有效方法是什么？",
+    "blocker": "一家公司允许开发人员通过 AWS Marketplace 采购第三方软件。公司采用启用全部功能的 AWS Organizations 多账户结构，每个组织单元（OU）都有一个供采购经理使用的共享服务账户。采购政策要求开发人员只能获取批准列表中的软件，并通过 AWS Marketplace 的 Private Marketplace 实现这一限制。Private Marketplace 管理权限必须仅授予名为 procurement-manager-role 的角色，由采购经理代入该角色。公司内其他 IAM 用户、用户组、角色及账户管理员均不得管理 Private Marketplace。哪种架构设计最有效地满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：指定角色授权、组织拒绝、阻止同名角色冒充三层结合。"
@@ -765,7 +765,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "32": {
-    "blocker": "某公司正在实施AWS Organizations，以限制其开发人员仅使用Amazon EC2、Amazon S3和Amazon DynamoDB。开发者帐户驻留在专门的组织单位 (OU)。解决方案架构师已在开发人员帐户上实施以下SCP：部署此策略后，开发人员帐户中的IAM用户仍然可以使用策略中未列出的AWS服务。解决方案架构师应该采取什么措施来消除开发人员使用本政策范围以外的服务的能力？",
+    "blocker": "某公司正在实施AWS Organizations，以限制其开发人员仅使用Amazon EC2、Amazon S3和Amazon DynamoDB。开发者账户驻留在专门的组织单位 (OU)。解决方案架构师已在开发人员账户上实施以下SCP：部署此策略后，开发人员账户中的IAM用户仍然可以使用策略中未列出的AWS服务。解决方案架构师应该采取什么措施来消除开发人员使用本政策范围以外的服务的能力？（英文原题提到的 SCP 策略代码或图片缺失，请结合解析中的限制说明阅读。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：移除同限制层的全允许策略才使白名单生效。"
@@ -789,7 +789,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "33": {
-    "blocker": "一家公司正在 VPC 的公共子网路中的 ve 个 Amazon EC2 实例上托管一个基于 REST 的行动应用程式 API。行动用户端使用 Amazon Route 53 上托管的网域连接到 API。该公司使用所有 EC2 实例的 IP 位址建立了 Route 53 多值应答路由策略。最近，该应用程式因流量突然大幅增加而不堪重负。该应用程式无法跟上流量。解决方案架构师需要实作一个解决方案，以便应用程式可以处理新的和变化的负载。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司在 VPC 公有子网中的 5 台 Amazon EC2 实例上，托管移动应用使用的单体 REST API。移动客户端通过由 Amazon Route 53 托管的域名连接该 API。公司已使用全部 EC2 实例的 IP 地址创建 Route 53 多值应答路由策略。最近，流量突然大幅增加，应用不堪重负，无法处理新的流量。解决方案架构师需要使应用能够应对新增且不断变化的负载。哪种方案能以最少的运维工作满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：托管API与函数伸缩满足负载变化且运维最少。"
@@ -813,7 +813,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "34": {
-    "blocker": "一家公司在 AWS Organizations ​​中为其每个工程团队创建了一个 OU。每个OU拥有多个AWS帐户。该组织拥有数百个 AWS 帐户。解决方案架构师必须设计一个解决方案，以便每个OU 都可以查看其AWS 帐户的使用成本明细。哪种解决方案满足这些要求？",
+    "blocker": "一家公司在 AWS Organizations 中为其每个工程团队创建了一个 OU。每个OU拥有多个AWS账户。该组织拥有数百个 AWS 账户。解决方案架构师必须设计一个解决方案，以便每个OU 都可以查看其AWS 账户的使用成本明细。哪种解决方案满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：集中CUR覆盖组织所有账户，适合团队视图。"
@@ -837,7 +837,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "35": {
-    "blocker": "一家公司将资料储存在 Windows 档案伺服器上。该公司每天产生 5 GB 的新数据。该公司将部分基于 Windows 的工作负载迁移到AWS，并需要在云端中的档案系统上提供资料。本公司已经在on-premises网路和AWS之间建立了AWS Direct Connect连线。公司应该使用哪种资料迁移策略？",
+    "blocker": "一家公司把数据存储在本地 Windows 文件服务器上，每天新增 5 GB 数据。公司已将部分基于 Windows 的工作负载迁移到 AWS，需要让这些数据能从云中的文件系统访问。本地网络与 AWS 之间已有 AWS Direct Connect 连接。公司应采用哪种数据迁移策略？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：DataSync支持SMB到FSx Windows并可周期复制。"
@@ -861,7 +861,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "36": {
-    "blocker": "一家公司的解决方案架构师正在审查在 AWS 上运行的 Web 应用程式。该应用程式引用 us-east-1 Region 中Amazon S3 储存桶中的静态资产。公司需要跨越多个 AWS Regions 的弹性。该公司已经在第二个Region中创建了一个S3桶。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "解决方案架构师正在审查公司运行在 AWS 上的 Web 应用。应用引用 us-east-1 区域某个 Amazon S3 桶中的静态资源。公司需要具备跨多个 AWS 区域的故障恢复能力，且已在第二个区域创建 S3 桶。哪种方案能以最少的运维工作满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：托管复制和自动源站故障转移组合运维最少。"
@@ -885,7 +885,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "37": {
-    "blocker": "一家公司在 on-premises 环境中托管一个三层 Web 应用程式。由于最近流量激增导致停机并造成重大财务影响，公司管理层已下令将应用程式转移到AWS。该应用程式是用 .NET 编写的，并且依赖 MySQL 资料库。解决方案架构师必须设计可扩展且高度可用的解决方案，以满足 200,000 名日常用户的需求。解决方案架构师应该采取哪些步骤来设计合适的解决方案？",
+    "blocker": "一家公司在 on-premises 环境中托管一个三层 Web 应用程序。由于最近流量激增导致停机并造成重大财务影响，公司管理层已下令将应用程序转移到AWS。该应用程序是用 .NET 编写的，并且依赖 MySQL 数据库。解决方案架构师必须设计可扩展且高度可用的解决方案，以满足 200,000 名日常用户的需求。解决方案架构师应该采取哪些步骤来设计合适的解决方案？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：多AZ应用与数据库、托管入口、基础设施模板完整。"
@@ -909,7 +909,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "38": {
-    "blocker": "一家公司正在使用 AWS Organizations ​​管理多个 AWS 帐户。出于安全目的，公司要求创建一个Amazon简单通知服务（Amazon SNS）主题，以便与所有组织成员帐户中的第三方警报系统整合。解决方案架构师使用 AWS CloudFormation 范本建立 SNS 主题和堆叠集，以自动部署 CloudFormation 堆叠。组织中已启用可信任存取。解决方案架构师应该如何在所有 AWS 帐户中部署 CloudFormation StackSet？",
+    "blocker": "一家公司使用 AWS Organizations 管理多个 AWS 账户。出于安全要求，必须在组织的所有成员账户中创建 Amazon Simple Notification Service（Amazon SNS）主题，以对接第三方告警系统。解决方案架构师已用 CloudFormation 模板定义 SNS 主题，并使用堆栈集自动部署 CloudFormation 堆栈。Organizations 中已启用可信访问。应如何将 CloudFormation StackSets 部署到所有 AWS 账户？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：与可信访问、组织目标及自动部署完整匹配。"
@@ -933,7 +933,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "39": {
-    "blocker": "一家公司希望将其工作负载从本地迁移到AWS。工作负载在 Linux 和 Windows 上运作。该公司拥有大型本地基础设施，由托管大量应用程式的实体机和虚拟机组成。公司必须撷取有关 on-premises 工作负载的系统配置、系统效能、运行进程和网路连接的详细资讯。公司还必须将on-premises应用程式分组以进行AWS迁移。该公司需要针对 Amazon EC2 执行个体类型的建议，以便公司能够以最具成本效益的方式在 AWS 上运行其工作负载。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选择三项。）",
+    "blocker": "一家公司希望将其工作负载从本地迁移到AWS。工作负载在 Linux 和 Windows 上运作。该公司拥有大型本地基础设施，由托管大量应用程序的实体机和虚拟机组成。公司必须撷取有关 on-premises 工作负载的系统配置、系统性能、运行进程和网络连接的详细资讯。公司还必须将on-premises应用程序分组以进行AWS迁移。该公司需要针对 Amazon EC2 实例类型的建议，以便公司能够以最具成本效益的方式在 AWS 上运行其工作负载。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：Discovery Agent采集题述依赖与性能数据。",
@@ -961,7 +961,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "40": {
-    "blocker": "一家公司正在 VPC 中的 AWS 上托管影像处理服务。 VPC 横跨两个Availability Zones。每个Availability Zone包含1个公有子网和1个私有子网。此服务在私有子网路中的 Amazon EC2 实例上运作。公共子网路中的Application Load Balancer位于服务前面。该服务需要与互联网进行通信，并透过两个 NAT 网关进行通信。该服务使用Amazon S3进行影像储存。 EC2 实例每天从 S3 储存桶检索约 1 TB 资料。该公司将该服务宣传为高度安全的。解决方案架构师必须在不影响服务安全状况或增加持续营运时间的情况下尽可能减少云端支出。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在 AWS VPC 中托管图像处理服务。VPC 跨两个可用区，每个可用区各有一个公有子网和一个私有子网。服务运行在私有子网的 Amazon EC2 实例上，前面有部署于公有子网的 Application Load Balancer。服务通过两个 NAT 网关访问互联网，并使用 Amazon S3 保存图像。EC2 实例每天从 S3 桶读取约 1 TB 数据。公司一直以该服务的高安全性作为卖点。解决方案架构师必须在不降低安全性、也不增加持续运维工作时间的前提下，尽可能减少云支出。哪种方案满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：免费gateway endpoint保留私有架构并降低NAT成本。"
@@ -985,7 +985,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "41": {
-    "blocker": "一家公司最近在AWS上部署了一个应用程式。该应用程式使用Amazon DynamoDB。该公司测量了应用程式负载，并在 DynamoDB 表上配置了 RCU 和 WCU，以匹配预期的峰值负载。尖峰负载每周出现一次，持续 4 小时，是平均负载的两倍。应用程式负载接近本周剩余时间的平均负载。存取模式包括对表的写入比对表的读取多得多。解决方案架构师需要实施一个解决方案来最大限度地降低表的成本。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司最近在AWS上部署了一个应用程序。该应用程序使用Amazon DynamoDB。该公司测量了应用程序负载，并在 DynamoDB 表上配置了 RCU 和 WCU，以匹配预期的峰值负载。尖峰负载每周出现一次，持续 4 小时，是平均负载的两倍。应用程序负载接近本周剩余时间的平均负载。访问模式包括对表的写入比对表的读取多得多。解决方案架构师需要实施一个解决方案来最大限度地降低表的成本。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：稳定基线折扣加短峰扩容匹配模式。"
@@ -1009,7 +1009,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "42": {
-    "blocker": "解决方案架构师需要就如何将其on-premises资料处理应用程式迁移到AWS云向公司提供建议。目前，使用者透过入口网站上传输入档案。然后，Web 伺服器将上传的档案储存在 NAS 上，并透过讯息伫列向处理伺服器发送讯息。每个媒体档案可能需要长达 1 小时来处理。该公司已确定，在工作时间等待处理的媒体文件数量显著增加，而在工作时间之后文件数量迅速下降。最具成本效益的迁移建议是什么？",
+    "blocker": "解决方案架构师需要就如何将其on-premises数据处理应用程序迁移到AWS云向公司提供建议。目前，用户通过入口网站上传输入文件。然后，Web 服务器将上传的文件存储在 NAS 上，并通过消息队列向处理服务器发送消息。每个媒体文件可能需要长达 1 小时来处理。该公司已确定，在工作时间等待处理的媒体文件数量显著增加，而在工作时间之后文件数量迅速下降。最具成本效益的迁移建议是什么？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：队列、ASG及S3适合可变长时批处理。"
@@ -1033,7 +1033,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "43": {
-    "blocker": "一家公司正在使用Amazon OpenSearch Service来分析数据。该公司将资料从使用 S3 标准储存的 Amazon S3 储存桶载入到具有 10 个资料节点的 OpenSearch 服务集群中。数据在集群中驻留 1 个月，用于唯读分析。 1 个月后，该公司从集群中删除包含资料的索引。出于合规性目的，公司必须保留所有输入资料的副本。该公司担心持续的成本，并要求解决方案架构师推荐新的解决方案。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司正在使用Amazon OpenSearch Service来分析数据。该公司将数据从使用 S3 标准存储的 Amazon S3 存储桶载入到具有 10 个数据节点的 OpenSearch 服务集群中。数据在集群中驻留 1 个月，用于只读分析。 1 个月后，该公司从集群中删除包含数据的索引。出于合规性目的，公司必须保留所有输入数据的副本。该公司担心持续的成本，并要求解决方案架构师推荐新的解决方案。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：少量热节点加UltraWarm并归档输入最匹配读后保留。"
@@ -1057,7 +1057,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "44": {
-    "blocker": "一家公司有 10 个帐户，这些帐户属于 AWS Organizations ​​中的组织。 AWS 配置在每个帐户中配置。所有帐号皆属于 Prod OU 或 NonProd OU。公司在每个AWS帐户中设定了AmazonEventBridge规则，当以0.0.0.0/0为源创建Amazon EC2安全组入站规则时，通知AmazonT简单通知服务（⟧T07221722。公司安全团队订阅了SNS主题。对于 NonProd OU 中的所有帐户，安全团队需要删除建立包含 0.0.0.0/0 作为来源的安全群组入站规则的功能。哪种解决方案能够以最少的营运开销满足这项要求？",
+    "blocker": "一家公司有 10 个 AWS 账户，均属于 AWS Organizations 中的同一个组织，每个账户均已配置 AWS Config。所有账户都归入 Prod OU 或 NonProd OU。公司在每个账户中设置 Amazon EventBridge 规则：一旦创建了以 0.0.0.0/0 为来源的 Amazon EC2 安全组入站规则，就向 Amazon Simple Notification Service（Amazon SNS）主题发送通知。安全团队已订阅该主题。对于 NonProd OU 中的所有账户，安全团队需要禁止创建来源为 0.0.0.0/0 的安全组入站规则。哪种方案能以最少的运维工作满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：可事后自动撤销开放规则，仍有短暂暴露窗口。"
@@ -1081,7 +1081,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "45": {
-    "blocker": "一家公司在 on-premises 资料中心托管 Git 储存库。该公司使用 Webhook 来呼叫在 AWS 云端中运行的功能。该公司将 Webhook 逻辑托管在 Auto Scaling 群组中的一组 Amazon EC2 实例上，该公司将该群组设定为 Application Load Balancer (ALB) 的目标。 Git 伺服器为已设定的 Webhook 呼叫 ALB。该公司希望将解决方案迁移到无伺服器架构。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司在 on-premises 数据中心托管 Git 存储库。该公司使用 Webhook 来调用在 AWS 云端中运行的功能。该公司将 Webhook 逻辑托管在 Auto Scaling 群组中的一组 Amazon EC2 实例上，该公司将该群组设定为 Application Load Balancer (ALB) 的目标。 Git 服务器为已设定的 Webhook 调用 ALB。该公司希望将解决方案迁移到无服务器架构。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：官方明确支持以function URL作为webhook endpoint。"
@@ -1105,7 +1105,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "46": {
-    "blocker": "某公司计划将 1,000 台 on-premises 伺服器迁移到 AWS。伺服器运行在公司资料中心的多个VMware集群上。作为迁移计划的一部分，该公司希望收集伺服器指标，例如 CPU 详细资讯、RAM 使用情况、作业系统资讯和正在运行的进程。然后该公司想要查询和分析资料。哪种解决方案可以满足这些要求？",
+    "blocker": "某公司计划将 1,000 台 on-premises 服务器迁移到 AWS。服务器运行在公司数据中心的多个VMware集群上。作为迁移计划的一部分，该公司希望收集服务器指标，例如 CPU 详细资讯、RAM 使用情况、作业系统资讯和正在运行的进程。然后该公司想要查询和分析数据。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：Agent数据、S3探索和Athena查询匹配。"
@@ -1129,7 +1129,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "47": {
-    "blocker": "一家公司正在建立一个无伺服器应用程序，该应用程式在附加到 VPC 的 AWS Lambda 函数上运行。该公司需要将该应用程式与外部提供者的新服务整合。外部提供者仅支援来自允许清单中的公共 IPv4 位址的请求。在应用程式可以开始使用新服务之前，公司必须向外部提供者提供单一公用 IP 位址。哪种解决方案将使应用程式能够存取新服务？",
+    "blocker": "一家公司正在建立一个无服务器应用程序，该应用程序在附加到 VPC 的 AWS Lambda 函数上运行。该公司需要将该应用程序与外部提供者的新服务整合。外部提供者仅支持来自允许清单中的公共 IPv4 地址的请求。在应用程序可以开始使用新服务之前，公司必须向外部提供者提供单一公网 IP 地址。哪种解决方案将使应用程序能够访问新服务？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：NAT加EIP提供稳定IPv4出口。"
@@ -1153,7 +1153,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "48": {
-    "blocker": "解决方案架构师开发了一个使用 Amazon API Gateway Regional 端点和 AWS Lambda 函数的 Web 应用程式。 Web 应用程式的使用者都靠近将部署应用程式的AWS Region。 Lambda 函数仅查询 Amazon Aurora MySQL 资料库。解决方案架构师已将资料库配置为具有三个唯读副本。在测试过程中，应用程式不符合效能要求。在高负载下，应用程式开启大量资料库连线。解决方案架构师必须提高应用程式的效能。解决方案架构师应该采取哪些行动来满足这些要求？ （选两个。）",
+    "blocker": "解决方案架构师开发了一个使用 Amazon API Gateway Regional 端点和 AWS Lambda 函数的 Web 应用程序。 Web 应用程序的用户都靠近将部署应用程序的AWS Region。 Lambda 函数仅查询 Amazon Aurora MySQL 数据库。解决方案架构师已将数据库配置为具有三个只读副本。在测试过程中，应用程序不符合性能要求。在高负载下，应用程序开启大量数据库连接。解决方案架构师必须提高应用程序的性能。解决方案架构师应该采取哪些行动来满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：代理连接池及只读端点减轻连接压力。",
@@ -1179,7 +1179,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "49": {
-    "blocker": "一家公司计划在 AWS 上托管一个 Web 应用程序，并希望在一组 Amazon EC2 实例之间实现流量负载平衡。安全性要求之一是在客户端和 Web 伺服器之间的传输中启用端对端加密。哪种解决方案可以满足这个要求？",
+    "blocker": "一家公司计划在 AWS 上托管一个 Web 应用程序，并希望在一组 Amazon EC2 实例之间实现流量负载均衡。安全性要求之一是在客户端和 Web 服务器之间的传输中启用端对端加密。哪种解决方案可以满足这个要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：ALB终止客户端TLS，再与HTTPS实例建立新TLS连接。"
@@ -1203,7 +1203,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "50": {
-    "blocker": "一家公司希望将其资料分析环境从本地迁移到AWS。该环境由两个简单的 Node.js 应用程式组成。其中一个应用程式收集感测器资料并将其载入到MySQL资料库中。另一个应用程式将资料聚合到报告中。聚合作业执行时，部分载入作业无法正常运作。公司必须解决资料载入问题。该公司还需要在不中断或不改变公司客户的情况下进行迁移。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家公司希望将本地数据分析环境迁移到 AWS。环境包含两个简单的 Node.js 应用：一个收集传感器数据并写入 MySQL 数据库，另一个聚合数据生成报告。聚合作业运行时，部分数据加载作业无法正常执行。公司必须解决加载失败问题，而且迁移过程不能中断客户服务，也不能要求客户作任何更改。解决方案架构师应如何做？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：迁移、读写隔离、托管采集与连接池均正确。"
@@ -1227,7 +1227,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "51": {
-    "blocker": "一家健康保险公司将个人识别资讯 (PII) 储存在 Amazon S3 储存桶中。该公司使用具有 S3 托管加密金钥 (SSE-S3) 的伺服器端加密来加密物件。根据新要求，S3储存桶中目前和未来的所有物件都必须使用公司安全团队管理的金钥进行加密。 S3 储存桶未启用版本控制。哪种解决方案可以满足这些要求？",
+    "blocker": "一家健康保险公司将个人识别资讯 (PII) 存储在 Amazon S3 存储桶中。该公司使用具有 S3 托管加密密钥 (SSE-S3) 的服务器端加密来加密对象。根据新要求，S3存储桶中目前和未来的所有对象都必须使用公司安全团队管理的密钥进行加密。 S3 存储桶未启用版本控制。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：SSE-KMS指定客户管理密钥并重写旧对象是正确路径。"
@@ -1251,7 +1251,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "52": {
-    "blocker": "一家公司正在 AWS 云端中运行 Web 应用程式。该应用程式由在一组 Amazon EC2 实例上建立的动态内容组成。 EC2 实例在配置为 Application Load Balancer (ALB) 目标组的 Auto Scaling 组中运行。该公司正在使用 Amazon CloudFront 发行版在全球范围内分发该应用程式。 CloudFront 发行版使用 ALB 作为原点。该公司使用 Amazon Route 53 代表 DNS，并为 CloudFront 分发创建了 www.example.com 的 A 记录。解决方案架构师必须配置应用程序，使其具有高可用性和容错能力。哪种解决方案满足这些要求？",
+    "blocker": "一家公司在 AWS 云中运行 Web 应用，动态内容由一组 Amazon EC2 实例生成。这些实例位于 Auto Scaling 组中，并作为 Application Load Balancer（ALB）的后端目标。公司使用以该 ALB 为源站的 Amazon CloudFront 分发，向全球用户提供应用。公司使用 Amazon Route 53 管理 DNS，并为 CloudFront 分发创建了 www.example.com 的 A 记录。解决方案架构师必须使应用具备高可用性和容错能力。哪种方案满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：两个区域origin配CloudFront origin failover为原生方案。"
@@ -1275,7 +1275,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "53": {
-    "blocker": "某公司在AWS Organizations有一个组织，拥有大量AWS帐户。其中一个 AWS 帐户被指定为中转帐户，并具有与所有其他 AWS 帐户共享的中转网关。在公司的所有全球办事处和中转帐户之间配置AWS Site-to-Site VPN 连接。该公司在其所有帐户上启用了 AWS Config。本公司的网路团队需要集中管理属于全球办事处的内部 IP 位址范围清单。开发人员将参考此清单来安全地存取其应用程式。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "某公司在AWS Organizations有一个组织，拥有大量AWS账户。其中一个 AWS 账户被指定为中转账户，并具有与所有其他 AWS 账户共享的中转网关。在公司的所有全球办事处和中转账户之间配置AWS Site-to-Site VPN 连接。该公司在其所有账户上启用了 AWS Config。本公司的网络团队需要集中管理属于全球办事处的内部 IP 地址范围清单。开发人员将参考此清单来安全地访问其应用程序。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：RAM共享prefix list适合跨账户统一CIDR。"
@@ -1299,7 +1299,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "54": {
-    "blocker": "一家公司在 Amazon S3 中运行一个新应用程式作为静态网站。该公司已将该应用程式部署到生产 AWS 帐户，并使用 Amazon CloudFront 交付网站。该网站呼叫 Amazon API Gateway REST API。 AWS Lambda 函数支援每个 API 方法。该公司希望每两周建立一个 CSV 报告，以显示每个 API Lambda 函数的建议配置记忆体、建议成本以及当前配置与建议之间的价格差异。公司将把报告存放在S3桶中。哪种解决方案能够以最短的开发时间满足这些要求？",
+    "blocker": "一家公司在 Amazon S3 中运行一个新应用程序作为静态网站。该公司已将该应用程序部署到生产 AWS 账户，并使用 Amazon CloudFront 交付网站。该网站调用 Amazon API Gateway REST API。 AWS Lambda 函数支持每个 API 方法。该公司希望每两周建立一个 CSV 报告，以显示每个 API Lambda 函数的建议配置内存、建议成本以及当前配置与建议之间的价格差异。公司将把报告存放在S3桶中。哪种解决方案能够以最短的开发时间满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：ExportLambdaFunctionRecommendations原生导出到S3 CSV。"
@@ -1323,7 +1323,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "55": {
-    "blocker": "该公司的工厂和自动化应用程式在单一VPC中运作。超过 20 个应用程式在 Amazon EC2、Amazon Elastic Container Service (Amazon ECS) 和 Amazon RDS 的组合上运行。该公司的软体工程师分布在三个团队。三个团队之一拥有每个应用程序，并且每次都对其所有应用程式的成本和效能负责。团队资源具有代表其应用程式和团队的标签。团队使用 IAM 存取权限进行日常活动。公司需要确定每月AWS帐单上的哪些成本可归因于每个应用程式或团队。公司还必须能够创建报告来比较过去 12 个月的成本并帮助预测未来 12 个月的成本。解决方案架构师必须推荐提供这些成本报告的AWS 计费和成本管理解决方案。哪一种行动组合可以满足这些要求？ （选择三项。）",
+    "blocker": "一家公司的工厂及自动化应用运行在单个 VPC 中，超过 20 个应用使用 Amazon EC2、Amazon Elastic Container Service（Amazon ECS）和 Amazon RDS 的组合。软件工程师分属三个团队，每个应用由其中一个团队负责，各团队负责其所有应用的成本与性能。团队资源已有标识应用和团队的标签，团队日常通过 IAM 权限操作。公司需要确定每月 AWS 账单中的费用分别属于哪个应用或团队，还需要比较过去 12 个月的成本，并预测未来 12 个月的成本。解决方案架构师应推荐哪三项 AWS Billing and Cost Management 操作来提供这些报表？（选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：激活既有user-defined标签使费用可按应用/团队归集。",
@@ -1351,7 +1351,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "56": {
-    "blocker": "AWS 客户有一个在本地运行的 Web 应用程式。 Web 应用程式从防火墙后面的第三方 API 取得资料。第三方仅接受每个客户端允许清单中的一个公共CIDR块。客户希望将其 Web 应用程式迁移到 AWS 云端。该应用程式将托管在 VPC 中 Application Load Balancer (ALB) 后面的一组 Amazon EC2 实例上。 ALB 位于公共子网路中。 EC2 实例位于私有子网路中。 NAT 闸道提供对私有子网路的网际网路存取。解决方案架构师应该如何确保Web应用程式在迁移后可以继续呼叫第三方API？",
+    "blocker": "一家 AWS 客户在本地运行 Web 应用，应用需要从防火墙后的第三方 API 获取数据。第三方对每个客户的允许列表只接受一个公有 CIDR 地址块。客户计划把应用迁到 AWS，在 VPC 中通过 Application Load Balancer（ALB）分发到一组 EC2 实例。ALB 位于公有子网，EC2 位于私有子网；NAT 网关为私有子网提供互联网出站访问。解决方案架构师应如何确保迁移后该 Web 应用仍能调用第三方 API？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：NAT出口使用同一自有地址段的EIP，符合单CIDR限制。"
@@ -1375,7 +1375,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "57": {
-    "blocker": "一家拥有多个 AWS 帐户的公司正在使用 AWS Organizations 和服务控制策略 (SCP)。管理员建立了以下 SCP，并将其附加到包含 AWS 帐户 1111-1111-1111 的组织单位 (OU)：\n\n{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"AllowsAllActions\",\n      \"Effect\": \"Allow\",\n      \"Action\": \"*\",\n      \"Resource\": \"*\"\n    },\n    {\n      \"Sid\": \"DenyCloudTrail\",\n      \"Effect\": \"Deny\",\n      \"Action\": \"cloudtrail:*\",\n      \"Resource\": \"*\"\n    }\n  ]\n}\n\n在帐户 1111-1111-1111 中工作的开发人员抱怨他们无法建立 Amazon S3 储存贮体。管理员该如何解决这个问题？",
+    "blocker": "一家拥有多个 AWS 账户的公司正在使用 AWS Organizations 和服务控制策略 (SCP)。管理员建立了以下 SCP，并将其附加到包含 AWS 账户 1111-1111-1111 的组织单位 (OU)：\n\n{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"AllowsAllActions\",\n      \"Effect\": \"Allow\",\n      \"Action\": \"*\",\n      \"Resource\": \"*\"\n    },\n    {\n      \"Sid\": \"DenyCloudTrail\",\n      \"Effect\": \"Deny\",\n      \"Action\": \"cloudtrail:*\",\n      \"Resource\": \"*\"\n    }\n  ]\n}\n\n在账户 1111-1111-1111 中工作的开发人员抱怨他们无法建立 Amazon S3 存储贮体。管理员该如何解决这个问题？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：检查并授予开发者所需S3权限才针对根因。"
@@ -1399,7 +1399,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "58": {
-    "blocker": "一家公司拥有对其业务至关重要的整体应用程式。该公司在运行 Amazon Linux 2 的 Amazon EC2 实例上托管该应用程式。该公司的应用程式团队收到法律部门的指示，将实例的加密 Amazon 弹性块储存 (Amazon EBS) 卷中的资料备份到 Amazon S3 储存桶。应用程式团队没有实例的管理 SSH 金钥对。应用程式必须继续为用户服务。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司有一个对业务至关重要的单体应用，运行在使用 Amazon Linux 2 的 EC2 实例上。法务部门要求应用团队把实例加密 Amazon Elastic Block Store（Amazon EBS）卷中的数据备份到 Amazon S3 桶。应用团队没有该实例的管理员 SSH 密钥对，而且应用必须继续为用户提供服务。哪种方案满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：通过SSM安全shell读取已挂载解密卷并写S3。"
@@ -1423,7 +1423,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "59": {
-    "blocker": "解决方案架构师需要将数据从 AWS 账户中的 Amazon S3 存储桶复制到新 AWS 账户中的新 S3 存储桶。解决方案架构师必须实作使用AWS CLI 的解决方案。哪种步骤组合可以成功复制资料？ （选择三项。）",
+    "blocker": "解决方案架构师需要将数据从 AWS 账户中的 Amazon S3 存储桶复制到新 AWS 账户中的新 S3 存储桶。解决方案架构师必须实作使用AWS CLI 的解决方案。哪种步骤组合可以成功复制数据？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：源桶允许目标用户读/列。",
@@ -1451,7 +1451,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "60": {
-    "blocker": "一家公司基于 AWS Lambda 建立了一个应用程序，部署在 AWS CloudFormation 堆叠中。 Web 应用程式的最后一个生产版本引入了一个问题，导致持续几分钟的中断。解决方案架构师必须调整部署流程以支援金丝雀版本。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司使用 AWS Lambda 构建应用，并通过 AWS CloudFormation 堆栈部署。最近一次 Web 应用生产发布引入了故障，导致服务中断数分钟。解决方案架构师必须调整部署流程，以支持金丝雀发布。哪种方案满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：alias加权路由正确；客户端需始终调用该alias。"
@@ -1475,7 +1475,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "61": {
-    "blocker": "一家金融公司在 Amazon S3 托管一个资料湖。该公司每晚从多个第三方接收超过SFTP的财务数据记录。该公司在 VPC 公共子网路中的 Amazon EC2 实例上运行自己的 SFTP 伺服器。文件上传后，透过在相同实例上执行的 cron 作业将它们移至资料湖。可透过使用 Amazon Route 53 在 DNS sftp.example.com 上存取 SFTP 伺服器。解决方案架构师应该如何提高SFTP解决方案的可靠性和可扩展性？",
+    "blocker": "一家金融公司在 Amazon S3 中托管数据湖。公司每晚通过 SFTP 接收多个第三方提供的财务数据记录，当前在 VPC 公有子网的一台 EC2 实例上自行运行 SFTP 服务器。文件上传后，同一实例上的 cron 定时任务会将文件移入数据湖。通过 Amazon Route 53 管理的 sftp.example.com 域名可以访问该服务器。解决方案架构师应如何提高 SFTP 方案的可靠性和可扩展性？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：托管SFTP兼容现有客户端且可直接落S3。"
@@ -1499,7 +1499,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "62": {
-    "blocker": "一家公司希望将应用程式从在 on-premises 资料中心运行的 VMware 基础设施迁移到 Amazon EC2。解决方案架构师必须在迁移期间保留软体和组态设定。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家公司希望将应用程序从在 on-premises 数据中心运行的 VMware 基础设施迁移到 Amazon EC2。解决方案架构师必须在迁移期间保留软件和组态设定。解决方案架构师应该怎么做才能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：方案方向正确；OVF导出内容须打包为OVA或使用其VMDK磁盘。"
@@ -1523,7 +1523,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "63": {
-    "blocker": "视频处理公司有一个应用程序，它从 Amazon S3 存储桶下载图像，处理图像，将转换后的图像存储在第二个 S3 存储桶中，并更新 Amazon DynamoDB 表中有关图像的元数据。该应用程式使用 Node.js 编写，并使用 AWS Lambda 函数运行。当新图像上传到Amazon S3时，将呼叫Lambda函数。该应用程式运行了一段时间没有发生任何事件。然而，影像的大小已显著增加。 Lambda 函数现在经常因逾时错误而失败。函数超时设定为其最大值。解决方案架构师需要重构应用程式的架构以防止呼叫失败。该公司不想管理底层基础设施。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
+    "blocker": "视频处理公司有一个应用程序，它从 Amazon S3 存储桶下载图像，处理图像，将转换后的图像存储在第二个 S3 存储桶中，并更新 Amazon DynamoDB 表中有关图像的元数据。该应用程序使用 Node.js 编写，并使用 AWS Lambda 函数运行。当新图像上传到Amazon S3时，将调用Lambda函数。该应用已经正常运行了一段时间。然而，影像的大小已显著增加。 Lambda 函数现在经常因逾时错误而失败。函数超时设定为其最大值。解决方案架构师需要重构应用程序的架构以防止调用失败。该公司不想管理底层基础设施。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：把Node.js及依赖封成镜像。",
@@ -1549,7 +1549,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "64": {
-    "blocker": "某公司在AWS Organizations设有组织。该公司正在使用 AWS Control Tower 为组织部署著陆区。该公司希望实施治理和政策执行。公司必须实施一项策略来侦测公司生产 OU 中未静态加密的 Amazon RDS 资料库实例。哪种解决方案可以满足这个要求？",
+    "blocker": "某公司在AWS Organizations设有组织。该公司正在使用 AWS Control Tower 为组织部署著陆区。该公司希望实施治理和政策执行。公司必须实施一项策略来侦测公司生产 OU 中未静态加密的 Amazon RDS 数据库实例。哪种解决方案可以满足这个要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：选择现成强烈推荐侦测控制最合适。"
@@ -1573,7 +1573,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "65": {
-    "blocker": "一家新创公司使用最新的 Amazon Linux 2 AMI 在私有子网路中托管一组 Amazon EC2 执行个体。该公司的工程师严重依赖 SSH 存取实例来进行故障排除。该公司的现有架构包括以下内容： • 具有私人和公共子网路的VPC，以及NAT 闸道。 • Site-to-Site VPN 用于与on-premises 环境连接。 • EC2 安全群组可从on-premises 环境直接进行SSH 存取。该公司需要加强对 SSH 存取的安全控制，并对工程师运行的命令进行审核。解决方案架构师应该使用哪一种策略？",
+    "blocker": "一家新创公司使用最新的 Amazon Linux 2 AMI 在私有子网中托管一组 Amazon EC2 实例。该公司的工程师严重依赖 SSH 访问实例来进行故障排除。该公司的现有架构包括以下内容： • 具有私人和公共子网的VPC，以及NAT 网关。 • Site-to-Site VPN 用于与on-premises 环境连接。 • EC2 安全群组可从on-premises 环境直接进行SSH 访问。该公司需要加强对 SSH 访问的安全控制，并对工程师运行的命令进行审核。解决方案架构师应该使用哪一种策略？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：SSM角色和start-session去除SSH key/入站端口并支持集中日志。"
@@ -1597,7 +1597,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "66": {
-    "blocker": "使用AWS Organizations的公司允许开发者在AWS上进行实验。作为公司部署的登陆区的一部分，开发人员使用他们的公司电子邮件地址来要求帐户。该公司希望确保开发人员不会推出昂贵的服务或运行不必要的服务。公司必须为开发商提供固定的每月预算，以限制他们的AWS成本。哪一种步骤组合可以满足这些要求？ （选择三项。）",
+    "blocker": "使用AWS Organizations的公司允许开发者在AWS上进行实验。作为公司部署的登陆区的一部分，开发人员使用他们的公司电子邮件地址来要求账户。该公司希望确保开发人员不会推出昂贵的服务或运行不必要的服务。公司必须为开发人员提供固定的每月预算，以限制他们的AWS成本。哪一种步骤组合可以满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Budget提供账户月度成本阈值。",
@@ -1625,7 +1625,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "67": {
-    "blocker": "一家公司在名为 Source 的 AWS 帐户中拥有应用程式。该帐户位于AWS Organizations的组织中。其中一个应用程式使用 AWS Lambda 函数并将库存资料储存在 Amazon Aurora 资料库中。应用程式使用部署包部署 Lambda 函数。本公司已为Aurora配置了自动备份。该公司希望将 Lambda 函数和 Aurora 资料库迁移到名为 Target 的新 AWS 帐户。该应用程式处理关键数据，因此公司必须最大限度地减少停机时间。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在名为 Source 的 AWS 账户中拥有应用程序。该账户位于AWS Organizations的组织中。其中一个应用程序使用 AWS Lambda 函数并将库存数据存储在 Amazon Aurora 数据库中。应用程序使用部署包部署 Lambda 函数。本公司已为Aurora配置了自动备份。该公司希望将 Lambda 函数和 Aurora 数据库迁移到名为 Target 的新 AWS 账户。该应用程序处理关键数据，因此公司必须最大限度地减少停机时间。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：代码重建加RAM跨账户Aurora clone为正确组合。"
@@ -1649,7 +1649,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "68": {
-    "blocker": "某公司在 Amazon EC2 实例上运行 Python 脚本来处理资料。该脚本每 10 分钟运行一次。该脚本从 Amazon S3 储存桶中提取档案并处理这些档案。平均而言，脚本大约需要 5 分钟来处理每个档案。脚本不会重新处理脚本已经处理过的档案。该公司审查了 Amazon CloudWatch 指标，并注意到 EC2 实例由于文件处理速度的原因大约有 40% 的时间处于空闲状态。该公司希望使工作负载具有高可用性和可扩展性。该公司还希望减少长期管理费用。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "某公司在 Amazon EC2 实例上运行 Python 脚本来处理数据。该脚本每 10 分钟运行一次。该脚本从 Amazon S3 存储桶中提取文件并处理这些文件。平均而言，脚本大约需要 5 分钟来处理每个文件。脚本不会重新处理脚本已经处理过的文件。该公司审查了 Amazon CloudWatch 指标，并注意到 EC2 实例由于文件处理速度的原因大约有 40% 的时间处于空闲状态。该公司希望使工作负载具有高可用性和可扩展性。该公司还希望减少长期管理费用。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：直接事件驱动、按用量计算、无需实例管理。"
@@ -1673,7 +1673,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "69": {
-    "blocker": "北美的一家金融服务公司计划在 AWS 向其客户发布新的线上 Web 应用程式。该公司将在 us-east-1 Region 的 Amazon EC2 实例上启动该应用程式。应用程式必须具有高可用性，并且必须动态扩展以满足用户流量。该公司还希望透过使用主动-被动故障转移为 us-west-1 Region 中的应用程式实施灾难复原环境。哪种解决方案可以满足这些要求？",
+    "blocker": "北美的一家金融服务公司计划在 AWS 向其客户发布新的在线 Web 应用程序。该公司将在 us-east-1 Region 的 Amazon EC2 实例上启动该应用程序。应用程序必须具有高可用性，并且必须动态扩展以满足用户流量。该公司还希望通过使用主动-被动故障转移为 us-west-1 Region 中的应用程序实施灾难恢复环境。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：区域内伸缩加区域间DNS主备完整。"
@@ -1697,7 +1697,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "70": {
-    "blocker": "一家公司的环境有一个 AWS 帐户。解决方案架构师正在审查环境，以建议公司可以改进的方面，特别是在访问AWS管理控制台方面。该公司的 IT 支援人员目前访问控制台执行管理任务，透过已对应到其工作角色的指定 IAM 使用者进行身份验证。 IT 支援人员不再希望同时维护其 Active Directory 和 IAM 使用者帐户。他们希望能够使用现有的 Active Directory 凭证存取控制台。解决方案架构师使用 AWS IAM 身分中心（AWS 单一登入）来实现此功能。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司的环境有一个 AWS 账户。解决方案架构师正在审查环境，以建议公司可以改进的方面，特别是在访问AWS管理控制台方面。该公司的 IT 支持人员目前访问控制台执行管理任务，通过已对应到其工作角色的指定 IAM 用户进行身份验证。 IT 支持人员不再希望同时维护其 Active Directory 和 IAM 用户账户。他们希望能够使用现有的 Active Directory 凭证访问控制台。解决方案架构师使用 AWS IAM 身份中心（AWS 单一登录）来实现此功能。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：all features、AD Connector及原组权限集是最少新增目录组件。"
@@ -1721,7 +1721,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "71": {
-    "blocker": "一家视讯串流媒体公司最近推出了一款用于视讯共享的行动应用程式。该应用程式将各种档案上传到 us- east-1 Region 中的Amazon S3 储存桶。这些档案的大小范围为 1 GB 到 10 GB。从澳洲访问该应用程式的用户都经历过上传需要很长时间的情况。有时，这些使用者的档案无法完全上传。解决方案架构师必须提高应用程式的这些上传效能。哪些解决方案可以满足这些要求？ （选两个。）",
+    "blocker": "一家视讯串流媒体公司最近推出了一款用于视讯共享的行动应用程序。该应用程序将各种文件上传到 us-east-1 区域 中的Amazon S3 存储桶。这些文件的大小范围为 1 GB 到 10 GB。从澳洲访问该应用程序的用户都经历过上传需要很长时间的情况。有时，这些用户的文件无法完全上传。解决方案架构师必须提高应用程序的这些上传性能。哪些解决方案可以满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：针对远距离上传到集中S3桶。",
@@ -1747,7 +1747,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "72": {
-    "blocker": "应用程式正在将 Amazon RDS 用于 us-east-1 Region 中的 MySQL Multi-AZ 资料库实例。故障转移测试后，应用程式遗失了与资料库的连接，并且无法重新建立连接。重新启动应用程式后，应用程式重新建立连线。解决方案架构师必须实作一个解决方案，以便应用程式可以重新建立与资料库的连接，而无需重新启动。哪种解决方案可以满足这些要求？",
+    "blocker": "一个应用使用 us-east-1 区域中的 Amazon RDS for MySQL Multi-AZ 数据库实例。一次故障转移测试后，应用丢失数据库连接且无法重新连接；重启应用后则恢复连接。解决方案架构师必须让应用在不重启的情况下重新建立数据库连接。哪种方案满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：现有RDS加代理即可增强故障恢复。"
@@ -1771,7 +1771,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "73": {
-    "blocker": "一家公司正在AWS 云端建置解决方案。数千台设备将连接到该解决方案并发送资料。每个设备都需要能够透过 MQTT 协定即时发送和接收资料。每个装置必须使用唯一的 X.509 凭证进行身份验证。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司正在 AWS 云中构建一个方案，数千台设备将连接该方案并发送数据。每台设备都必须能够通过 MQTT 协议实时发送和接收数据，并使用各自唯一的 X.509 证书进行身份验证。哪种方案能以最少的运维工作满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：IoT thing、独立证书、IoT Core MQTT为标准组合。"
@@ -1795,7 +1795,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "74": {
-    "blocker": "一家公司在单一 AWS 帐户中运行多个工作负载。新的公司政策规定，工程师只能提供经过批准的资源，工程师必须使用AWS CloudFormation来提供这些资源。解决方案架构师需要创建一个解决方案来对工程师用于存取的IAM角色实施新的限制。解决方案架构师应该做什么来创建解决方案？",
+    "blocker": "一家公司在单一 AWS 账户中运行多个工作负载。新的公司政策规定，工程师只能提供经过批准的资源，工程师必须使用AWS CloudFormation来提供这些资源。解决方案架构师需要创建一个解决方案来对工程师用于访问的IAM角色实施新的限制。解决方案架构师应该做什么来创建解决方案？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：CloudFormation service role分离调用者与部署权限。"
@@ -1819,7 +1819,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "75": {
-    "blocker": "解决方案架构师正在为一家公司即将推出的新应用程式设计资料储存和检索架构。该应用程式旨在每分钟从世界各地的设备中获取数百万条小记录。每笔记录的大小小于 4 KB，需要储存在持久位置，以便以低延迟进行检索。资料是短暂的，公司只能将资料储存 120 天，之后可以删除资料。解决方案架构师计算出，一年内的储存需求约 10-15 TB。哪种储存策略最具成本效益且满足设计要求？",
+    "blocker": "解决方案架构师正在为公司即将推出的新应用设计数据存储与读取架构。应用每分钟从全球设备摄取数百万条小记录，每条小于 4 KB，必须持久保存并可低延迟读取。这些是临时数据，公司仅需保留 120 天，之后可以删除。架构师预计一年的存储需求约为 10–15 TB。哪种存储策略最具成本效益并满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：DynamoDB吞吐与低延迟读取适合小记录，TTL减少清理作业。"
@@ -1843,7 +1843,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "76": {
-    "blocker": "一家零售公司在 AWS 上跨多个 AWS Regions 托管电子商务网站。该公司希望该网站随时运行以进行线上购买。该网站将资料储存在 MySQL 资料库实例的 Amazon RDS 中。哪种解决方案将为资料库提供最高的可用性？",
+    "blocker": "一家零售公司在多个 AWS 区域托管电商网站，要求网站随时可供用户在线购物。网站将数据保存在 Amazon RDS for MySQL 数据库实例中。哪种方案能为数据库提供最高可用性？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：预先运行跨区域副本比灾难时从备份恢复快。"
@@ -1867,7 +1867,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "77": {
-    "blocker": "范例公司在范例公司 AWS 帐户中拥有一个 on-premises 资料中心和一个名为 VPC A 的 VPC。 on-premises 网路透过 AWS 站点到站点 VPN 连接到 VPC A。 on-premises 伺服器可以正常存取VPC A. 范例公司刚刚收购了 AnyCompany，该公司有一个名为 VPC 的 VPC B. 这些网路之间没有 IP 位址重叠。 Example Corp. 已对等 VPC A 和 VPC B。 Example Corp. 希望从其本地伺服器连接到 VPC B。 Example Corp. 已正确设定网路 ACL 和安全群组。哪一种解决方案能够以最少的操作工作量满足此要求？",
+    "blocker": "Example Corp. 拥有本地数据中心，并在自己的 AWS 账户中创建了名为 VPC A 的 VPC。本地网络通过 AWS Site-to-Site VPN 连接 VPC A，本地服务器能够正常访问 VPC A。公司刚收购 AnyCompany，后者有名为 VPC B 的 VPC。这些网络之间不存在重叠 IP 地址。Example Corp. 已在 VPC A 和 VPC B 之间建立对等连接，现在希望本地服务器也能连接 VPC B，且已正确配置网络 ACL 和安全组。哪种方案能以最少的运维工作满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：TGW提供需要的转接路由。"
@@ -1891,7 +1891,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "78": {
-    "blocker": "一家公司最近使用平台重构策略完成了从on-premises资料中心到AWS云端的迁移。其中一台迁移的伺服器正在执行关键应用程式所依赖的旧版简单邮件传输协定 (SMTP) 服务。该应用程式向公司的客户发送出站电子邮件。旧版 SMTP 伺服器不支援 TLS 加密并使用 TCP 连接埠 25。应用程式只能使用 SMTP。本公司决定使用 Amazon 简单电子邮件服务 (Amazon SES) 并停用旧版 SMTP 伺服器。该公司已创建并验证了SES域名。该公司已取消SES限制。公司应该如何修改应用程式以从AmazonSES发送电子邮件？",
+    "blocker": "一家公司最近使用更换平台（replatforming）策略完成了从on-premises数据中心到AWS云端的迁移。其中一台迁移的服务器正在执行关键应用程序所依赖的旧版简单邮件传输协定 (SMTP) 服务。该应用程序向公司的客户发送出站电子邮件。旧版 SMTP 服务器不支持 TLS 加密并使用 TCP 连接埠 25。应用程序只能使用 SMTP。本公司决定使用 Amazon 简单电子邮件服务 (Amazon SES) 并停用旧版 SMTP 服务器。该公司已创建并验证了SES域名。该公司已取消SES限制。公司应该如何修改应用程序以从AmazonSES发送电子邮件？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：STARTTLS及SMTP凭据匹配SES接口。"
@@ -1915,7 +1915,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "79": {
-    "blocker": "一家公司最近收购了其他几家公司。每个公司都有一个单独的AWS帐户，具有不同的计费和报告方法。收购公司已将所有帐户合并为AWS Organizations ​​中的一个组织。然而，收购公司发现很难产生包含对所有团队有意义的群组的成本报告。收购公司的财务团队需要一个解决方案，透过自我管理的应用程式报告所有公司的成本。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司最近收购了其他几家公司。每个公司都有一个单独的AWS账户，具有不同的计费和报告方法。收购公司已将所有账户合并为AWS Organizations 中的一个组织。然而，收购公司发现很难产生包含对所有团队有意义的群组的成本报告。收购公司的财务团队需要一个解决方案，通过自我管理的应用程序报告所有公司的成本。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：完整覆盖实际费用采集、分组、SQL分析与自助可视化。"
@@ -1939,7 +1939,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "80": {
-    "blocker": "某公司在AWS上运作物联网平台。不同位置的 IoT 感测器将资料传送到在 Application Load Balancer 后面运行的 Amazon EC2 实例上的公司 Node.js API 伺服器。资料储存在使用 4 TB 通用 SSD 磁碟区的 Amazon RDS MySQL 资料库实例中。随著时间的推移，该公司在该领域部署的感测器数量不断增加，并且预计将大幅增长。 API 伺服器持续过载，RDS 指标显示写入延迟较高。下列哪一项步骤将永久解决这些问题，并随著新感测器的配置而成长，同时维持该平台的成本效益？ （选两个。）",
+    "blocker": "某公司在AWS上运作物联网平台。不同位置的 IoT 感测器将数据传送到在 Application Load Balancer 后面运行的 Amazon EC2 实例上的公司 Node.js API 服务器。数据存储在使用 4 TB 通用 SSD 卷的 Amazon RDS MySQL 数据库实例中。随著时间的推移，该公司在现场部署的传感器数量不断增加，并且预计将大幅增长。 API 服务器持续过载，RDS 指标显示写入延迟较高。下列哪一项步骤将永久解决这些问题，并随著新感测器的配置而成长，同时维持该平台的成本效益？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：流式缓冲与函数并发处理可扩展采集。",
@@ -1965,7 +1965,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "81": {
-    "blocker": "一家公司正在建立一个电子文档管理系统，用户可以在其中上传文件。应用程式堆叠完全无伺服器，并在 eu-central-1 Region 中的 AWS 上运行。该系统包括一个 Web 应用程序，该应用程式使用 Amazon CloudFront 发行版以 Amazon S3 作为来源进行交付。 Web 应用程式与 Amazon API Gateway Regional 端点进行通讯。 API Gateway API 呼叫 AWS Lambda 函数，这些函数将元资料储存在 Amazon Aurora 无伺服器资料库中，并将文件放入 S3 储存桶中。该公司正在稳步发展，并已与其最大客户完成了概念验证。该公司必须改善欧洲以外地区的延迟。哪一种行动组合可以满足这些要求？ （选两个。）",
+    "blocker": "一家公司正在建立一个电子文档管理系统，用户可以在其中上传文件。应用程序堆栈完全无服务器，并在 eu-central-1 Region 中的 AWS 上运行。该系统包括一个 Web 应用程序，该应用程序使用 Amazon CloudFront 分配以 Amazon S3 作为来源进行交付。 Web 应用程序与 Amazon API Gateway Regional 端点进行通讯。 API Gateway API 调用 AWS Lambda 函数，这些函数将元数据存储在 Amazon Aurora 无服务器数据库中，并将文件放入 S3 存储桶中。该公司正在稳步发展，并已与其最大客户完成了概念验证。该公司必须改善欧洲以外地区的延迟。哪一种行动组合可以满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：上传走S3 TA而非先把文件塞进区域API。",
@@ -1991,7 +1991,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "82": {
-    "blocker": "一家冒险公司在其行动应用程式上推出了一项新功能。用户可以使用该功能随时上传远足和漂流照片和影片。照片和影片储存在 Amazon S3 标准储存中的 S3 储存桶中，并透过 Amazon CloudFront 提供服务。公司需要优化储存成本。解决方案架构师发现，大多数上传的照片和影片在 30 天后就很少被存取。然而，一些上传的照片和影片在30天后被频繁访问。解决方案架构师需要实施一种解决方案，以尽可能低的成本维持照片和影片的毫秒检索可用性。哪种解决方案可以满足这些要求？",
+    "blocker": "一家冒险公司在其行动应用程序上推出了一项新功能。用户可以使用该功能随时上传远足和漂流照片和影片。照片和影片存储在 Amazon S3 标准存储中的 S3 存储桶中，并通过 Amazon CloudFront 提供服务。公司需要优化存储成本。解决方案架构师发现，大多数上传的照片和影片在 30 天后就很少被访问。然而，一些上传的照片和影片在30天后被频繁访问。解决方案架构师需要实施一种解决方案，以尽可能低的成本维持照片和影片的毫秒检索可用性。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：按访问模式自动调整，不用猜对象热度。"
@@ -2015,7 +2015,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "83": {
-    "blocker": "一家公司使用 Amazon S3 在各种储存类别中储存档案和影像。去年该公司的S3成本大幅增加。解决方案架构师需要查看过去 12 个月的资料趋势并确定物件的适当储存类别。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司使用 Amazon S3 在各种存储类别中存储文件和影像。去年该公司的S3成本大幅增加。解决方案架构师需要查看过去 12 个月的数据趋势并确定对象的适当存储类别。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：高级指标扩展历史查询窗口到15个月。"
@@ -2039,7 +2039,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "84": {
-    "blocker": "一家公司的云端基础设施位于AWS。解决方案架构师需要将基础架构定义为程式码。该基础设施目前部署在一个AWSRegion中。该公司的业务扩展计划包括跨多个 AWS 帐户在多个 Regions 中进行部署。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家公司的云端基础设施位于AWS。解决方案架构师需要将基础架构定义为代码。该基础设施目前部署在一个AWSRegion中。该公司的业务扩展计划包括跨多个 AWS 账户在多个 Regions 中进行部署。解决方案架构师应该怎么做才能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：StackSets专为多账户多区域模板部署。"
@@ -2063,7 +2063,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "85": {
-    "blocker": "一家公司的云端基础设施位于AWS。解决方案架构师需要将基础架构定义为程式码。该基础设施目前部署在一个AWSRegion中。该公司的业务扩展计划包括跨多个 AWS 帐户在多个 Regions 中进行部署。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家公司的云端基础设施位于AWS。解决方案架构师需要将基础架构定义为代码。该基础设施目前部署在一个AWSRegion中。该公司的业务扩展计划包括跨多个 AWS 账户在多个 Regions 中进行部署。解决方案架构师应该怎么做才能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：正确的跨账户多区域IaC工具。"
@@ -2087,7 +2087,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "86": {
-    "blocker": "一家公司计划将单体应用程式重构为部署在 AWS 上的现代应用程式设计。 CI/CD 管道需要升级，以支援具有以下要求的应用程式的现代设计： • 它应该允许每小时发布几次更改。 • 它应该能够尽快回滚更改。哪种设计能够满足这些要求？",
+    "blocker": "一家公司计划将单体应用程序重构为部署在 AWS 上的现代应用程序设计。 CI/CD 管道需要升级，以支持具有以下要求的应用程序的现代设计： • 它应该允许每小时发布几次更改。 • 它应该能够尽快回滚更改。哪种设计能够满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：托管蓝绿环境交换支持快速发布和回退。"
@@ -2111,7 +2111,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "87": {
-    "blocker": "一家公司有一个在 Amazon EC2 实例上运行的应用程式。解决方案架构师正在 AWS Region 中设计 VPC 基础设施，其中应用程式需要存取 Amazon Aurora 资料库集群。 EC2 实例均与相同安全群组关联。资料库集群与其自己的安全群组关联。解决方案架构师需要向安全性群组新增规则，以便为应用程式提供对资料库集群的最小权限存取权限。哪一种步骤组合可以满足这些要求？ （选两个。）",
+    "blocker": "一家公司有一个在 Amazon EC2 实例上运行的应用程序。解决方案架构师正在 AWS Region 中设计 VPC 基础设施，其中应用程序需要访问 Amazon Aurora 数据库集群。 EC2 实例均与相同安全群组关联。数据库集群与其自己的安全群组关联。解决方案架构师需要向安全性群组新增规则，以便为应用程序提供对数据库集群的最小权限访问权限。哪一种步骤组合可以满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：应用到数据库的出站方向正确。",
@@ -2137,7 +2137,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "88": {
-    "blocker": "一家公司希望更改其每个业务部门的内部云端计费策略。目前，云端治理团队与每个业务部门的负责人分享总体云端支出的报告。公司使用AWS Organizations来管理每个业务部门单独的AWS帐户。组织中现有的标记标准包括应用程式、环境和所有者。云端治理团队需要一个集中式解决方案，以便每个业务部门都能收到有关其云端支出的月度报告。该解决方案还应该针对任何超过设定阈值的云端支出发送通知。哪一种解决方案是满足这些要求的最具成本效益的方式？",
+    "blocker": "一家公司希望更改其每个业务部门的内部云端计费策略。目前，云端治理团队与每个业务部门的负责人分享总体云端支出的报告。公司使用AWS Organizations来管理每个业务部门单独的AWS账户。组织中现有的标记标准包括应用程序、环境和所有者。云端治理团队需要一个集中式解决方案，以便每个业务部门都能收到有关其云端支出的月度报告。该解决方案还应该针对任何超过设定阈值的云端支出发送通知。哪一种解决方案是满足这些要求的最具成本效益的方式？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：统一计费视图和托管预算/报告组件最合适。"
@@ -2161,7 +2161,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "89": {
-    "blocker": "一家公司正在使用 AWS CloudFormation 部署其基础设施。该公司担心，如果删除生产CloudFormation堆叠，储存在Amazon RDS资料库或AmazonEBS卷中的重要资料也可能被删除。公司如何防止用户以这种方式意外删除资料？",
+    "blocker": "一家公司正在使用 AWS CloudFormation 部署其基础设施。该公司担心，如果删除生产CloudFormation堆栈，存储在Amazon RDS数据库或AmazonEBS卷中的重要数据也可能被删除。公司如何防止用户以这种方式意外删除数据？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：资源级删除策略正是删栈保护数据机制。"
@@ -2185,7 +2185,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "90": {
-    "blocker": "一家公司为其 NAT 网关启用了 VPC 流日志。该公司看到来自公用 IP 位址 198.51.100.2、发送至私有 Amazon EC2 实例的入站流量的 Action = ACCEPT。解决方案架构师必须确定流量是否代表来自网际网路的未经请求的入站连线。 VPC CIDR 区块的前两个八位元组是 203.0。解决方案架构师应采取哪一组步骤来满足这些要求？",
+    "blocker": "一家公司为其 NAT 网关启用了 VPC 流日志。该公司看到来自公网 IP 地址 198.51.100.2、发送至私有 Amazon EC2 实例的入站流量的 Action = ACCEPT。解决方案架构师必须确定流量是否代表来自互联网的未经请求的入站连接。 VPC CIDR 区块的前两个八位元组是 203.0。解决方案架构师应采取哪一组步骤来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：查询平台与源/目的方向均与官方排查相符。"
@@ -2209,7 +2209,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "91": {
-    "blocker": "公司由一个或两个独立的业务部门组成。每个业务部门在 AWS Organizations ​​的单一组织内都有自己的 AWS 帐户。业务部门定期相互共享敏感文件。为了便于共享，该公司在每个帐户中创建了一个Amazon S3储存桶，并在S3储存桶之间配置了低路复制。 S3 储存桶拥有数百万个物件。最近，安全审计发现S3储存桶均未启用静态加密。公司政策要求所有文件必须以静态加密方式储存。该公司希望使用 Amazon S3 托管加密金钥 (SSE- S3) 实施伺服器端加密。满足这些要求的最高效的营运解决方案是什么？",
+    "blocker": "一家公司由两个独立业务部门组成，每个部门在 AWS Organizations 的同一组织中都有自己的 AWS 账户。两部门经常相互共享敏感文档。为便于共享，公司在每个账户中各创建了一个 S3 桶，并在两桶之间配置双向复制。桶内有数百万个对象。最近安全审计发现两个桶都未启用静态加密，但公司政策要求所有文档必须加密存储。公司希望采用使用 Amazon S3 托管密钥的服务端加密（SSE-S3）。哪种方案满足要求且运维效率最高？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：原生批量复制可改变旧对象加密。"
@@ -2233,7 +2233,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "92": {
-    "blocker": "一家公司正在AWS云端中运行应用程式。该应用程式收集大量非结构化资料并将其储存在Amazon S3储存桶中。 S3 储存桶包含数 TB 的资料并使用 S3 标准储存类别。资料的大小每天都会增加几千兆位元组。公司需要对资料进行查询和分析。该公司不会存取超过 1 年的数据。然而，出于合规原因，公司必须无限期保留所有资料。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司正在AWS云端中运行应用程序。该应用程序收集大量非结构化数据并将其存储在Amazon S3存储桶中。 S3 存储桶包含数 TB 的数据并使用 S3 标准存储类别。数据的大小每天都会增加几千兆位元组。公司需要对数据进行查询和分析。该公司不会访问超过 1 年的数据。然而，出于合规原因，公司必须无限期保留所有数据。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：serverless查询与冷归档匹配访问周期。"
@@ -2257,7 +2257,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "93": {
-    "blocker": "一家视讯处理公司希望使用 600 TB 的压缩资料建立机器学习 (ML) 模型，这些资料以数千个档案的形式储存在该公司的on-premises 网路附加储存系统中。该公司没有本地机器学习实验所需的计算资源，因此希望使用 AWS。公司需在3周内完成向AWS的资料传输。资料传输将是一次性传输。资料在传输过程中必须加密。测得该公司网路连线的上传速度为100 Mbps。并且多个部门共享连接。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家视讯处理公司希望使用 600 TB 的压缩数据建立机器学习 (ML) 模型，这些数据以数千个文件的形式存储在该公司的on-premises 网络附加存储系统中。该公司没有本地机器学习实验所需的计算资源，因此希望使用 AWS。公司需在3周内完成向AWS的数据传输。数据传输将是一次性传输。数据在传输过程中必须加密。测得该公司网络连接的上传速度为100 Mbps。并且多个部门共享连接。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：离线并行设备运输绕过小带宽瓶颈。"
@@ -2281,7 +2281,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "94": {
-    "blocker": "一家公司已将其表单处理应用程式迁移到AWS。当使用者与应用程式互动时，他们透过 Web 应用程式将扫描的表单上传为档案。资料库储存使用者元资料和对储存在 Amazon S3 中的档案的引用。 Web 应用程式在 Amazon EC2 实例和 PostgreSQL 资料库的 Amazon RDS 上运行。上传表单后，应用程式透过Amazon简单通知服务（Amazon SNS）向团队发送通知。然后，团队成员登入并处理每个表单。团队成员在将资讯输入到使用 API 的另一个系统之前，对表单执行资料验证并提取相关资料。解决方案架构师需要自动化表单的手动处理。此解决方案必须提供准确的表单撷取。最大限度地缩短上市时间，并最大限度地减少长期营运费用。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司已将其表单处理应用程序迁移到AWS。当用户与应用程序互动时，他们通过 Web 应用程序将扫描的表单上传为文件。数据库存储用户元数据和对存储在 Amazon S3 中的文件的引用。 Web 应用运行在 Amazon EC2 实例上，并使用 Amazon RDS for PostgreSQL 数据库。上传表单后，应用程序通过Amazon简单通知服务（Amazon SNS）向团队发送通知。然后，团队成员登录并处理每个表单。团队成员在将资讯输入到使用 API 的另一个系统之前，对表单执行数据验证并提取相关数据。解决方案架构师需要自动化表单的手动处理。此解决方案必须提供准确的表单撷取。最大限度地缩短上市时间，并最大限度地减少长期营运费用。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：托管文档理解加serverless编排最贴合。"
@@ -2305,7 +2305,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "95": {
-    "blocker": "一家公司正在AWS云端中重构其on-premises订单处理平台。该平台包括托管在一组虚拟机器上的 Web 前端、用于将前端连接到后端的 RabbitMQ 以及用于运行容器化后端系统来处理订单的Kubernetes 集群。该公司不想对应用程式进行任何重大更改。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司正在AWS云端中重构其on-premises订单处理平台。该平台包括托管在一组虚拟机上的 Web 前端、用于将前端连接到后端的 RabbitMQ 以及用于运行容器化后端系统来处理订单的Kubernetes 集群。该公司不想对应用程序进行任何重大更改。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：兼容三层现有技术并用托管服务。"
@@ -2329,7 +2329,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "96": {
-    "blocker": "解决方案架构师需要为将储存在新的Amazon S3储存桶中的物件实作客户端加密机制。为此，解决方案架构师创建了一个储存在 AWS Key Management Service (AWS KMS) 中的 CMK。解决方案架构师创建了以下 IAM 策略并将其附加到 IAM 角色：\n\n{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"DownloadUpload\",\n      \"Action\": [\n        \"s3:GetObject\",\n        \"s3:GetObjectVersion\",\n        \"s3:PutObject\",\n        \"s3:PutObjectAcl\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": \"arn:aws:s3:::BucketName/*\"\n    },\n    {\n      \"Sid\": \"KMSAccess\",\n      \"Action\": [\n        \"kms:Decrypt\",\n        \"kms:Encrypt\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": \"arn:aws:kms:Region:Account:key/Key ID\"\n    }\n  ]\n}\n\n在测试期间，解决方案架构师能够成功取得 S3 储存桶中的现有测试物件。但是，尝试上传新物件会导致错误讯息。错误讯息指出该操作被禁止。解决方案架构师必须将哪些操作新增至IAM策略才能满足所有要求？",
+    "blocker": "解决方案架构师需要为将存储在新的Amazon S3存储桶中的对象实作客户端加密机制。为此，解决方案架构师创建了一个存储在 AWS Key Management Service (AWS KMS) 中的 CMK。解决方案架构师创建了以下 IAM 策略并将其附加到 IAM 角色：\n\n{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"DownloadUpload\",\n      \"Action\": [\n        \"s3:GetObject\",\n        \"s3:GetObjectVersion\",\n        \"s3:PutObject\",\n        \"s3:PutObjectAcl\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": \"arn:aws:s3:::BucketName/*\"\n    },\n    {\n      \"Sid\": \"KMSAccess\",\n      \"Action\": [\n        \"kms:Decrypt\",\n        \"kms:Encrypt\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": \"arn:aws:kms:Region:Account:key/Key ID\"\n    }\n  ]\n}\n\n在测试期间，解决方案架构师能够成功取得 S3 存储桶中的现有测试对象。但是，尝试上传新对象会导致错误消息。错误消息指出该操作被禁止。解决方案架构师必须将哪些操作新增至IAM策略才能满足所有要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：生成数据密钥是上传加密的缺失动作。"
@@ -2353,7 +2353,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "97": {
-    "blocker": "一家公司开发了一个网页应用程式。该公司将该应用程式托管在 Application Load Balancer 后面的一组 Amazon EC2 实例上。该公司希望改善应用程式的安全状况，并计划使用 AWS WAF Web ACL。该解决方案不得对应用程式的合法流量产生不利影响。解决方案架构师应如何设定 Web ACL 以满足这些要求？",
+    "blocker": "一家公司开发了一个网页应用程序。该公司将该应用程序托管在 Application Load Balancer 后面的一组 Amazon EC2 实例上。该公司希望改善应用程序的安全状况，并计划使用 AWS WAF Web ACL。该解决方案不得对应用程序的合法流量产生不利影响。解决方案架构师应如何设定 Web ACL 以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：官方推荐测试与count模式上线验证。"
@@ -2377,7 +2377,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "98": {
-    "blocker": "某公司的组织在 AWS Organizations ​​中有许多 AWS 帐户。解决方案架构师必须改进公司管理组织中AWS帐户的通用安全群组规则的方式。本公司在每个 AWS 帐户的允许清单中都有一组通用的 IP CIDR 范围，以允许存取和从公司的本地网路存取。每个帐户内的开发人员负责为其安全群组新增新的 IP CIDR 范围。安全团队有自己的AWS帐户。目前，当允许清单发生变更时，安全团队会通知其他AWS帐户的拥有者。解决方案架构师必须设计一个解决方案，将一组通用的CIDR范围分布到所有帐户。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "某公司的组织在 AWS Organizations 中有许多 AWS 账户。解决方案架构师必须改进公司管理组织中AWS账户的通用安全群组规则的方式。本公司在每个 AWS 账户的允许清单中都有一组通用的 IP CIDR 范围，以允许访问和从公司的本地网络访问。每个账户内的开发人员负责为其安全群组新增新的 IP CIDR 范围。安全团队有自己的AWS账户。目前，当允许清单发生变更时，安全团队会通知其他AWS账户的拥有者。解决方案架构师必须设计一个解决方案，将一组通用的CIDR范围分布到所有账户。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：共享单一权威列表降低维护。"
@@ -2401,7 +2401,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "99": {
-    "blocker": "一家公司推出了一项新政策，允许员工使用 VPN 连接在家中远端工作。该公司在多个 AWS 帐户中托管带有 VPC 的内部应用程式。目前，可以透过 AWS Site-to-Site VPN 连接从公司的 on-premises 办公室网路存取这些应用程式。公司主AWS帐户中的VPC与其他AWS帐户中的VPC建立了对等连接。解决方案架构师必须设计一个可扩展的 AWS Client VPN 解决方案，供员工在家工作时使用。满足这些要求的最具成本效益的解决方案是什么？",
+    "blocker": "一家公司推出了一项新政策，允许员工使用 VPN 连接在家中远端工作。该公司在多个 AWS 账户中托管带有 VPC 的内部应用程序。目前，可以通过 AWS Site-to-Site VPN 连接从公司的 on-premises 办公室网络访问这些应用程序。公司主AWS账户中的VPC与其他AWS账户中的VPC建立了对等连接。解决方案架构师必须设计一个可扩展的 AWS Client VPN 解决方案，供员工在家工作时使用。满足这些要求的最具成本效益的解决方案是什么？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：复用现有peering拓扑，新增组件最少。"
@@ -2425,7 +2425,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "100": {
-    "blocker": "一家公司正在AWS云端中运行应用程式。最近的应用程式指标显示回应时间不一致且错误率显著增加。对第三方服务的呼叫导致了延误。目前，应用程式透过直接呼叫AWS Lambda函数来同步呼叫第三方服务。解决方案架构师需要解耦第三方服务呼叫并确保所有呼叫最终完成。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在AWS云端中运行应用程序。最近的应用程序指标显示响应时间不一致且错误率显著增加。对第三方服务的调用导致了延误。目前，应用程序通过直接调用AWS Lambda函数来同步调用第三方服务。解决方案架构师需要解耦第三方服务调用并确保所有调用最终完成。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：持久队列、消费重试与可调并发适合第三方调用。"
@@ -2449,7 +2449,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "101": {
-    "blocker": "一家公司正在多帐户环境中的AWS上运行应用程式。本公司的销售团队和行销团队在AWS Organizations中使用单独的AWS帐户。销售团队将 PB 级资料储存在 Amazon S3 储存桶中。行销团队使用AmazonQuickSight进行资料视觉化。行销团队需要存取国家团队储存在S3储存桶中的资料。该公司已使用 AWS Key Management Service (AWS KMS) 金钥对S3 储存桶进行了加密。行销团队已为 QuickSight 创建 IAM 服务角色，以提供行销 AWS 帐户中的 QuickSight 存取权限。该公司需要一种解决方案，能够跨 AWS 帐户安全地存取 S3 储存桶中的资料。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司在 AWS 的多账户环境中运行应用程序。公司的销售团队和营销团队在 AWS Organizations 中分别使用独立的 AWS 账户。销售团队将 PB 级数据存储在一个 Amazon S3 存储桶中。营销团队使用 Amazon QuickSight 进行数据可视化，需要访问销售团队存储在该 S3 存储桶中的数据。公司已使用 AWS Key Management Service (AWS KMS) 密钥对该存储桶加密。营销团队已为 QuickSight 创建 IAM 服务角色，使 QuickSight 能够访问营销团队的 AWS 账户。公司需要一种能够跨 AWS 账户安全访问该 S3 存储桶数据的方案。哪种方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：正确思路包括桶策略与KMS grant，但桶策略必须在sales资源账户更新。"
@@ -2473,7 +2473,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "102": {
-    "blocker": "某公司正计划将其关键业务应用程式从on-premises资料中心迁移到AWS。该公司安装了 Microsoft SQL Server Always On 集群的on-premises。该公司希望迁移到 AWS 托管资料库服务。解决方案架构师必须在AWS上设计异质资料库迁移。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司计划将关键业务应用程序从本地数据中心迁移到 AWS。公司在本地部署了一个 Microsoft SQL Server Always On 集群，希望迁移到 AWS 托管数据库服务。解决方案架构师必须在 AWS 上设计一个异构数据库迁移方案。哪种方案能够满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：结构转换加数据迁移职责正确分离。"
@@ -2497,7 +2497,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "103": {
-    "blocker": "出版公司的设计团队更新电子商务 Web 应用程式使用的图示和其他静态资源。该公司透过托管在公司生产帐户中的Amazon S3储存桶提供图标和资产。该公司还使用设计团队成员可以存取的开发帐户。设计团队测试开发帐户中的静态资产后，设计团队需要将资产载入到生产帐户中的S3桶中。解决方案架构师必须为设计团队提供对生产帐户的存取权限，而不会使 Web 应用程式的其他部分面临不必要的变更的风险。哪一种步骤组合可以满足这些要求？ （选择三项。）",
+    "blocker": "出版公司的设计团队更新电子商务 Web 应用程序使用的图示和其他静态资源。该公司通过托管在公司生产账户中的Amazon S3存储桶提供图标和资产。该公司还使用设计团队成员可以访问的开发账户。设计团队测试开发账户中的静态资产后，设计团队需要将资产载入到生产账户中的S3桶中。解决方案架构师必须为设计团队提供对生产账户的访问权限，而不会使 Web 应用程序的其他部分面临不必要的变更的风险。哪一种步骤组合可以满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：S3权限策略应在拥有资源的生产角色上。",
@@ -2525,7 +2525,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "104": {
-    "blocker": "一家公司使用 AWS Elastic Beanstalk 和 Java 开发了一个试点应用程式。为了节省开发成本，该公司的开发团队将应用程式部署到单一实例环境中。最近的测试表明该应用程式消耗的 CPU 超出预期。 CPU 使用率通常大于 85%，这会导致一些效能瓶颈。在公司将应用程式投入生产之前，解决方案架构师必须缓解效能问题。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司使用 AWS Elastic Beanstalk 和 Java 开发了一个试点应用程序。为了节省开发成本，该公司的开发团队将应用程序部署到单一实例环境中。最近的测试表明该应用程序消耗的 CPU 超出预期。 CPU 使用率通常大于 85%，这会导致一些性能瓶颈。在公司将应用程序投入生产之前，解决方案架构师必须缓解性能问题。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：官方支持single-instance升级为可伸缩环境。"
@@ -2549,7 +2549,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "105": {
-    "blocker": "一家金融公司正在当前一代 Linux EC2 实例上运行其关键业务应用程式。该应用程式包括一个执行大量 I/O 操作的自我管理的MySQL资料库。该应用程式在本月能够处理适量的流量。然而，尽管该公司在其基础设施中使用弹性负载平衡器和Auto Scaling来满足增加的需求，但由于月末报告，它在每个月的最后三天会放缓。下列哪一项操作可以让资料库处理月末负载，同时对效能的影响最小？",
+    "blocker": "一家金融公司正在当前一代 Linux EC2 实例上运行其关键业务应用程序。该应用程序包括一个执行大量 I/O 操作的自我管理的MySQL数据库。该应用程序在本月能够处理适量的流量。然而，尽管该公司在其基础设施中使用弹性负载均衡器和Auto Scaling来满足增加的需求，但由于月末报告，它在每个月的最后三天会放缓。下列哪一项操作可以让数据库处理月末负载，同时对性能的影响最小？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：只读副本分摊报表读取，托管DB降低维护。"
@@ -2573,7 +2573,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "106": {
-    "blocker": "某公司运行的 Java 应用程式对公司资料中心内的虚拟机器有著复杂的依赖关系。应用稳定。但该公司希望实现技术堆叠的现代化。该公司希望将应用程式迁移到AWS，并最大限度地减少维护伺服器的管理开销。哪种解决方案能够以最少的程式码更改满足这些要求？",
+    "blocker": "某公司运行的 Java 应用程序对公司数据中心内的虚拟机有著复杂的依赖关系。应用稳定。但该公司希望实现技术堆栈的现代化。该公司希望将应用程序迁移到AWS，并最大限度地减少维护服务器的管理开销。哪种解决方案能够以最少的代码更改满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：依赖打包、ECR、Fargate和ALB适合传统Java Web现代化。"
@@ -2597,7 +2597,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "107": {
-    "blocker": "一家公司有一个非同步 HTTP 应用程序，该应用程式作为 AWS Lambda 函数托管。公用 Amazon API Gateway 端点呼叫 Lambda 函数。 Lambda 函数和 API Gateway 端点位于 us-east-1 Region 中。解决方案架构师需要重新设计应用程式以支援故障转移到另一个AWSRegion。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司有一个非同步 HTTP 应用程序，该应用程序作为 AWS Lambda 函数托管。公用 Amazon API Gateway 端点调用 Lambda 函数。 Lambda 函数和 API Gateway 端点位于 us-east-1 Region 中。解决方案架构师需要重新设计应用程序以支持故障转移到另一个AWSRegion。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：两区域完整部署与DNS主备正确。"
@@ -2621,7 +2621,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "108": {
-    "blocker": "一家零售公司已将其 AWS 帐户建置为 AWS Organizations ​​组织的一部分。该公司已设定合并计费，并将其部门映射到以下OU：财务、销售、人力资源 (HR)、行销和营运。每个 OU 都有多个 AWS 帐户，一个部门内的每个环境都有一个帐户。这些环境是开发、测试、预生产和生产。人力资源部门正在发布一个新系统，将于 3 个月后推出。在准备过程中，人力资源部门在其生产 AWS 帐户中购买了多个预留实例 (RI)。人力资源部门将在此帐户上安装新应用程式。人力资源部门希望确保其他部门不能分享 RI 折扣。哪种解决方案可以满足这些要求？",
+    "blocker": "一家零售公司已将其 AWS 账户建置为 AWS Organizations 组织的一部分。该公司已设定合并计费，并将其部门映射到以下OU：财务、销售、人力资源 (HR)、行销和营运。每个 OU 都有多个 AWS 账户，一个部门内的每个环境都有一个账户。这些环境是开发、测试、预生产和生产。人力资源部门正在发布一个新系统，将于 3 个月后推出。在准备过程中，人力资源部门在其生产 AWS 账户中购买了多个预留实例 (RI)。人力资源部门将在此账户上安装新应用程序。人力资源部门希望确保其他部门不能分享 RI 折扣。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：管理账户控制个别成员RI共享。"
@@ -2645,7 +2645,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "109": {
-    "blocker": "一家大公司正在运行一个流行的 Web 应用程式。该应用程式在私有子网路中 Auto Scaling 群组中的多个 Amazon EC2 Linux 实例上运行。 Application Load Balancer 的目标是私有子网路中Auto Scaling 群组中的实例。 AWS Systems Manager 会话管理器已配置，且 AWS Systems Manager 代理正在所有 EC2 实例上运行。该公司最近发布了该应用程式的新版本。一些 EC2 实例现在被标记为不健康并且正在被终止。因此，应用程式的运行能力会降低。解决方案架构师尝试透过分析从应用程式收集的 Amazon CloudWatch 日志来确定根本原因，但这些日志并不确定。解决方案架构师应如何存取EC2实例来解决问题？",
+    "blocker": "一家大公司运行一个受欢迎的 Web 应用程序。应用程序运行在私有子网中某个 Auto Scaling 组的多个 Amazon EC2 Linux 实例上。一个 Application Load Balancer 将这些实例作为目标。公司已配置 AWS Systems Manager Session Manager，所有 EC2 实例上都运行着 AWS Systems Manager Agent。公司最近发布了应用程序的新版本。现在，一些 EC2 实例被标记为不健康并被终止，导致应用程序的运行容量降低。解决方案架构师尝试分析从应用程序收集的 Amazon CloudWatch 日志以确定根本原因，但未能得出明确结论。架构师应如何访问一个 EC2 实例来排查问题？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：Terminate明确覆盖健康失败等ASG终止动作。"
@@ -2669,7 +2669,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "110": {
-    "blocker": "一家公司希望部署 AWS WAF 解决方案来管理多个 AWS 帐户的 AWS WAF 规则。这些帐户在AWS Organizations中的不同OU下进行管理。管理员必须能够根据需要从托管 AWS WAF 规则集中新增或删除帐户或 OU。管理员还必须能够自动更新和修复所有帐户中不合规的 AWS WAF 规则。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司希望部署 AWS WAF 解决方案来管理多个 AWS 账户的 AWS WAF 规则。这些账户在AWS Organizations中的不同OU下进行管理。管理员必须能够根据需要从托管 AWS WAF 规则集中新增或删除账户或 OU。管理员还必须能够自动更新和修复所有账户中不合规的 AWS WAF 规则。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：使用原生跨账户策略引擎，额外自动化仅调整范围。"
@@ -2693,7 +2693,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "111": {
-    "blocker": "解决方案架构师正在审核公司的安全设定或AWS Lambda功能。 Lambda 函数从 Amazon Aurora 资料库撷取最新变更。 Lambda 函数和资料库在同一个VPC 中运作。 Lambda 环境变数向 Lambda 函数提供资料库凭证。 Lambda 函数聚合资料并使资料在 Amazon S3 储存桶中可用，该储存桶配置为使用 AWS KMS 托管加密金钥 (SSE-KMS) 进行伺服器端加密。资料不得透过互联网传输。如果任何资料库凭证遭到泄露，公司需要一种解决方案来最大限度地减少泄露的影响。解决方案架构师应该建议什么来满足这些要求？",
+    "blocker": "解决方案架构师正在审查一家公司某个 AWS Lambda 函数的安全配置。该函数从 Amazon Aurora 数据库获取最新更改。Lambda 函数与数据库运行在同一个 VPC 中，数据库凭证通过 Lambda 环境变量提供给函数。函数聚合数据，并将数据提供到一个 Amazon S3 存储桶中；该存储桶使用由 AWS KMS 管理密钥的服务器端加密 (SSE-KMS)。数据不得经过互联网传输。如果任何数据库凭证泄露，公司需要将泄露造成的影响降到最低。解决方案架构师应推荐什么方案来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：短期DB认证加私有S3路径同时覆盖两要求。"
@@ -2717,7 +2717,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "112": {
-    "blocker": "一家大型行动游戏公司已成功将其所有on-premises基础设施迁移到AWS云端。解决方案架构师正在审查环境，以确保它是根据设计构建的，并且它的运行符合架构完善的框架。在检查 Cost Explorer 中之前的每月成本时，解决方案架构师注意到，多个大型实例类型的建立和后续终止占据了成本的很大一部分。解决方案架构师发现，公司的开发人员正在启动新的 Amazon EC2 执行个体作为测试的一部分，且开发人员没有使用适当的执行个体类型。解决方案架构师必须实作控制机制来限制只有开发人员可以启动的执行个体类型。哪种解决方案可以满足这些要求？",
+    "blocker": "一家大型移动游戏公司已成功将所有本地基础设施迁移到 AWS 云。解决方案架构师正在审查环境，确保环境按设计构建，并按照 Well-Architected Framework 运行。在 Cost Explorer 中查看之前各月的成本时，架构师发现，创建并随后终止的多个大型实例产生的费用占了很高比例。进一步调查发现，公司的开发人员会在测试过程中启动新的 Amazon EC2 实例，但没有使用合适的实例类型。架构师必须实施一项控制机制，仅针对开发人员限制其能够启动的实例类型。哪种方案能够满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：IAM条件策略直接限定这些开发者。"
@@ -2741,7 +2741,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "113": {
-    "blocker": "一家公司正在AWS云端开发和托管多个专案。这些项目是在AWS Organizations同一组织下的多个AWS帐户开发的。该公司要求将云端基础设施的成本分配给自己的专案。负责所有 AWS 帐户的团队发现，多个 Amazon EC2 实例缺少用于成本分配的项目标签。解决方案架构师应该采取哪些行动来解决问题并防止未来再次发生？ （选择三项。）",
+    "blocker": "一家公司正在 AWS 云中开发和托管多个项目。这些项目分布在 AWS Organizations 同一组织下的多个 AWS 账户中。公司要求将云基础设施成本分配给对应的所属项目。负责所有 AWS 账户的团队发现，多个 Amazon EC2 实例缺少用于成本分配的 Project 标签。解决方案架构师应采取哪些措施来解决该问题并防止再次发生？（选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：检测存量缺标。",
@@ -2769,7 +2769,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "114": {
-    "blocker": "一家公司拥有一个 on-premises 监控解决方案，使用 PostgreSQL 资料库来持久保存事件。由于大量摄取，资料库无法扩展，并且经常耗尽储存空间。该公司希望创建混合解决方案，并已在其网路和 AWS 之间建立了 VPN 连接。此解决方案应包括以下属性： • 托管AWS 服务，以最大限度地降低营运复杂性。 • 缓冲区可自动扩展以符合资料吞吐量，且无需持续管理。 • 视觉化工具，用于建立仪表板以近乎即时地观察事件。 • 支援半结构化JSON 资料和动态模式。哪种组件组合将使公司能够创建满足这些要求的监控解决方案？ （选两个。）",
+    "blocker": "一家公司拥有一个 on-premises 监控解决方案，使用 PostgreSQL 数据库来持久保存事件。由于大量摄取，数据库无法扩展，并且经常耗尽存储空间。该公司希望创建混合解决方案，并已在其网络和 AWS 之间建立了 VPN 连接。此解决方案应包括以下属性： • 托管AWS 服务，以最大限度地降低营运复杂性。 • 缓冲区可自动扩展以符合数据吞吐量，且无需持续管理。 • 视觉化工具，用于建立仪表板以近乎即时地观察事件。 • 支持半结构化JSON 数据和动态模式。哪种组件组合将使公司能够创建满足这些要求的监控解决方案？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：全托管投递与缓冲，支持Lambda变换。",
@@ -2795,7 +2795,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "115": {
-    "blocker": "团队收集并传送整个公司的行为资料。该公司运行具有公共子网路、私人子网路和 Internet 闸道的 Multi-AZ VPC 环境。每个公共子网路也包含一个NAT网关。公司的大多数应用程式都会读取和写入Amazon Kinesis Data Streams。大多数工作负载在私有子网路中运作。解决方案架构师必须审查基础架构。解决方案架构师需要降低成本并维护应用程式的功能。解决方案架构师使用 Cost Explorer 并注意到EC2-其他类别的成本始终很高。进一步的审查表明，NatGateway-Bytes 收费正在增加 EC2-其他类别的成本。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "团队收集并传送整个公司的行为数据。该公司运行具有公共子网、私人子网和 Internet 网关的 Multi-AZ VPC 环境。每个公共子网也包含一个NAT网关。公司的大多数应用程序都会读取和写入Amazon Kinesis Data Streams。大多数工作负载在私有子网中运作。解决方案架构师必须审查基础架构。解决方案架构师需要降低成本并维护应用程序的功能。解决方案架构师使用 Cost Explorer 并注意到EC2-其他类别的成本始终很高。进一步的审查表明，NatGateway-Bytes 收费正在增加 EC2-其他类别的成本。解决方案架构师应该怎么做才能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：端点私有路径加端点policy与工作负载兼容性最直接。"
@@ -2819,7 +2819,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "116": {
-    "blocker": "一家零售公司在欧洲拥有一个on-premises资料中心。该公司还拥有多个Region AWS，其中包括 eu-west-1 和 us-east-1 Regions。该公司希望能够将网路流量从其 on-premises 基础设施路由到其中任一个 Regions 中的 VPC。公司还需要支援在那些 Regions 中的 VPC 之间直接路由的流量。网路上不能存在单点故障。该公司已从其 on-premises 资料中心创建了两个 1 Gbps AWS Direct Connect 连接。每个连接都进入欧洲的一个单独的Direct Connect位置，以实现高可用性。这两个位置分别命名为 DX-A 和 DX-B。每个 Region 都有一个 AWS Transit Gateway，配置为路由该 Region 内的所有VPC 间流量。哪种解决方案可以满足这些要求？",
+    "blocker": "一家零售公司在欧洲拥有一个on-premises数据中心。该公司还拥有多个Region AWS，其中包括 eu-west-1 和 us-east-1 Regions。该公司希望能够将网络流量从其 on-premises 基础设施路由到其中任一个 Regions 中的 VPC。公司还需要支持在那些 Regions 中的 VPC 之间直接路由的流量。网络上不能存在单点故障。该公司已从其 on-premises 数据中心创建了两个 1 Gbps AWS Direct Connect 连接。每个连接都进入欧洲的一个单独的Direct Connect位置，以实现高可用性。这两个位置分别命名为 DX-A 和 DX-B。每个 Region 都有一个 AWS Transit Gateway，配置为路由该 Region 内的所有VPC 间流量。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：VIF类型、双线冗余与跨区TGW互通均正确。"
@@ -2843,7 +2843,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "117": {
-    "blocker": "一家公司正在AWS云端中运行应用程式。公司的安全团队必须批准所有新 IAM 用户的创建。建立新的 IAM 使用者时，必须自动删除该使用者的所有存取权限。然后，安全团队必须收到批准用户的通知。该公司在AWS帐户中有多条RegionAWSCloudTrail踪迹。哪一种步骤组合可以满足这些要求？ （选择三项。）",
+    "blocker": "一家公司在 AWS 云中运行应用程序。安全团队必须批准所有新 IAM 用户的创建。每当创建新 IAM 用户时，都必须自动移除该用户的全部访问权限，然后通知安全团队审批该用户。公司已在此 AWS 账户中配置一个覆盖多个区域的 AWS CloudTrail 跟踪。哪组步骤能够满足这些要求？（选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：正确的API事件匹配入口。",
@@ -2871,7 +2871,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "118": {
-    "blocker": "一家公司想要迁移到AWS。该公司希望使用多帐户结构来集中管理对所有帐户和应用程式的存取。该公司还希望将流量保持在专用网路上。登入时需要多重身份验证（MFA），并且为使用者群组指派特定角色。公司必须为开发创建单独的帐户。登台、制作和分享网路。生产帐户和共享网路帐户必须连接到所有帐户。开发帐户和临时帐户必须只能相互存取。解决方案架构师应采取哪些步骤组合才能满足这些要求？ （选择三项。）",
+    "blocker": "一家公司计划迁移到 AWS，希望采用多账户结构，集中管理对所有账户和应用程序的访问，并使流量保留在专用网络中。登录时必须进行多重身份验证 (MFA)，并向用户组分配特定角色。公司必须分别为开发、预发布 (staging)、生产和共享网络创建独立账户。生产账户和共享网络账户必须能够连接所有账户。开发账户和预发布账户必须只能相互访问。解决方案架构师应采取哪组步骤来满足这些要求？（选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：组织账户治理与账户开通。",
@@ -2899,7 +2899,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "119": {
-    "blocker": "一家公司在 eu-west-1 Region 中运行其应用程序，并且每个环境都有一个帐户：开发、测试和生产。所有环境都使用有状态 Amazon EC2 实例和Amazon RDS MySQL 资料库，每周 7 天、每天 24 小时运行。资料库大小在 500 GB 到 800 GB 之间。开发团队和测试团队在工作日上班时间工作，但生产环境每周7天、每天24小时运行。该公司希望降低成本。所有资源都标有环境标签，以开发、测试或生产为键。解决方案架构师应该如何做才能以最少的营运工作来降低成本？",
+    "blocker": "一家公司在 eu-west-1 Region 中运行其应用程序，并且每个环境都有一个账户：开发、测试和生产。所有环境都使用有状态 Amazon EC2 实例和Amazon RDS MySQL 数据库，每周 7 天、每天 24 小时运行。数据库大小在 500 GB 到 800 GB 之间。开发团队和测试团队在工作日上班时间工作，但生产环境每周7天、每天24小时运行。该公司希望降低成本。所有资源都标有环境标签，以开发、测试或生产为键。解决方案架构师应该如何做才能以最少的营运工作来降低成本？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：按两条业务时间日程停启最简单。"
@@ -2923,7 +2923,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "120": {
-    "blocker": "一家公司正在 AWS 上建立软体即服务 (SaaS) 解决方案。该公司已在多个 AWS Regions 和同一个生产帐户中部署了 Amazon API Gateway REST API，并将 AWS Lambda 整合。该公司提供分级定价，使客户能够为每秒进行一定数量的 API 呼叫的容量付费。高级层每秒提供高达 3,000 次调用，并且透过唯一的 API 金钥来识别客户。多个 Regions 中的高级客户报告称，他们在高峰使用时段收到来自多个 API 方法的 429 Too Many Requests 错误回应。日志显示 Lambda 函数从未被呼叫。这些客户收到错误讯息的原因可能是什么？",
+    "blocker": "一家公司正在 AWS 上建立软件即服务 (SaaS) 解决方案。该公司已在多个 AWS Regions 和同一个生产账户中部署了 Amazon API Gateway REST API，并将 AWS Lambda 整合。该公司提供分级定价，使客户能够为每秒进行一定数量的 API 调用的容量付费。高级层每秒提供高达 3,000 次调用，并且通过唯一的 API 密钥来识别客户。多个 Regions 中的高级客户报告称，他们在高峰使用时段收到来自多个 API 方法的 429 Too Many Requests 错误响应。日志显示 Lambda 函数从未被调用。这些客户收到错误消息的原因可能是什么？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：账户每区域总RPS被所有API/客户共享，可能触顶。"
@@ -2947,7 +2947,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "121": {
-    "blocker": "一家金融公司正计划将其 Web 应用程式从本地迁移到AWS。该公司使用第三方安全工具来监控应用程式的入站流量。该公司在过去 15 年中一直使用该安全工具，该工具的供应商没有提供任何云端解决方案。公司安全团队关心的是如何将安全工具与AWS技术整合。该公司计划在 Amazon EC2 实例上将应用程式迁移部署到AWS。 EC2 实例将在专用 VPC 中的 Auto Scaling 群组中运行。公司需要使用安全工具来检查所有进出VPC的封包。此检查必须即时进行，并且不得影响应用程式的效能。解决方案架构师必须在 AWS 上设计一个在 AWS Region 内高度可用的目标架构。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
+    "blocker": "一家金融公司正计划将其 Web 应用程序从本地迁移到AWS。该公司使用第三方安全工具来监控应用程序的入站流量。该公司在过去 15 年中一直使用该安全工具，该工具的供应商没有提供任何云端解决方案。公司安全团队关心的是如何将安全工具与AWS技术整合。该公司计划在 Amazon EC2 实例上将应用程序迁移部署到AWS。 EC2 实例将在专用 VPC 中的 Auto Scaling 群组中运行。公司需要使用安全工具来检查所有进出VPC的封包。此检查必须即时进行，并且不得影响应用程序的性能。解决方案架构师必须在 AWS 上设计一个在 AWS Region 内高度可用的目标架构。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：虚拟安全设备需可在EC2运行并扩展。",
@@ -2973,7 +2973,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "122": {
-    "blocker": "一家公司从不同的供应商购买了设备。这些设备都配备物联网感测器。感测器以供应商专有格式将状态资讯传送到遗留应用程序，该应用程式将资讯解析为JSON。解析很简单，但每个供应商都有独特的格式。应用程式每天一次解析所有 JSON 记录并将记录储存在关联式资料库中以供分析。该公司需要设计一种新的数据分析解决方案，可以更快地交付并优化成本。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司从不同的供应商购买了设备。这些设备都配备物联网感测器。感测器以供应商专有格式将状态资讯传送到遗留应用程序，该应用程序将资讯解析为JSON。解析很简单，但每个供应商都有独特的格式。应用程序每天一次解析所有 JSON 记录并将记录存储在关联式数据库中以供分析。该公司需要设计一种新的数据分析解决方案，可以更快地交付并优化成本。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：托管事件链把轻量解析与按需分析串联。"
@@ -2997,7 +2997,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "123": {
-    "blocker": "一家公司正在将其部分应用程式迁移到AWS。该公司希望在确定网路和安全策略后快速迁移应用程式并使其现代化。该公司已在中央网路帐户中建立了AWS Direct Connect连线。该公司预计在不久的将来将拥有数百个AWS帐户和VPC。公司网路必须能够无缝存取AWS上的资源，并且还必须能够与所有VPC通讯。该公司还希望透过其on-premises资料中心将其云端资源路由到互联网。哪一种步骤组合可以满足这些要求？ （选择三项。）",
+    "blocker": "一家公司正在将其部分应用程序迁移到AWS。该公司希望在确定网络和安全策略后快速迁移应用程序并使其现代化。该公司已在中央网络账户中建立了AWS Direct Connect连接。该公司预计在不久的将来将拥有数百个AWS账户和VPC。公司网络必须能够无缝访问AWS上的资源，并且还必须能够与所有VPC通讯。该公司还希望通过其on-premises数据中心将其云端资源路由到互联网。哪一种步骤组合可以满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：DX gateway+TGW是集中混合路由骨干。",
@@ -3025,7 +3025,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "124": {
-    "blocker": "一家公司有数百个AWS帐户。该公司最近实施了一个集中的内部流程来购买新的预留实例和修改现有的预留实例。此流程要求所有想要购买或修改预留实例的业务部门向专门的团队提交采购请求。此前，业务部门直接在各自的AWS帐户中自主购买或修改预留实例。解决方案架构师需要以尽可能最安全的方式实施新流程。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
+    "blocker": "一家公司有数百个AWS账户。该公司最近实施了一个集中的内部流程来购买新的预留实例和修改现有的预留实例。此流程要求所有想要购买或修改预留实例的业务部门向专门的团队提交采购请求。此前，业务部门直接在各自的AWS账户中自主购买或修改预留实例。解决方案架构师需要以尽可能最安全的方式实施新流程。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：启用SCP所需组织能力。",
@@ -3051,7 +3051,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "125": {
-    "blocker": "一家公司正在运行一个关键应用程序，该应用程式使用 Amazon RDS for MySQL 资料库来储存资料。 RDS实例采用Multi-AZ模式部署。最近的 RDS 资料库故障转移测试导致应用程式中断 40 秒。解决方案架构师需要设计解决方案，将中断时间减少到 20 秒以内。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选择三项。）",
+    "blocker": "一家公司正在运行一个关键应用程序，使用 Amazon RDS for MySQL 数据库存储数据。RDS 数据库实例以多可用区模式部署。最近一次 RDS 数据库故障转移测试导致应用程序中断 40 秒。解决方案架构师需要设计一种方案，将中断时间缩短至少于 20 秒。架构师应采取哪组步骤来满足这些要求？（选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：代理保留/恢复应用连接。",
@@ -3079,7 +3079,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "126": {
-    "blocker": "AWS 合作伙伴公司正在使用其名为 org1 的组织在 AWS Organizations ​​中建立服务。此服务要求合作伙伴公司能够存取客户帐户中的AWS 资源，该帐户位于名为 org2 的单独组织中。公司必须使用 API 或命令列工具对客户帐户建立最低权限安全存取。允许 org1 存取 org2 中的资源的最安全方法是什么？",
+    "blocker": "AWS 合作伙伴公司正在使用其名为 org1 的组织在 AWS Organizations 中建立服务。此服务要求合作伙伴公司能够访问客户账户中的AWS 资源，该账户位于名为 org2 的单独组织中。公司必须使用 API 或命令列工具对客户账户建立最低权限安全访问。允许 org1 访问 org2 中的资源的最安全方法是什么？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：角色、最小权限及external ID符合标准第三方委派。"
@@ -3103,7 +3103,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "127": {
-    "blocker": "某快递公司需要将第三方路径规划应用程式迁移至AWS。第三方从公共注册表提供受支援的 Docker 映像。该映像可以根据需要在任意多个容器中运行以产生路线图。该公司将配送区域划分为具有供应中心的区域，以便送货司机从中心到客户的距离尽可能短。为了减少生成路线图所需的时间，每个部分都使用自己的一组Docker容器，这些容器具有自订配置，仅处理该部分区域中的订单。公司需要能够根据运作的容器数量经济有效地分配资源。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "某快递公司需要将第三方路径规划应用程序迁移至AWS。第三方从公共注册表提供受支持的 Docker 镜像。该映像可以根据需要在任意多个容器中运行以产生路线图。该公司将配送区域划分为具有供应中心的区域，以便送货司机从中心到客户的距离尽可能短。为了减少生成路线图所需的时间，每个部分都使用自己的一组Docker容器，这些容器具有自定义配置，仅处理该部分区域中的订单。公司需要能够根据运作的容器数量经济有效地分配资源。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：ECS Fargate run-task支持managed tags和自定义任务标签。"
@@ -3127,7 +3127,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "128": {
-    "blocker": "一家软体公司在 AWS 上托管一个应用程序，其资源位于多个 AWS 帐户和 Regions 中。该应用程式在位于 us-east-1 Region 的应用程式 VPC 中的一组 Amazon EC2 实例上运行，其 IPv4 CIDR 区块为 10.10.0.0/16。在另一个 AWS 帐户中，共享服务 VPC 位于 us-east-2 Region 中，其 IPv4 CIDR 区块为 10.10.10.0/24。当云端工程师使用 AWS CloudFormation 尝试将应用程式 VPC 与共用服务 VPC 对等互连时，会出现错误讯息，指示对等互连失败。哪些因素可能导致此错误？ （选两个。）",
+    "blocker": "一家软件公司在 AWS 上托管一个应用程序，其资源位于多个 AWS 账户和 Regions 中。该应用程序在位于 us-east-1 Region 的应用程序 VPC 中的一组 Amazon EC2 实例上运行，其 IPv4 CIDR 区块为 10.10.0.0/16。在另一个 AWS 账户中，共享服务 VPC 位于 us-east-2 Region 中，其 IPv4 CIDR 区块为 10.10.10.0/24。当云端工程师使用 AWS CloudFormation 尝试将应用程序 VPC 与共用服务 VPC 对等互连时，会出现错误消息，指示对等互连失败。哪些因素可能导致此错误？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：明确地址重叠，足以使peering失败。",
@@ -3153,7 +3153,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "129": {
-    "blocker": "对公司无伺服器应用程式的外部审计揭示了授予过多权限的IAM策略。这些政策附属于公司的AWS Lambda执行角色。该公司的数百个 Lambda 函数具有广泛的存取权限，例如对Amazon S3储存桶和Amazon DynamoDB表的完全存取权限。该公司希望每个功能仅拥有该功能完成其任务所需的最低权限。解决方案架构师必须确定每个 Lambda 函数需要哪些权限。解决方案架构师应该如何做才能以最少的努力满足此要求？",
+    "blocker": "对公司无服务器应用程序的外部审计揭示了授予过多权限的IAM策略。这些政策附属于公司的AWS Lambda执行角色。该公司的数百个 Lambda 函数具有广泛的访问权限，例如对Amazon S3存储桶和Amazon DynamoDB表的完全访问权限。该公司希望每个 Lambda 函数仅拥有该函数完成其任务所需的最低权限。解决方案架构师必须确定每个 Lambda 函数需要哪些权限。解决方案架构师应该如何做才能以最少的努力满足此要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：官方原生策略生成工具。"
@@ -3177,7 +3177,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "130": {
-    "blocker": "解决方案架构师必须分析公司的 Amazon EC2 实例和 Amazon 弹性块储存 (Amazon EBS) 卷，以确定公司是否有效地使用资源。该公司正在运行多个大型高记忆体EC2实例来托管以主动/被动配置部署的资料库集群。这些EC2实例的利用率因使用资料库的应用程式而异，该公司尚未确定一种模式。解决方案架构师必须分析环境并根据结果采取行动。哪种解决方案最经济有效率地满足这些要求？",
+    "blocker": "解决方案架构师必须分析公司的 Amazon EC2 实例和 Amazon 弹性块存储 (Amazon EBS) 卷，以确定公司是否有效地使用资源。该公司正在运行多个大型高内存EC2实例来托管以主动/被动配置部署的数据库集群。这些EC2实例的利用率因使用数据库的应用程序而异，该公司尚未确定一种模式。解决方案架构师必须分析环境并根据结果采取行动。哪种解决方案最经济有效率地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：agent加优化建议方向正确，但12小时不足以作为通用数据要求。"
@@ -3201,7 +3201,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "131": {
-    "blocker": "一家公司使用 AWS Organizations ​​在 AWS 云端中进行多重帐户设定。该公司使用 AWS Control Tower 进行治理，并使用 AWS Transit Gateway 进行 VPC 跨帐户连接。在AWS应用程式帐户中，公司的应用程式团队部署了一个使用AWS Lambda和Amazon RDS的Web应用程式。本公司的资料库管理员拥有独立的DBA帐户，并使用该帐户集中管理整个组织内的所有资料库。资料库管理员使用部署在 DBA 帐户中的 Amazon EC2 实例来存取部署在应用程式帐户中的 RDS 资料库。应用程式团队已将资料库凭证作为机密储存在应用程式帐户的AWS Secrets Manager中。应用程式团队正在与资料库管理员手动共用机密。这些秘密由应用程式帐户中 Secrets Manager 的预设 AWS 托管金钥进行加密。解决方案架构师需要实作一个解决方案，使资料库管理员能够存取资料库，并且无需手动共用机密。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司使用 AWS Organizations 在 AWS 云端中进行多重账户设定。该公司使用 AWS Control Tower 进行治理，并使用 AWS Transit Gateway 进行 VPC 跨账户连接。在AWS应用程序账户中，公司的应用程序团队部署了一个使用AWS Lambda和Amazon RDS的Web应用程序。本公司的数据库管理员拥有独立的DBA账户，并使用该账户集中管理整个组织内的所有数据库。数据库管理员使用部署在 DBA 账户中的 Amazon EC2 实例来访问部署在应用程序账户中的 RDS 数据库。应用程序团队已将数据库凭证作为机密存储在应用程序账户的AWS Secrets Manager中。应用程序团队正在与数据库管理员手动共用机密。这些秘密由应用程序账户中 Secrets Manager 的默认 AWS 托管密钥进行加密。解决方案架构师需要实作一个解决方案，使数据库管理员能够访问数据库，并且无需手动共用机密。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：应用账户角色授权读secret并信任DBA角色，DBA角色获AssumeRole权限。"
@@ -3225,7 +3225,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "132": {
-    "blocker": "某公司透过AWS Organizations管理多个AWS帐户。在根OU下，该公司有两个OU：研究和数据运营。由于监管要求，公司在组织中部署的所有资源都必须驻留在 ap-northeast-1 Region 中。此外，公司在 DataOps OU 中部署的 EC2 实例必须使用预先定义的实例类型清单。解决方案架构师必须实施应用这些限制的解决方案。此解决方案必须最大限度地提高营运效率，并最大限度地减少持续维护。哪一种步骤组合可以满足这些要求？ （选两个。）",
+    "blocker": "某公司通过AWS Organizations管理多个AWS账户。在根OU下，该公司有两个OU：研究和数据运营。由于监管要求，公司在组织中部署的所有资源都必须驻留在 ap-northeast-1 Region 中。此外，公司在 DataOps OU 中部署的 EC2 实例必须使用预先定义的实例类型清单。解决方案架构师必须实施应用这些限制的解决方案。此解决方案必须最大限度地提高运维效率，并最大限度地减少持续维护。哪一种步骤组合可以满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：根级全局区域条件覆盖组织成员。",
@@ -3251,7 +3251,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "133": {
-    "blocker": "一家公司在单一 AWS Region 中运行无伺服器应用程式。该应用程式存取外部 URL 并从这些网站提取元资料。该公司使用 Amazon 简单通知服务 (Amazon SNS) 主题将 URL 发布到 Amazon Simple Queue Service (Amazon SQS) 队列。 AWS Lambda 函数使用伫列作为事件来源并处理来自伫列的 URL。结果保存到Amazon S3存储桶中。该公司希望处理其他 Regions 中的每个 URL，以比较网站在地化中可能存在的差异。 URL 必须从现有的 Region 发布。结果必须写入目前Region中现有的S3储存桶。哪种更改组合将产生满足这些要求的多Region部署？ （选两个。）",
+    "blocker": "一家公司在单一 AWS Region 中运行无服务器应用程序。该应用程序访问外部 URL 并从这些网站提取元数据。该公司使用 Amazon 简单通知服务 (Amazon SNS) 主题将 URL 发布到 Amazon Simple Queue Service (Amazon SQS) 队列。 AWS Lambda 函数使用队列作为事件来源并处理来自队列的 URL。结果保存到Amazon S3存储桶中。该公司希望在其他区域分别处理每个 URL，以比较网站在地化中可能存在的差异。 URL 必须从现有的 Region 发布。结果必须写入目前Region中现有的S3存储桶。哪种更改组合将产生满足这些要求的多Region部署？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：SQS event source与Lambda同区域部署。",
@@ -3277,7 +3277,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "134": {
-    "blocker": "一家公司在 Amazon EC2 Linux 实例上运行专有的无状态 ETL 应用程式。该应用程式是 Linux 二进位文件，原始程式码无法修改。该应用程式是单线程的，使用 2 GB 的 RAM，并且是高度 CPU 密集型的。该应用程式计划每 4 小时运行一次，最多运行 20 分钟。解决方案架构师想要修改解决方案的架构。解决方案架构师应该使用哪一种策略？",
+    "blocker": "一家公司在 Amazon EC2 Linux 实例上运行专有的无状态 ETL 应用程序。该应用程序是 Linux 二进位文件，原始代码无法修改。该应用程序是单线程的，使用 2 GB 的 RAM，并且是高度 CPU 密集型的。该应用程序计划每 4 小时运行一次，最多运行 20 分钟。解决方案架构师想要修改解决方案的架构。解决方案架构师应该使用哪一种策略？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：Fargate容器加EventBridge周期启动最直接。"
@@ -3301,7 +3301,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "135": {
-    "blocker": "一家公司正在为一款流行的线上游戏制作续集。游戏上线后的第一周内就会有大量来自世界各地的用户玩游戏。目前，游戏由部署在单一AWS Region 中的以下组件组成： • 储存游戏资产的Amazon S3 储存桶 • 储存玩家得分的Amazon DynamoDB 表 解决方案架构师需要设计一个多⟦T126T051⟧ 表 解决方案架构师需要设计一个多Region 工作量来减少解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家公司正在为一款受欢迎的在线游戏制作续作。游戏上线后的第一周内，全球各地将有大量用户游玩。目前，游戏的以下组件都部署在同一个 AWS 区域：一个存储游戏资源的 Amazon S3 存储桶，以及一个存储玩家分数的 Amazon DynamoDB 表。解决方案架构师需要设计一个多区域方案，以降低延迟、提高可靠性，并尽量减少实施工作量。架构师应如何满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：资产CRR+origin group及全球表覆盖数据和入口。"
@@ -3325,7 +3325,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "136": {
-    "blocker": "一家公司有一个 on-premises 网站应用程序，为潜在租户和买家提供房地产资讯。该网站使用 Java 后端和 NoSQL MongoDB 资料库来储存订阅者资料。该公司需要将整个应用程式迁移到具有类似结构的AWS。必须部署应用程式以实现高可用性，且公司不能对应用程式进行更改。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司有一个 on-premises 网站应用程序，为潜在租户和买家提供房地产资讯。该网站使用 Java 后端和 NoSQL MongoDB 数据库来存储订阅者数据。该公司需要将整个应用程序迁移到具有类似结构的AWS。必须部署应用程序以实现高可用性，且公司不能对应用程序进行更改。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：托管兼容数据库加多AZ应用是推荐架构。"
@@ -3349,7 +3349,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "137": {
-    "blocker": "一家数位行销公司拥有多个属于不同团队的 AWS 帐户。创意团队在其 AWS 帐户中使用 Amazon S3 储存桶来安全地储存用作公司行销活动内容的图像和媒体档案。创意团队希望与策略团队分享S3储存桶，以便策略团队可以查看物件。解决方案架构师在策略帐户中建立了一个名为strategy_reviewer 的IAM 角色。解决方案架构师还在 Creative 帐户中设定了自订 AWS Key Management Service (AWS KMS) 金钥，并将该金钥与 S3 储存桶相关联。但是，当策略帐户的使用者承担 IAM 角色并尝试存取 S3 储存桶中的物件时，他们会收到「存取被拒绝」错误。解决方案架构师必须确保策略帐户中的使用者可以存取 S3 储存桶。该解决方案必须仅向这些使用者提供他们所需的最低权限。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选择三项。）",
+    "blocker": "一家数位行销公司拥有多个属于不同团队的 AWS 账户。创意团队在其 AWS 账户中使用 Amazon S3 存储桶来安全地存储用作公司行销活动内容的图像和媒体文件。创意团队希望与策略团队分享S3存储桶，以便策略团队可以查看对象。解决方案架构师在策略账户中建立了一个名为strategy_reviewer 的IAM 角色。解决方案架构师还在 Creative 账户中设定了自定义 AWS Key Management Service (AWS KMS) 密钥，并将该密钥与 S3 存储桶相关联。但是，当策略账户的用户承担 IAM 角色并尝试访问 S3 存储桶中的对象时，他们会收到「访问被拒绝」错误。解决方案架构师必须确保策略账户中的用户可以访问 S3 存储桶。该解决方案必须仅向这些用户提供他们所需的最低权限。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：源桶策略授Strategy账户读权限，配F将实际授权收敛到角色。",
@@ -3377,7 +3377,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "138": {
-    "blocker": "一家生命科学公司正在使用开源工具组合来管理资料分析工作流程，并使用在其 on-premises 资料中心的伺服器上运行的 Docker 容器来处理基因组资料。产生定序资料并将其储存在本机储存区域网路（SAN）上，然后对资料进行处理。研发团队遇到了容量问题，并决定在AWS上重新建构其基因组分析平台，以根据工作负载需求进行扩展，并将周转时间从几周缩短到几天。本公司拥有高速AWS Direct Connect连线。定序仪将为每个基因组产生约 200 GB 的数据，并且单一作业可能需要几个小时才能以理想的运算能力处理数据。最终结果将储存在Amazon S3中。该公司预计每天会收到 10-15 个工作请求。哪种解决方案满足这些要求？",
+    "blocker": "一家生命科学公司正在使用开源工具组合来管理数据分析工作流程，并使用在其 on-premises 数据中心的服务器上运行的 Docker 容器来处理基因组数据。产生定序数据并将其存储在本机存储区域网络（SAN）上，然后对数据进行处理。研发团队遇到了容量问题，并决定在AWS上重新建构其基因组分析平台，以根据工作负载需求进行扩展，并将周转时间从几周缩短到几天。本公司拥有高速AWS Direct Connect连接。定序仪将为每个基因组产生约 200 GB 的数据，并且单一作业可能需要几个小时才能以理想的运算能力处理数据。最终结果将存储在Amazon S3中。该公司预计每天会收到 10-15 个工作请求。哪种解决方案满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：DataSync、编排、ECR及Batch职责匹配且弹性处理。"
@@ -3401,7 +3401,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "139": {
-    "blocker": "一家公司在开发环境中的单一 Windows Amazon EC2 实例上运行内容管理应用程式。应用程式将静态内容读取并写入到作为根设备附加到实例的 2 TB Amazon 弹性块存储 (Amazon EBS) 卷。该公司计划将此应用程式部署在生产中，作为一个高度可用且容错的解决方案，该解决方案在跨多个 Availability Zones 的至少三个 EC2 实例上运行。解决方案架构师必须设计一个解决方案，将所有执行应用程式的实例加入到 Active Directory 域。该解决方案还必须实作 Windows ACL 来控制对档案内容的存取。应用程式始终必须在任何给定时间点在所有正在运行的实例上维护完全相同的内容。哪种解决方案能够以最少的管理开销来满足这些要求？",
+    "blocker": "一家公司在开发环境中的单一 Windows Amazon EC2 实例上运行内容管理应用程序。应用程序将静态内容读取并写入到作为根设备附加到实例的 2 TB Amazon 弹性块存储 (Amazon EBS) 卷。该公司计划将此应用程序部署在生产中，作为一个高度可用且容错的解决方案，该解决方案在跨多个 Availability Zones 的至少三个 EC2 实例上运行。解决方案架构师必须设计一个解决方案，将所有执行应用程序的实例加入到 Active Directory 域。该解决方案还必须实作 Windows ACL 来控制对文件内容的访问。应用程序始终必须在任何给定时间点在所有正在运行的实例上维护完全相同的内容。哪种解决方案能够以最少的管理开销来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：原生Windows共享存储、域加入与多AZ实例完整。"
@@ -3425,7 +3425,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "140": {
-    "blocker": "一家基于软体即服务 (SaaS) 的公司向客户提供案例管理解决方案 A3 解决方案的一部分。该公司使用独立的简单邮件传输协定 (SMTP) 伺服器从应用程式发送电子邮件。该应用程式还储存用于确认电子邮件讯息的电子邮件模板，该模板在应用程式将电子邮件讯息发送给客户之前填充客户资料。该公司计划将此讯息功能迁移到AWS云，并需要最大限度地减少营运开销。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家 SaaS 公司向客户提供案例管理解决方案。作为该方案的一部分，公司使用一个独立的简单邮件传输协议 (SMTP) 服务器，从应用程序发送电子邮件。应用程序还存储着确认邮件模板，在向客户发送邮件之前，会将客户数据填入模板。公司计划将这项消息发送功能迁移到 AWS 云，并希望尽量减少运维开销。哪种方案能够以最经济的方式满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：SES模板渲染加托管邮件发送最直接。"
@@ -3449,7 +3449,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "141": {
-    "blocker": "某公司正在使用 Auto Scaling 群组中的 Amazon EC2 实例处理AWS 云端中的影片。处理一个视讯需要 30 分钟 多个 EC2 实例根据 Amazon Simple Queue Service (Amazon SQS) 伫列中的视讯数量进行缩放。该公司已使用重新驱动策略来配置 SQS 伫列，该策略指定目标死信伫列且 maxReceiveCount 为 1。该公司已将 SQS 队列的可见度逾时设定为 1 小时。公司设定了AmazonCloudWatch警报，当死信队列中有讯息时通知开发团队。白天好几次。开发团队收到讯息位于死信队列中且影片尚未处理的通知。调查发现应用程式日志中没有错误。公司如何解决这个问题？",
+    "blocker": "一家公司使用 Auto Scaling 组中的 Amazon EC2 实例在 AWS 云中处理视频。每个视频需要处理 30 分钟。多个 EC2 实例根据 Amazon SQS 队列中的视频数量进行扩缩容。SQS 队列的重驱动策略指定了目标死信队列，并将 maxReceiveCount 设为 1；队列的可见性超时设为 1 小时。公司配置了 Amazon CloudWatch 告警，在死信队列中出现消息时通知开发团队。一天中，开发团队多次收到通知，称死信队列中有消息且视频未被正确处理。调查发现应用日志中没有错误。公司应如何解决此问题？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：保护正在处理任务的实例免遭缩容。"
@@ -3473,7 +3473,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "142": {
-    "blocker": "一家公司开发了使用 Amazon API Gateway 和 Regional 端点的 API。 API 呼叫使用 API Gateway 验证机制的 AWS Lambda 函数。经过设计审查后，解决方案架构师确定了一组不需要公共存取的 API。解决方案架构师必须设计一个解决方案，使这组 API 只能从 VPC 存取。所有 API 都需要由经过验证的使用者呼叫 哪种解决方案能够以最少的努力满足这些要求？",
+    "blocker": "一家公司开发了使用 Amazon API Gateway 和 Regional 端点的 API。 API 调用使用 API Gateway 验证机制的 AWS Lambda 函数。经过设计审查后，解决方案架构师确定了一组不需要公共访问的 API。解决方案架构师必须设计一个解决方案，使这组 API 只能从 VPC 访问。所有 API 都需要由经过验证的用户调用 哪种解决方案能够以最少的努力满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：私有API与接口端点、资源策略共同限制VPC访问。"
@@ -3497,7 +3497,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "143": {
-    "blocker": "气象服务透过托管在 eu-west-1 Region 的 AWS 上的 Web 应用程式提供高解析度天气地图。天气地图经常更新并与静态 HTML 内容一起储存在 Amazon S3 中。 Web 应用程式的前端是 Amazon CloudFront。该公司最近扩展到为 us-east-1 Region 的用户提供服务，这些新用户报告说，查看各自的天气地图有时很慢。哪种步骤组合可以解决 us-east-1 效能问题？ （选两个。）",
+    "blocker": "气象服务通过托管在 eu-west-1 Region 的 AWS 上的 Web 应用程序提供高解析度天气地图。天气地图经常更新并与静态 HTML 内容一起存储在 Amazon S3 中。 Web 应用程序的前端是 Amazon CloudFront。该公司最近扩展到为 us-east-1 Region 的用户提供服务，这些新用户报告说，查看各自的天气地图有时很慢。哪种步骤组合可以解决 us-east-1 性能问题？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：跨区域复制提供本地源数据。",
@@ -3523,7 +3523,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "144": {
-    "blocker": "解决方案架构师正在调查公司无法在 Amazon 工作区中建立新会话的问题。初步分析显示该问题涉及使用者设定档。 Amazon 工作空间环境配置为使用 Windows 档案伺服器的 Amazon FSx 作为设定档共用储存。 Windows 档案伺服器档案系统的FSx 配置了 10 TB 的储存空间。解决方案架构师发现档案系统已达到最大容量。解决方案架构师必须确保使用者可以重新获得存取权限。解决方案还必须防止问题再次发生。哪种解决方案可以满足这些要求？",
+    "blocker": "解决方案架构师正在调查一家公司无法在 Amazon WorkSpaces 中建立新会话的问题。初步分析表明，问题与用户配置文件有关。WorkSpaces 环境使用 Amazon FSx for Windows File Server 存储用户配置文件共享。该文件系统配置了 10 TB 存储空间。架构师发现文件系统已用满。必须让用户恢复访问，并防止问题再次发生。哪种方案能满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：立即扩容与后续自动扩容兼顾。"
@@ -3547,7 +3547,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "145": {
-    "blocker": "一家国际快递公司在AWS上托管了一个快递管理系统。司机使用该系统上传交货确认讯息。确认包括收件人的签名或收件人与包裹的照片。驾驶者的手持装置透过FTP将签名和照片上传到单一Amazon EC2实例。每个手持设备都会根据登入使用者在目录中保存一个文件，并且文件名称与交付编号相符。然后，EC2 实例在查询中央资料库以提取传递资讯后将元资料新增至档案。然后将该档案放置在 Amazon S3 中进行存档。随著公司的扩张，司机报告说系统拒绝连接。 FTP 伺服器因连线中断和记忆体问题而出现问题，为了因应这些问题，系统工程师安排了一个 cron 任务，每 30 分钟重新启动 EC2 实例。计费团队报告说，文件并不总是在存档中，并且中央系统并不总是更新。解决方案架构师需要设计一个解决方案，最大限度地提高可扩充性，以确保存档始终收到档案并且系统始终更新。手持设备无法修改，因此公司无法部署新的应用程式。哪种解决方案可以满足这些要求？",
+    "blocker": "一家国际快递公司在AWS上托管了一个快递管理系统。司机使用该系统上传交货确认消息。确认包括收件人的签名或收件人与包裹的照片。驾驶者的手持设备通过FTP将签名和照片上传到单一Amazon EC2实例。每个手持设备都会根据登录用户在目录中保存一个文件，并且文件名称与交付编号相符。然后，EC2 实例在查询中央数据库以提取传递资讯后将元数据新增至文件。然后将该文件放置在 Amazon S3 中进行存档。随著公司的扩张，司机报告说系统拒绝连接。 FTP 服务器因连接中断和内存问题而出现问题，为了因应这些问题，系统工程师安排了一个 cron 任务，每 30 分钟重新启动 EC2 实例。计费团队报告说，文件并不总是在存档中，并且中央系统并不总是更新。解决方案架构师需要设计一个解决方案，最大限度地提高可扩充性，以确保存档始终收到文件并且系统始终更新。手持设备无法修改，因此公司无法部署新的应用程序。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：托管FTP入口和事件处理消除单机上传处理瓶颈。"
@@ -3571,7 +3571,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "146": {
-    "blocker": "一家公司正在AWS云端中运行应用程式。该应用程式在Amazon Elastic Container Service (Amazon ECS)集群中的容器上运行。 ECS 任务使用 Fargate 启动类型。应用程式的资料是关系型的，储存在AmazonAuroraMySQL中。为了满足监管要求，应用程式必须能够在应用程式发生故障时恢复到单独的 AWS Region。如果发生故障，任何资料都不会遗失。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司正在AWS云端中运行应用程序。该应用程序在Amazon Elastic Container Service (Amazon ECS)集群中的容器上运行。 ECS 任务使用 Fargate 启动类型。应用程序的数据是关系型的，存储在AmazonAuroraMySQL中。为了满足监管要求，应用程序必须能够在应用程序发生故障时恢复到单独的 AWS Region。如果发生故障，任何数据都不会遗失。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：跨区域只读集群能容灾但有复制延迟，不等于零数据丢失。"
@@ -3595,7 +3595,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "147": {
-    "blocker": "一家金融服务公司从其信用卡服务合作伙伴处定期接收资料。每 15 分钟就会以明文形式发送约 5,000 笔记录，透过伺服器端加密透过 HTTPS 直接传送到Amazon S3 储存桶中。此 Feed 包含敏感的信用卡主帐号 (PAN) 资料。该公司需要在将资料发送到另一个S3储存桶进行额外的内部处理之前自动屏蔽 PAN。公司还需要删除并合并特定字段，然后将记录转换为JSON格式。此外，未来可能会添加额外的提要，因此任何设计都需要易于扩展。哪些解决方案可以满足这些要求？",
+    "blocker": "一家金融服务公司定期接收信用卡服务合作伙伴提供的数据。每 15 分钟约有 5,000 条明文记录通过 HTTPS 直接传入一个启用了服务端加密的 Amazon S3 桶。数据包含敏感的信用卡主账号（PAN）。公司需要在将数据发送到另一个 S3 桶供内部进一步处理之前，自动对 PAN 进行脱敏。此外，还需要删除和合并特定字段，并将记录转换为 JSON 格式。未来可能加入更多数据源，因此设计必须易于扩展。哪种方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：Glue提供托管ETL与JSON输出，符合可扩展转换。"
@@ -3619,7 +3619,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "148": {
-    "blocker": "一家公司希望使用 AWS 创建业务连续性解决方案，以防公司的主要 on-premises 应用程式出现故障。该应用程式在也运行其他应用程式的实体伺服器上运行。该公司计划迁移的 on-premises 应用程式使用 MySQL 资料库作为资料储存。本公司所有on-premises应用程式均使用与Amazon EC2相容的作业系统。哪种解决方案能够以最少的营运开销实现公司的目标？",
+    "blocker": "一家公司希望使用 AWS 创建业务连续性解决方案，以防公司的主要 on-premises 应用程序出现故障。该应用程序在也运行其他应用程序的实体服务器上运行。该公司计划迁移的 on-premises 应用程序使用 MySQL 数据库作为数据存储。本公司所有on-premises应用程序均使用与Amazon EC2兼容的作业系统。哪种解决方案能够以最少的运维开销实现公司的目标？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：DRS专门处理持续灾备、恢复和回切。"
@@ -3643,7 +3643,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "149": {
-    "blocker": "公司须接受对其财务资讯的监管审计。使用单一AWS帐户的外部审计师需要存取公司的AWS帐户。解决方案架构师必须为审核员提供对公司AWS帐户的安全性、唯读存取权限。此解决方案必须符合AWS安全最佳实务。哪种解决方案可以满足这些要求？",
+    "blocker": "公司须接受对其财务资讯的监管审计。使用单一AWS账户的外部审计师需要访问公司的AWS账户。解决方案架构师必须为审核员提供对公司AWS账户的安全性、只读访问权限。此解决方案必须符合AWS安全最佳实务。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：跨账户角色、最小权限及ExternalId是推荐组合。"
@@ -3667,7 +3667,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "150": {
-    "blocker": "一家公司拥有一个对延迟敏感的交易平台，该平台使用Amazon DynamoDB作为储存后端。该公司将DynamoDB表配置为使用按需容量模式。解决方案架构师需要设计一个解决方案来提高交易平台的效能。新的解决方案必须确保交易平台的高可用性。哪种解决方案能够以最少的延迟满足这些要求？",
+    "blocker": "一家公司拥有一个对延迟敏感的交易平台，该平台使用Amazon DynamoDB作为存储后端。该公司将DynamoDB表配置为使用按需容量模式。解决方案架构师需要设计一个解决方案来提高交易平台的性能。新的解决方案必须确保交易平台的高可用性。哪种解决方案能够以最少的延迟满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：三节点并缓存读；写直达表可省去缓存写路径。"
@@ -3691,7 +3691,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "151": {
-    "blocker": "一家公司已将应用程式从本地迁移到AWS。应用程式前端是一个静态网站，在 Application Load Balancer (ALB) 后面的两个 Amazon EC2 实例上运行。应用程式后端是一个 Python 应用程序，在另一个 ALB 后面的三个 EC2 实例上运行。 EC2 实例是大型通用按需实例，其大小可满足应用程式峰值所使用的on-premises 规范。该应用程式平均每月有数十万个请求。然而，该应用程式主要在午餐时间使用，在一天的其余时间接收的流量很少。解决方案架构师需要优化应用程式的基础架构成本，而不会对应用程式可用性产生负面影响。哪一种步骤组合可以满足这些要求？ （选两个。）",
+    "blocker": "一家公司已将应用程序从本地迁移到AWS。应用程序前端是一个静态网站，在 Application Load Balancer (ALB) 后面的两个 Amazon EC2 实例上运行。应用程序后端是一个 Python 应用程序，在另一个 ALB 后面的三个 EC2 实例上运行。 EC2 实例是大型通用按需实例，其大小可满足应用程序峰值所使用的on-premises 规范。该应用程序平均每月有数十万个请求。然而，该应用程序主要在午餐时间使用，在一天的其余时间接收的流量很少。解决方案架构师需要优化应用程序的基础架构成本，而不会对应用程序可用性产生负面影响。哪一种步骤组合可以满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：S3托管静态资源无需两台Web服务器。",
@@ -3717,7 +3717,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "152": {
-    "blocker": "一家公司正在AWS上运行活动票务平台，并希望优化该平台的成本效益。该平台部署在 Amazon Elastic Kubernetes Service (Amazon EKS) 和 Amazon EC2 上，并由 MySQL 资料库实例的 Amazon RDS 支援。该公司正在开发新的应用程式功能，可在 Amazon EKS 和 AWS Fargate 上运行。该平台很少出现需求高峰。需求的激增取决于活动日期。哪种解决方案将为平台提供最具成本效益的设定？",
+    "blocker": "一家公司正在AWS上运行活动票务平台，并希望优化该平台的成本效益。该平台部署在 Amazon Elastic Kubernetes Service (Amazon EKS) 和 Amazon EC2 上，并由 MySQL 数据库实例的 Amazon RDS 支持。该公司正在开发新的应用程序功能，可在 Amazon EKS 和 AWS Fargate 上运行。该平台很少出现需求高峰。需求的激增取决于活动日期。哪种解决方案将为平台提供最具成本效益的设定？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：基线Compute SP+峰值Spot兼顾折扣和Fargate灵活性。"
@@ -3741,7 +3741,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "153": {
-    "blocker": "某公司在AWSElastic Beanstalk上部署了一个应用程式。该应用程式使用 Amazon Aurora 作为资料库层。 Amazon CloudFront 发行版服务 Web 请求，并包含 Elastic Beanstalk 网域作为来源伺服器。此分发配置了访客在存取应用程式时使用的备用网域名称。每周，该公司都会停止使用该应用程式以进行日常维护。在应用程式无法使用期间，该公司希望访客收到资讯性讯息，而不是CloudFront错误讯息。解决方案架构师创建一个Amazon S3储存桶作为流程的第一步。解决方案架构师下一步应该采取哪些步骤组合来满足要求？ （选择三项。）",
+    "blocker": "某公司在AWSElastic Beanstalk上部署了一个应用程序。该应用程序使用 Amazon Aurora 作为数据库层。 Amazon CloudFront 分配服务 Web 请求，并包含 Elastic Beanstalk 网域作为来源服务器。此分发配置了访客在访问应用程序时使用的备用网域名称。每周，该公司都会停止使用该应用程序以进行日常维护。在应用程序无法使用期间，该公司希望访客收到资讯性消息，而不是CloudFront错误消息。解决方案架构师创建一个Amazon S3存储桶作为流程的第一步。解决方案架构师下一步应该采取哪些步骤组合来满足要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：必须先有维护提示内容。",
@@ -3769,7 +3769,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "154": {
-    "blocker": "一家公司让用户能够从自订应用程式上传图像。上传过程呼叫AWS Lambda函数来处理映像并将其储存在Amazon S3储存桶中。应用程式使用特定函数版本ARN呼叫Lambda函数。 Lambda 函数使用环境变数接受影像处理参数。公司经常调整Lambda函数的环境变数以达到最佳的影像处理输出。该公司测试了不同的参数，并在验证结果后发布了具有更新的环境变数的新函数版本。此更新过程还需要频繁更改自订应用程式以呼叫新功能版本ARN。这些变更会导致使用者中断。解决方案架构师需要简化此流程，以最大程度地减少对使用者的干扰。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司让用户能够从自定义应用程序上传图像。上传过程调用AWS Lambda函数来处理映像并将其存储在Amazon S3存储桶中。应用程序使用特定函数版本ARN调用Lambda函数。 Lambda 函数使用环境变数接受影像处理参数。公司经常调整Lambda函数的环境变数以达到最佳的影像处理输出。该公司测试了不同的参数，并在验证结果后发布了具有更新的环境变数的新函数版本。此更新过程还需要频繁更改自定义应用程序以调用新功能版本ARN。这些变更会导致用户中断。解决方案架构师需要简化此流程，以最大程度地减少对用户的干扰。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：别名为版本提供可切换的稳定引用。"
@@ -3793,7 +3793,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "155": {
-    "blocker": "一家全球媒体公司正在计划对应用程式进行多Region 部署。 Amazon DynamoDB 全域表将支援部署，以保持使用者集中的两大洲的使用者体验一致。每个部署都会有一个公共的Application Load Balancer (ALB)。公司内部管理公共DNS。该公司希望透过顶级网域提供该应用程式。哪种解决方案能够以最少的努力满足这些要求？",
+    "blocker": "一家全球媒体公司计划在多个 AWS 区域部署应用，并使用 Amazon DynamoDB 全局表支持该部署，让集中在两大洲的用户获得一致体验。每个区域的部署均包含一个面向公网的 Application Load Balancer（ALB）。公司自行管理公共 DNS，希望通过域名根节点（apex domain，例如 example.com）访问应用。哪种方案能以最少工作量满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：固定IP直接用于现有DNS顶级域A记录。"
@@ -3817,7 +3817,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "156": {
-    "blocker": "一家公司正在使用 Amazon API Gateway 和 AWS Lambda 开发新的无伺服器 API。该公司将 Lambda 函数与 API Gateway 集成，以使用多个共享库和自订类别。解决方案架构师需要简化解决方案的部署并最佳化程式码重复使用。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在使用 Amazon API Gateway 和 AWS Lambda 开发新的无服务器 API。该公司将 Lambda 函数与 API Gateway 集成，以使用多个共享库和自定义类别。解决方案架构师需要简化解决方案的部署并最佳化代码重复使用。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：Lambda支持从ECR镜像部署，包含代码与依赖。"
@@ -3841,7 +3841,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "157": {
-    "blocker": "一家制造公司正在为其工厂建造检查解决方案。该公司在每条装配线的末端都配备了 IP 摄影机。该公司使用 Amazon SageMaker 训练机器学习 (ML) 模型，以识别静态影像中的常见缺陷。该公司希望在检测到缺陷时向工厂工人提供本地回馈。即使工厂的网路连线中断，公司也必须能够提供此回馈。该公司有一个本地 Linux 伺服器，托管一个 API，为员工提供本地回馈。公司应该如何部署ML模型来满足这些需求？",
+    "blocker": "一家制造公司正在为其工厂建造检查解决方案。该公司在每条装配线的末端都配备了 IP 摄影机。该公司使用 Amazon SageMaker 训练机器学习 (ML) 模型，以识别静态影像中的常见缺陷。该公司希望在检测到缺陷时向工厂工人提供本地回馈。即使工厂的网络连接中断，公司也必须能够提供此回馈。该公司有一个本地 Linux 服务器，托管一个 API，为员工提供本地回馈。公司应该如何部署ML模型来满足这些需求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：本地模型与处理组件消除实时云连接依赖。"
@@ -3865,7 +3865,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "158": {
-    "blocker": "解决方案架构师必须创建一个业务案例，将公司的on-premises资料中心迁移到AWS云端。解决方案架构师将使用公司所有伺服器的组态管理资料库 (CMDB) 汇出来建立案例。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "解决方案架构师需要为一家公司将本地数据中心迁移到 AWS 云制定商业论证。架构师将使用从配置管理数据库（CMDB）导出的全部服务器信息。哪种方案最具成本效益？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：已有数据导入Migration Evaluator正合场景。"
@@ -3889,7 +3889,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "159": {
-    "blocker": "一家公司有一个网站，在 Application Load Balancer (ALB) 后面的 Amazon EC2 实例上运行。这些实例位于 Auto Scaling 群组中。 ALB 与 AWS WAF Web ACL 关联。网站经常遭遇应用层攻击。这些攻击会导致应用程式伺服器上的流量突然显著增加。访问日志显示，每次攻击都源自于不同的IP位址。解决方案架构师需要实施一个解决方案来减轻这些攻击。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司有一个网站，在 Application Load Balancer (ALB) 后面的 Amazon EC2 实例上运行。这些实例位于 Auto Scaling 群组中。 ALB 与 AWS WAF Web ACL 关联。网站经常遭遇应用层攻击。这些攻击会导致应用程序服务器上的流量突然显著增加。访问日志显示，每次攻击都源自于不同的IP地址。解决方案架构师需要实施一个解决方案来减轻这些攻击。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Shield Advanced保护ALB并结合WAF识别应用层攻击。"
@@ -3913,7 +3913,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "160": {
-    "blocker": "一家公司有一个关键应用程序，其中资料层部署在单一AWSRegion中。资料层使用Amazon DynamoDB表和AmazonAuroraMySQL资料库集群。目前的AuroraMySQL引擎版本支援全域资料库。应用层已部署在两个Regions中。公司政策规定，关键应用程式必须跨两个Regions部署应用程式层元件和资料层元件。 RTO 和 RPO 每个不得超过几分钟。解决方案架构师必须建议一个解决方案，使资料层符合公司政策。哪一种步骤组合可以满足这些要求？ （选两个。）",
+    "blocker": "一家公司有一个关键应用程序，其中数据层部署在单一AWSRegion中。数据层使用Amazon DynamoDB表和AmazonAuroraMySQL数据库集群。目前的AuroraMySQL引擎版本支持全域数据库。应用层已部署在两个Regions中。公司政策规定，关键应用程序必须跨两个Regions部署应用程序层组件和数据层组件。 RTO 和 RPO 每个不得超过几分钟。解决方案架构师必须建议一个解决方案，使数据层符合公司政策。哪一种步骤组合可以满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：Aurora全球数据库在集群级添加区域副本。",
@@ -3944,7 +3944,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "161": {
-    "blocker": "一家电信公司正在 AWS 上运行一个应用程式。本公司在公司on-premises资料中心与AWS之间建立了AWS Direct Connect连线。该公司将该应用程式部署在内部 Application Load Balancer (ALB) 后面的多个 Availability Zones 中的 Amazon EC2 实例上。本公司的客户端使用HTTPS从on-premises网路进行连线。 TLS 终止于ALB。本公司有多个目标群体，采用基于路径的路由，根据URL路径转送请求。该公司计划部署一个on-premises 防火墙设备，并具有基于 IP 位址的允许清单。解决方案架构师必须开发一种解决方案，允许流量从on-premises网路流向AWS，以便客户端可以继续存取应用程式。哪种解决方案可以满足这些要求？",
+    "blocker": "一家电信公司正在 AWS 上运行一个应用程序。本公司在公司on-premises数据中心与AWS之间建立了AWS Direct Connect连接。该公司将该应用程序部署在内部 Application Load Balancer (ALB) 后面的多个 Availability Zones 中的 Amazon EC2 实例上。本公司的客户端使用HTTPS从on-premises网络进行连接。 TLS 终止于ALB。本公司有多个目标群体，采用基于路径的路由，根据URL路径转送请求。该公司计划部署一个on-premises 防火墙设备，并具有基于 IP 地址的允许清单。解决方案架构师必须开发一种解决方案，允许流量从on-premises网络流向AWS，以便客户端可以继续访问应用程序。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：NLB前置ALB同时提供固定IP与七层路由。"
@@ -3968,7 +3968,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "162": {
-    "blocker": "一家公司在一组Amazon EC2实例上运行一个应用程序，这些实例位于面向互联网的Application Load Balancer (ALB)后面的私有子网中。 ALB 是Amazon CloudFront 发行版的起源。包含各种 AWS 托管规则的 AWS WAF Web ACL 与 CloudFront 发行版关联。该公司需要一种解决方案来阻止网路流量直接存取ALB。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司在一组Amazon EC2实例上运行一个应用程序，这些实例位于面向互联网的Application Load Balancer (ALB)后面的私有子网中。 ALB 是Amazon CloudFront 分配的起源。包含各种 AWS 托管规则的 AWS WAF Web ACL 与 CloudFront 分配关联。该公司需要一种解决方案来阻止网络流量直接访问ALB。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：托管前缀列表随AWS地址变化自动维护。"
@@ -3992,7 +3992,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "163": {
-    "blocker": "一家公司正在运行一个应用程序，该应用程式使用 Redis 集群的 Amazon ElastiCache 作为快取层。最近的安全审计显示，该公司已为 ElastiCache 配置静态加密。然而，该公司并未将ElastiCache配置为在传输过程中使用加密。此外，用户无需身份验证即可存取快取。解决方案架构师必须进行更改以要求用户身份验证并确保公司使用端对端加密。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在运行一个应用程序，该应用程序使用 Redis 集群的 Amazon ElastiCache 作为缓存层。最近的安全审计显示，该公司已为 ElastiCache 配置静态加密。然而，该公司并未将ElastiCache配置为在传输过程中使用加密。此外，用户无需身份验证即可访问缓存。解决方案架构师必须进行更改以要求用户身份验证并确保公司使用端对端加密。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：新集群同时启用TLS/AUTH并安全保存token，方案有效。"
@@ -4016,7 +4016,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "164": {
-    "blocker": "一家公司正在使用 Auto Scaling 群组中的 Amazon EC2 Spot 实例运行计算工作负载。启动范本使用两个置放群组和单一实例类型。最近，监控系统报告了Auto Scaling实例启动失败，这与系统使用者等待时间较长有关。公司需要提高工作负载的整体可靠性。哪种解决方案可以满足这个要求？",
+    "blocker": "一家公司正在使用 Auto Scaling 群组中的 Amazon EC2 Spot 实例运行计算工作负载。启动模板使用两个置放群组和单一实例类型。最近，监控系统报告了Auto Scaling实例启动失败，这与系统用户等待时间较长有关。公司需要提高工作负载的整体可靠性。哪种解决方案可以满足这个要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：按vCPU、内存等属性选择多类型实例。"
@@ -4040,7 +4040,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "165": {
-    "blocker": "一家公司正在将文件处理工作负载迁移到AWS。该公司已经更新了许多应用程序，以本地使用Amazon S3 API 来储存、检索和修改处理伺服器以大约每秒 5 个文件的速度生成的文件。文件处理完成后，客户可以直接从Amazon S3下载文件。在迁移过程中，该公司发现无法立即更新产生大量文件的处理伺服器以支援S3 API。伺服器在 Linux 上运行，需要对伺服器产生和修改的档案进行快速本地存取。当伺服器完成处理后，这些文件必须在 30 分钟内可供公众下载。哪种解决方案能够以最少的努力满足这些要求？",
+    "blocker": "一家公司正在将文档处理工作负载迁移到 AWS。公司已更新许多应用，使其原生调用 Amazon S3 API 来存储、读取和修改文档。处理服务器大约每秒生成 5 份文档；处理完成后，客户可直接从 S3 下载。迁移中发现，这台生成大量文档的处理服务器无法立即改造为支持 S3 API。服务器运行 Linux，需要快速访问其生成和修改的本地文件。处理完成后，文件必须在 30 分钟内可供公众下载。哪种方案能以最少工作量满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：NFS挂载File Gateway保留文件接口，本地缓存支持低延迟。"
@@ -4064,7 +4064,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "166": {
-    "blocker": "一家送货公司正在 AWS 云端运行无伺服器解决方案。该解决方案管理用户资料、送货资讯和过去的购买详细资讯。该解决方案由多个微服务组成。中央用户服务将敏感资料储存在Amazon DynamoDB表中。其他几个微服务将部分敏感资料的副本储存在不同的储存服务中。公司需要能够根据请求删除用户资讯。一旦中央用户服务删除用户，其他所有微服务也必须立即删除其资料副本。哪种解决方案可以满足这些要求？",
+    "blocker": "一家送货公司正在 AWS 云端运行无服务器解决方案。该解决方案管理用户数据、送货资讯和过去的购买详细资讯。该解决方案由多个微服务组成。中央用户服务将敏感数据存储在Amazon DynamoDB表中。其他几个微服务将部分敏感数据的副本存储在不同的存储服务中。公司需要能够根据请求删除用户资讯。一旦中央用户服务删除用户，其他所有微服务也必须立即删除其数据副本。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：每服务独立EventBridge规则可扇出删除事件。"
@@ -4088,7 +4088,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "167": {
-    "blocker": "一家公司正在 VPC 中运行 Web 应用程式。 Web 应用程式在 Application Load Balancer (ALB) 后面的一组 Amazon EC2 实例上运行。 ALB正在使用AWSWAF。外部客户需要连接到 Web 应用程式。公司必须向所有外部客户提供 IP 位址。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司正在 VPC 中运行 Web 应用程序。 Web 应用程序在 Application Load Balancer (ALB) 后面的一组 Amazon EC2 实例上运行。 ALB正在使用AWSWAF。外部客户需要连接到 Web 应用程序。公司必须向所有外部客户提供 IP 地址。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：标准加速器可指向ALB并提供固定IP。"
@@ -4112,7 +4112,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "168": {
-    "blocker": "一家公司有几个 AWS 帐户用于开发，并希望将其生产应用程式迁移到 AWS。本公司仅需要在目前生产帐户和未来生产帐户上强制执行 Amazon 弹性区块储存 (Amazon EBS) 加密。该公司需要一个包含内建蓝图和护栏的解决方案。哪一种步骤组合可以满足这些要求？ （选择三项。）",
+    "blocker": "一家公司有几个 AWS 账户用于开发，并希望将其生产应用程序迁移到 AWS。本公司仅需要在目前生产账户和未来生产账户上强制执行 Amazon 弹性区块存储 (Amazon EBS) 加密。该公司需要一个包含内建蓝图和护栏的解决方案。哪一种步骤组合可以满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：管理账户创建landing zone并分OU是正确基础。",
@@ -4140,7 +4140,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "169": {
-    "blocker": "一家公司正在 Application Load Balancer (ALB) 后面的两个 Linux Amazon EC2 实例上运行一个关键的有状态 Web 应用程序，其中一个Amazon RDS 用于 MySQL 资料库。本公司在 Amazon Route 53 中托管申请的 DNS 记录。解决方案架构师必须推荐一种解决方案来提高应用程式的弹性。此解决方案必须满足以下目标： • 应用层：RPO 2 分钟。 RTO 30 分钟 • 资料库层：RPO 5 分钟。 RTO 30 分钟 公司不想对现有应用程式架构进行重大更改。公司必须确保故障转移后的最佳延迟。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在 Application Load Balancer（ALB）后的两台 Linux Amazon EC2 实例上运行关键的有状态 Web 应用，并使用 Amazon RDS for MySQL 数据库。应用的 DNS 记录托管在 Amazon Route 53 中。解决方案架构师需要提高应用的韧性，满足以下目标：应用层的 RPO 为 2 分钟、RTO 为 30 分钟；数据库层的 RPO 为 5 分钟、RTO 为 30 分钟。公司不希望大幅修改现有架构，并且必须在故障转移后保持尽可能低的访问延迟。哪种方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：持续DRS、RDS只读副本及双区域入口完整覆盖目标。"
@@ -4164,7 +4164,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "170": {
-    "blocker": "解决方案架构师希望在单一 AWS 帐户中最佳化成本并适当调整 Amazon EC2 实例的大小。解决方案架构师希望确保执行个体根据 CPU、记忆体和网路指标进行最佳化。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
+    "blocker": "解决方案架构师希望在单一 AWS 账户中最佳化成本并适当调整 Amazon EC2 实例的大小。解决方案架构师希望确保实例根据 CPU、内存和网络指标进行最佳化。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：代理补充内存指标。",
@@ -4190,7 +4190,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "171": {
-    "blocker": "一家公司使用 AWS CodeCommit 储存库。公司必须在第二个AWSRegion中储存储存库中资料的备份副本。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司使用 AWS CodeCommit 存储库。公司必须在第二个AWSRegion中存存储储库中数据的备份副本。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：Git克隆和S3异地归档是可实施方案。"
@@ -4214,7 +4214,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "172": {
-    "blocker": "一家公司有多个业务部门，每个业务部门在 AWS 上都有单独的帐户。每个业务部门透过多个 VPC 管理自己的网络，这些CIDR 范围重叠。该公司的行销团队创建了一个新的内部应用程序，并希望所有其他业务部门都可以存取该应用程式。此解决方案必须仅使用私有 IP 位址。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司有多个业务部门，每个业务部门在 AWS 上都有单独的账户。每个业务部门通过多个 VPC 管理自己的网络，这些CIDR 范围重叠。该公司的行销团队创建了一个新的内部应用程序，并希望所有其他业务部门都可以访问该应用程序。此解决方案必须仅使用私有 IP 地址。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：PrivateLink支持重叠网段并按账户授权服务。"
@@ -4238,7 +4238,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "173": {
-    "blocker": "某公司需要对新取得的AWS帐户进行安全态势审计。只有当Amazon S3储存桶公开暴露时，公司的资料安全团队才需要通知。本公司已经建立了Amazon简单通知服务（Amazon SNS）主题，并订阅了资料安全团队的电子邮件地址。哪种解决方案可以满足这些要求？",
+    "blocker": "某公司需要对新取得的AWS账户进行安全态势审计。只有当Amazon S3存储桶公开暴露时，公司的数据安全团队才需要通知。本公司已经建立了Amazon简单通知服务（Amazon SNS）主题，并订阅了数据安全团队的电子邮件地址。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Access Analyzer finding含isPublic，可按事件条件筛选并发SNS。"
@@ -4262,7 +4262,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "174": {
-    "blocker": "解决方案架构师需要评估新收购的公司的应用程式和资料库组合。解决方案架构师必须建立一个业务案例以将产品组合迁移到AWS。新收购的公司在on-premises资料中心运行应用程式。数据中心没有很好的记录。解决方案架构师无法立即确定存在多少应用程式和资料库。应用程式的流量是可变的。有些应用程式是在每个月底运行的​​批次过程。在开始迁移到AWS之前，解决方案架构师必须更了解产品组合。哪种解决方案可以满足这些要求？",
+    "blocker": "解决方案架构师需要评估一家新收购公司的应用和数据库资产，并制定迁移到 AWS 的商业论证。该公司的应用运行在文档记录不完善的本地数据中心，架构师无法立即确定应用和数据库的数量。应用流量会变化，其中一些是每月月底才运行的批处理。在开始迁移到 AWS 之前，架构师必须充分了解这些资产。哪种方案能满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：发现、成本评估和依赖可视化组合匹配前期评估。"
@@ -4286,7 +4286,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "175": {
-    "blocker": "一家公司有一个应用程序，该应用程式作为 Amazon Elastic Kubernetes Service (Amazon EKS) 集群中多个 pod 的 ReplicaSet 运行。 EKS集群有多个Availability Zones节点。该应用程式产生许多小文件，这些文件必须可以在该应用程式的所有正在运行的实例中存取。公司需要对文件进行备份，并保留备份1年。哪种解决方案能够满足这些要求，同时提供最快的储存效能？",
+    "blocker": "一家公司有一个应用程序，该应用程序作为 Amazon Elastic Kubernetes Service (Amazon EKS) 集群中多个 pod 的 ReplicaSet 运行。 EKS集群有多个Availability Zones节点。该应用程序产生许多小文件，这些文件必须可以在该应用程序的所有正在运行的实例中访问。公司需要对文件进行备份，并保留备份1年。哪种解决方案能够满足这些要求，同时提供最快的存储性能？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：共享NFS文件适配多AZ、多pod及小文件，配合Backup。"
@@ -4310,7 +4310,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "176": {
-    "blocker": "一家公司经营一个客户服务中心，该中心接听电话并自动透过简讯向所有客户发送托管、互动式、双向体验调查。支援客户服务中心的应用程式在公司托管于 on-premises 资料中心的电脑上运行。该公司使用的硬体陈旧，该公司正在经历系统停机。该公司希望将系统迁移到AWS以提高可靠性。哪种解决方案能够以最少的持续营运开销满足这些要求？",
+    "blocker": "一家公司经营一个客户服务中心，该中心接听电话并自动通过简讯向所有客户发送托管、互动式、双向体验调查。支持客户服务中心的应用程序在公司托管于 on-premises 数据中心的电脑上运行。该公司使用的硬件陈旧，该公司正在经历系统停机。该公司希望将系统迁移到AWS以提高可靠性。哪种解决方案能够以最少的持续运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：托管Connect与双向短信组合匹配历史题意。"
@@ -4334,7 +4334,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "177": {
-    "blocker": "一家公司正在使用 Amazon Connect 建置呼叫中心。该公司的营运团队正在制定涵盖 AWS Regions 的灾难复原 (DR) 策略。该联络中心拥有数十个联络流程、数百个使用者和数十个已认领的电话号码。哪种解决方案将为 DR 提供最低的RTO？",
+    "blocker": "一家公司正在使用 Amazon Connect 建置调用中心。该公司的运维团队正在制定涵盖 AWS Regions 的灾难恢复 (DR) 策略。该联络中心拥有数十个联络流程、数百个用户和数十个已认领的电话号码。哪种解决方案将为 DR 提供最低的RTO？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：预建用户及流程减少恢复步骤，但号码迁移描述不完整。"
@@ -4358,7 +4358,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "178": {
-    "blocker": "一家公司在AWS上运行一个应用程式。该公司从多个不同来源收集数据。该公司使用专有演算法来执行资料转换和聚合。公司执行ETL流程后，将结果储存于AmazonRedshift表中。该公司将这些数据出售给其他公司。该公司从AmazonRedshift表中下载资料作为文件，并使用FTP将文件传输给多个资料客户。数据客户的数量显著成长。数据客户的管理变得困难。该公司将使用AWS Data Exchange 创建一个数据产品，该公司可以使用该产品与客户共享数据。该公司希望在共享数据之前确认客户的身份。当公司发布数据时，客户还需要存取最新的数据。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司在AWS上运行一个应用程序。该公司从多个不同来源收集数据。该公司使用专有演算法来执行数据转换和聚合。公司执行ETL流程后，将结果存储于AmazonRedshift表中。该公司将这些数据出售给其他公司。该公司从AmazonRedshift表中下载数据作为文件，并使用FTP将文件传输给多个数据客户。数据客户的数量显著成长。数据客户的管理变得困难。该公司将使用AWS Data Exchange 创建一个数据产品，该公司可以使用该产品与客户共享数据。该公司希望在共享数据之前确认客户的身份。当公司发布数据时，客户还需要访问最新的数据。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：原生Redshift datashare与订阅验证最直接。"
@@ -4382,7 +4382,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "179": {
-    "blocker": "解决方案架构师正在设计处理事件的解决方案。解决方案必须能够根据解决方案接收的事件数量进行扩展和扩展。如果发生处理错误，则该事件必须移至单独的伫列中以供审核。哪种解决方案可以满足这些要求？",
+    "blocker": "解决方案架构师正在设计事件处理方案。方案必须能根据接收的事件数量扩容和缩容。如果发生处理错误，必须将该事件移入独立队列以供检查。哪种方案能满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：SNS到Lambda加失败目的地完整满足自动扩缩和失败队列。"
@@ -4406,7 +4406,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "180": {
-    "blocker": "某公司在AWS云端中运行处理引擎。该引擎处理来自物流中心的环境数据以计算永续性指数。该公司在遍布欧洲的物流中心拥有数百万台设备。设备透过RESTful API 将讯息传送到处理引擎。 API 会经历不可预测的流量突发。公司必须实施一个解决方案来处理设备发送到处理引擎的所有资料。资料遗失是不可接受的。哪种解决方案可以满足这些要求？",
+    "blocker": "某公司在AWS云端中运行处理引擎。该引擎处理来自物流中心的环境数据以计算永续性指数。该公司在遍布欧洲的物流中心拥有数百万台设备。设备通过RESTful API 将消息传送到处理引擎。 API 会经历不可预测的流量突发。公司必须实施一个解决方案来处理设备发送到处理引擎的所有数据。数据遗失是不可接受的。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：HTTP API支持SQS-SendMessage一等集成并由Lambda消费。"
@@ -4430,7 +4430,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "181": {
-    "blocker": "一家公司正在AWS云端设计其网路配置。该公司使用 AWS Organizations ​​来管理多帐户设定。公司拥有三台OU。每个OU包含超过100个AWS帐户。每个帐户都有一个VPC，每个OU中的所有VPC都在同一个AWSRegion中。所有 AWS 帐户的 CIDR 范围不重叠。公司需要实现一个解决方案，使同一OU中的VPC可以互相通信，但不能与其他OU中的VPC通信。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司正在设计 AWS 云中的网络架构，并使用 AWS Organizations 管理多个账户。公司有三个组织单元（OU），每个 OU 包含超过 100 个 AWS 账户。每个账户都有一个 VPC，同一 OU 中的所有 VPC 位于同一 AWS 区域。所有 VPC 的 CIDR 范围均不重叠。公司要求同一 OU 内的 VPC 可以互相通信，但不能与其他 OU 的 VPC 通信。哪种方案能以最少运维开销满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：RAM共享TGW并按OU连接VPC，避免mesh。"
@@ -4454,7 +4454,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "182": {
-    "blocker": "一家公司正在将应用程式迁移到AWS。它希望在迁移过程中尽可能多地使用完全托管的服务。该公司需要在应用程式中储存大型重要文档，并满足以下要求： 1. 资料必须高度持久且可用 2. 资料在静态和传输过程中必须始终加密 3. 加密金钥必须由公司管理并定期轮换 解决方案架构师应推荐以下哪种解决方案？",
+    "blocker": "一家公司正在将应用程序迁移到AWS。它希望在迁移过程中尽可能多地使用完全托管的服务。该公司需要在应用程序中存储大型重要文档，并满足以下要求： 1. 数据必须高度持久且可用 2. 数据在静态和传输过程中必须始终加密 3. 加密密钥必须由公司管理并定期轮换 解决方案架构师应推荐以下哪种解决方案？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：S3+TLS策略+SSE-KMS满足大文档和自管密钥。"
@@ -4483,7 +4483,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "183": {
-    "blocker": "公司的公共 API 作为任务在 Amazon Elastic Container Service (Amazon ECS) 上运行。这些任务在Application Load Balancer (ALB)后面的AWSFargate上运行，并根据CPU利用率为任务配置服务Auto Scaling。这项服务已经运作良好几个月了。最近，API 效能下降并导致应用程式无法使用。该公司发现该 API 发生了大量 SQL 注入攻击，且 API 服务已扩展至最大数量。解决方案架构师需要实作一个解决方案，防止 SQL 注入攻击到达ECS API 服务。此解决方案必须允许合法流量通过，并且必须最大限度地提高营运效率。哪种解决方案满足这些要求？",
+    "blocker": "公司的公共 API 作为任务在 Amazon Elastic Container Service (Amazon ECS) 上运行。这些任务在Application Load Balancer (ALB)后面的AWSFargate上运行，并根据CPU利用率为任务配置服务Auto Scaling。这项服务已经运作良好几个月了。最近，API 性能下降并导致应用程序无法使用。该公司发现该 API 发生了大量 SQL 注入攻击，且 API 服务已扩展至最大数量。解决方案架构师需要实作一个解决方案，防止 SQL 注入攻击到达ECS API 服务。此解决方案必须允许合法流量通过，并且必须最大限度地提高运维效率。哪种解决方案满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：SQLi托管规则阻断、其余默认Allow符合条件。"
@@ -4507,7 +4507,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "184": {
-    "blocker": "一家环保公司正在全国主要城市部署感测器来测量空气品质。感测器连接到AWS IoT Core 以取得时间序列资料读数。公司将资料储存在Amazon DynamoDB中。为了业务连续性，公司必须具备在两个AWSRegions中摄取和储存资料的能力。哪种解决方案可以满足这些要求？",
+    "blocker": "一家环保公司在全国主要城市部署传感器测量空气质量。传感器连接到 AWS IoT Core，向云端发送时间序列测量数据，公司将其存储在 Amazon DynamoDB 中。为保证业务连续性，公司必须能在两个 AWS 区域摄取并存储这些数据。哪种方案能满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：自定义域名、健康检查、故障DNS与global table匹配。"
@@ -4531,7 +4531,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "185": {
-    "blocker": "一家公司使用 AWS Organizations ​​在 AWS 云端中进行多重帐户设定。该公司的财务团队有一个使用AWS Lambda和Amazon DynamoDB的资料处理应用程式。该公司的行销团队想要存取储存在 DynamoDB 表中的资料。 DynamoDB 表包含机密资料。行销团队只能存取DynamoDB表中资料的特定属性。财务团队和行销团队有独立的AWS帐户。解决方案架构师应该如何为行销团队提供 DynamoDB 表的适当存取权限？",
+    "blocker": "一家公司使用 AWS Organizations 在 AWS 云端中进行多重账户设定。该公司的财务团队有一个使用AWS Lambda和Amazon DynamoDB的数据处理应用程序。该公司的行销团队想要访问存储在 DynamoDB 表中的数据。 DynamoDB 表包含机密数据。行销团队只能访问DynamoDB表中数据的特定属性。财务团队和行销团队有独立的AWS账户。解决方案架构师应该如何为行销团队提供 DynamoDB 表的适当访问权限？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：角色信任加细粒度属性策略是有效传统方案。"
@@ -4555,7 +4555,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "186": {
-    "blocker": "解决方案架构师正在创建一个将物件储存在 Amazon S3 储存桶中的应用程式。解决方案架构师必须在两个同时使用的AWS Regions 中部署应用程式。两个S3桶中的物件必须保持彼此同步。哪种步骤组合能够以最少的营运开销满足这些要求？ （选择三项。）",
+    "blocker": "解决方案架构师正在创建一个将对象存储在 Amazon S3 存储桶中的应用程序。解决方案架构师必须在两个同时使用的AWS Regions 中部署应用程序。两个S3桶中的对象必须保持彼此同步。哪种步骤组合能够以最少的运维开销满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：MRAP按网络位置路由S3请求。",
@@ -4583,7 +4583,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "187": {
-    "blocker": "一家公司有一个在on-premises环境中运作的物联网平台。该平台由使用 MQTT 协定连接到 IoT 设备的伺服器组成。该平台至少每 5 分钟从设备收集一次遥测资料。该平台还将设备元资料储存在 MongoDB 集群中。安装在on-premises机器上的应用程式运行定期作业来聚合和转换遥测和设备元资料。该应用程式会建立使用者透过使用在同一台 on-premises 电脑上执行的另一个 Web 应用程式查看的报告。定期作业需要 120-600 秒才能运作。但是，Web 应用程式始终在运行。该公司正在将平台迁移到AWS，并且必须减少堆叠的营运开销。哪种步骤组合能够以最少的营运开销满足这些要求？ （选择三项。）",
+    "blocker": "一家公司有一个在on-premises环境中运作的物联网平台。该平台由使用 MQTT 协定连接到 IoT 设备的服务器组成。该平台至少每 5 分钟从设备收集一次遥测数据。该平台还将设备元数据存储在 MongoDB 集群中。安装在on-premises机器上的应用程序运行定期作业来聚合和转换遥测和设备元数据。该应用程序会建立用户通过使用在同一台 on-premises 电脑上执行的另一个 Web 应用程序查看的报告。定期作业需要 120-600 秒才能运作。但是，Web 应用程序始终在运行。该公司正在将平台迁移到AWS，并且必须减少堆栈的运维开销。哪种步骤组合能够以最少的运维开销满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：IoT Core托管设备消息协议接入。",
@@ -4611,7 +4611,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "188": {
-    "blocker": "一家全球制造公司计划将其大部分应用程式迁移到AWS。然而，由于资料监管要求或对个位数毫秒延迟的要求，该公司担心需要保留在特定国家或公司中央on-premises资料中心内的应用程式。该公司还担心一些工厂站点托管的应用程序，这些工厂的网路基础设施有限。该公司希望获得一致的开发人员体验，以便开发人员只需建置一次应用程式即可在本地、云端或混合架构中进行部署。开发人员必须能够使用他们熟悉的相同工具、API 和服务。哪种解决方案将提供一致的混合体验来满足这些要求？",
+    "blocker": "一家全球制造公司计划将其大部分应用程序迁移到AWS。然而，由于数据监管要求或对个位数毫秒延迟的要求，该公司担心需要保留在特定国家或公司中央on-premises数据中心内的应用程序。该公司还担心一些工厂站点托管的应用程序，这些工厂的网络基础设施有限。该公司希望获得一致的开发人员体验，以便开发人员只需建置一次应用程序即可在本地、云端或混合架构中进行部署。开发人员必须能够使用他们熟悉的相同工具、API 和服务。哪种解决方案将提供一致的混合体验来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：本地Outposts加离线边缘计算匹配原题混合场景。"
@@ -4635,7 +4635,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "189": {
-    "blocker": "一家公司正在更新客户用于线上订购的应用程式。最近，不良行为者对应用程式的攻击数量有所增加。该公司将在Amazon Elastic Container Service (Amazon ECS)集群上托管更新后的应用程式。公司将使用Amazon DynamoDB来储存应用程式资料。公共Application Load Balancer (ALB)将为最终用户提供对该应用程式的存取权限。公司必须防止攻击并确保业务连续性，并在持续攻击期间将服务中断降至最低。哪一种步骤组合能够最经济有效地满足这些要求？ （选两个。）",
+    "blocker": "一家公司正在更新客户用于在线订购的应用程序。最近，不良行为者对应用程序的攻击数量有所增加。该公司将在Amazon Elastic Container Service (Amazon ECS)集群上托管更新后的应用程序。公司将使用Amazon DynamoDB来存储应用程序数据。公共Application Load Balancer (ALB)将为最终用户提供对该应用程序的访问权限。公司必须防止攻击并确保业务连续性，并在持续攻击期间将服务中断降至最低。哪一种步骤组合能够最经济有效地满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：CloudFront自定义源站header加ALB匹配限制直连绕过。",
@@ -4661,7 +4661,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "190": {
-    "blocker": "一家公司在 AWS 上运行 Web 应用程式。 Web 应用程式从 Amazon CloudFront 发行版后面的 Amazon S3 储存桶传送静态内容。该应用程式透过使用 Application Load Balancer (ALB) 将请求分发到 Auto Scaling 群组中的一组 Amazon EC2 实例来提供动态内容。该应用程式使用Amazon Route 53中设定的网域名称。一些用户报告在高峰时段尝试访问网站时偶尔会出现问题。营运团队发现ALB有时会回传HTTP 503 Service Unavailable 错误。该公司希望在发生这些错误时显示自订错误讯息页面。应立即显示此错误代码的页面。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司在 AWS 上运行 Web 应用程序。 Web 应用程序从 Amazon CloudFront 分配后面的 Amazon S3 存储桶传送静态内容。该应用程序通过使用 Application Load Balancer (ALB) 将请求分发到 Auto Scaling 群组中的一组 Amazon EC2 实例来提供动态内容。该应用程序使用Amazon Route 53中设定的网域名称。一些用户报告在高峰时段尝试访问网站时偶尔会出现问题。运维团队发现ALB有时会返回HTTP 503 Service Unavailable 错误。该公司希望在发生这些错误时显示自定义错误消息页面。应立即显示此错误代码的页面。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：origin failover支持503触发备用S3。"
@@ -4685,7 +4685,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "191": {
-    "blocker": "一家公司正计划将应用程式迁移到AWS。该应用程式作为 Docker 容器运行并使用 NFS 版本 4 档案共用。解决方案架构师必须设计一个安全且可扩展的容器化解决方案，该解决方案不需要配置或管理底层基础架构。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正计划将应用程序迁移到AWS。该应用程序作为 Docker 容器运行并使用 NFS 版本 4 文件共用。解决方案架构师必须设计一个安全且可扩展的容器化解决方案，该解决方案不需要配置或管理底层基础架构。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：Fargate+EFS是支持的托管NFS组合。"
@@ -4709,7 +4709,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "192": {
-    "blocker": "一家公司正在AWS云端中运行应用程式。核心业务逻辑在Auto Scaling群组中的一组Amazon EC2实例上运作。 Application Load Balancer (ALB) 将流量分配到 EC2 实例。 Amazon Route 53 记录 api.example.com 指向ALB。公司开发团队对业务逻辑进行了重大更新。该公司有一条规则，即部署变更后，只有 10% 的客户可以在测试视窗期间收到新逻辑。客户在测试视窗期间必须使用相同版本的业务逻辑。公司应如何部署更新来满足这些要求？",
+    "blocker": "一家公司正在AWS云端中运行应用程序。核心业务逻辑在Auto Scaling群组中的一组Amazon EC2实例上运作。 Application Load Balancer (ALB) 将流量分配到 EC2 实例。 Amazon Route 53 记录 api.example.com 指向ALB。公司开发团队对业务逻辑进行了重大更新。该公司有一条规则，即部署变更后，只有 10% 的客户可以在测试视窗期间收到新逻辑。客户在测试视窗期间必须使用相同版本的业务逻辑。公司应如何部署更新来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：加权目标组与目标组粘性同时满足灰度比例和版本一致。"
@@ -4733,7 +4733,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "193": {
-    "blocker": "一家大型教育公司最近推出了Amazon工作区，以提供对多所大学内部应用程式的存取。该公司将用户设定档储存在 Windows 档案伺服器档案系统的Amazon FSx 上。档案系统配置了DNS别名，并连接到自我管理的Active Directory。随著越来越多的使用者开始使用工作区，登入时间会增加到不可接受的程度。一项调查显示档案系统的效能下降。该公司在 HDD 储存上创建了吞吐量为 16 MBps 的档案系统。解决方案架构师必须在定义的维护时段内提高档案系统的效能。解决方案架构师应该如何做才能以最少的管理工作来满足这些要求？",
+    "blocker": "一家大型教育公司最近引入 Amazon WorkSpaces，让多所大学访问内部应用。用户配置文件保存在 Amazon FSx for Windows File Server 文件系统中，该文件系统配置了 DNS 别名，并加入了自管理的 Active Directory。随着 WorkSpaces 用户增多，登录时间变得无法接受。调查发现文件系统性能下降。该文件系统使用 HDD 存储，吞吐容量为 16 MBps。解决方案架构师必须在指定维护窗口内提高文件系统性能。哪种做法所需管理工作最少？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：直接更新throughput与HDD→SSD为支持路径。"
@@ -4757,7 +4757,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "194": {
-    "blocker": "一家公司在 AWS 上托管一个应用程式。应用程式读取和写入储存在单一Amazon S3储存桶中的物件。公司必须修改应用程式才能将应用程式部署在两个AWSRegions中。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司在 AWS 上托管一个应用程序。应用程序读取和写入存储在单一Amazon S3存储桶中的对象。公司必须修改应用程序才能将应用程序部署在两个AWSRegions中。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：双向CRR+MRAP同时解决数据分布和单入口。"
@@ -4781,7 +4781,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "195": {
-    "blocker": "一家线上游戏公司需要在AWS上重新托管其游戏平台。该公司的游戏应用程式需要高效能运算（HPC）处理，并且排行榜经常变化。针对计算生成进行最佳化的 Ubuntu 实例托管用于游戏显示的 Node.js 应用程式。游戏状态在 on-premises Redis 实例中进行追踪。该公司需要一个优化应用程式效能的迁移策略。哪种解决方案可以满足这些要求？",
+    "blocker": "一家在线游戏公司需要将游戏平台重新托管到 AWS。游戏应用需要高性能计算（HPC），排行榜频繁变化。用于计算处理的 Ubuntu 实例运行着负责游戏展示的 Node.js 应用；游戏状态由本地 Redis 实例跟踪。公司需要优化应用性能的迁移策略。哪种方案能满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：C系列稳定计算加托管Redis实时排行。"
@@ -4805,7 +4805,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "196": {
-    "blocker": "解决方案架构师正在设计一个应用程式来接受员工在行动装置上输入的时间表条目。时间表将每周提交一次，大部分提交发生在周五。资料的储存格式必须允许薪资管理员执行月度报告。基础架构必须具有高可用性并可扩展，以符合传入资料和报告请求的速率。哪种步骤组合可以满足这些要求，同时最大限度地减少营运开销？ （选两个。）",
+    "blocker": "解决方案架构师正在设计一个应用，让员工通过移动设备提交工时记录。员工每周提交工时表，大部分提交集中在周五。数据的存储格式必须支持薪资管理员生成月度报表。基础设施需要高可用，并能随传入数据量和报表请求量扩展。哪两个步骤能满足要求，并最大限度减少运维开销？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：S3与API Gateway/Lambda最少基础设施管理。",
@@ -4831,7 +4831,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "197": {
-    "blocker": "一家公司将敏感资料储存在 Amazon S3 储存桶中。公司必须记录S3储存桶中物件的所有活动，并且必须将日志保留 5 年。每次尝试删除 S3 储存桶中的资料时，公司的安全团队也必须收到电子邮件通知。哪一种步骤组合能够最经济有效地满足这些要求？ （选择三项。）",
+    "blocker": "一家公司将敏感数据存储在 Amazon S3 存储桶中。公司必须记录S3存储桶中对象的所有活动，并且必须将日志保留 5 年。每次尝试删除 S3 存储桶中的数据时，公司的安全团队也必须收到电子邮件通知。哪一种步骤组合能够最经济有效地满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：对象读写删除审计需CloudTrail data events。",
@@ -4859,7 +4859,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "198": {
-    "blocker": "一家公司正在建构一个混合环境，其中包括on-premises资料中心和AWS云端中的伺服器。该公司已在三个 VPC 中部署了 Amazon EC2 实例。每个 VPC 位于不同的 AWS Region 中。公司建立了AWS直销。从距离资料中心最近的Region 连接到资料中心。该公司需要on-premises资料中心中的伺服器能够存取所有三个VPC中的EC2实例。本地资料中心的伺服器也必须能够存取AWS公共服务。哪一种步骤组合能够以最少的成本满足这些要求？ （选两个。）",
+    "blocker": "一家公司正在构建混合环境，包含本地数据中心与 AWS 云中的服务器。公司在三个 VPC 中部署了 Amazon EC2 实例，每个 VPC 位于不同的 AWS 区域。公司已在距离本地数据中心最近的区域建立 AWS Direct Connect 连接，接入本地数据中心。本地服务器需要访问三个 VPC 中的全部 EC2 实例，也需要访问 AWS 公共服务。哪两个步骤能以最低成本满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：DX gateway为全局资源可连多Region VGW；“在最近Region创建”措辞不严谨。",
@@ -4885,7 +4885,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "199": {
-    "blocker": "一家公司正在使用 AWS Organizations 来管理数百个 AWS 帐户。解决方案架构师正在开发一种解决方案，为开放 Web 应用程式安全专案 (OWASP) 十大 Web 应用程式漏洞提供基线保护。解决方案架构师将 AWS WAF 用于组织内部署的所有现有和新的 Amazon CloudFront 发行版。解决方案架构师应采取哪些步骤组合来提供基线保护？ （选择三项。）",
+    "blocker": "一家公司正在使用 AWS Organizations 来管理数百个 AWS 账户。解决方案架构师正在开发一种解决方案，为开放 Web 应用程序安全专案 (OWASP) 十大 Web 应用程序漏洞提供基线保护。解决方案架构师将 AWS WAF 用于组织内部署的所有现有和新的 Amazon CloudFront 分配。解决方案架构师应采取哪些步骤组合来提供基线保护？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：Config用于Firewall Manager发现和合规追踪。",
@@ -4913,7 +4913,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "200": {
-    "blocker": "解决方案架构师使用其公司的 on-premises 身分识别提供者 (IdP) 实施了 SAML 2.0 联合身分识别解决方案，以验证使用者对 AWS 环境的存取权限。当解决方案架构师透过联合身分识别 Web 入口网站测试验证时，将授予 AWS 环境的存取权限。但是，当测试使用者尝试透过联合身分 Web 入口网站进行身份验证时，他们无法存取 AWS 环境。解决方案架构师应检查哪些项目以确保身分联合配置正确？ （选择三项。）",
+    "blocker": "解决方案架构师使用其公司的 on-premises 身份识别提供者 (IdP) 实施了 SAML 2.0 联合身份识别解决方案，以验证用户对 AWS 环境的访问权限。当解决方案架构师通过联合身份识别 Web 入口网站测试验证时，将授予 AWS 环境的访问权限。但是，当测试用户尝试通过联合身份 Web 入口网站进行身份验证时，他们无法访问 AWS 环境。解决方案架构师应检查哪些项目以确保身份联合配置正确？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：角色信任必须指定正确SAML provider及AssumeRoleWithSAML。",
@@ -4941,7 +4941,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "201": {
-    "blocker": "解决方案架构师需要改进托管在 AWS 云端中的应用程式。应用程式使用的 Amazon Aurora MySQL 资料库实例出现连接过载。大多数应用程式的操作都会将记录插入资料库。该应用程式目前将凭证储存在基于文字的设定档中。解决方案架构师需要实作一个解决方案，以便应用程式可以处理目前的连线负载。此解决方案必须保证凭证的安全，并且必须提供定期自动轮调凭证的能力。哪种解决方案可以满足这些要求？",
+    "blocker": "解决方案架构师需要改进托管在 AWS 云端中的应用程序。应用程序使用的 Amazon Aurora MySQL 数据库实例出现连接过载。大多数应用程序的操作都会将记录插入数据库。该应用程序目前将凭证存储在基于文字的设定档中。解决方案架构师需要实作一个解决方案，以便应用程序可以处理目前的连接负载。此解决方案必须保证凭证的安全，并且必须提供定期自动轮调凭证的能力。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：连接池加Secrets Manager同时解决两问题。"
@@ -4965,7 +4965,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "202": {
-    "blocker": "一家公司需要为其电子商务网站建立灾难复原 (DR) 解决方案。该 Web 应用程式托管在一组 t3.large Amazon EC2 实例上，并使用 Amazon RDS 作为 MySQL 资料库实例。 EC2 实例位于跨多个Availability Zones 扩展的Auto Scaling 群组中。如果发生灾难，Web 应用程式必须故障转移到辅助环境，RPO 为 30 秒，RTO 为 10 分钟。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司需要为其电子商务网站建立灾难恢复 (DR) 解决方案。该 Web 应用程序托管在一组 t3.large Amazon EC2 实例上，并使用 Amazon RDS 作为 MySQL 数据库实例。 EC2 实例位于跨多个Availability Zones 扩展的Auto Scaling 群组中。如果发生灾难，Web 应用程序必须故障转移到辅助环境，RPO 为 30 秒，RTO 为 10 分钟。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：持续复制和温备匹配秒级RPO、分钟级恢复意图。"
@@ -4989,7 +4989,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "203": {
-    "blocker": "一家公司正在计划将 on-premises MySQL 资料库一次性迁移到 us-east-1 Region 中的 Amazon Aurora MySQL。该公司目前的网路连线频宽有限。 on-premises MySQL 资料库大小为 60 TB。该公司估计，透过目前的网路连线将资料传输到AWS需要一个月的时间。该公司需要一个能够更快迁移资料库的迁移解决方案。哪种解决方案会在最短的时间内迁移资料库？",
+    "blocker": "一家公司正在计划将 on-premises MySQL 数据库一次性迁移到 us-east-1 Region 中的 Amazon Aurora MySQL。该公司目前的网络连接带宽有限。 on-premises MySQL 数据库大小为 60 TB。该公司估计，通过目前的网络连接将数据传输到AWS需要一个月的时间。该公司需要一个能够更快迁移数据库的迁移解决方案。哪种解决方案会在最短的时间内迁移数据库？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：S3源DMS路径可行，但数据必须导出为DMS支持格式。"
@@ -5013,7 +5013,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "204": {
-    "blocker": "某公司在AWS云端中有一个应用程式。该应用程式在 20 个 Amazon EC2 实例上运行。 EC2 实例是持久性的，并将资料储存在多个附加的 Amazon 弹性块储存 (Amazon EBS) 卷上。公司必须在单独的 AWS Region 中维护备份。公司必须能够在 1 个工作天内恢复EC2 实例及其配置，且遗失的资料不超过 1 天。该公司员工有限，需要一个能够优化营运效率和成本的备份解决方案。该公司已经创建了一个AWS CloudFormation模板，可以在辅助Region中部署所需的网路配置。哪种解决方案可以满足这些要求？",
+    "blocker": "某公司在AWS云端中有一个应用程序。该应用程序在 20 个 Amazon EC2 实例上运行。 EC2 实例是持久性的，并将数据存储在多个附加的 Amazon 弹性块存储 (Amazon EBS) 卷上。公司必须在单独的 AWS Region 中维护备份。公司必须能够在 1 个工作天内恢复EC2 实例及其配置，且遗失的数据不超过 1 天。该公司员工有限，需要一个能够优化运维效率和成本的备份解决方案。该公司已经创建了一个AWS CloudFormation模板，可以在辅助Region中部署所需的网络配置。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：集中计划、跨区副本和实例恢复最少运维。"
@@ -5037,7 +5037,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "205": {
-    "blocker": "一家公司正在设计一个托管静态内容的新网站。该网站将使用户能够上传和下载大型档案。根据公司要求，所有资料在传输和静态时都必须加密。解决方案架构师正在使用 Amazon S3 和 Amazon CloudFront 建构解决方案。哪种步骤组合可以满足加密要求？ （选择三项。）",
+    "blocker": "一家公司正在设计一个托管静态内容的新网站。该网站将使用户能够上传和下载大型文件。根据公司要求，所有数据在传输和静态时都必须加密。解决方案架构师正在使用 Amazon S3 和 Amazon CloudFront 建构解决方案。哪种步骤组合可以满足加密要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：S3 SSE保护静态对象。",
@@ -5070,7 +5070,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "206": {
-    "blocker": "一家公司正在使用需要存取 Amazon RDS 上的 Microsoft SQL Server 资料库执行个体的 AWS Lambda 函数来实作无伺服器架构。该公司拥有独立的开发和生产环境，包括资料库系统的克隆。该公司的开发人员可以存取开发资料库的凭证。但是，生产资料库的凭证必须使用只有 IT 安全团队的 IAM 使用者群组成员才能存取的金钥进行加密。该密钥必须定期轮换。解决方案架构师应该在生产环境中做什么来满足这些要求？",
+    "blocker": "一家公司正在使用需要访问 Amazon RDS 上的 Microsoft SQL Server 数据库实例的 AWS Lambda 函数来实作无服务器架构。该公司拥有独立的开发和生产环境，包括数据库系统的克隆。该公司的开发人员可以访问开发数据库的凭证。但是，生产数据库的凭证必须使用只有 IT 安全团队的 IAM 用户群组成员才能访问的密钥进行加密。该密钥必须定期轮换。解决方案架构师应该在生产环境中做什么来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：Secret与自管KMS key支持集中访问控制和轮换。"
@@ -5094,7 +5094,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "207": {
-    "blocker": "一家线上零售公司正在将其旧版 on-premises .NET 应用程式迁移到 AWS。该应用程式在负载平衡的前端 Web 伺服器、负载平衡的应用程式伺服器和 Microsoft SQL Server 资料库上运行。该公司希望尽可能使用 AWS 托管服务，并且不想重写应用程式。解决方案架构师需要实施一个解决方案来解决扩展问题并在应用程式扩展时最大限度地降低许可成本。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家在线零售公司正在将其旧版 on-premises .NET 应用程序迁移到 AWS。该应用程序在负载均衡的前端 Web 服务器、负载均衡的应用程序服务器和 Microsoft SQL Server 数据库上运行。该公司希望尽可能使用 AWS 托管服务，并且不想重写应用程序。解决方案架构师需要实施一个解决方案来解决扩展问题并在应用程序扩展时最大限度地降低许可成本。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：Babelfish允许多数SQL Server客户端少量修改连接Aurora，兼顾降许可费。"
@@ -5118,7 +5118,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "208": {
-    "blocker": "软体即服务 (SaaS) 供应商透过 Application Load Balancer (ALB) 公开 API。 ALB 连接到部署在 us-east-1 Region 中的 Amazon Elastic Kubernetes Service (Amazon EKS) 集群。公开的 API 包含一些非标准 REST 方法的使用：LINK、UNLINK、LOCK 和 UNLOCK。美国境外的使用者报告这些 API 的回应时间长且不一致。解决方案架构师需要透过最小化营运开销的解决方案来解决此问题。哪种解决方案满足这些要求？",
+    "blocker": "软件即服务 (SaaS) 供应商通过 Application Load Balancer (ALB) 公开 API。 ALB 连接到部署在 us-east-1 Region 中的 Amazon Elastic Kubernetes Service (Amazon EKS) 集群。公开的 API 包含一些非标准 REST 方法的使用：LINK、UNLINK、LOCK 和 UNLOCK。美国境外的用户报告这些 API 的响应时间长且不一致。解决方案架构师需要通过最小化运维开销的解决方案来解决此问题。哪种解决方案满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：L4加速不限制应用层方法，ALB仍接原请求。"
@@ -5142,7 +5142,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "209": {
-    "blocker": "一家公司在AWS云端中运行物联网应用程式。该公司拥有数百万个感测器，从美国的房屋收集数据。感测器使用 MQTT 协定连接并向自订 MQTT 代理程式发送资料。 MQTT 代理将资料储存在单一 Amazon EC2 实例上。感测器透过名为 iot.example.com 的网域连接到代理。该公司使用 Amazon Route 53 作为其 DNS 服务。公司将资料储存在Amazon DynamoDB中。在某些情况下，资料量会使 MQTT 代理超载并导致感测器资料遗失。公司必须提高解决方案的可靠性。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在AWS云端中运行物联网应用程序。该公司拥有数百万个感测器，从美国的房屋收集数据。感测器使用 MQTT 协定连接并向自定义 MQTT 代理程序发送数据。 MQTT 代理将数据存储在单一 Amazon EC2 实例上。感测器通过名为 iot.example.com 的网域连接到代理。该公司使用 Amazon Route 53 作为其 DNS 服务。公司将数据存储在Amazon DynamoDB中。在某些情况下，数据量会使 MQTT 代理超载并导致感测器数据遗失。公司必须提高解决方案的可靠性。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：托管IoT MQTT接入与规则写库匹配。"
@@ -5171,7 +5171,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "210": {
-    "blocker": "某公司拥有基于 Linux 的 Amazon EC2 实例。使用者必须使用 SSH 和 EC2 SSH 金钥对来存取实例。每台机器都需要唯一的EC2金钥对。该公司希望实施金钥轮换政策，该政策将根据请求自动轮换所有 EC2 金钥对，并将金钥保存在安全加密的地方。本公司将接受金钥轮换期间少于 1 分钟的停机时间。哪种解决方案可以满足这些要求？",
+    "blocker": "某公司拥有基于 Linux 的 Amazon EC2 实例。用户必须使用 SSH 和 EC2 SSH 密钥对来访问实例。每台机器都需要唯一的EC2密钥对。该公司希望实施密钥轮换政策，该政策将根据请求自动轮换所有 EC2 密钥对，并将密钥保存在安全加密的地方。本公司将接受密钥轮换期间少于 1 分钟的停机时间。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：Secrets Manager支持自定义Lambda轮换任意secret类型。"
@@ -5195,7 +5195,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "211": {
-    "blocker": "一家公司想要迁移到AWS。该公司在 VMware ESXi 环境中运行数千台虚拟机器。该公司没有配置管理资料库，对VMware产品组合的使用知之甚少。解决方案架构师必须为公司提供准确的清单，以便公司能够规划经济高效的迁移。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司想要迁移到AWS。该公司在 VMware ESXi 环境中运行数千台虚拟机。该公司没有配置管理数据库，对VMware产品组合的使用知之甚少。解决方案架构师必须为公司提供准确的清单，以便公司能够规划经济高效的迁移。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：无代理采集与评估最符合已知甚少的VMware资产。"
@@ -5219,7 +5219,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "212": {
-    "blocker": "一家公司将微服务作为 AWS Lambda 函数运行。微服务将资料写入支援有限数量并发连线的on-premises SQL 资料库。当Lambda函数呼叫次数过多时，资料库崩溃并导致应用程式停机。该公司在其 VPC 和 on-premises 资料中心之间建立了 AWS Direct Connect 连接。该公司希望保护资料库免于崩溃。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司将微服务作为 AWS Lambda 函数运行。微服务将数据写入支持有限数量并发连接的on-premises SQL 数据库。当Lambda函数调用次数过多时，数据库崩溃并导致应用程序停机。该公司在其 VPC 和 on-premises 数据中心之间建立了 AWS Direct Connect 连接。该公司希望保护数据库免于崩溃。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：排队和保留并发硬上限同时解决缓冲与连接保护。"
@@ -5243,7 +5243,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "213": {
-    "blocker": "A company uses a Grafana data visualization solution that runs on a single Amazon EC2 instance to monitor the health of the company's AWS workloads.该公司投入了时间和精力来创建了时间和精力来创建公司希望保留的仪表板。仪表板需要具有高可用性，并且停机时间不能超过 10 分钟。公司需要最大限度地减少持续维护。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司在单台 Amazon EC2 实例上运行 Grafana 数据可视化方案，用来监控 AWS 工作负载健康状态。公司已投入时间和精力创建仪表板，希望保留这些仪表板。仪表板必须高可用，停机时间不能超过 10 分钟。公司希望最大限度减少持续维护。哪种方案能以最少运维开销满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：托管workspace支持导入dashboard。"
@@ -5267,7 +5267,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "214": {
-    "blocker": "一家公司需要将其客户交易资料库从本地迁移到AWS。此资料库驻留在 Linux 伺服器上执行的 Oracle 资料库执行个体上。根据新的安全要求，该公司必须每年轮换资料库密码。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司需要将其客户交易数据库从本地迁移到AWS。此数据库驻留在 Linux 服务器上执行的 Oracle 数据库实例上。根据新的安全要求，该公司必须每年轮换数据库密码。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：托管Oracle加Secrets Manager轮换最少维护。"
@@ -5291,7 +5291,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "215": {
-    "blocker": "解决方案架构师正在为一家由多个团队组成的公司设计AWS 帐户结构。所有团队将在同一个AWSRegion工作。公司需要一个连接到 on-premises 网路的 VPC。该公司预计进出on-premises网路的总流量将低于 50 Mbps。哪一种步骤组合能够最经济有效地满足这些要求？ （选两个。）",
+    "blocker": "解决方案架构师正在为一家由多个团队组成的公司设计AWS 账户结构。所有团队将在同一个AWSRegion工作。公司需要一个连接到 on-premises 网络的 VPC。该公司预计进出on-premises网络的总流量将低于 50 Mbps。哪一种步骤组合能够最经济有效地满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：共享VPC减少重复网络基础设施。",
@@ -5317,7 +5317,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "216": {
-    "blocker": "大公司的解决方案架构师需要为 AWS Organizations ​​组织内所有 AWS 帐户到 Internet 的出站流量设定网路安全。该组织拥有 100 多个AWS 帐户，帐户之间透过集中式AWS Transit Gateway 相互路由。每个帐户都有一个互联网网关和一个NAT网关，用于到互联网的出站流量。本公司仅将资源部署到单一AWSRegion。公司需要能够对组织中所有 AWS 帐户的所有互联网出站流量添加集中管理的基于规则的过滤。每个Availability Zone的出站流量峰值负载不会超过25Gbps。哪种解决方案满足这些要求？",
+    "blocker": "大公司的解决方案架构师需要为 AWS Organizations 组织内所有 AWS 账户到 Internet 的出站流量设定网络安全。该组织拥有 100 多个AWS 账户，账户之间通过集中式AWS Transit Gateway 相互路由。每个账户都有一个互联网网关和一个NAT网关，用于到互联网的出站流量。本公司仅将资源部署到单一AWSRegion。公司需要能够对组织中所有 AWS 账户的所有互联网出站流量添加集中管理的基于规则的过滤。每个Availability Zone的出站流量峰值负载不会超过25Gbps。哪种解决方案满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：托管Network Firewall支持集中出口规则过滤。"
@@ -5341,7 +5341,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "217": {
-    "blocker": "A company uses a load balancer to distribute tra c to Amazon EC2 instances in a single Availability Zone.该公司关注安全性，希望解决方案架构师重新架构解决方案以满足以下要求： • 必须针对常见漏洞攻击过滤入站请求。 • Rejected requests must be sent to a third-party auditing application. • 所有资源都应该高度可用。哪种解决方案满足这些要求？",
+    "blocker": "一家公司使用负载均衡器，将流量分发到同一可用区中的 Amazon EC2 实例。公司希望架构师重新设计方案以满足以下安全要求：过滤入站请求中的常见漏洞攻击；将被拒绝的请求发送到第三方审计应用；所有资源都应高可用。哪种方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：多AZ应用、WAF过滤与Firehose审计均完整。"
@@ -5389,7 +5389,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "219": {
-    "blocker": "A company has set up its entire infrastructure on AWS. The company uses Amazon EC2 instances to host its ecommerce website and uses Amazon S3 to store static data. Three engineers at the company handle the cloud administ and clo​​ion yleica the clo​​ions alters an EC2 security group configuration of another engineer and causes noncompliance issues in the environment.解决方案架构师必须建立一个系统来追踪工程师所做的更改。 The system must send alerts when the engineers make noncompliant changes to the security settings for the EC2 instances. What is the FASTEST way for the solutions architect to meet these requirements?",
+    "blocker": "一家公司已将全部基础设施部署在 AWS。公司使用 Amazon EC2 托管电商网站，使用 Amazon S3 存储静态数据。三名工程师通过同一个 AWS 账户开展云管理和开发工作。有时，一名工程师会修改另一名工程师设置的 EC2 安全组，导致环境不合规。解决方案架构师必须建立一个系统来跟踪这些变更，并在工程师对 EC2 安全设置做出不合规修改时发送告警。哪种做法能最快满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：Config具配置记录及规则合规评估。"
@@ -5413,7 +5413,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "220": {
-    "blocker": "一家公司拥有物联网感测器，可以监控整个大城市的交通模式。该公司希望从感测器读取和收集数据并对数据进行聚合。解决方案架构师设计了一个解决方案，其中物联网设备串流传输到Amazon Kinesis Data Streams。多个应用程式正在从流中读取资料。但是，一些用户遇到了限制，并且定期遇到 ReadProvisionedThroughputExceeded 错误。解决方案架构师应采取哪些措施来解决此问题？ （选择三项。）",
+    "blocker": "一家公司使用物联网传感器监控一座大城市的交通模式，需要读取、收集并聚合传感器数据。架构师设计的方案让设备将数据流式发送到 Amazon Kinesis Data Streams，多个应用从数据流中读取数据。但一些消费者程序受到限流，并周期性遇到 ReadProvisionedThroughputExceeded 错误。架构师应采取哪三项措施解决问题？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：扩分片增加总吞吐。",
@@ -5441,7 +5441,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "221": {
-    "blocker": "某公司使用 AWS Organizations ​​管理其 AWS 帐户。该公司需要一份 CPU 或记忆体使用率未充分利用的所有 Amazon EC2 实例的清单。 The company also needs recommendations for how to downsize these underutilized instances.哪种解决方案能够以最少的努力满足这些要求？",
+    "blocker": "一家公司使用 AWS Organizations 管理其 AWS 账户。公司需要列出所有 CPU 或内存利用率偏低的 Amazon EC2 实例，并获取为这些实例缩小规格的建议。哪种方案能以最少工作量满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：中央建议和agent内存指标最少工作。"
@@ -5465,7 +5465,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "222": {
-    "blocker": "一家公司想要运行自订网路分析软体包来检查流量离开和进入VPC。该公司透过在 Auto Scaling 群组中的三个 Amazon EC2 实例上使用 AWS CloudFormation 部署了该解决方案。所有网路路由均已建立，以将流量引导至EC2 实例。每当分析软体停止工作时，Auto Scaling组就会替换一个实例。发生实例替换时，网路路由不会更新。哪种步骤组合可以解决此问题？ （选择三项。）",
+    "blocker": "一家公司想要运行自定义网络分析软件包来检查流量离开和进入VPC。该公司通过在 Auto Scaling 群组中的三个 Amazon EC2 实例上使用 AWS CloudFormation 部署了该解决方案。所有网络路由均已建立，以将流量引导至EC2 实例。每当分析软件停止工作时，Auto Scaling组就会替换一个实例。发生实例替换时，网络路由不会更新。哪种步骤组合可以解决此问题？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：procstat能发送进程运行状态和资源指标。",
@@ -5493,7 +5493,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "223": {
-    "blocker": "一家公司正在开发一种基于微服务的新点播视讯应用程式。该应用程式在发布时将拥有 500 万用户，6 个月后将拥有 3,000 万用户。该公司已在AWSFargate上部署了Amazon Elastic Container Service (Amazon ECS)上的应用程式。该公司透过使用HTTPS协议的ECS服务开发了该应用程式。解决方案架构师需要使用蓝/绿部署来实作应用程式更新。此解决方案必须透过负载平衡器将流量分配给每个ECS服务。应用程式必须自动调整任务数量以回应 Amazon CloudWatch 警报。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在开发一种基于微服务的新点播视讯应用程序。该应用程序在发布时将拥有 500 万用户，6 个月后将拥有 3,000 万用户。该公司已在AWSFargate上部署了Amazon Elastic Container Service (Amazon ECS)上的应用程序。该公司通过使用HTTPS协议的ECS服务开发了该应用程序。解决方案架构师需要使用蓝/绿部署来实作应用程序更新。此解决方案必须通过负载均衡器将流量分配给每个ECS服务。应用程序必须自动调整任务数量以响应 Amazon CloudWatch 警报。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：服务层自动扩缩匹配Fargate任务容量控制。"
@@ -5517,7 +5517,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "224": {
-    "blocker": "一家公司正在AWS云端中运行容器化应用程式。该应用程式透过在一组 Amazon EC2 实例上使用 Amazon Elastic Container Service (Amazon ECS) 来运行。 EC2 实例在 Auto Scaling 组中运行。该公司使用Amazon Elastic Container Registry (Amazon ECR)来存放其容器镜像。当上传新的图像版本时，新的图像版本会收到一个唯一的标签。该公司需要一种解决方案来检查新映像版本是否有常见漏洞和暴露。该解决方案必须自动删除具有“严重”或“高”严重性结果的新图像标签。当发生此类删除时，解决方案也必须通知开发团队。哪种解决方案满足这些要求？",
+    "blocker": "一家公司在 AWS 云中运行容器化应用。应用使用 Amazon ECS，运行在 Auto Scaling 组中的一组 EC2 实例上。公司在 Amazon ECR 中保存容器镜像，每次上传新版本都会赋予唯一标签。公司需要扫描新镜像版本中的常见漏洞与暴露（CVE），自动删除发现 Critical（严重）或 High（高危）问题的新镜像标签，并在删除时通知开发团队。哪种方案能满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：扫描事件到自动编排可实施删除及告警。"
@@ -5541,7 +5541,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "225": {
-    "blocker": "一家公司在AWS上运行许多工作负载，并使用AWS Organizations来管理其帐户。工作负载托管在 Amazon EC2 上。 AWSFargate。和AWS Lambda。有些工作负载的需求是不可预测的。帐户在某些月份记录高使用率，而在其他月份记录低使用率。该公司希望在未来 3 年内优化其运算成本。解决方案架构师取得整个组织中每个帐户 6 个月的平均值来计算使用情况。哪种解决方案将为组织的所有计算使用提供最大程度的成本节省？",
+    "blocker": "一家公司在 AWS 上运行许多工作负载，使用 AWS Organizations 管理账户。工作负载运行在 Amazon EC2、AWS Fargate 和 AWS Lambda 上。有些需求难以预测，各账户在不同月份的用量高低不一。公司希望优化未来 3 年的计算成本。架构师收集了组织中各账户过去 6 个月的平均用量。哪种方案能最大程度节省整个组织的计算费用？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Compute SP涵盖全部题定计算服务并支持组织共享。"
@@ -5565,7 +5565,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "226": {
-    "blocker": "一家公司有数百个AWS帐户。公司使用AWS Organizations中的组织来管理所有帐户。该公司已启用所有功能。财务团队分配了AWS 费用的每日预算。如果组织的 AWS 成本超过分配预算的 80%，财务团队必须收到电子邮件通知。解决方案架构师需要实施一个解决方案来追踪成本并发送通知。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司有数百个AWS账户。公司使用AWS Organizations中的组织来管理所有账户。该公司已启用所有功能。财务团队分配了AWS 费用的每日预算。如果组织的 AWS 成本超过分配预算的 80%，财务团队必须收到电子邮件通知。解决方案架构师需要实施一个解决方案来追踪成本并发送通知。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：Budgets原生支持成本阈值及SNS通知。"
@@ -5589,7 +5589,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "227": {
-    "blocker": "一家公司提供艺术品拍卖服务，其用户遍布北美和欧洲。该公司将其应用程式托管在 us-east-1 Region 的 Amazon EC2 实例中。艺术家上传他们的大尺寸作品照片。将高解析度影像档案从手机传输到在 us-east-1 Region 建立的集中式 Amazon S3 储存桶。欧洲用户报告图像上传速度缓慢。解决方案架构师如何提高图像上传过程的效能？",
+    "blocker": "一家公司提供艺术品拍卖服务，用户遍布北美和欧洲。应用托管在 us-east-1 区域的 EC2 实例上。艺术家使用手机，将作品的大尺寸、高分辨率照片上传到 us-east-1 区域的集中式 S3 桶。欧洲用户反馈图片上传缓慢。架构师应如何改善上传性能？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：S3加速专为长距离桶传输设计。"
@@ -5613,7 +5613,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "228": {
-    "blocker": "一家公司希望对多层 Web 应用程式进行容器化，并将应用程式从 on-premises 资料中心移至 AWS。该应用程式包括网路。应用层和资料库层。公司需要使应用程式具有容错性和可扩展性。一些经常存取的资料必须始终跨应用程式伺服器可用。前端 Web 伺服器需要会话持久性，并且必须扩展以满足流量的成长。哪种解决方案能够以最少的持续营运开销满足这些要求？",
+    "blocker": "一家公司希望将本地数据中心的多层 Web 应用容器化并迁移到 AWS。应用包含 Web 层、应用层和数据库层，需要具备容错能力及可扩展性。某些频繁访问的数据必须能被所有应用服务器持续访问。前端 Web 服务器需要持久化会话，并能随流量增长而扩展。哪种方案的持续运维开销最少？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：DynamoDB会话加EFS共享文件同时满足条件。"
@@ -5642,7 +5642,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "229": {
-    "blocker": "解决方案架构师正计划将关键的 Microsoft SQL Server 资料库迁移到AWS。由于资料库是遗留系统，解决方案架构师会将资料库迁移到现代资料架构。解决方案架构师必须在近乎零停机的情况下迁移资料库。哪种解决方案可以满足这些要求？",
+    "blocker": "解决方案架构师正计划将关键的 Microsoft SQL Server 数据库迁移到AWS。由于数据库是遗留系统，解决方案架构师会将数据库迁移到现代数据架构。解决方案架构师必须在近乎零停机的情况下迁移数据库。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：原生备份/日志恢复或支持的复制方案可做低停机RDS迁移。"
@@ -5666,7 +5666,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "230": {
-    "blocker": "一家公司的解决方案架构师正在分析多应用程式环境的成本。此环境跨多个 Availability Zones 部署在单一 AWS Region 中。经过最近的收购，该公司在AWS Organizations管理两个组织。该公司在一个组织中创建了多个服务提供者应用程序，作为 AWS PrivateLink 支援的 VPC 端点服务。该公司已在其他组织中创建了多个服务用户应用程式。资料传输费用远高于公司预期，解决方案架构师需要降低成本。解决方案架构师必须向开发人员推荐在部署服务时应遵循的指南。这些准则必须最大限度地减少整个环境的资料传输费用。哪些指南符合这些要求？ （选两个。）",
+    "blocker": "一家公司的解决方案架构师正在分析多应用程序环境的成本。此环境跨多个 Availability Zones 部署在单一 AWS Region 中。经过最近的收购，该公司在AWS Organizations管理两个组织。该公司在一个组织中创建了多个服务提供者应用程序，作为 AWS PrivateLink 支持的 VPC 端点服务。该公司已在其他组织中创建了多个服务用户应用程序。数据传输费用远高于公司预期，解决方案架构师需要降低成本。解决方案架构师必须向开发人员推荐在部署服务时应遵循的指南。这些准则必须最大限度地减少整个环境的数据传输费用。哪些指南符合这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：关闭NLB cross-zone避免跨AZ送到目标。",
@@ -5692,7 +5692,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "231": {
-    "blocker": "一家公司有一个 on-premises Microsoft SQL Server 资料库，每晚将 200 GB 汇出资料写入本机磁碟机。该公司希望将备份移至Amazon S3上更强大的云端储存。该公司已在on-premises资料中心和AWS之间建立了10 Gbps AWS Direct Connect连线。哪种解决方案最经济有效率地满足这些要求？",
+    "blocker": "一家公司有一个 on-premises Microsoft SQL Server 数据库，每晚将 200 GB 导出数据写入本机磁盘机。该公司希望将备份移至Amazon S3上更强大的云端存储。该公司已在on-premises数据中心和AWS之间建立了10 Gbps AWS Direct Connect连接。哪种解决方案最经济有效率地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：File Gateway支持SMB与S3持久存储。"
@@ -5716,7 +5716,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "232": {
-    "blocker": "某公司需要建立on-premises资料中心到AWS的连线。该公司需要将位于不同 AWS Regions 的所有 VPC 连接起来，并在 VPC 网路之间提供可传递路由功能。公司还必须降低网路出站流量成本，提高频宽吞吐量，并为最终用户提供一致的网路体验。哪种解决方案可以满足这些要求？",
+    "blocker": "某公司需要建立on-premises数据中心到AWS的连接。该公司需要将位于不同 AWS Regions 的所有 VPC 连接起来，并在 VPC 网络之间提供可传递路由功能。公司还必须降低网络出站流量成本，提高带宽吞吐量，并为最终用户提供一致的网络体验。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：所需专线与多Region骨干基础正确，但缺TGW跨区peering。"
@@ -5740,7 +5740,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "233": {
-    "blocker": "一家公司正在将其开发和生产工作负载迁移到AWS Organizations ​​的新组织。该公司创建了一个用于开发的单独的会员帐户和一个用于生产的单独的会员帐户。合并帐单连结到管理帐户。在管理帐户中，解决方案架构师需要建立一个 IAM 用户，该用户可以停止或终止两个成员帐户中的资源。哪种解决方案可以满足这个要求？",
+    "blocker": "一家公司正在将其开发和生产工作负载迁移到AWS Organizations 的新组织。该公司创建了一个用于开发的单独的成员账户和一个用于生产的单独的成员账户。合并帐单链接到管理账户。在管理账户中，解决方案架构师需要建立一个 IAM 用户，该用户可以停止或终止两个成员账户中的资源。哪种解决方案可以满足这个要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：目标账户角色+跨账户信任为正确模式。"
@@ -5764,7 +5764,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "234": {
-    "blocker": "一家公司希望使用 AWS 对 on-premises 应用程式进行灾难复原。该公司拥有数百台运行该应用程式的基于 Windows 的伺服器。所有伺服器都安装一个公共共用。该公司的RTO为15分钟，RPO为5分钟。此解决方案必须支援本机故障转移和回退功能。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司希望使用 AWS 为本地应用提供灾难恢复。该应用运行在数百台 Windows 服务器上，所有服务器都挂载同一个共享文件夹。公司的 RTO 为 15 分钟，RPO 为 5 分钟。方案必须原生支持故障转移和回切。哪种方案最具成本效益？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：DRS与FSx Windows最匹配灾备及Windows共享。"
@@ -5788,7 +5788,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "235": {
-    "blocker": "一家公司在AWS中建构了一个高效能运算（HPC）集群，用于紧密耦合的工作负载，该工作负载会产生储存在Amazon EFS中的大量共享档案。当集群中Amazon EC2实例数量为100时，集群表现良好。但是，当公司将集群规模增加到1.000个EC2实例时，整体效能远低于预期。解决方案架构师应该做出哪些设计选择才能实现 HPC 集群的最大效能？ （选择三项。）",
+    "blocker": "一家公司在 AWS 中建立 HPC 集群，运行紧密耦合的工作负载。该负载会生成大量保存在 EFS 中的共享文件。集群只有 100 台 EC2 实例时运行良好，但增加到 1,000 台后，整体性能远低于预期。架构师应采取哪三项设计选择，以最大限度提高集群性能？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：同AZ减低节点往返时延。",
@@ -5816,7 +5816,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "236": {
-    "blocker": "某公司正在设计AWS Organizations结构。该公司希望标准化在整个组织中应用标签的流程。当使用者建立新资源时，公司将要求具有特定值的标签。公司的每个OU都将具有唯一的标签值。哪种解决方案可以满足这些要求？",
+    "blocker": "某公司正在设计AWS Organizations结构。该公司希望标准化在整个组织中应用标签的流程。当用户建立新资源时，公司将要求具有特定值的标签。公司的每个OU都将具有唯一的标签值。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：SCP补齐缺标签控制，各OU policy限定其值。"
@@ -5840,7 +5840,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "237": {
-    "blocker": "一家公司拥有 10,000 多个感测器，这些感测器使用讯息伫列遥测传输 (MQTT) 协定将资料传送到 on-premises Apache Kafka 伺服器。 on-premises Kafka 伺服器转换数据，然后将结果作为物件储存在 Amazon S3 储存桶中。最近，Kafka伺服器崩溃了。该公司在恢复伺服器时丢失了感测器资料。解决方案架构师必须在AWS上创建高度可用且可扩展的新设计，以防止类似情况发生。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司拥有 10,000 多个感测器，这些感测器使用消息队列遥测传输 (MQTT) 协定将数据传送到 on-premises Apache Kafka 服务器。 on-premises Kafka 服务器转换数据，然后将结果作为对象存储在 Amazon S3 存储桶中。最近，Kafka服务器崩溃了。该公司在恢复服务器时丢失了感测器数据。解决方案架构师必须在AWS上创建高度可用且可扩展的新设计，以防止类似情况发生。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：IoT Core+Firehose/Lambda为托管弹性消息数据管道。"
@@ -5864,7 +5864,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "238": {
-    "blocker": "一家公司最近开始在AWS云端中托管新的应用程式工作负载。该公司正在使用 Amazon EC2 实例。 Amazon Elastic File System (Amazon EFS) 档案系统和 Amazon RDS 资料库实例。为了满足法规和业务要求，公司必须对资料备份进行以下更改： • 必须根据自订的每日、每周和每月要求保留Backup。 • Backup 必须在捕获后立即复制到至少一个其他AWS Region。 • 备份解决方案必须在整个AWS 环境中提供单一的备份状态来源。 • 备份解决方案必须在任何资源备份失败时立即发送通知。哪种步骤组合能够以最少的营运开销满足这些要求？ （选择三项。）",
+    "blocker": "一家公司最近开始在 AWS 云中运行新的应用工作负载，使用 EC2 实例、EFS 文件系统和 RDS 数据库实例。为了满足法规及业务要求，备份方案必须：按自定义的每日、每周和每月要求保留备份；在备份完成后立即复制到至少另一个 AWS 区域；集中展示整个 AWS 环境的备份状态；任何资源的备份失败时立即发送通知。哪三个步骤能以最少运维开销满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：每保留要求一条规则提供集中策略。",
@@ -5892,7 +5892,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "239": {
-    "blocker": "一家公司正在开发一种基因报告设备，该设备将收集基因组信息，以帮助研究人员从不同人群中收集大量数据样本。该设备每秒将 8 KB 的基因组数据推送到需要处理和分析数据并向研究人员提供资讯的数据平台。资料平台必须满足以下要求： • 提供入站基因组资料的近即时分析 • 确保资料灵活、并行且持久性 • 将处理结果交付至资料仓储 解决方案架构师应使用哪种策略来满足这些要求？",
+    "blocker": "一家公司正在开发一种基因报告设备，该设备将收集基因组信息，以帮助研究人员从不同人群中收集大量数据样本。该设备每秒将 8 KB 的基因组数据推送到需要处理和分析数据并向研究人员提供资讯的数据平台。数据平台必须满足以下要求： • 提供入站基因组数据的近即时分析 • 确保数据灵活、并行且持久性 • 将处理结果交付至数据仓储 解决方案架构师应使用哪种策略来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Streams+流消费者/EMR+Redshift满足实时处理与仓库目标。"
@@ -5916,7 +5916,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "240": {
-    "blocker": "解决方案架构师需要为具有 Web、应用程式和 NoSQL 资料层的三层应用程式解决方案定义参考架构。参考架构必须满足以下要求：\n• AWS Region 内的高可用性\n• 能够在 1 分钟内故障转移到另一个 AWS Region 以进行灾难恢复\n• 提供最高效率的解决方案，同时尽量减少对使用者体验的影响\n哪一种步骤组合可以满足这些要求？ （选择三项。）",
+    "blocker": "解决方案架构师需要为具有 Web、应用程序和 NoSQL 数据层的三层应用程序解决方案定义参考架构。参考架构必须满足以下要求：\n• AWS Region 内的高可用性\n• 能够在 1 分钟内故障转移到另一个 AWS Region 以进行灾难恢复\n• 提供最高效率的解决方案，同时尽量减少对用户体验的影响\n哪一种步骤组合可以满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：failover记录和30秒TTL是题给快速DNS切换方案。",
@@ -5944,7 +5944,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "241": {
-    "blocker": "一家公司生产智慧汽车。该公司使用客制化应用程式来收集车辆数据。车辆使用 MQTT 协定连接到应用程式。该公司每 5 分钟处理一次数据。然后，该公司将车辆远端资讯处理资料复制到本地储存。自订应用程式分析这些数据以检测异常情况。发送资料的车辆数量不断增加。较新的车辆会产生大量数据。 on-premises 储存解决方案无法针对峰值流量进行扩展，导致资料遗失。公司必须对解决方案进行现代化改造并将解决方案迁移到AWS，以解决扩展挑战。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司生产智慧汽车。该公司使用客制化应用程序来收集车辆数据。车辆使用 MQTT 协定连接到应用程序。该公司每 5 分钟处理一次数据。然后，该公司将车辆远端资讯处理数据复制到本地存储。自定义应用程序分析这些数据以检测异常情况。发送数据的车辆数量不断增加。较新的车辆会产生大量数据。 on-premises 存储解决方案无法针对峰值流量进行扩展，导致数据遗失。公司必须对解决方案进行现代化改造并将解决方案迁移到AWS，以解决扩展挑战。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：在旧版KDA SQL支持FirehoseInput时该管道有效。"
@@ -5968,7 +5968,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "242": {
-    "blocker": "在审核期间，安全团队发现开发团队将 IAM 使用者秘密存取金钥放入其程式码中，然后将其提交至 AWS CodeCommit 储存库。安全团队希望自动寻找并修复此安全漏洞的实例。哪种解决方案将确保凭证自动受到适当保护？",
+    "blocker": "在审核期间，安全团队发现开发团队将 IAM 用户秘密访问密钥放入其代码中，然后将其提交至 AWS CodeCommit 存储库。安全团队希望自动寻找并修复此安全漏洞的实例。哪种解决方案将确保凭证自动受到适当保护？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：push trigger支持Lambda，Lambda可自定义扫描与禁用IAM key。"
@@ -5992,7 +5992,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "243": {
-    "blocker": "一家公司在 Amazon S3 中有一个资料湖，需要由许多 AWS 帐户中的数百个应用程式存取。该公司的资讯安全政策规定，不得透过公共网路存取S3储存桶，且每个应用程式应具有运作所需的最低权限。为了满足这些要求，解决方案架构师计划使用S3接入点，该接入点仅限于每个应用程式的特定VPC。解决方案架构师应采取哪些步骤组合来实作该解决方案？ （选两个。）",
+    "blocker": "一家公司在 Amazon S3 中有一个数据湖，需要由许多 AWS 账户中的数百个应用程序访问。该公司的资讯安全政策规定，不得通过公共网络访问S3存储桶，且每个应用程序应具有运作所需的最低权限。为了满足这些要求，解决方案架构师计划使用S3接入点，该接入点仅限于每个应用程序的特定VPC。解决方案架构师应采取哪些步骤组合来实作该解决方案？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：桶拥有账户创建AP是有效模式，需为目标VPC和跨账户权限配置。",
@@ -6018,7 +6018,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "244": {
-    "blocker": "一家公司开发了其资料中心和AWS之间的混合解决方案。该公司使用 Amazon VPC 和 Amazon EC2 实例将应用程式日志传送到 Amazon CloudWatch。 EC2 执行个体从本地托管的多个关联式资料库读取资料。该公司希望近乎即时地监控哪些 EC2 实例连接到资料库。该公司已经拥有在本地使用 Splunk 的监控解决方案。解决方案架构师需要确定如何将网路流量传送到 Splunk。解决方案架构师应该如何满足这些要求？",
+    "blocker": "一家公司开发了其数据中心和AWS之间的混合解决方案。该公司使用 Amazon VPC 和 Amazon EC2 实例将应用程序日志传送到 Amazon CloudWatch。 EC2 实例从本地托管的多个关联式数据库读取数据。该公司希望近乎即时地监控哪些 EC2 实例连接到数据库。该公司已经拥有在本地使用 Splunk 的监控解决方案。解决方案架构师需要确定如何将网络流量传送到 Splunk。解决方案架构师应该如何满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Flow Logs到Logs subscription到Firehose/Splunk是流式路径。"
@@ -6042,7 +6042,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "245": {
-    "blocker": "一家公司有 5 个开发团队，每个团队都创建了 5 个 AWS 帐户来开发和托管应用程式。为了追踪支出，开发团队每月登入每个帐户，从AWS计费和成本管理控制台记录当前成本，并将资讯提供给公司的财务团队。公司有严格的合规要求，需要确保资源仅在美国的AWSRegions创建。不过，在其他Regions中已经创建了一些资源。解决方案架构师需要实施一个解决方案，使财务团队能够追踪和合并所有帐户的支出。该解决方案还必须确保公司只能在美国的Regions 创建资源。哪一种步骤组合能够以最有效率的方式满足这些要求？ （选择三项。）",
+    "blocker": "一家公司有 5 个开发团队，每个团队都创建了 5 个 AWS 账户来开发和托管应用程序。为了追踪支出，开发团队每月登录每个账户，从AWS计费和成本管理控制台记录当前成本，并将资讯提供给公司的财务团队。公司有严格的合规要求，需要确保资源仅在美国的AWSRegions创建。不过，在其他Regions中已经创建了一些资源。解决方案架构师需要实施一个解决方案，使财务团队能够追踪和合并所有账户的支出。该解决方案还必须确保公司只能在美国的Regions 创建资源。哪一种步骤组合能够以最有效率的方式满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：邀请全部账户进入组织形成合并账单和治理。",
@@ -6070,7 +6070,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "246": {
-    "blocker": "公司需要从一个中心位置为多个部门建立和管理多个 AWS 帐户。安全团队要求自己的 AWS 帐户对所有帐户具有唯读存取权。该公司正在使用AWS Organizations并为安全团队建立了一个帐户。解决方案架构师应该如何满足这些要求？",
+    "blocker": "公司需要从一个中心位置为多个部门建立和管理多个 AWS 账户。安全团队要求自己的 AWS 账户对所有账户具有只读访问权。该公司正在使用AWS Organizations并为安全团队建立了一个账户。解决方案架构师应该如何满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：每成员账户专用只读role符合最小权限。"
@@ -6094,7 +6094,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "247": {
-    "blocker": "一家大公司在 VPC 中运行工作负载，这些工作负载部署在数百个 AWS 帐户中。每个VPC 由公共子网和跨越多个Availability Zones 的私有子网组成。 NAT 闸道部署在公用子网路中，并允许从私有子网路出站连接到 Internet。解决方案架构师正在研究中心辐射型设计。分支 VPC 中的所有私有子网路必须透过出口 VPC 将流量路由到网际网路。解决方案架构师已在中央 AWS 帐户的出口 VPC 中部署了 NAT 网关。解决方案架构师应该采取哪一组附加步骤来满足这些要求？",
+    "blocker": "一家大公司在 VPC 中运行工作负载，这些工作负载部署在数百个 AWS 账户中。每个VPC 由公共子网和跨越多个Availability Zones 的私有子网组成。 NAT 网关部署在公用子网中，并允许从私有子网出站连接到 Internet。解决方案架构师正在研究中心辐射型设计。分支 VPC 中的所有私有子网必须通过出口 VPC 将流量路由到互联网。解决方案架构师已在中央 AWS 账户的出口 VPC 中部署了 NAT 网关。解决方案架构师应该采取哪一组附加步骤来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：TGW提供多账户spoke到中央egress的路由。"
@@ -6118,7 +6118,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "248": {
-    "blocker": "一家教育公司正在运行一个供世界各地大学生使用的网路应用程式。该应用程式在Application Load Balancer (ALB)后面的Auto Scaling组中的Amazon Elastic Container Service (Amazon ECS)集群中运行。系统管理员侦测到每周失败的登入尝试次数激增，这导致应用程式的身份验证服务不堪负荷。所有失败的登入尝试均来自约 500 个每周都会变更的不同 IP 位址。解决方案架构师必须防止失败的登入尝试淹没身分验证服务。哪种解决方案能够以最高的营运效率满足这些要求？",
+    "blocker": "一家教育公司正在运行一个供世界各地大学生使用的网络应用程序。该应用程序在Application Load Balancer (ALB)后面的Auto Scaling组中的Amazon Elastic Container Service (Amazon ECS)集群中运行。系统管理员侦测到每周失败的登录尝试次数激增，这导致应用程序的身份验证服务不堪负荷。所有失败的登录尝试均来自约 500 个每周都会变更的不同 IP 地址。解决方案架构师必须防止失败的登录尝试淹没身份验证服务。哪种解决方案能够以最高的运维效率满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：托管速率规则无需每周维护攻击IP清单。"
@@ -6142,7 +6142,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "249": {
-    "blocker": "一家公司经营一个 on-premises 软体即服务 (SaaS) 解决方案，每天都会摄取多个档案。该公司向客户提供多个公共SFTP端点以促进文件传输。客户将 SFTP 端点 IP 位址新增至出站流量的防火墙允许清单中。不允许更改SFTP端点IP位址。该公司希望将 SaaS 解决方案迁移到AWS，并减少文件传输服务的营运开销。哪种解决方案满足这些要求？",
+    "blocker": "一家公司经营一个 on-premises 软件即服务 (SaaS) 解决方案，每天都会摄取多个文件。该公司向客户提供多个公共SFTP端点以促进文件传输。客户将 SFTP 端点 IP 地址新增至出站流量的防火墙允许清单中。不允许更改SFTP端点IP地址。该公司希望将 SaaS 解决方案迁移到AWS，并减少文件传输服务的运维开销。哪种解决方案满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：BYOIP EIP+Transfer Family保留原IP且少运维。"
@@ -6166,7 +6166,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "250": {
-    "blocker": "一家公司有一个新应用程序，需要在单一 AWS Region 中的 5 个 Amazon EC2 实例上运行。该应用程式需要在运行该应用程式的所有EC2实例之间建立高吞吐量、低延迟的网路连线。应用程式不要求具有容错能力。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司有一个新应用程序，需要在单一 AWS Region 中的 5 个 Amazon EC2 实例上运行。该应用程序需要在运行该应用程序的所有EC2实例之间建立高吞吐量、低延迟的网络连接。应用程序不要求具有容错能力。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：cluster placement专门面向紧密网络互联。"
@@ -6190,7 +6190,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "251": {
-    "blocker": "一家公司正在创建一个 REST API，以与位于美国的六个合作伙伴共享资讯。该公司创建了一个 Amazon API Gateway Regional 端点。六个合作伙伴中的每一个每天都会存取 API 一次，以发布每日销售数据。在初始部署后，该公司观察到每秒来自全球 500 个不同 IP 位址的 1,000 个请求。该公司认为该流量源自僵尸网络，并希望保护其 API，同时最大限度地降低成本。公司应采取哪种方法来保护其 API 安全？",
+    "blocker": "一家公司正在创建一个 REST API，以与位于美国的六个合作伙伴共享资讯。该公司创建了一个 Amazon API Gateway Regional 端点。六个合作伙伴中的每一个每天都会访问 API 一次，以发布每日销售数据。在初始部署后，该公司观察到每秒来自全球 500 个不同 IP 地址的 1,000 个请求。该公司认为该流量源自僵尸网络，并希望保护其 API，同时最大限度地降低成本。公司应采取哪种方法来保护其 API 安全？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：WAF限制IP并用usage plan管理配额是题给完整方案。"
@@ -6214,7 +6214,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "252": {
-    "blocker": "一家公司为单一 AWS Region 中的应用程式使用 Amazon Aurora PostgreSQL 资料库集群。公司的资料库团队必须监控所有资料库上的所有资料活动。哪种解决方案将实现这一目标？",
+    "blocker": "一家公司为单一 AWS Region 中的应用程序使用 Amazon Aurora PostgreSQL 数据库集群。公司的数据库团队必须监控所有数据库上的所有数据活动。哪种解决方案将实现这一目标？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：DAS+Kinesis+Firehose是官方支持管道。"
@@ -6238,7 +6238,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "253": {
-    "blocker": "一家娱乐公司最近推出了一款新游戏。为了确保上线期间为玩家提供良好的体验，公司在Network Load Balancer后面静态部署了12个r6g.16xlarge（内存优化）Amazon EC2实例。该公司的营运团队使用 Amazon CloudWatch 代理和自订指标将记忆体利用率纳入其监控策略。对发布期间的CloudWatch指标的分析显示，CPU和记忆体的消耗约为公司预期的四分之一。最初对游戏的需求已经减弱，并且变得更加多变。该公司决定使用Auto Scaling组来监控CPU和记忆体消耗，以动态扩展实例组。解决方案架构师需要配置Auto Scaling组，以便以最具成本效益的方式满足需求。哪种解决方案可以满足这些要求？",
+    "blocker": "一家娱乐公司最近推出了一款新游戏。为了确保上线期间为玩家提供良好的体验，公司在Network Load Balancer后面静态部署了12个r6g.16xlarge（内存优化）Amazon EC2实例。该公司的运维团队使用 Amazon CloudWatch 代理和自定义指标将内存利用率纳入其监控策略。对发布期间的CloudWatch指标的分析显示，CPU和内存的消耗约为公司预期的四分之一。最初对游戏的需求已经减弱，并且变得更加多变。该公司决定使用Auto Scaling组来监控CPU和内存消耗，以动态扩展实例组。解决方案架构师需要配置Auto Scaling组，以便以最具成本效益的方式满足需求。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：同系列四分之一规格适配观察到的CPU/内存比。"
@@ -6262,7 +6262,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "254": {
-    "blocker": "一家金融服务公司将数百万笔历史股票交易加载到Amazon DynamoDB 表中。此表采用按需扩容模式。每天午夜一次，数百万笔新记录会载入到表格中。针对表的应用程式读取活动全天突然发生。并且重复寻找一组有限的按键。公司需要降低与DynamoDB相关的成本。解决方案架构师应该推荐哪种策略来满足此要求？",
+    "blocker": "一家金融服务公司已将数百万笔历史股票交易载入 Amazon DynamoDB 表。该表使用按需容量模式。每天午夜，系统会向表中载入数百万条新记录。应用程序对该表的读取在一天中呈突发性发生，并且会反复查询一小组键。公司需要降低 DynamoDB 相关成本。解决方案架构师应推荐哪种策略来满足此要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：DAX降低重复读，provisioned配auto scaling降低容量成本。"
@@ -6286,7 +6286,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "255": {
-    "blocker": "一家公司正在创建一个在 Amazon EC2 上运行的集中式日志记录服务，该服务将接收和分析来自数百个 AWS 帐户的日志。 AWS PrivateLink 用于提供客户端服务和日志记录服务之间的连线。在每个具有客户端的AWS帐户中，已为日志记录服务建立了一个介面端点并且可用。在具有 Network Load Balancer (NLB) 的 EC2 实例上执行的日志服务部署在不同的子网路中。用户端无法使用 VPC 端点提交日志。解决方案架构师应采取哪些步骤组合来解决此问题？ （选两个。）",
+    "blocker": "一家公司正在创建一个运行在 Amazon EC2 上的集中式日志服务，用于接收并分析来自数百个 AWS 账户的日志。公司使用 AWS PrivateLink 连接客户端服务与日志服务。在每个包含客户端的 AWS 账户中，都已创建日志服务的接口端点，且端点处于可用状态。运行日志服务的 EC2 实例与 Network Load Balancer（NLB）部署在不同的子网中。客户端无法通过 VPC 端点提交日志。解决方案架构师应采取哪两个步骤来解决此问题？（选择两项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：NLB与后端EC2的双向stateless ACL必查。",
@@ -6312,7 +6312,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "256": {
-    "blocker": "一家公司在 Amazon S3 储存桶中有数百万个物件。这些物件属于 S3 标准储存类别。所有S3物件都被频繁存取。访问对象的用户和应用程式的数量正在迅速增加。这些物件透过使用 AWS KMS 金钥 (SSE-KMS) 的伺服器端加密进行加密。解决方案架构师检查了公司每月的 AWS 发票，并注意到由于 Amazon S3 的请求数量较多，AWS KMS 成本正在增加。解决方案架构师需要透过对应用程式进行最小的更改来优化成本。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司在 Amazon S3 存储桶中有数百万个对象。这些对象属于 S3 标准存储类别。所有S3对象都被频繁访问。访问对象的用户和应用程序的数量正在迅速增加。这些对象通过使用 AWS KMS 密钥 (SSE-KMS) 的服务器端加密进行加密。解决方案架构师检查了公司每月的 AWS 发票，并注意到由于 Amazon S3 的请求数量较多，AWS KMS 成本正在增加。解决方案架构师需要通过对应用程序进行最小的更改来优化成本。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：SSE-S3由S3托管密钥，不产生该KMS请求费用。"
@@ -6336,7 +6336,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "257": {
-    "blocker": "媒体储存应用程式将使用者照片上传到Amazon S3以供AWS Lambda函数处理。应用程式状态储存在Amazon DynamoDB表中。用户报告称，某些上传的照片未正确处理。应用程式开发人员追踪日志发现，当数千名用户同时上传照片时，Lambda 遇到了照片处理问题。这些问题是 Lambda 并发限制和保存资料时DynamoDB的效能造成的。解决方案架构师应该采取哪种操作组合来提高应用程式的效能和可靠性？ （选两个。）",
+    "blocker": "媒体存储应用程序将用户照片上传到Amazon S3以供AWS Lambda函数处理。应用程序状态存储在Amazon DynamoDB表中。用户报告称，某些上传的照片未正确处理。应用程序开发人员追踪日志发现，当数千名用户同时上传照片时，Lambda 遇到了照片处理问题。这些问题是 Lambda 并发限制和保存数据时DynamoDB的性能造成的。解决方案架构师应该采取哪种操作组合来提高应用程序的性能和可靠性？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：提升WCU处理写峰。",
@@ -6367,7 +6367,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "258": {
-    "blocker": "一家公司在 on-premises 资料中心运行应用程式。该应用程式使用户能够上传媒体档案。文件保留在文件伺服器中。 Web 应用程式有很多使用者。应用程式伺服器使用率过高，偶尔会导致资料上传失败。该公司经常向文件伺服器添加新储存。该公司希望透过将应用程式迁移到AWS来解决这些挑战。来自美国和加拿大各地的用户访问该应用程式。只有经过身份验证的使用者才能存取应用程式来上传档案。公司会考虑重构应用程式的解决方案，公司需要加速应用程式开发。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司在 on-premises 数据中心运行应用程序。该应用程序使用户能够上传媒体文件。文件保留在文件服务器中。 Web 应用程序有很多用户。应用程序服务器使用率过高，偶尔会导致数据上传失败。该公司经常向文件服务器添加新存储。该公司希望通过将应用程序迁移到AWS来解决这些挑战。来自美国和加拿大各地的用户访问该应用程序。只有经过身份验证的用户才能访问应用程序来上传文件。公司会考虑重构应用程序的解决方案，公司需要加速应用程序开发。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：Amplify Hosting+S3 Storage+Cognito为托管Web上传组合。"
@@ -6391,7 +6391,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "259": {
-    "blocker": "一家公司有一个应用程式部署在 Application Load Balancer (ALB) 后面的 Amazon EC2 实例上。这些实例是 Auto Scaling 群组的一部分。该应用程式具有不可预测的工作负载，并且经常横向扩展和收缩。该公司的开发团队希望分析应用程式日志，以找到提高应用程式效能的方法。但是，在实例缩减后，日志将不再可用。哪种解决方案将使开发团队能够在缩减事件后查看应用程式日志？",
+    "blocker": "一家公司有一个应用程序部署在 Application Load Balancer (ALB) 后面的 Amazon EC2 实例上。这些实例是 Auto Scaling 群组的一部分。该应用程序具有不可预测的工作负载，并且经常横向扩展和收缩。该公司的开发团队希望分析应用程序日志，以找到提高应用程序性能的方法。但是，在实例缩减后，日志将不再可用。哪种解决方案将使开发团队能够在缩减事件后查看应用程序日志？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：外部日志收集不随实例终止消失。"
@@ -6415,7 +6415,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "260": {
-    "blocker": "一家公司运行一个未经身份验证的静态网站 (www.example.com)，其中包含用户注册表单。该网站使用 Amazon S3 进行托管，并使用 Amazon CloudFront 作为内容交付网络，并配置了 AWS WAF。提交注册表单后，网站会呼叫 Amazon API Gateway API 端点，该端点会呼叫 AWS Lambda 函数来处理有效负载并将有效负载转送到外部 API 呼叫。在测试过程中，解决方案架构师遇到跨来源资源共享 (CORS) 错误。解决方案架构师确认 CloudFront 分发来源的 Access-Control-Allow-Origin 标头设定为 www.example.com。解决方案架构师应该如何解决该错误？",
+    "blocker": "一家公司运行一个未经身份验证的静态网站 (www.example.com)，其中包含用户注册表单。该网站使用 Amazon S3 进行托管，并使用 Amazon CloudFront 作为内容交付网络，并配置了 AWS WAF。提交注册表单后，网站会调用 Amazon API Gateway API 端点，该端点会调用 AWS Lambda 函数来处理有效负载并将有效负载转送到外部 API 调用。在测试过程中，解决方案架构师遇到跨来源资源共享 (CORS) 错误。解决方案架构师确认 CloudFront 分发来源的 Access-Control-Allow-Origin 标头设定为 www.example.com。解决方案架构师应该如何解决该错误？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：在实际被跨源访问的API配置CORS。"
@@ -6439,7 +6439,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "261": {
-    "blocker": "一家公司拥有许多独立的 AWS 帐户，并且不使用集中计费或管理。每个AWS帐户为公司不同部门提供服务。该公司已部署 Microsoft Azure Active Directory。解决方案架构师需要集中公司AWS帐户的计费和管理。该公司希望开始使用身份联合而不是手动用户管理。该公司还希望使用临时凭证而不是长期存取密钥。哪一种步骤组合可以满足这些要求？ （选择三项。）",
+    "blocker": "一家公司拥有许多独立的 AWS 账户，并且不使用集中计费或管理。每个AWS账户为公司不同部门提供服务。该公司已部署 Microsoft Azure Active Directory。解决方案架构师需要集中公司AWS账户的计费和管理。该公司希望开始使用身份联合而不是手动用户管理。该公司还希望使用临时凭证而不是长期访问密钥。哪一种步骤组合可以满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：邀请现有账户形成集中组织。",
@@ -6467,7 +6467,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "262": {
-    "blocker": "一家公司希望透过迁移到 AWS 来管理与 20 个不经常使用但仍对业务至关重要的应用程式群组相关的成本。这些应用程式是 Java 和 Node.js 的混合体，分布在不同的实例集群上。该公司希望透过使用单一部署方法来实现标准化，同时最大限度地降低成本。大多数应用程式是具有少量并发用户的月末处理例程的一部分，但它们偶尔会在其他时间运行。平均应用程式记忆体消耗小于 1 GB。尽管某些应用程式在高峰处理期间使用多达 2.5 GB 的记忆体。该群组中最重要的应用程式是用 Java 编写的计费报告，它存取多个资料来源并且通常运行几个小时。哪一个是最具成本效益的解决方案？",
+    "blocker": "一家公司希望通过迁移到 AWS 来管理与 20 个不经常使用但仍对业务至关重要的应用程序群组相关的成本。这些应用程序是 Java 和 Node.js 的混合体，分布在不同的实例集群上。该公司希望通过使用单一部署方法来实现标准化，同时最大限度地降低成本。大多数应用程序是具有少量并发用户的月末处理例程的一部分，但它们偶尔会在其他时间运行。平均应用程序内存消耗小于 1 GB。尽管某些应用程序在高峰处理期间使用多达 2.5 GB 的内存。该群组中最重要的应用程序是用 Java 编写的计费报告，它访问多个数据来源并且通常运行几个小时。哪一个是最具成本效益的解决方案？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：ECS支持长期任务、容器复用和实例按负载扩缩。"
@@ -6491,7 +6491,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "263": {
-    "blocker": "解决方案架构师需要检视使用 EMR 档案系统 (EMRFS) 的 Amazon EMR 集群的设计。集群执行对业务需求至关重要的任务。集群始终为所有任务、主节点和核心节点执行 Amazon EC2 按需实例。 EMR 任务每天早上运行，从凌晨 1:00 开始。并需要6小时才能完成运作。完成处理的时间量不是优先考虑的问题，因为直到当天晚些时候才会引用资料。解决方案架构师必须审查架构并提出解决方案以最大限度地降低计算成本。解决方案架构师应该推荐哪一种解决方案来满足这些要求？",
+    "blocker": "解决方案架构师需要检视使用 EMR 文件系统 (EMRFS) 的 Amazon EMR 集群的设计。集群执行对业务需求至关重要的任务。集群始终为所有任务、主节点和核心节点执行 Amazon EC2 按需实例。 EMR 任务每天早上运行，从凌晨 1:00 开始。并需要6小时才能完成运作。完成处理的时间量不是优先考虑的问题，因为直到当天晚些时候才会引用数据。解决方案架构师必须审查架构并提出解决方案以最大限度地降低计算成本。解决方案架构师应该推荐哪一种解决方案来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：可靠主/core、Spot任务、全终止同时减运行时和单价。"
@@ -6515,7 +6515,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "264": {
-    "blocker": "一家公司已将旧应用程式迁移到AWS 云端。该应用程式在分布于三个 Availability Zones 的三个 Amazon EC2 实例上运行。每个 Availability Zone 中有一个 EC2 实例。 EC2 实例在 VPC 的三个私有子网路中运行，并设定为与三个公共子网路关联的 Application Load Balancer (ALB) 的目标。应用程式需要与on-premises系统通讯。仅允许来自公司 IP 位址范围内的 IP 位址的流量存取on-premises 系统。该公司的安全团队仅将其内部 IP 位址范围中的一个 IP 位址引入云端。本公司已将此 IP 位址新增至公司防火墙的允许清单中。该公司还为此IP位址创建了一个弹性IP位址。解决方案架构师需要创建一个解决方案，使应用程式能够与on-premises系统进行通讯。该解决方案还必须能够自动缓解故障。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司已将旧应用程序迁移到AWS 云端。该应用程序在分布于三个 Availability Zones 的三个 Amazon EC2 实例上运行。每个 Availability Zone 中有一个 EC2 实例。 EC2 实例在 VPC 的三个私有子网中运行，并设定为与三个公共子网关联的 Application Load Balancer (ALB) 的目标。应用程序需要与on-premises系统通讯。仅允许来自公司 IP 地址范围内的 IP 地址的流量访问on-premises 系统。该公司的安全团队仅将其内部 IP 地址范围中的一个 IP 地址引入云端。本公司已将此 IP 地址新增至公司防火墙的允许清单中。该公司还为此IP地址创建了一个弹性IP地址。解决方案架构师需要创建一个解决方案，使应用程序能够与on-premises系统进行通讯。该解决方案还必须能够自动缓解故障。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：单EIP约束下自动NAT重建是可用方案。"
@@ -6539,7 +6539,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "265": {
-    "blocker": "某公司使用AWS Organizations管理1000多个AWS帐户。该公司创建了一个新的开发者组织。有 540 个开发者成员帐号必须迁移到新的开发者组织。所有帐户均设定有所有必需的信息，以便每个帐户都可以作为独立帐户进行操作。解决方案架构师应采取哪些步骤组合将所有开发人员帐号移至新的开发人员组织？ （选择三项。）",
+    "blocker": "某公司使用AWS Organizations管理1000多个AWS账户。该公司创建了一个新的开发者组织。有 540 个开发者成员账户必须迁移到新的开发者组织。所有账户均设定有所有必需的信息，以便每个账户都可以作为独立账户进行操作。解决方案架构师应采取哪些步骤组合将所有开发人员账户移至新的开发人员组织？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：RemoveAccountFromOrganization仅管理账户可调用。",
@@ -6567,7 +6567,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "266": {
-    "blocker": "一家公司的互动式 Web 应用程式使用 Amazon CloudFront 发行版来提供来自 Amazon S3 储存桶的图像。有时，第三方工具会将损坏的影像提取到 S3 储存桶中。此图像损坏会导致稍后应用程式中的使用者体验不佳。该公司已成功实施并测试了 Python 逻辑来检测损坏的图像。解决方案架构师必须推荐一种解决方案来整合检测逻辑，并在摄取和服务之间实现最小延迟。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司的交互式 Web 应用程序通过 Amazon CloudFront 分配，提供存储在 Amazon S3 存储桶中的图片。有时，第三方工具会将损坏的图片写入 S3 存储桶，导致应用程序后续为用户提供这些图片时体验不佳。公司已成功实现并测试了用于检测损坏图片的 Python 逻辑。解决方案架构师必须推荐一种集成该检测逻辑的方案，并尽量缩短图片写入到对外提供之间的延迟。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：上传事件触发能直接GetObject检测并隔离坏图。"
@@ -6591,7 +6591,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "267": {
-    "blocker": "一家公司有一个应用程式在 Amazon EC2 Auto Scaling 群组中的 Amazon EC2 实例上运行。该公司使用 AWS CodePipeline 来部署应用程式。由于扩展事件，Auto Scaling组中运行的实例不断变化。当公司部署新的应用程式程式码版本时，公司会在任何新目标 EC2 实例上安装 AWS CodeDeploy 代理，并将这些实例与 CodeDeploy 部署群组关联。该应用程式将在未来 24 小时内上线。解决方案架构师应该建议什么来以最少的营运开销实现应用程式部署流程的自动化？",
+    "blocker": "一家公司有一个应用程序在 Amazon EC2 Auto Scaling 群组中的 Amazon EC2 实例上运行。该公司使用 AWS CodePipeline 来部署应用程序。由于扩展事件，Auto Scaling组中运行的实例不断变化。当公司部署新的应用程序代码版本时，公司会在任何新目标 EC2 实例上安装 AWS CodeDeploy 代理，并将这些实例与 CodeDeploy 部署群组关联。该应用程序将在未来 24 小时内上线。解决方案架构师应该建议什么来以最少的运维开销实现应用程序部署流程的自动化？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：CodeDeploy原生追踪ASG实例并在launch lifecycle部署。"
@@ -6615,7 +6615,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "268": {
-    "blocker": "一家公司的网站在 Application Load Balancer (ALB) 后面的四个 Amazon EC2 实例上运行。当ALB侦测到EC2实例不再可用时，AmazonCloudWatch告警进入ALARM状态。然后，公司营运团队的一名成员在 ALB 后面手动新增一个新的 EC2 实例。解决方案架构师需要设计一个高度可用的解决方案，自动处理EC2实例的替换。该公司需要最大限度地减少改用新解决方案期间的停机时间。解决方案架构师应采取哪一组步骤来满足这些要求？",
+    "blocker": "一家公司的网站在 Application Load Balancer (ALB) 后面的四个 Amazon EC2 实例上运行。当ALB侦测到EC2实例不再可用时，AmazonCloudWatch告警进入ALARM状态。然后，公司运维团队的一名成员在 ALB 后面手动新增一个新的 EC2 实例。解决方案架构师需要设计一个高度可用的解决方案，自动处理EC2实例的替换。该公司需要最大限度地减少改用新解决方案期间的停机时间。解决方案架构师应采取哪一组步骤来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：保留入口并纳管现有实例最平滑。"
@@ -6639,7 +6639,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "269": {
-    "blocker": "一家公司希望优化 AWS AWS Organizations ​​公司组织内开发人员帐户之间的资料传输成本和计算成本。开发人员可以在单一 AWS Region 中设定 VPC 并启动 Amazon EC2 实例。 EC2 实例每天从 Amazon S3 撷取大约 1 TB 的资料。开发人员活动会导致EC2实例和S3储存桶之间产生过高的每月资料传输费用和NAT网关处理费用，以及高昂的运算成本。该公司希望针对开发人员在 AWS 帐户中部署的任何 EC2 实例和 VPC 基础设施主动实施经批准的架构模式。该公司不希望这种强制执行对开发人员执行任务的速度产生负面影响。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司希望优化其 AWS Organizations 组织内各开发者账户的 AWS 数据传输成本和计算成本。开发者可以在单个 AWS 区域中配置 VPC 并启动 Amazon EC2 实例。这些 EC2 实例每天从 Amazon S3 读取约 1 TB 数据。开发活动导致 EC2 实例与 S3 存储桶之间每月的数据传输费用和 NAT 网关处理费用过高，计算成本也很高。公司希望对开发者在这些 AWS 账户中部署的所有 EC2 实例和 VPC 基础设施，预先强制采用已批准的架构模式，同时不降低开发者完成任务的速度。哪种解决方案能够以最具成本效益的方式满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：预批准产品和launch constraint在创建前强制标准。"
@@ -6663,7 +6663,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "270": {
-    "blocker": "一家公司正在扩张。该公司计划将其资源分为多个 AWS Regions 中的数百个不同的 AWS 帐户。解决方案架构师必须推荐一种解决方案，拒绝存取特别指定的Regions以外的任何操作。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在扩张。该公司计划将其资源分为多个 AWS Regions 中的数百个不同的 AWS 账户。解决方案架构师必须推荐一种解决方案，拒绝访问特别指定的Regions以外的任何操作。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：OU级SCP提供组织级region限制。"
@@ -6687,7 +6687,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "271": {
-    "blocker": "一家公司想要重构其零售订购 Web 应用程序，该应用程式目前具有用于 Web 托管、资料库 API 服务和业务逻辑的负载平衡 Amazon EC2 实例 eet。该公司需要创建一个解耦、可扩展的架构，并具有保留失败订单的机制，同时最大限度地降低营运成本。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司希望重构其零售订单 Web 应用程序。目前，该应用程序使用一组经过负载均衡的 Amazon EC2 实例，承载网站托管、数据库 API 服务和业务逻辑。公司需要创建一种解耦、可扩展的架构，提供保留处理失败订单的机制，同时尽量降低运营成本。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：serverless组件及DLQ完整满足要求。"
@@ -6711,7 +6711,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "272": {
-    "blocker": "一家公司在 us-east-1 Region 的 AWS 上托管一个 Web 应用程式。应用程式伺服器分布在 Application Load Balancer 后面的三个 Availability Zones 上。此资料库托管在 Amazon EC2 实例上的 MySQL 资料库中。解决方案架构师需使用AWS服务设计跨Region资料复原解决方案，RTO小于5分钟，RPO小于1分钟。解决方案架构师正在 us-west-2 中部署应用程式伺服器，并已配置 Amazon Route 53 运行状况检查和 DNS 故障转移到 us-west-2。解决方案架构师应该采取哪些额外步骤？",
+    "blocker": "一家公司在 AWS 的 us-east-1 区域托管一个 Web 应用程序。应用服务器位于 Application Load Balancer 后方，分布在三个可用区中。该应用使用运行在一台 Amazon EC2 实例上的 MySQL 数据库。解决方案架构师需要利用 AWS 服务设计一种跨区域数据恢复方案，使恢复时间目标（RTO）小于 5 分钟，恢复点目标（RPO）小于 1 分钟。架构师正在 us-west-2 部署应用服务器，并已配置 Amazon Route 53 健康检查以及故障转移至 us-west-2 的 DNS 故障转移功能。架构师还应采取哪一步？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：全球数据库专为低RPO跨区恢复设计。"
@@ -6735,7 +6735,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "273": {
-    "blocker": "一家公司正在使用AWS Organizations来管理多个帐户。由于监管要求，公司希望将特定会员帐户限制在某些AWSRegions，允许他们部署资源。帐户中的资源必须被标记、基于群组标准强制实施，并以最少的配置进行集中管理。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家公司正在使用AWS Organizations来管理多个账户。由于监管要求，公司希望将特定成员账户限制在某些AWSRegions，允许他们部署资源。账户中的资源必须被标记、基于群组标准强制实施，并以最少的配置进行集中管理。解决方案架构师应该怎么做才能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：OU选择性继承SCP与标签标准化，配置最少。"
@@ -6759,7 +6759,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "274": {
-    "blocker": "一家公司有一个应用程序，可以产生报告并将其储存在 Amazon S3 储存桶中。当使用者存取其报告时，应用程式会产生一个签章 URL 以允许使用者下载报告。该公司的安全团队发现这些文件是公开的，任何人都可以在未经身份验证的情况下下载它们。该公司已暂停产生新报告，直到问题解决。哪一组操作会立即修复安全性问题而不影响应用程式的正常工作流程？",
+    "blocker": "一家公司有一个应用程序，可以产生报告并将其存储在 Amazon S3 存储桶中。当用户访问其报告时，应用程序会产生一个签章 URL 以允许用户下载报告。该公司的安全团队发现这些文件是公开的，任何人都可以在未经身份验证的情况下下载它们。该公司已暂停产生新报告，直到问题解决。哪一组操作会立即修复安全性问题而不影响应用程序的正常工作流程？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：BPA忽略公共ACL可集中即时处理已存对象。"
@@ -6783,7 +6783,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "275": {
-    "blocker": "一家公司计划将 Oracle 资料库的 Amazon RDS 迁移到另一个 AWS 帐户中的 PostgreSQL 资料库实例的 RDS。解决方案架构师需要设计一种无需停机并最大限度地减少完成迁移所需时间的迁移策略。迁移策略必须复制所有现有资料以及迁移期间建立的任何新资料。迁移过程完成时，目标资料库必须与来源资料库相同。目前，所有应用程式都使用 Amazon Route 53 CNAME 记录作为与 Oracle 资料库实例的 RDS 通讯的端点。 Oracle 资料库执行个体的 RDS 位于私有子网路。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选择三项。）",
+    "blocker": "一家公司计划将 Amazon RDS for Oracle 数据库迁移到另一个 AWS 账户中的 RDS for PostgreSQL 数据库实例。解决方案架构师需要设计一种无需停机、并尽可能缩短迁移所需时间的迁移策略。该策略必须复制所有现有数据，以及迁移期间产生的任何新数据。迁移完成时，目标数据库中的数据必须与源数据库一致。目前，所有应用程序都通过一条 Amazon Route 53 CNAME 记录作为端点，与 RDS for Oracle 数据库实例通信。该 RDS for Oracle 实例位于私有子网中。解决方案架构师应采取哪三个步骤来满足这些要求？（选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：先创建目标实例并用SCT转schema。",
@@ -6811,7 +6811,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "276": {
-    "blocker": "一家公司使用事件驱动架构实现了订购系统。在初始测试期间，系统停止处理订单。进一步的日志分析显示，Amazon Simple Queue Service (Amazon SQS)标准伫列中的一条订单讯息导致后端出现错误并阻塞所有后续订单讯息。伫列的可见性逾时设定为30秒，后端处理逾时设定为10秒。解决方案架构师需要分析错误的订单讯息并确保系统继续处理后续讯息。解决方案架构师应该采取哪一步来满足这些要求？",
+    "blocker": "一家公司使用事件驱动架构实现了订购系统。在初始测试期间，系统停止处理订单。进一步的日志分析显示，Amazon Simple Queue Service (Amazon SQS)标准队列中的一条订单消息导致后端出现错误并阻塞所有后续订单消息。队列的可见性逾时设定为30秒，后端处理逾时设定为10秒。解决方案架构师需要分析错误的订单消息并确保系统继续处理后续消息。解决方案架构师应该采取哪一步来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：同类型standard DLQ支持redrive隔离失败。"
@@ -6863,7 +6863,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "278": {
-    "blocker": "一家公司计划在 VPC 内的 Amazon EC2 实例上部署新的私人 Intranet 服务。 AWS Site-to-Site VPN 将 VPC 连接到公司的 on-premises 网路。新服务必须与现有 on-premises 服务通讯。 on-premises 服务可透过使用驻留在 company.example DNS 区域中的主机名称进行存取。该DNS区域完全托管在本地，并且仅在公司的专用网路上可用。解决方案架构师必须确保新服务可以解析 company.example 网域上的主机名，以与现有服务整合。哪种解决方案满足这些要求？",
+    "blocker": "一家公司计划在 VPC 内的 Amazon EC2 实例上部署新的私人 Intranet 服务。 AWS Site-to-Site VPN 将 VPC 连接到公司的 on-premises 网络。新服务必须与现有 on-premises 服务通讯。 on-premises 服务可通过使用驻留在 company.example DNS 区域中的主机名称进行访问。该DNS区域完全托管在本地，并且仅在公司的专用网络上可用。解决方案架构师必须确保新服务可以解析 company.example 网域上的主机名，以与现有服务整合。哪种解决方案满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：outbound endpoint和转发规则方向正确。"
@@ -6887,7 +6887,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "279": {
-    "blocker": "一家公司使用 AWS CloudFormation 在多个 VPC 中部署应用程序，所有这些VPC 都连接到中转网关。每个向公共互联网发送流量的VPC都必须透过共享服务VPC发送流量。 VPC 内的每个子网路都使用预设的 VPC 路由表，并且流量将路由到中转网关。中转网关对任何 VPC 连接使用其预设路由表。安全审核显示，部署在 VPC 中的 Amazon EC2 实例可以与部署在公司任何其他 VPC 中的 EC2 实例进行通讯。解决方案架构师需要限制VPC之间的流量。每个VPC 必须只能与一组预先定义的、有限的授权VPC 进行通讯。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家公司使用 AWS CloudFormation 在多个 VPC 中部署应用程序，所有这些VPC 都连接到中转网关。每个向公共互联网发送流量的VPC都必须通过共享服务VPC发送流量。 VPC 内的每个子网都使用默认的 VPC 路由表，并且流量将路由到中转网关。中转网关对任何 VPC 连接使用其默认路由表。安全审核显示，部署在 VPC 中的 Amazon EC2 实例可以与部署在公司任何其他 VPC 中的 EC2 实例进行通讯。解决方案架构师需要限制VPC之间的流量。每个VPC 必须只能与一组预先定义的、有限的授权VPC 进行通讯。解决方案架构师应该怎么做才能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：TGW入站attachment关联路由表决定可达目标。"
@@ -6911,7 +6911,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "280": {
-    "blocker": "一家公司有一个基于 Windows 的桌面应用程序，该应用程式被打包并部署到用户的 Windows 电脑上。该公司最近收购了另一家公司，该公司的员工主要使用装有 Linux 作业系统的机器。收购公司已决定将基于 Windows 的桌面应用程式迁移并重新托管到AWS。所有员工在使用应用程式之前都必须经过身份验证。收购公司在本地使用Active Directory，但希望采用一种简化的方式来管理所有员工对AWS上的应用程式的存取。哪种解决方案能够以最少的开发工作在 AWS 上重新托管应用程式？",
+    "blocker": "一家公司有一个基于 Windows 的桌面应用程序，该应用程序被打包并部署到用户的 Windows 电脑上。该公司最近收购了另一家公司，该公司的员工主要使用装有 Linux 作业系统的机器。收购公司已决定将基于 Windows 的桌面应用程序迁移并重新托管到AWS。所有员工在使用应用程序之前都必须经过身份验证。收购公司在本地使用Active Directory，但希望采用一种简化的方式来管理所有员工对AWS上的应用程序的访问。哪种解决方案能够以最少的开发工作在 AWS 上重新托管应用程序？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：应用流式传送复用现有桌面程序，浏览器跨平台。"
@@ -6935,7 +6935,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "281": {
-    "blocker": "一家公司正在从一组物联网设备收集大量数据。资料作为优化行列式 (ORC) 档案储存在持久性 Amazon EMR 集群上的 Hadoop 分散式档案系统 (HDFS) 中。该公司的资料分析团队使用部署在同一EMR集群上的Apache Presto中的SQL来查询资料。查询会扫描大量数据，运行时间始终少于 15 分钟，并且仅在下午 5 点到晚上 10 点之间运行。该公司担心当前解决方案的高成本。解决方案架构师必须提出最具成本效益的解决方案，以允许 SQL 资料查询。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在从一组物联网设备收集大量数据。数据作为优化行列式 (ORC) 文件存储在持久性 Amazon EMR 集群上的 Hadoop 分散式文件系统 (HDFS) 中。该公司的数据分析团队使用部署在同一EMR集群上的Apache Presto中的SQL来查询数据。查询会扫描大量数据，运行时间始终少于 15 分钟，并且仅在下午 5 点到晚上 10 点之间运行。该公司担心当前解决方案的高成本。解决方案架构师必须提出最具成本效益的解决方案，以允许 SQL 数据查询。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Athena直接查询S3文件，空闲时不维持查询集群。"
@@ -6959,7 +6959,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "282": {
-    "blocker": "一家大公司最近发现Amazon RDS和Amazon DynamoDB成本意外增加。公司需要提高AWS计费和成本管理细节的可见度。有多种与AWS Organizations相关的帐户，包括许多开发和生产帐户。整个组织没有一致的标记策略，但有指导方针要求所有基础设施都使用AWS CloudFormation和一致的标记进行部署。管理阶层需要所有现有和未来的 DynamoDB 表和 RDS 实例的成本中心编号和项目 ID 编号。解决方案架构师应该提供哪种策略来满足这些要求？",
+    "blocker": "一家大公司最近发现Amazon RDS和Amazon DynamoDB成本意外增加。公司需要提高AWS计费和成本管理细节的可见度。有多种与AWS Organizations相关的账户，包括许多开发和生产账户。整个组织没有一致的标记策略，但有指导方针要求所有基础设施都使用AWS CloudFormation和一致的标记进行部署。管理阶层需要所有现有和未来的 DynamoDB 表和 RDS 实例的成本中心编号和项目 ID 编号。解决方案架构师应该提供哪种策略来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：集中处理既有标签并以SCP约束新建资源，覆盖两个阶段。"
@@ -6983,7 +6983,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "283": {
-    "blocker": "一家公司希望将资料从其 on-premises 系统传送到 Amazon S3 储存桶。该公司在三个不同的帐户中创建了S3储存桶。公司必须私下发送数据，而不能透过网路传输数据。该公司目前没有与 AWS 的专用连接。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
+    "blocker": "一家公司希望将本地系统中的数据发送到 Amazon S3 存储桶。公司在三个不同账户中创建了 S3 存储桶。数据必须通过私有连接传输，不能经过公共互联网。公司目前没有与 AWS 建立专用连接。解决方案架构师应采取哪两个步骤来满足这些要求？（选择两项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：私有VIF提供到VPC的专线私网路径。",
@@ -7009,7 +7009,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "284": {
-    "blocker": "一家公司经营快餐店。这些餐厅遵循可预测的模式，每天 4 小时的客流量很高。高峰时段以外的销售流量较低。销售点和管理平台部署在AWS云端中，并具有基于Amazon DynamoDB的后端。资料库表使用具有 100,000 个 RCU 和 80,000 个 WCU 的预配置吞吐量模式，以匹配已知的峰值资源消耗。该公司希望降低 DynamoDB 成本并最大限度地减少 IT 员工的营运开销。哪种解决方案最经济有效率地满足这些要求？",
+    "blocker": "一家公司经营快餐店。这些餐厅遵循可预测的模式，每天 4 小时的客流量很高。高峰时段以外的销售流量较低。销售点和管理平台部署在AWS云端中，并具有基于Amazon DynamoDB的后端。数据库表使用具有 100,000 个 RCU 和 80,000 个 WCU 的预配置吞吐量模式，以匹配已知的峰值资源消耗。该公司希望降低 DynamoDB 成本并最大限度地减少 IT 员工的运维开销。哪种解决方案最经济有效率地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：自动调整读写容量以贴近实际消耗。"
@@ -7033,7 +7033,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "285": {
-    "blocker": "一家公司使用 Amazon API Gateway、Amazon DynamoDB 和 AWS Lambda 在 AWS 上托管部落格文章应用程式。该应用程式目前不使用 API 金钥来授权请求。 API 模型如下： GET /posts/{postId}：取得贴文详细资讯 GET /users/{userId}：取得使用者详细资讯 GET /comments/{commentId}：取得评论详细资讯 公司注意到使用者在评论部分积极讨论主题，公司希望透过即时显示评论来提高使用者参与度。应该采用哪种设计来减少评论延迟并提高用户体验？",
+    "blocker": "一家公司使用 Amazon API Gateway、Amazon DynamoDB 和 AWS Lambda 在 AWS 上托管部落格文章应用程序。该应用程序目前不使用 API 密钥来授权请求。 API 模型如下： GET /posts/{postId}：取得贴文详细资讯 GET /users/{userId}：取得用户详细资讯 GET /comments/{commentId}：取得评论详细资讯 公司注意到用户在评论部分积极讨论主题，公司希望通过即时显示评论来提高用户参与度。应该采用哪种设计来减少评论延迟并提高用户体验？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：AppSync订阅管理WebSocket连接并实时分发变更。"
@@ -7057,7 +7057,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "286": {
-    "blocker": "一家公司在 AWS Organizations ​​的组织中集中管理数百个 AWS 帐户。该公司最近开始允许产品团队在其帐户中建立和管理自己的S3接入点。 S3接入点只能在VPC秒内访问，不能在互联网上访问。执行此要求最有效的操作方法是什么？",
+    "blocker": "一家公司通过 AWS Organizations 中的一个组织集中管理数百个 AWS 账户。公司最近开始允许产品团队在各自账户中创建和管理 S3 接入点。这些 S3 接入点必须只能从 VPC 内访问，不能从公共互联网访问。以最少运维工作强制实施这一要求的方法是什么？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：官方文档直接给出此SCP示例，集中维护。"
@@ -7081,7 +7081,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "287": {
-    "blocker": "解决方案架构师必须使用蓝/绿部署方法更新AWSElastic Beanstalk内的应用程式环境。解决方案架构师创建一个与现有应用程式环境相同的环境，并将应用程式部署到新环境。接下来该做什么来完成更新？",
+    "blocker": "解决方案架构师必须使用蓝/绿部署方法更新AWSElastic Beanstalk内的应用程序环境。解决方案架构师创建一个与现有应用程序环境相同的环境，并将应用程序部署到新环境。接下来该做什么来完成更新？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Swap Environment URLs是官方蓝绿部署步骤。"
@@ -7105,7 +7105,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "288": {
-    "blocker": "一家公司正在网路上建立图像服务，允许用户上传和搜寻随机照片。在使用高峰期，全球多达 10,000 名用户将上传他们的图像。然后，将在上传的图像上覆盖文本，然后将其发布在公司网站上。解决方案架构师应该实作哪种设计？",
+    "blocker": "一家公司正在网络上建立图像服务，允许用户上传和搜寻随机照片。在使用高峰期，全球多达 10,000 名用户将上传他们的图像。然后，将在上传的图像上覆盖文本，然后将其发布在公司网站上。解决方案架构师应该实作哪种设计？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：SQS解耦上传和处理，S3/CloudFront适合全球图片分发。"
@@ -7129,7 +7129,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "289": {
-    "blocker": "一家公司已将其资料库部署在 us-east-1 Region 中的 MySQL 资料库执行个体的 Amazon RDS 上。该公司需要向欧洲客户提供其数据。欧洲客户必须能够存取与美国 (US) 客户相同的数据，并且不能容忍高应用程式延迟或过时的数据。欧洲的客户和美国的客户需要写入资料库。两组客户都需要即时查看另一组的更新。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在 us-east-1 区域的 Amazon RDS for MySQL 数据库实例上部署了数据库。公司需要向欧洲客户提供这些数据。欧洲客户必须能够访问与美国客户相同的数据，且不能接受较高的应用延迟或过时数据。欧洲和美国的客户都需要向数据库写入数据，并实时看到另一方的更新。哪种解决方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：Aurora副本提升是受支持迁移路径；Global Database次区域可转发写。"
@@ -7158,7 +7158,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "290": {
-    "blocker": "一家公司透过可透过网路存取的 SFTP 伺服器向其客户提供文件。 SFTP 伺服器在附加了弹性 IP 位址的单一 Amazon EC2 实例上运作。客户透过其弹性IP位址连接到SFTP伺服器并使用SSH进行身份验证。 EC2 执行个体还具有附加的安全性群组，允许从所有客户 IP 位址进行存取。解决方案架构师必须实施一个解决方案来提高可用性、最大限度地降低基础设施管理的复杂性，并最大限度地减少对存取文件的客户的干扰。此解决方案不得改变客户的连线方式。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司通过可通过网络访问的 SFTP 服务器向其客户提供文件。 SFTP 服务器在附加了弹性 IP 地址的单一 Amazon EC2 实例上运作。客户通过其弹性IP地址连接到SFTP服务器并使用SSH进行身份验证。 EC2 实例还具有附加的安全性群组，允许从所有客户 IP 地址进行访问。解决方案架构师必须实施一个解决方案来提高可用性、最大限度地降低基础设施管理的复杂性，并最大限度地减少对访问文件的客户的干扰。此解决方案不得改变客户的连接方式。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：VPC internet-facing端点同时支持EIP和安全组。"
@@ -7182,7 +7182,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "291": {
-    "blocker": "一家公司摄取并处理流市场数据。数据速率是恒定的。每晚计算总计统计资料的过程需要 4 小时才能完成。统计分析对于业务来说并不重要，如果特定运行失败，资料点将在下一次迭代期间进行处理。目前架构使用 Amazon EC2 预留实例池，预留期为 1 年。这些 EC2 实例全职运行，以摄取流资料并将其储存在附加的 Amazon 弹性块储存 (Amazon EBS) 卷中。计划脚本每晚启动 EC2 按需实例以执行夜间处理。实例从摄取伺服器上的 NFS 共用存取储存的资料。处理完成后，脚本将终止实例。预留实例预留即将到期。公司需要确定是否购买新的预订或实施新的设计。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司摄取并处理流市场数据。数据速率是恒定的。每晚计算总计统计数据的过程需要 4 小时才能完成。统计分析对于业务来说并不重要，如果特定运行失败，数据点将在下一次迭代期间进行处理。目前架构使用 Amazon EC2 预留实例池，预留期为 1 年。这些 EC2 实例全职运行，以摄取流数据并将其存储在附加的 Amazon 弹性块存储 (Amazon EBS) 卷中。计划脚本每晚启动 EC2 按需实例以执行夜间处理。实例从摄取服务器上的 NFS 共用访问存储的数据。处理完成后，脚本将终止实例。预留实例预留即将到期。公司需要确定是否购买新的预订或实施新的设计。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：托管摄取/S3加Batch Spot同时降低常驻和批处理成本。"
@@ -7206,7 +7206,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "292": {
-    "blocker": "某公司需要将on-premises SFTP站点迁移到AWS。 SFTP 站点目前在 Linux VM 上运行。上传的档案可透过 NFS 共享提供给下游应用程式。作为迁移到AWS的一部分，解决方案架构师必须实现高可用性。此解决方案必须向外部供应商提供一组供应商允许的静态公用 IP 位址。该公司已在其on-premises资料中心与其⟦T1​​79⟧之间建立了AWS Direct Connect连接。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司需要将本地 SFTP 站点迁移到 AWS。该站点当前运行在一台 Linux 虚拟机上，上传的文件通过 NFS 共享供下游应用访问。迁移到 AWS 时，解决方案架构师必须实现高可用性。方案必须提供一组固定公网 IP 地址，供外部供应商加入允许列表。公司已在本地数据中心与其 VPC 之间建立 AWS Direct Connect 连接。哪种方案能够以最少运维工作满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：满足静态IP、SFTP托管、多AZ和NFS。"
@@ -7230,7 +7230,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "293": {
-    "blocker": "解决方案架构师将操作工作负载部署在 Auto Scaling 群组中的 Amazon EC2 实例上。 VPC 架构跨越两个Availability Zones (AZ)，每个Auto Scaling 组都有一个子网路。 VPC 连接到on-premises 环境，且连线不能中断。 Auto Scaling 群组的最大大小为 20 个服务实例。 VPC IPv4 定址如下： VPC CIDR：10.0.0.0/23 - AZ1 子网路 CIDR：10.0.0.0/24 - AZ2 子网路 ⟦自部署以来，第三个 AZ 已在 Region 中可用。解决方案架构师希望采用新的可用区，而无需新增额外的 IPv4 位址空间，也不会造成服务停机。哪种解决方案可以满足这些要求？",
+    "blocker": "解决方案架构师将一个正在运行的工作负载部署在 Auto Scaling 组中的 Amazon EC2 实例上。VPC 跨两个可用区（AZ），每个可用区中都有一个供该 Auto Scaling 组使用的子网。VPC 已连接到本地环境，且连接不能中断。Auto Scaling 组最多有 20 个正在提供服务的实例。IPv4 地址规划如下：VPC CIDR 为 10.0.0.0/23；AZ1 子网 CIDR 为 10.0.0.0/24；AZ2 子网 CIDR 为 10.0.1.0/24。部署后，该区域新增了第三个可用区。架构师希望在不增加 IPv4 地址空间、不中断服务的情况下使用新可用区。哪种方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：逐步腾空并重建子网，保持至少一个AZ运行且不改VPC地址。"
@@ -7254,7 +7254,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "294": {
-    "blocker": "某公司使用AWS Organizations中的组织来管理公司的AWS帐户。该公司使用AWS CloudFormation来部署所有基础设施。一个财务团队想要建立一个退款模型。财务团队要求每个业务部门使用预先定义的项目值清单来标记资源。当财务团队使用AWS Cost Explorer 中的AWS 成本和使用情况报告并根据专案进行过滤时，团队注意到不合规的专案价值。该公司希望强制对新资源使用项目标签。哪种解决方案能够以最少的努力满足这些要求？",
+    "blocker": "一家公司使用 AWS Organizations 中的一个组织管理其 AWS 账户，并使用 AWS CloudFormation 部署全部基础设施。财务团队希望建立内部费用分摊模型，要求各业务部门使用预定义的项目标签值列表为资源添加标签。团队使用 AWS Cost Explorer 中的 AWS Cost and Usage Report，并按项目筛选时，发现了一些不符合规定的项目标签值。公司希望强制新资源使用项目标签。哪种方案能够以最少工作量满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：组织集中标签值规范加创建时存在性约束，最少改造。"
@@ -7278,7 +7278,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "295": {
-    "blocker": "应用程式部署在 Auto Scaling 群组中执行的 Amazon EC2 实例上。 Auto Scaling 群组配置仅使用一种类型的实例。 CPU 和记忆体使用率指标显示实例未被充分利用。解决方案架构师需要实施一个解决方案来永久降低EC2成本并提高利用率。哪种解决方案将来能够以最少的配置更改来满足这些要求？",
+    "blocker": "应用程序部署在 Auto Scaling 群组中执行的 Amazon EC2 实例上。 Auto Scaling 群组配置仅使用一种类型的实例。 CPU 和内存使用率指标显示实例未被充分利用。解决方案架构师需要实施一个解决方案来永久降低EC2成本并提高利用率。哪种解决方案将来能够以最少的配置更改来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：属性选择可在启动模板或ASG指定vCPU/内存并自动匹配新型号。"
@@ -7302,7 +7302,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "296": {
-    "blocker": "某公司使用Amazon Elastic Container Service (Amazon ECS)和Amazon API Gateway实现了容器化应用，应用资料储存在AmazonAurora资料库和Amazon DynamoDB资料库中。该公司使用 AWS CloudFormation 实现基础设施配置自动化。该公司使用AWSCodePipeline自动化应用程式部署。解决方案架构师需要实作满足 2 小时的 RPO 和 4 小时的 RTO 的灾难复原 (DR) 策略。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "某公司使用Amazon Elastic Container Service (Amazon ECS)和Amazon API Gateway实现了容器化应用，应用数据存储在AmazonAurora数据库和Amazon DynamoDB数据库中。该公司使用 AWS CloudFormation 实现基础设施配置自动化。该公司使用AWSCodePipeline自动化应用程序部署。解决方案架构师需要实作满足 2 小时的 RPO 和 4 小时的 RTO 的灾难恢复 (DR) 策略。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：备份恢复匹配较宽松目标且无需一直运行完整数据库副本。"
@@ -7326,7 +7326,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "297": {
-    "blocker": "一家公司拥有一个复杂的 Web 应用程序，该应用程式利用 Amazon CloudFront 实现全局可扩展性和性能。随著时间的推移，使用者报告 Web 应用程式速度变慢。该公司的营运团队报告称，CloudFront快取命中率一直在稳步下降。快取指标报告表明某些 URL 上的查询字串顺序不一致，并且有时以混合大小写字母指定，有时以小写字母指定。解决方案架构师应该采取哪一组操作来尽快提高快取命中率？",
+    "blocker": "一家公司拥有一个复杂的 Web 应用程序，该应用程序利用 Amazon CloudFront 实现全局可扩展性和性能。随著时间的推移，用户报告 Web 应用程序速度变慢。该公司的运维团队报告称，CloudFront缓存命中率一直在稳步下降。缓存指标报告表明某些 URL 上的查询字串顺序不一致，并且有时以混合大小写字母指定，有时以小写字母指定。解决方案架构师应该采取哪一组操作来尽快提高缓存命中率？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：viewer-request先于缓存命中判断，是归一化缓存键的合适位置。"
@@ -7350,7 +7350,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "298": {
-    "blocker": "一家公司在单一 AWS Region 中运行电子商务应用程式。该应用程式使用 ve-node Amazon Aurora MySQL 资料库集群来储存有关客户及其最近订单的资讯。资料库集群全天经历大量写入事务。公司需要将Aurora资料库中的资料复制到另一个Region，以满足容灾需求。公司的RPO为1小时。哪一种解决方案能够以最低的成本满足这些要求？",
+    "blocker": "一家公司在单个 AWS 区域运行电子商务应用。应用使用一个包含 5 个节点的 Amazon Aurora MySQL 数据库集群，存储客户及其近期订单信息。集群全天有大量写入事务。公司需要将 Aurora 数据库的数据复制到另一个区域，以满足灾难恢复要求。公司的 RPO 为 1 小时。哪种方案能够以最低成本满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：S3保存持续变更成本较低，DMS须放在目标桶区域。"
@@ -7379,7 +7379,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "299": {
-    "blocker": "一家公司的解决方案架构师正在评估几年前部署的AWS工作负载。应用程式层是无状态的，并在从 AMI 启动的单一大型 Amazon EC2 执行个体上运行。该应用程式将资料储存在运行於单一 EC2 实例上的 MySQL 资料库中。应用伺服器EC2实例的CPU利用率经常达到100%，导致应用程式停止回应。公司在实例上手动安装补丁。过去，修补程式曾导致停机。公司需要使应用程式具有高可用性。哪种解决方案能够以最少的开发来满足这些要求？",
+    "blocker": "一家公司的解决方案架构师正在评估几年前部署的AWS工作负载。应用程序层是无状态的，并在从 AMI 启动的单一大型 Amazon EC2 实例上运行。该应用程序将数据存储在运行于单一 EC2 实例上的 MySQL 数据库中。应用服务器EC2实例的CPU利用率经常达到100%，导致应用程序停止响应。公司在实例上手动安装补丁。过去，修补程序曾导致停机。公司需要使应用程序具有高可用性。哪种解决方案能够以最少的开发来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：ASG/ALB扩展无状态层，Aurora保留MySQL接口，SSM利于自动维护。"
@@ -7403,7 +7403,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "300": {
-    "blocker": "一家公司正计划将多个应用程式迁移到AWS。该公司对其整个应用领域并没有很好的了解。该资产由实体机和虚拟机混合组成。公司将迁移的一款应用程式具有许多对延迟敏感的依赖项。该公司不确定所有依赖项是什么。然而，该公司知道低延迟通讯使用在连接埠 1000 上运行的基于 IP 的自订协定。该公司希望将应用程式和这些依赖项一起迁移，以同时将所有低延迟介面移至AWS。该公司已安装AWS Application Discovery Agent，并已收集资料数月。公司应该如何识别需要与应用程式相同阶段迁移的依赖项？",
+    "blocker": "一家公司计划将多个应用迁移到 AWS，但尚未充分了解全部应用资产。其环境同时包含物理机和虚拟机。其中一个待迁移应用具有许多对延迟敏感的依赖项，公司还没有掌握全部依赖关系。不过，公司知道这些低延迟通信使用一个基于 IP 的自定义协议，端口为 1000。公司希望将该应用及其依赖项一起迁移，使全部低延迟接口同时迁至 AWS。公司已经安装 AWS Application Discovery Agent，并收集了数月数据。应如何确定哪些依赖项必须与该应用在同一阶段迁移？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：直接使用已采集的依赖/端口数据，符合目标。"
@@ -7427,7 +7427,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "301": {
-    "blocker": "一家公司正在建立一个将在 AWS Lambda 函数上运行的应用程式。数百名客户将使用该应用程式。该公司希望为每个客户提供特定时间内的请求配额。配额必须符合客户的使用模式。有些客户必须在更短的时间内获得更高的配额。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在建立一个将在 AWS Lambda 函数上运行的应用程序。数百名客户将使用该应用程序。该公司希望为每个客户提供特定时间内的请求配额。配额必须符合客户的使用模式。有些客户必须在更短的时间内获得更高的配额。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：REST API+每客户使用计划/API key正是该功能。"
@@ -7451,7 +7451,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "302": {
-    "blocker": "一家公司计划将其 on-premises VMware 包含 120 个虚拟机器的集群迁移到 AWS。 VM 安装了许多不同的作业系统和许多自订软体包。该公司还有一台 on-premises NFS 伺服器，大小为 10 TB。该公司已建立到 AWS 的 10 Gbps AWS Direct Connect 连接以进行迁移。哪一种解决方案可以在最短的时间内完成到AWS的迁移？",
+    "blocker": "一家公司计划将其 on-premises VMware 包含 120 个虚拟机的集群迁移到 AWS。 VM 安装了许多不同的作业系统和许多自定义软件包。该公司还有一台 on-premises NFS 服务器，大小为 10 TB。该公司已建立到 AWS 的 10 Gbps AWS Direct Connect 连接以进行迁移。哪一种解决方案可以在最短的时间内完成到AWS的迁移？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：MGN复制VM，DataSync经专线迁移NFS到EFS，并行进行。"
@@ -7475,7 +7475,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "303": {
-    "blocker": "一家线上调查公司在AWS云端中运行其应用程式。该应用程式是分散式的，由在自动扩展的Amazon Elastic Container Service (Amazon ECS)集群中运行的微服务组成。 ECS 集群是 Application Load Balancer (ALB) 的目标。 ALB 是Amazon CloudFront 发行版的自订来源。该公司有一项包含敏感数据的调查。敏感资料在应用程式中移动时必须进行加密。应用程式的资料处理微服务是唯一能够解密资料的微服务哪个解决方案可以满足这些要求？",
+    "blocker": "一家在线调查公司在AWS云端中运行其应用程序。该应用程序是分散式的，由在自动扩展的Amazon Elastic Container Service (Amazon ECS)集群中运行的微服务组成。 ECS 集群是 Application Load Balancer (ALB) 的目标。 ALB 是Amazon CloudFront 分配的自定义来源。该公司有一项包含敏感数据的调查。敏感数据在应用程序中移动时必须进行加密。应用程序的数据处理微服务是唯一能够解密数据的微服务哪个解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：公钥上传CloudFront、私钥仅保留目标微服务，符合隔离解密。"
@@ -7499,7 +7499,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "304": {
-    "blocker": "解决方案架构师正在为现有 VPC 确定DNS 策略。 VPC 设定为使用 10.24.34.0/24 CIDR 块。 VPC 也使用 Amazon Route 53 解析器来处理 DNS。新要求强制DNS 查询必须使用私人托管区域。此外，具有公用 IP 位址的执行个体必须接收对应的公用主机名称。哪一种解决方案将满足这些要求，以确保在 VPC 内正确解析网域名称？",
+    "blocker": "解决方案架构师正在为现有 VPC 确定DNS 策略。 VPC 设定为使用 10.24.34.0/24 CIDR 块。 VPC 也使用 Amazon Route 53 解析器来处理 DNS。新要求强制DNS 查询必须使用私人托管区域。此外，具有公网 IP 地址的实例必须接收对应的公用主机名称。哪一种解决方案将满足这些要求，以确保在 VPC 内正确解析网域名称？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：完整满足私有区域关联、两个DNS属性与DHCP关联。"
@@ -7523,7 +7523,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "305": {
-    "blocker": "某资料分析公司有一个AmazonRedshift集群，由多个预留节点组成。由于员工团队正在编写深入的审计分析报告，因此集群正在经历意外的使用激增。产生报告的查询是复杂的读取查询，并且是 CPU 密集的。业务需求决定集群必须能够始终为读写查询提供服务。解决方案架构师必须设计一个能够适应突发使用的解决方案。哪种解决方案最经济有效率地满足这些要求？",
+    "blocker": "某数据分析公司有一个AmazonRedshift集群，由多个预留节点组成。由于员工团队正在编写深入的审计分析报告，因此集群正在经历意外的使用激增。产生报告的查询是复杂的读取查询，并且是 CPU 密集的。业务需求决定集群必须能够始终为读写查询提供服务。解决方案架构师必须设计一个能够适应突发使用的解决方案。哪种解决方案最经济有效率地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：Concurrency Scaling把合资格排队查询发送临时集群，按活跃时间收费。"
@@ -7547,7 +7547,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "306": {
-    "blocker": "某研究中心正在迁移到 AWS 云，并将其 on-premises 1 PB 物件储存移动到 Amazon S3 储存桶。一百名科学家正在使用此物件储存来储存他们的工作相关文件。每个科学家在物件储存上都有一个个人资料夹。所有科学家都是一个IAM用户组的成员。该研究中心的合规官员担心科学家将能够访问彼此的工作成果。研究中心有严格的义务报告哪些科学家访问了哪些文件。负责这些报告的团队几乎没有 AWS 经验，并且需要一个现成的解决方案来最大限度地减少营运开销。解决方案架构师应该采取哪些操作组合来满足这些要求？ （选两个。）",
+    "blocker": "某研究中心正在迁移到 AWS 云，并将其 on-premises 1 PB 对象存储移动到 Amazon S3 存储桶。一百名科学家正在使用此对象存储来存储他们的工作相关文件。每个科学家在对象存储上都有一个个人数据夹。所有科学家都是一个IAM用户组的成员。该研究中心的合规官员担心科学家将能够访问彼此的工作成果。研究中心有严格的义务报告哪些科学家访问了哪些文件。负责这些报告的团队几乎没有 AWS 经验，并且需要一个现成的解决方案来最大限度地减少运维开销。解决方案架构师应该采取哪些操作组合来满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：用户组统一策略使用用户名变量隔离个人目录。",
@@ -7573,7 +7573,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "307": {
-    "blocker": "某公司使用AWS Organizations来管理多帐户结构。该公司拥有数百个AWS帐户，预计帐户数量还会增加。该公司正在建立一个使用 Docker 图像的新应用程式。公司将把Docker影像推送到Amazon Elastic Container Registry (Amazon ECR)。只有公司组织内的帐户才有权存取这些图像。该公司有一个频繁运作的CI/CD流程。该公司希望保留所有标记的图像。然而，该公司希望只保留最近 5 张未标记的图像。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "某公司使用AWS Organizations来管理多账户结构。该公司拥有数百个AWS账户，预计账户数量还会增加。该公司正在建立一个使用 Docker 镜像的新应用程序。公司将把Docker影像推送到Amazon Elastic Container Registry (Amazon ECR)。只有公司组织内的账户才有权访问这些图像。该公司有一个频繁运作的CI/CD流程。该公司希望保留所有标记的图像。然而，该公司希望只保留最近 5 张未标记的图像。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：组织条件动态涵盖新成员，原生生命周期清理未标记镜像。"
@@ -7597,7 +7597,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "308": {
-    "blocker": "解决方案架构师正在审查公司拍摄 Amazon RDS 资料库实例快照的流程。公司每天自动进行快照，快照保留7天。解决方案架构师需要建议每 6 小时拍摄一次快照并将快照保留 30 天的解决方案。该公司使用 AWS Organizations ​​管理其所有 AWS 帐户。公司需要对 RDS 快照的运作状况有一个综合视图。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "解决方案架构师正在审查公司拍摄 Amazon RDS 数据库实例快照的流程。公司每天自动进行快照，快照保留7天。解决方案架构师需要建议每 6 小时拍摄一次快照并将快照保留 30 天的解决方案。该公司使用 AWS Organizations 管理其所有 AWS 账户。公司需要对 RDS 快照的运作状况有一个综合视图。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：AWS Backup提供计划、保留、标签选择和跨账户监控。"
@@ -7621,7 +7621,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "309": {
-    "blocker": "一家公司正在使用具有多帐户架构的AWS Organizations。公司目前帐户架构的安全性配置包括SCP、基于资源的策略、基于身分的策略、信任策略和会话策略。解决方案架构师需要允许 Account A 中的 IAM 使用者承担Account B 中的角色。解决方案架构师必须采取哪些步骤组合才能满足此要求？ （选择三项。）",
+    "blocker": "一家公司正在使用具有多账户架构的AWS Organizations。公司目前账户架构的安全性配置包括SCP、基于资源的策略、基于身份的策略、信任策略和会话策略。解决方案架构师需要允许 Account A 中的 IAM 用户承担Account B 中的角色。解决方案架构师必须采取哪些步骤组合才能满足此要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：源账户SCP必须允许该操作或至少没有显式拒绝，作为权限上限。",
@@ -7649,7 +7649,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "310": {
-    "blocker": "一家公司想要使用 Amazon S3 来备份其 on-premises 档案储存解决方案。该公司的on-premises档案储存解决方案支援NFS，并且该公司希望其新解决方案支援NFS。该公司希望在 5 天后归档备份档案。如果公司需要归档文件进行灾难恢复，公司愿意等待几天来检索这些文件。哪种解决方案最经济有效率地满足这些要求？",
+    "blocker": "一家公司想要使用 Amazon S3 来备份其 on-premises 文件存储解决方案。该公司的on-premises文件存储解决方案支持NFS，并且该公司希望其新解决方案支持NFS。该公司希望在 5 天后归档备份文件。如果公司需要归档文件进行灾难恢复，公司愿意等待几天来检索这些文件。哪种解决方案最经济有效率地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：File Gateway满足NFS，生命周期深度归档满足宽松恢复时间。"
@@ -7673,7 +7673,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "311": {
-    "blocker": "一家公司在 Amazon EC2 实例和 AWS Lambda 函数上运行其应用程式。 EC2 实例承受持续稳定的负载。 Lambda 函数会经历变化且不可预测的负载。该应用程式包括一个快取层，该层使用 Amazon MemoryDB 来支援 Redis 集群。解决方案架构师必须推荐一种解决方案，以最大限度地降低公司的每月整体成本。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在 Amazon EC2 实例和 AWS Lambda 函数上运行应用。EC2 实例承受持续且稳定的负载，Lambda 函数的负载则变化较大且不可预测。应用还包含一个使用 Amazon MemoryDB for Redis 集群的缓存层。解决方案架构师需要推荐一种方案，尽量降低公司的每月总体成本。哪种方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：分别选择各服务适用承诺，并仅覆盖Lambda基线。"
@@ -7702,7 +7702,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "312": {
-    "blocker": "一家公司正在 Amazon EC2 实例上推出一款新的线上游戏。该游戏必须在全球范围内发售。该公司计划在三个 AWS Regions us-east-1、eu-west-1 和 ap-southeast-1 上运行游戏。游戏的排行榜、玩家库存和活动状态必须在 Regions 上可用。解决方案架构师必须设计一个解决方案，使任何Region能够扩展以处理所有Regions的负载。此外，用户必须自动连接到提供最低延迟的Region。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司正在 Amazon EC2 实例上推出一款新的在线游戏。该游戏必须在全球范围内发售。该公司计划在三个 AWS Regions us-east-1、eu-west-1 和 ap-southeast-1 上运行游戏。游戏的排行榜、玩家库存和活动状态必须在 Regions 上可用。解决方案架构师必须设计一个解决方案，使任何Region能够扩展以处理所有Regions的负载。此外，用户必须自动连接到提供最低延迟的Region。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：托管DNS延迟路由+全局表+ASG运维最少。"
@@ -7731,7 +7731,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "313": {
-    "blocker": "一家公司正在部署来自 AWS Marketplace 的第三方防火墙设备解决方案，以监控和保护离开公司 AWS 环境的流量。该公司希望将此设备部署到共享服务VPC 中，并透过这些设备路由所有出站网路流量。解决方案架构师需要推荐一种部署方法，该方法优先考虑可靠性并最大限度地减少单一AWSRegion内防火墙设备之间的故障转移时间。本公司已设定从共享服务VPC到其他VPC的路由。解决方案架构师应该建议采取哪些步骤来满足这些要求？ （选择三项。）",
+    "blocker": "一家公司正在部署来自 AWS Marketplace 的第三方防火墙设备解决方案，以监控和保护离开公司 AWS 环境的流量。该公司希望将此设备部署到共享服务VPC 中，并通过这些设备路由所有出站网络流量。解决方案架构师需要推荐一种部署方法，该方法优先考虑可靠性并最大限度地减少单一AWSRegion内防火墙设备之间的故障转移时间。本公司已设定从共享服务VPC到其他VPC的路由。解决方案架构师应该建议采取哪些步骤来满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：跨AZ避免单AZ故障使全部防火墙失效。",
@@ -7759,7 +7759,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "314": {
-    "blocker": "解决方案架构师需要将on-premises旧应用程式迁移到AWS。该应用程式在负载平衡器后面的两台伺服器上运行。该应用程式需要与伺服器网路介面卡的 MAC 位址关联的许可证文件 软体供应商需要 12 小时才能发送新的许可证文件。该应用程式还使用具有静态 IP 位址的设定档来存取资料库伺服器，不支援主机名称。考虑到这些需求，应该采取哪种步骤组合来实现AWS中应用伺服器的高可用架构？ （选两个。）",
+    "blocker": "解决方案架构师需要将on-premises旧应用程序迁移到AWS。该应用程序在负载均衡器后面的两台服务器上运行。该应用程序需要与服务器网络接口卡的 MAC 地址关联的许可证文件 软件供应商需要 12 小时才能发送新的许可证文件。该应用程序还使用具有静态 IP 地址的设定档来访问数据库服务器，不支持主机名称。考虑到这些需求，应该采取哪种步骤组合来实现AWS中应用服务器的高可用架构？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：ENI属性随网卡保持，可预先准备MAC许可并匹配使用。",
@@ -7785,7 +7785,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "315": {
-    "blocker": "一家公司在美国的 AWS Region 中运行其销售报告应用程式。该应用程式使用 Amazon API Gateway Regional API 和 AWS Lambda 函数根据 MySQL 资料库中的 Amazon RDS 中的资料产生按需报告。该应用程式的前端托管在 Amazon S3 上，用户可以透过 Amazon CloudFront 发行版进行存取。该公司正在使用 Amazon Route 53 作为域的 DNS 服务。 Route 53 配置了简单的路由策略，将流量路由到API Gateway API。未来6个月内，该公司计划将业务扩展至欧洲。超过 90% 的资料库流量是唯读流量。该公司已经在新的 Region 中部署了 API Gateway API 和 Lambda 函数。解决方案架构师必须设计一种解决方案，以最大限度地减少下载报告的使用者的延迟。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在美国的一个 AWS 区域运行销售报表应用。应用通过 Amazon API Gateway 区域 API 和 AWS Lambda 函数，按需从 Amazon RDS for MySQL 数据库中的数据生成报表。前端托管在 Amazon S3 上，用户通过 Amazon CloudFront 分发访问。公司使用 Amazon Route 53 提供域名解析，并配置简单路由，将流量发送到 API Gateway API。公司计划在未来 6 个月内拓展欧洲业务。超过 90% 的数据库流量为只读流量。公司已在新区域部署 API Gateway API 和 Lambda 函数。架构师必须设计方案，尽量降低用户下载报表时的延迟。哪种方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：原生只读副本持续复制，配合延迟路由降低读链路时延。"
@@ -7809,7 +7809,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "316": {
-    "blocker": "软体公司需要创建短期测试环境来测试拉取请求，作为其开发过程的一部分。每个测试环境由位于 Auto Scaling 群组中的单一 Amazon EC2 实例组成。测试环境必须能够与中央伺服器通讯以报告测试结果。中央伺服器位于本地资料中心。解决方案架构师必须实施解决方案，以便公司无需任何手动干预即可建立和删除测试环境。该公司创建了一个中转网关，带有连接到 on-premises 网路的 VPN 附件。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "软件公司需要创建短期测试环境来测试拉取请求，作为其开发过程的一部分。每个测试环境由位于 Auto Scaling 群组中的单一 Amazon EC2 实例组成。测试环境必须能够与中央服务器通讯以报告测试结果。中央服务器位于本地数据中心。解决方案架构师必须实施解决方案，以便公司无需任何手动干预即可建立和删除测试环境。该公司创建了一个中转网关，带有连接到 on-premises 网络的 VPN 附件。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：共享一次配置的连通网络，测试资源生命周期由CloudFormation管理。"
@@ -7833,7 +7833,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "317": {
-    "blocker": "一家公司正在向 AWS 部署新的 API。此 API 使用 Amazon API Gateway 以及 Regional API 端点和 AWS Lambda 函数进行托管。 API 从外部供应商 API 检索数据，将资料储存在 Amazon DynamoDB 全域表中，并从 DynamoDB 全域表检索资料。供应商 API 的 API 金钥储存在 AWS Secrets Manager 中，并使用 AWS Key Management Service 中的客户管理金钥进行加密（AWS KMS）。该公司已将自己的 API 部署到单一 AWS Region 中。解决方案架构师需要更改公司 API 的 API 元件，以确保这些元件可以在主动-主动配置中跨多个Regions 运行。哪种变更组合能够以最少的营运开销满足这项要求？ （选择三项。）",
+    "blocker": "一家公司正在向 AWS 部署新的 API。此 API 使用 Amazon API Gateway 以及 Regional API 端点和 AWS Lambda 函数进行托管。 API 从外部供应商 API 检索数据，将数据存储在 Amazon DynamoDB 全域表中，并从 DynamoDB 全域表检索数据。供应商 API 的 API 密钥存储在 AWS Secrets Manager 中，并使用 AWS Key Management Service 中的客户管理密钥进行加密（AWS KMS）。该公司已将自己的 API 部署到单一 AWS Region 中。解决方案架构师需要更改公司 API 的 API 组件，以确保这些组件可以在主动-主动配置中跨多个Regions 运行。哪种变更组合能够以最少的运维开销满足这项要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：各区域API加DNS多值策略可活动活动分流，API区域资源仍需独立部署。",
@@ -7861,7 +7861,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "318": {
-    "blocker": "一家线上零售公司将其基于 Web 的有状态应用程式和 MySQL 资料库托管在单一伺服器上的 on-premises 资料中心中。该公司希望透过开展更多行销活动和促销活动来扩大客户群。在准备过程中，该公司希望将其应用程式和资料库迁移到AWS，以提高其架构的可靠性。哪种解决方案应提供最高等级的可靠性？",
+    "blocker": "一家在线零售公司将其基于 Web 的有状态应用程序和 MySQL 数据库托管在单一服务器上的 on-premises 数据中心中。该公司希望通过开展更多行销活动和促销活动来扩大客户群。在准备过程中，该公司希望将其应用程序和数据库迁移到AWS，以提高其架构的可靠性。哪种解决方案应提供最高等级的可靠性？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Aurora加Redis复制组与无状态化应用形成适合Web会话的高可用架构。"
@@ -7885,7 +7885,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "319": {
-    "blocker": "本公司的解决方案架构师需要为 VPC 中托管的 Amazon EC2 Windows 执行个体提供安全的远端桌面连线。此解决方案必须将集中用户管理与公司的on-premisesActive Directory整合。 VPC 透过网路连线。该公司拥有可用于建立 AWS Site-to-Site VPN 连接的硬体。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司的解决方案架构师需要让用户安全地通过远程桌面连接到 VPC 中的 Amazon EC2 Windows 实例。方案必须与公司的本地 Active Directory 集成，集中管理用户。连接 VPC 的路径经过公共互联网。公司已有可用于建立 AWS Site-to-Site VPN 连接的硬件。哪种方案能够以最低成本满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：直接VPN+本地AD已经满足集中用户管理和安全私网RDP，组件/费用更少。"
@@ -7919,7 +7919,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "320": {
-    "blocker": "一家公司的合规性审计显示，在 AWS 帐户中创建的一些 Amazon 弹性块存储 (Amazon EBS) 卷未加密。解决方案架构师必须实作一个解决方案来加密所有新的静态磁碟区EBS。哪种解决方案能够以最少的努力满足此要求？",
+    "blocker": "一家公司的合规审计发现，某个 AWS 账户中创建的部分 Amazon Elastic Block Store（Amazon EBS）卷未加密。解决方案架构师必须实施一个方案，对今后所有新建 EBS 卷进行静态加密。哪种方案能以最少工作量满足这一要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：默认加密按区域生效，直接覆盖新建卷。"
@@ -7943,7 +7943,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "321": {
-    "blocker": "一家研究公司正在 AWS 云端中运行日常模拟，以满足高需求。模拟在数百个基于 Amazon Linux 2 的 Amazon EC2 实例上运行。偶尔，模拟会卡住，需要云端运维工程师透过 SSH 连接到 EC2 执行个体来解决问题。公司政策规定，任何 EC2 实例都不能使用相同的 SSH 金钥，且所有连线都必须在 AWS CloudTrail 中登入。解决方案架构师如何满足这些要求？",
+    "blocker": "一家研究公司在 AWS 云中每天运行模拟，以满足较高需求。模拟运行在数百个基于 Amazon Linux 2 的 Amazon EC2 实例上。偶尔有模拟任务卡住，需要云运维工程师通过 SSH 连接到 EC2 实例解决问题。公司政策规定，各 EC2 实例不能共用同一个 SSH 密钥，而且所有连接都必须记录到 AWS CloudTrail。架构师应如何满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：SendSSHPublicKey使用短期公钥并可被CloudTrail记录，免常驻共享密钥。"
@@ -7967,7 +7967,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "322": {
-    "blocker": "一家公司正在迁移行动银行应用程式以在 VPC 中的 Amazon EC2 实例上运行。后端服务应用程式在本地资料中心运行。资料中心有一个 AWS Direct Connect 连接到 AWS。在 VPC 中运行的应用程式需要将 DNS 请求解析到在资料中心运行的 on-premises Active Directory 域。哪种解决方案能够以最少的管理开销来满足这些要求？",
+    "blocker": "一家公司正在迁移行动银行应用程序以在 VPC 中的 Amazon EC2 实例上运行。后端服务应用程序在本地数据中心运行。数据中心有一个 AWS Direct Connect 连接到 AWS。在 VPC 中运行的应用程序需要将 DNS 请求解析到在数据中心运行的 on-premises Active Directory 域。哪种解决方案能够以最少的管理开销来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：托管出站端点和转发规则是最少运维的混合DNS。"
@@ -7991,7 +7991,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "323": {
-    "blocker": "一家公司处理环境资料。该公司设置了感测器来提供来自城市不同区域的连续数据流。数据以 JSON 格式提供。该公司希望使用 AWS 解决方案将资料传送到不需要固定架构储存的资料库。数据必须即时发送。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司处理环境数据，已部署传感器，持续提供城市不同区域的数据流。数据采用 JSON 格式。公司希望使用 AWS 方案，将数据实时发送到一个不要求固定数据模式（schema）的数据库中存储。哪种方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：实时流加无固定非键模式DynamoDB满足需求，需消费者完成写入。"
@@ -8015,7 +8015,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "324": {
-    "blocker": "一家公司正在将遗留应用程式从on-premises资料中心迁移到AWS。该应用程式使用 MongoDB 作为键值资料库。根据该公司的技术指南，所有Amazon EC2实例必须托管在没有网路连线的私有子网路中。此外，应用程式和资料库之间的所有连接都必须加密。资料库必须能够根据需求进行扩展。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在将一个旧应用从本地数据中心迁移到 AWS。应用使用 MongoDB 作为键值数据库。按照公司的技术规范，所有 Amazon EC2 实例必须部署在不能连接公共互联网的私有子网中。此外，应用与数据库之间的全部连接都必须加密。数据库必须能够按需扩展。哪种方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：网关端点可满足VPC内私有访问且无端点费，是本题首选。"
@@ -8039,7 +8039,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "325": {
-    "blocker": "一家公司正在 AWS 云端中的 Amazon EC2 实例上运行应用程式。该应用程式使用 MongoDB 资料库，并将副本集作为其资料层。 MongoDB 资料库安装在公司on-premises 资料中心的系统上，可透过AWS Direct Connect 连接到资料中心环境存取。解决方案架构师必须将 on-premises MongoDB 资料库迁移到 Amazon DocumentDB（具有 MongoDB 相容性）。解决方案架构师应该选择哪种策略来执行此迁移？",
+    "blocker": "一家公司正在 AWS 云端中的 Amazon EC2 实例上运行应用程序。该应用程序使用 MongoDB 数据库，并将副本集作为其数据层。 MongoDB 数据库安装在公司on-premises 数据中心的系统上，可通过AWS Direct Connect 连接到数据中心环境访问。解决方案架构师必须将 on-premises MongoDB 数据库迁移到 Amazon DocumentDB（具有 MongoDB 兼容性）。解决方案架构师应该选择哪种策略来执行此迁移？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：DMS复制实例、源/目标端点和任务是受支持在线迁移流程。"
@@ -8063,7 +8063,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "326": {
-    "blocker": "一家公司正在重新架构其应用程式以在 AWS 上运行。该公司的基础设施包括多个Amazon EC2实例。公司的开发团队需要不同程度的存取权限。该公司希望实施一项策略，要求所有 Windows EC2 实例加入到 AWS 上的 Active Directory 域。该公司还希望实施增强的安全流程，例如多重身份验证 (MFA)。该公司希望尽可能使用托管 AWS 服务。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在重新架构其应用程序以在 AWS 上运行。该公司的基础设施包括多个Amazon EC2实例。公司的开发团队需要不同程度的访问权限。该公司希望实施一项策略，要求所有 Windows EC2 实例加入到 AWS 上的 Active Directory 域。该公司还希望实施增强的安全流程，例如多重身份验证 (MFA)。该公司希望尽可能使用托管 AWS 服务。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Managed Microsoft AD加域内管理实例是官方常见管理做法。"
@@ -8092,7 +8092,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "327": {
-    "blocker": "一家公司想要将其on-premises应用程式迁移到AWS。应用程式的资料库储存结构化产品资料和临时使用者会话资料。公司需要将产品资料与使用者会话资料解耦。该公司还需要在另一个AWSRegion中实现复制以进行灾难复原。哪种解决方案能够以最高的效能满足这些要求？",
+    "blocker": "一家公司想要将其on-premises应用程序迁移到AWS。应用程序的数据库存储结构化产品数据和临时用户会话数据。公司需要将产品数据与用户会话数据解耦。该公司还需要在另一个AWSRegion中实现复制以进行灾难恢复。哪种解决方案能够以最高的性能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：两个全局表加DAX均满足数据分离和区域复制，读缓存性能最高。"
@@ -8121,7 +8121,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "328": {
-    "blocker": "某公司透过AWS Control Tower在AWS上编排了多帐户结构。该公司正在使用 AWS Organizations、AWS Config 和 AWS Trusted Advisor。该公司有一个专门用于开发帐户的OU，开发人员可以用它来在AWS上进行实验。公司拥有数百名开发者，每个开发者都有一个单独的开发帐户。该公司希望优化这些开发帐户的成本。这些帐户中的Amazon EC2实例和Amazon RDS实例必须是可突发的。该公司希望禁止使用其他不相关的服务。解决方案架构师应该建议什么来满足这些要求？",
+    "blocker": "某公司通过AWS Control Tower在AWS上编排了多账户结构。该公司正在使用 AWS Organizations、AWS Config 和 AWS Trusted Advisor。该公司有一个专门用于开发账户的OU，开发人员可以用它来在AWS上进行实验。公司拥有数百名开发者，每个开发者都有一个单独的开发账户。该公司希望优化这些开发账户的成本。这些账户中的Amazon EC2实例和Amazon RDS实例必须是可突发的。该公司希望禁止使用其他不相关的服务。解决方案架构师应该建议什么来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：自定义SCP可直接预防不合规创建并覆盖该OU全部账户。"
@@ -8145,7 +8145,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "329": {
-    "blocker": "一家金融服务公司在 Amazon EC2 实例和 AWS Lambda 函数上运行复杂的多层应用程式。应用程式将暂存资料储存在Amazon S3中。 S3物件的有效期限仅45分钟，24小时后将删除。该公司透过启动 AWS CloudFormation 堆叠来部署应用程式的每个版本。该堆叠创建运行应用程式所需的所有资源。当公司部署并验证新的应用程式版本时，公司会删除旧版的CloudFormation堆叠。该公司最近尝试删除旧应用程式版本的CloudFormation堆叠，但操作失败。分析发现CloudFormation删除已有的S3桶失败。解决方案架构师需要在不对应用程式架构进行重大变更的情况下解决此问题。哪种解决方案满足这些要求？",
+    "blocker": "一家金融服务公司在 Amazon EC2 实例和 AWS Lambda 函数上运行复杂的多层应用程序。应用程序将暂存数据存储在Amazon S3中。 S3对象的有效期限仅45分钟，24小时后将删除。该公司通过启动 AWS CloudFormation 堆栈来部署应用程序的每个版本。该堆栈创建运行应用程序所需的所有资源。当公司部署并验证新的应用程序版本时，公司会删除旧版的CloudFormation堆栈。该公司最近尝试删除旧应用程序版本的CloudFormation堆栈，但操作失败。分析发现CloudFormation删除已有的S3桶失败。解决方案架构师需要在不对应用程序架构进行重大变更的情况下解决此问题。哪种解决方案满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：自定义资源Delete事件执行清空，再响应成功，允许桶删除。"
@@ -8169,7 +8169,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "330": {
-    "blocker": "一家公司开发了一款手机游戏。游戏的后端在位于on-premises资料中心的多个虚拟机器上运行。业务逻辑使用具有多种功能的REST API 公开。玩家会话资料储存在中央档案储存中。后端服务使用不同的 API 金钥进行限制并区分即时流量和测试流量。游戏后端的负载全天都在变化。尖峰时段，伺服器容量不足。取得玩家会话资料时也存在延迟问题。管理层要求解决方案架构师提供一个云端架构，该架构可以处理游戏的变化负载并提供低延迟的资料存取。 API 模型不应更改。哪种解决方案满足这些要求？",
+    "blocker": "一家公司开发了一款手机游戏，后端运行在本地数据中心的多台虚拟机上，通过包含多个操作的 REST API 暴露业务逻辑。玩家会话数据存储在集中式文件存储中。后端使用不同的 API 密钥实施节流，并区分正式流量与测试流量。后端负载在一天中不断变化，高峰时服务器容量不足，读取玩家会话数据时也存在延迟。管理层要求架构师提出一个云架构，既能应对变化的负载，又能低延迟访问数据，同时不能改变 API 模型。哪种方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：满足REST/API key管理并使计算与会话存储自动扩展。"
@@ -8193,7 +8193,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "331": {
-    "blocker": "一家公司正在将应用程式迁移到AWS 云端。该应用程式在 on-premises 资料中心中运行，每晚将数千个映像写入已安装的 NFS 档案系统中。公司迁移应用程式后，本公司将在安装 Amazon Elastic File System (Amazon EFS) 档案系统的 Amazon EC2 实例上托管该应用程式。本公司已与 AWS 建立AWS Direct Connect 连接。在迁移切换之前，解决方案架构师必须建立一个流程，将新建立的 on-premises 映像复制到 EFS 档案系统。复制影像最有效的操作方法是什么？",
+    "blocker": "一家公司正在将应用迁移到 AWS 云。应用目前运行在本地数据中心，每晚向一个已挂载的 NFS 文件系统写入数千张图片。迁移后，公司将在挂载了 Amazon Elastic File System（Amazon EFS）文件系统的 Amazon EC2 实例上运行应用。公司已建立到 AWS 的 AWS Direct Connect 连接。在迁移切换前，架构师必须建立一个流程，将本地新创建的图片复制到 EFS 文件系统。以最少运维工作完成复制的方法是什么？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：选择了最适合的DataSync直接定时同步机制，但端点名称写错，必须修正。"
@@ -8222,7 +8222,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "332": {
-    "blocker": "一家公司最近将 Web 应用程式从on-premises 资料中心迁移到AWS 云端。 Web 应用程式基础架构由路由到 Application Load Balancer (ALB) 的 Amazon CloudFront 发行版组成，并使用 Amazon Elastic Container Service (Amazon ECS) 来处理请求。最近的安全审计显示，可以使用 CloudFront 和 ALB 端点存取该 Web 应用程式。但是，该公司要求 Web 应用程式必须只能透过使用 CloudFront 端点进行存取。哪种解决方案能够以最少的努力满足此要求？",
+    "blocker": "一家公司最近将 Web 应用程序从on-premises 数据中心迁移到AWS 云端。 Web 应用程序基础架构由路由到 Application Load Balancer (ALB) 的 Amazon CloudFront 分配组成，并使用 Amazon Elastic Container Service (Amazon ECS) 来处理请求。最近的安全审计显示，可以使用 CloudFront 和 ALB 端点访问该 Web 应用程序。但是，该公司要求 Web 应用程序必须只能通过使用 CloudFront 端点进行访问。哪种解决方案能够以最少的努力满足此要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：AWS托管前缀列表自动跟踪CloudFront回源地址，最少管理。"
@@ -8246,7 +8246,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "333": {
-    "blocker": "一家公司使用 Application Load Balancer (ALB) 和托管在 Amazon ECS 集群中的 Docker 应用程式托管社群论坛网站。 MySQL 的站点资料储存在 Amazon RDS 中，容器镜像储存在 ECR 中。该公司需要为其客户提供RTO不超过24小时和RPO不超过8小时的灾难复原SLA。下列哪一个解决方案是满足要求的最具成本效益的方法？",
+    "blocker": "一家公司使用 Application Load Balancer（ALB）和 Amazon ECS 集群中托管的 Docker 应用，运行一个社区论坛网站。网站数据存储在 Amazon RDS for MySQL 中，容器镜像存储在 ECR 中。公司需要向客户提供灾难恢复 SLA：RTO 不超过 24 小时，RPO 不超过 8 小时。哪种方案能够以最低成本满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：预存构建物和异地快照，恢复时创建资源，符合成本最低。"
@@ -8270,7 +8270,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "334": {
-    "blocker": "一家公司正在将其基础设施迁移到AWS云端。公司必须遵守针对不同项目的各种监管标准。公司需要一个多帐户环境。解决方案架构师需要准备基线基础架构。此解决方案必须提供一致的管理和安全基线，但它必须允许灵活地满足各种AWS帐户内的不同合规性要求。此解决方案还需要与现有的 on-premises Active Directory 联合身份验证服务 (AD FS) 伺服器整合。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司正在将其基础设施迁移到AWS云端。公司必须遵守针对不同项目的各种监管标准。公司需要一个多账户环境。解决方案架构师需要准备基线基础架构。此解决方案必须提供一致的管理和安全基线，但它必须允许灵活地满足各种AWS账户内的不同合规性要求。此解决方案还需要与现有的 on-premises Active Directory 联合身份验证服务 (AD FS) 服务器整合。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：托管登陆区+可定制OU控制+Identity Center联邦是完整治理方案。"
@@ -8294,7 +8294,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "335": {
-    "blocker": "一本线上杂志将于本月推出最新一期。该版本将是第一个在全球发行的版本。该杂志的动态网站目前在 Web 层前面使用一个 Application Load Balancer，一组用于 Web 和应用程式伺服器的 Amazon EC2 实例，以及 Amazon Aurora MySQL。网站的部分内容包含静态内容，几乎所有流量都是唯读的。该杂志预计新版推出后网路流量将大幅增加。最佳性能是发布后一周的首要任务。解决方案架构师应采取哪些步骤组合来减少全球受众的系统回应时间？ （选两个。）",
+    "blocker": "一本在线杂志将于本月推出最新一期。该版本将是第一个在全球发行的版本。该杂志的动态网站目前在 Web 层前面使用一个 Application Load Balancer，一组用于 Web 和应用程序服务器的 Amazon EC2 实例，以及 Amazon Aurora MySQL。网站的部分内容包含静态内容，几乎所有流量都是只读的。该杂志预计新版推出后网络流量将大幅增加。最佳性能是发布后一周的首要任务。解决方案架构师应采取哪些步骤组合来减少全球受众的系统响应时间？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：全局Aurora复制加区域应用栈让动态读取更靠近用户。",
@@ -8320,7 +8320,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "336": {
-    "blocker": "一家线上游戏公司需要优化 AWS 上的工作负载成本。该公司使用专用帐户来托管其线上游戏应用程式和分析应用程式的生产环境。 Amazon EC2 实例托管游戏应用程序，并且必须始终可用。 EC2 实例全年运行。分析应用程式使用储存在Amazon S3中的资料。分析应用程式可以毫无问题地中断和恢复。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家在线游戏公司需要优化 AWS 上的工作负载成本。该公司使用专用账户来托管其在线游戏应用程序和分析应用程序的生产环境。 Amazon EC2 实例托管游戏应用程序，并且必须始终可用。 EC2 实例全年运行。分析应用程序使用存储在Amazon S3中的数据。分析应用程序可以毫无问题地中断和恢复。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：分别匹配稳定负载承诺折扣与可中断Spot。"
@@ -8344,7 +8344,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "337": {
-    "blocker": "一家公司在数百个生产 AWS 帐户中运行应用程式。该公司使用 AWS Organizations ​​并启用所有功能，并使用 AWS Backup 进行集中备份作业。该公司担心勒索软体攻击。为了解决这个问题，该公司制定了一项新政策，即所有备份都必须能够抵御任何生产帐户中特权用户凭证的泄露。哪种步骤组合可以满足这项新要求？ （选择三项。）",
+    "blocker": "一家公司在数百个生产 AWS 账户中运行应用程序。该公司使用 AWS Organizations 并启用所有功能，并使用 AWS Backup 进行集中备份作业。该公司担心勒索软件攻击。为了解决这个问题，该公司制定了一项新政策，即所有备份都必须能够抵御任何生产账户中特权用户凭证的泄露。哪种步骤组合可以满足这项新要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：跨账户保管使生产管理员不能直接控制灾备副本。",
@@ -8372,7 +8372,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "338": {
-    "blocker": "一家公司需要将其 AWS 帐户中的 Amazon CloudWatch 日志聚合到一个中央日志帐户中。收集的日志必须保留在创建时的AWSRegion中。然后，中央日志记录帐户将处理日志，将日志标准化为标准输出格式，并将输出日志串流传输到安全工具以进行更多处理。解决方案架构师必须设计一个能够处理需要摄取的大量日志记录资料的解决方案。正常工作时间之外发生的日志记录比正常工作时间内发生的日志记录少。日志记录解决方案必须根据预期负载进行扩充。解决方案架构师决定使用AWS Control Tower设计来处理多帐户日志记录流程。解决方案架构师应该采取哪些步骤组合来满足要求？ （选择三项。）",
+    "blocker": "一家公司需要将其 AWS 账户中的 Amazon CloudWatch 日志聚合到一个中央日志账户中。收集的日志必须保留在创建时的AWSRegion中。然后，中央日志记录账户将处理日志，将日志标准化为标准输出格式，并将输出日志串流传输到安全工具以进行更多处理。解决方案架构师必须设计一个能够处理需要摄取的大量日志记录数据的解决方案。正常工作时间之外发生的日志记录比正常工作时间内发生的日志记录少。日志记录解决方案必须根据预期负载进行扩充。解决方案架构师决定使用AWS Control Tower设计来处理多账户日志记录流程。解决方案架构师应该采取哪些步骤组合来满足要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：Kinesis流适合大批量实时日志及弹性消费。",
@@ -8400,7 +8400,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "339": {
-    "blocker": "一家公司正在将遗留应用程式从on-premises资料中心迁移到AWS。该应用程式由单一应用程式伺服器和 Microsoft SQL Server 资料库伺服器组成。每台伺服器都部署在VMware VM 上，该 VM 跨多个附加磁碟区消耗 500 TB 的资料。该公司已建立从最近的 AWS Region 到其 on-premises 资料中心的 10 Gbps AWS Direct Connect 连接。 Direct Connect 连线目前未被其他服务使用。解决方案架构师应采取哪种步骤组合来以最短的停机时间迁移应用程式？ （选两个。）",
+    "blocker": "一家公司正在将遗留应用程序从on-premises数据中心迁移到AWS。该应用程序由单一应用程序服务器和 Microsoft SQL Server 数据库服务器组成。每台服务器都部署在VMware VM 上，该 VM 跨多个附加卷消耗 500 TB 的数据。该公司已建立从最近的 AWS Region 到其 on-premises 数据中心的 10 Gbps AWS Direct Connect 连接。 Direct Connect 连接目前未被其他服务使用。解决方案架构师应采取哪种步骤组合来以最短的停机时间迁移应用程序？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：历史SMS可复制VM卷；当前服务已停止，不能新部署。",
@@ -8426,7 +8426,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "340": {
-    "blocker": "一家公司在本地运营一组伺服器，并在其位于 AWS Organizations 的组织中运营一组 Amazon EC2 实例。该公司的AWS帐户包含数百个VPC。该公司希望将其 AWS 帐户连接到其 on-premises 网路。 AWS Site-to-Site VPN 已与单一 AWS 帐户建立连线。该公司希望控制哪些VPC可以与其他VPC进行通讯。\n哪一种步骤组合能够以最少的操作工作量实现这种等级的控制？ （选择三项。）",
+    "blocker": "一家公司在本地运营一组服务器，并在其位于 AWS Organizations 的组织中运营一组 Amazon EC2 实例。该公司的AWS账户包含数百个VPC。该公司希望将其 AWS 账户连接到其 on-premises 网络。 AWS Site-to-Site VPN 已与单一 AWS 账户建立连接。该公司希望控制哪些VPC可以与其他VPC进行通讯。\n哪一种步骤组合能够以最少的操作工作量实现这种等级的控制？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：TGW可跨账户通过RAM共享。",
@@ -8454,7 +8454,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "341": {
-    "blocker": "一家公司需要优化在AWS上的应用成本。该应用程式使用 AWS Lambda 函数和在 AWS Fargate 上运行的 Amazon Elastic Container Service (Amazon ECS) 容器。该应用程式是写入密集型的，并将资料储存在 Amazon Aurora MySQL 资料库中。应用程式的负载不一致。应用程式会经历长时间未使用，然后流量突然显著增加和减少。资料库在无法处理负载的记忆体优化资料库执行个体上运行。解决方案架构师必须设计一个可以扩展以处理流量变化的解决方案。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司需要优化在AWS上的应用成本。该应用程序使用 AWS Lambda 函数和在 AWS Fargate 上运行的 Amazon Elastic Container Service (Amazon ECS) 容器。该应用程序是写入密集型的，并将数据存储在 Amazon Aurora MySQL 数据库中。应用程序的负载不一致。应用程序会经历长时间未使用，然后流量突然显著增加和减少。数据库在无法处理负载的内存优化数据库实例上运行。解决方案架构师必须设计一个可以扩展以处理流量变化的解决方案。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：Serverless适合弹性容量；Compute计划可覆盖Fargate和Lambda，但应只承诺实际基线。"
@@ -8478,7 +8478,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "342": {
-    "blocker": "一家公司将应用程式迁移到AWS云端。该应用程式在 Application Load Balancer (ALB) 后面的两个 Amazon EC2 实例上运行。应用程式资料储存在 MySQL 资料库中，该资料库在附加 EC2 实例上运行。应用程式对资料库的使用是大量读取的。应用程式从附加到每个 EC2 实例的 Amazon 弹性块储存 (Amazon EBS) 磁碟区载入静态内容。静态内容更新频繁，必须复制到每个EBS卷。应用程式的负载全天都在变化。在高峰时段，应用程式无法处理所有传入请求。追踪资料显示资料库无法处理高峰时段的读取负载。哪种解决方案将提高应用程式的可靠性？",
+    "blocker": "一家公司将应用迁移到 AWS。应用运行在 Application Load Balancer（ALB）后的两个 Amazon EC2 实例上。应用数据存储在另一台 EC2 实例上运行的 MySQL 数据库中，数据库访问以读取为主。应用从各 EC2 实例挂载的 Amazon EBS 卷加载静态内容。这些内容更新频繁，每次都必须复制到每个 EBS 卷。应用负载在一天中变化，高峰时无法处理全部传入请求。跟踪数据显示，数据库在高峰时无法承受读取负载。哪种方案能提高应用可靠性？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：共享EFS加可伸缩ECS服务和Aurora reader覆盖全部问题。"
@@ -8502,7 +8502,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "343": {
-    "blocker": "解决方案架构师希望确保只有具有适当权限的 AWS 使用者或角色才能存取新的 Amazon API Gateway 端点。解决方案架构师希望获得每个请求的端到端视图，以分析请求的延迟并建立服务映射。解决方案架构师如何设计API Gateway存取控制并执行请求检查？",
+    "blocker": "解决方案架构师希望确保只有具有适当权限的 AWS 用户或角色才能访问新的 Amazon API Gateway 端点。解决方案架构师希望获得每个请求的端到端视图，以分析请求的延迟并建立服务映射。解决方案架构师如何设计API Gateway访问控制并执行请求检查？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：IAM签名授权与X-Ray正好对应访问控制和分布式追踪两个要求。"
@@ -8526,7 +8526,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "344": {
-    "blocker": "一家公司正在使用 AWS CodePipeline 作为向 Amazon EC2 Auto Scaling 组申请的 CI/CD。所有AWS资源均在AWS CloudFormation模板中定义。应用程式工件储存在Amazon S3储存桶中，并使用实例使用者资料脚本部署到Auto Scaling群组。随著应用程式变得更加复杂，CloudFormation 模板中最近的资源变更导致了计划外停机。解决方案架构师应如何改进CI/CD管道以减少模板更改导致停机的可能性？",
+    "blocker": "一家公司使用 AWS CodePipeline，将应用持续集成和持续交付（CI/CD）到一个 Amazon EC2 Auto Scaling 组。所有 AWS 资源都在 AWS CloudFormation 模板中定义。应用构件存储在 Amazon S3 桶中，并通过实例 user data 脚本部署到 Auto Scaling 组。随着应用日益复杂，近期 CloudFormation 模板中的资源变更导致了计划外停机。架构师应如何改进 CI/CD 流水线，降低模板变更引发停机的可能性？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：自动测试+变更预览+蓝绿回滚覆盖关键风险。"
@@ -8550,7 +8550,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "345": {
-    "blocker": "一家总部位于东海岸的北美公司正在部署一个在 us-east-1 Region 的 Amazon EC2 上运行的新 Web 应用程式。应用程式应动态扩展以满足用户需求并保持弹性。此外，应用程式必须具有采用 us-west-1 Region 主动-被动配置的灾难复原功能。在 us-east-1 Region 中建立 VPC 后，解决方案架构师应采取哪些步骤？",
+    "blocker": "一家总部位于东海岸的北美公司正在部署一个在 us-east-1 Region 的 Amazon EC2 上运行的新 Web 应用程序。应用程序应动态扩展以满足用户需求并保持弹性。此外，应用程序必须具有采用 us-west-1 Region 主动-被动配置的灾难恢复功能。在 us-east-1 Region 中建立 VPC 后，解决方案架构师应采取哪些步骤？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：各区域独立资源栈+DNS failover符合主动被动。"
@@ -8574,7 +8574,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "346": {
-    "blocker": "一家公司有一个在多个 NET Framework 元件上运行的遗留应用程式。这些元件共用相同的 Microsoft SQL Server 资料库，并使用 Microsoft 讯息伫列 (MSMQ) 相互非同步通讯。该公司正在开始迁移到容器化 .NET Core 元件，并希望重构应用程式以在 AWS 上运行。 .NET Core 元件需要复杂的编排。公司必须完全控制网路和主机配置。应用程式的资料库模型是强相关的。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司有一个由多个 .NET Framework 组件构成的旧应用。这些组件共用同一个 Microsoft SQL Server 数据库，并通过 Microsoft Message Queueing（MSMQ）异步通信。公司正在将其迁移为容器化的 .NET Core 组件，并希望重构后运行在 AWS 上。.NET Core 组件需要复杂编排，公司还必须能够完全控制网络与主机配置。应用采用高度关系型的数据库模型。哪种方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：ECS EC2保留主机控制，SQS异步解耦，Aurora关系型存储。"
@@ -8598,7 +8598,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "347": {
-    "blocker": "解决方案架构师在单一 Availability Zone 的置放群组中启动了多个 Amazon EC2 实例。由于系统上有额外负载，解决方案架构师尝试将新执行个体新增至置放群组。然而，解决方案架构师收到容量不足的错误。解决方案架构师应该如何解决这个问题？",
+    "blocker": "解决方案架构师在单一 Availability Zone 的置放群组中启动了多个 Amazon EC2 实例。由于系统上有额外负载，解决方案架构师尝试将新实例新增至置放群组。然而，解决方案架构师收到容量不足的错误。解决方案架构师应该如何解决这个问题？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：官方明确建议停启全部组内实例后重试。"
@@ -8622,7 +8622,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "348": {
-    "blocker": "一家公司使用基础设施即程式码 (IaC) 来配置一组两个 Amazon EC2 实例。这些实例多年来一直保持不变。过去几个月，该公司的业务成长迅速。对此，公司营运团队实施了Auto Scaling组来管理突然增加的流量。公司政策要求每月在所有正在运行的作业系统上安装安全性更新。最新的安全性更新需要重新启动。结果，Auto Scaling 群组终止了这些实例，并用新的、未打补丁的实例取代它们。解决方案架构师应该建议采取哪些步骤组合来避免再次出现此问题？ （选两个。）",
+    "blocker": "一家公司使用基础设施即代码 (IaC) 来配置一组两个 Amazon EC2 实例。这些实例多年来一直保持不变。过去几个月，该公司的业务成长迅速。对此，公司运维团队实施了Auto Scaling组来管理突然增加的流量。公司政策要求每月在所有正在运行的作业系统上安装安全性更新。最新的安全性更新需要重新启动。结果，Auto Scaling 群组终止了这些实例，并用新的、未打补丁的实例取代它们。解决方案架构师应该建议采取哪些步骤组合来避免再次出现此问题？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：按题意应是OldestLaunchConfiguration终止策略，使旧配置实例先替换。",
@@ -8648,7 +8648,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "349": {
-    "blocker": "资料科学家团队正在使用 Amazon SageMaker 实例和 SageMaker API 来训练机器学习 (ML) 模型。 SageMaker 实例部署在无法存取网际网路或从网际网路存取的VPC 中。 ML 模型训练的资料集储存在Amazon S3 储存桶中。介面 VPC 端点提供对 Amazon S3 和 SageMaker API 的存取。有时，资料科学家需要存取 Python 套件索引 (PyPI) 储存库来更新他们在工作流程中使用的 Python 套件。解决方案架构师必须提供对 PyPI 储存库的访问，同时确保SageMaker 执行个体与网际网路保持隔离。哪种解决方案可以满足这些要求？",
+    "blocker": "数据科学家团队正在使用 Amazon SageMaker 实例和 SageMaker API 来训练机器学习 (ML) 模型。 SageMaker 实例部署在无法访问互联网或从互联网访问的VPC 中。 ML 模型训练的数据集存储在Amazon S3 存储桶中。接口 VPC 端点提供对 Amazon S3 和 SageMaker API 的访问。有时，数据科学家需要访问 Python 套件索引 (PyPI) 存储库来更新他们在工作流程中使用的 Python 套件。解决方案架构师必须提供对 PyPI 存储库的访问，同时确保SageMaker 实例与互联网保持隔离。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：CodeArtifact提供包仓库外部连接和VPC端点。"
@@ -8672,7 +8672,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "350": {
-    "blocker": "解决方案架构师为具有严格灾难复原要求的政府机构工作。所有Amazon弹性块储存（AmazonEBS）快照都需要保存在至少两个额外的AWSRegions中。该机构还需要保持尽可能低的营运费用。哪种解决方案满足这些要求？",
+    "blocker": "一位架构师为一个具有严格灾难恢复要求的政府机构工作。机构要求将全部 Amazon EBS 快照保存到至少两个额外的 AWS 区域，并尽可能减少运维工作。哪种方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：DLM可配置多个跨区复制目标，覆盖额外两区。"
@@ -8696,7 +8696,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "351": {
-    "blocker": "一家公司有一个专案正在启动大于所需的 Amazon EC2 实例。由于政策限制，该专案的帐户不能属于 AWS Organizations ​​公司组织的一部分，以将此活动保留在公司 IT 之外。该公司希望仅允许开发人员在专案帐户中启动 t3.small EC2 执行个体。这些 EC2 实例必须限制在 us-east-2 Region。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家公司有一个专案正在启动大于所需的 Amazon EC2 实例。由于政策限制，该专案的账户不能属于 AWS Organizations 公司组织的一部分，以将此活动保留在公司 IT 之外。该公司希望仅允许开发人员在专案账户中启动 t3.small EC2 实例。这些 EC2 实例必须限制在 us-east-2 Region。解决方案架构师应该怎么做才能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：开发者实际使用的角色/组IAM策略可限制创建请求。"
@@ -8720,7 +8720,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "352": {
-    "blocker": "一家科技公司需要处理来自Amazon S3储存桶的文字和图像资料。这些数据是在深空任务的即时、时间关键阶段从多个雷达站收集的。雷达站将资料上传至来源S3储存桶。资料以雷达站识别号为前缀。该公司在第二个帐户中创建了目标 S3 储存桶。必须将资料从来源 S3 储存桶复制到目标 S3 储存桶才能满足合规性目标。此复制透过使用 S3 复制规则来覆写来源 S3 储存桶中的所有物件来进行。一个特定的雷达站被认为拥有最准确的数据。必须监控该雷达站的资料复制是否在雷达站将物件上传到来源S3储存桶后30分钟内完成。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家科研公司需要处理 Amazon S3 桶中的文本和图片数据。这些数据来自多个雷达站，采集于一项深空任务中实时且时间紧迫的阶段。各雷达站将数据上传到源 S3 桶，并以雷达站标识编号作为数据前缀。公司在第二个账户中创建了目标 S3 桶，需要通过 S3 复制规则，将源桶中的全部对象复制到目标桶，以满足合规要求。其中一个雷达站被认为提供最准确的数据。公司必须监控该站的数据，确认它们在上传到源桶后 30 分钟内完成复制。架构师应如何满足这一要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：按前缀隔离复制规则，RTC及复制指标提供所需可视化。"
@@ -8744,7 +8744,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "353": {
-    "blocker": "某公司希望将其on-premises资料中心迁移到AWS云端。其中包括数千个虚拟化 Linux 和 Microsoft Windows 伺服器、SAN 储存、带有 MySQL 的 Java 和 PHP 应用程式以及 Oracle 资料库。有许多依赖服务托管在同一资料中心或外部。技术文档不完整且过时。解决方案架构师需要了解目前环境并估算迁移后的云端资源成本。解决方案架构师应该使用哪些工具或服务来规划云端迁移？ （选择三项。）",
+    "blocker": "某公司希望将其on-premises数据中心迁移到AWS云端。其中包括数千个虚拟化 Linux 和 Microsoft Windows 服务器、SAN 存储、带有 MySQL 的 Java 和 PHP 应用程序以及 Oracle 数据库。有许多依赖服务托管在同一数据中心或外部。技术文档不完整且过时。解决方案架构师需要了解目前环境并估算迁移后的云端资源成本。解决方案架构师应该使用哪些工具或服务来规划云端迁移？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：发现服务器配置/利用率/依赖，支持容量成本估算。",
@@ -8772,7 +8772,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "354": {
-    "blocker": "解决方案架构师正在应用程式启动前审查其弹性。该应用程式在部署在 VPC 的私有子网路中的 Amazon EC2 实例上运行。 EC2 实例由最小容量为 1、最大容量为 1 的 Auto Scaling 群组配置。应用程式将资料储存在 MySQL 资料库实例的 Amazon RDS 上。 VPC 在三个Availability Zones 中配置了子网，并配置了单一NAT 网关。解决方案架构师需要推荐一个解决方案，以确保应用程式能够跨多个Availability Zones运行。哪种解决方案可以满足这个要求？",
+    "blocker": "架构师在应用上线前检查其韧性。应用运行在 VPC 私有子网中的一个 Amazon EC2 实例上，由最小容量和最大容量都为 1 的 Auto Scaling 组提供。应用数据存储在一个 Amazon RDS for MySQL 数据库实例中。VPC 在三个可用区中配置了子网，但只有一个 NAT 网关。架构师需要推荐一个方案，确保应用能够跨多个可用区运行。哪种方案能满足这一要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：三层都消除单AZ依赖。"
@@ -8796,7 +8796,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "355": {
-    "blocker": "一家公司计划将其 on-premises 事务处理应用程式迁移到 AWS。该应用程式在 Docker 容器内运行，这些容器托管在公司资料中心的虚拟机器上。 Docker 容器具有应用程式记录事务资料的共用储存。交易对时间敏感。应用程式内的交易量是不可预测的。公司必须实施低延迟储存解决方案，该解决方案将自动扩展吞吐量以满足不断增长的需求。该公司无法进一步开发该应用程序，也无法继续管理Docker托管环境。公司应该如何将应用程式迁移到AWS来满足这些要求？",
+    "blocker": "一家公司计划将其 on-premises 事务处理应用程序迁移到 AWS。该应用程序在 Docker 容器内运行，这些容器托管在公司数据中心的虚拟机上。 Docker 容器具有应用程序记录事务数据的共用存储。交易对时间敏感。应用程序内的交易量是不可预测的。公司必须实施低延迟存储解决方案，该解决方案将自动扩展吞吐量以满足不断增长的需求。该公司无法进一步开发该应用程序，也无法继续管理Docker托管环境。公司应该如何将应用程序迁移到AWS来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Fargate免宿主机维护，EFS可同时挂到多个任务。"
@@ -8820,7 +8820,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "356": {
-    "blocker": "一家公司正计划迁移到AWS云端。该公司在 Windows 伺服器和 Linux 伺服器上托管许多应用程式。有些伺服器是实体伺服器，有些伺服器是虚拟伺服器。该公司在其 on-premises 环境中使用多种类型的资料库。该公司没有其 on-premises 伺服器和应用程式的准确清单。该公司希望在迁移过程中调整其资源规模。解决方案架构师需要获取有关网路连接和应用程式关系的资讯。解决方案架构师必须评估公司目前的环境并制定迁移计划。哪种解决方案将为解决方案架构师提供制定迁移计划所需的资讯？",
+    "blocker": "一家公司正计划迁移到AWS云端。该公司在 Windows 服务器和 Linux 服务器上托管许多应用程序。有些服务器是实体服务器，有些服务器是虚拟服务器。该公司在其 on-premises 环境中使用多种类型的数据库。该公司没有其 on-premises 服务器和应用程序的准确清单。该公司希望在迁移过程中调整其资源规模。解决方案架构师需要获取有关网络连接和应用程序关系的资讯。解决方案架构师必须评估公司目前的环境并制定迁移计划。哪种解决方案将为解决方案架构师提供制定迁移计划所需的资讯？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Agent覆盖物理/虚拟机，应用采集器补充迁移策略分析。"
@@ -8844,7 +8844,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "357": {
-    "blocker": "一家金融服务公司向大型跨国银行出售其用于应用程式合规性的软体即服务 (SaaS) 平台。 SaaS 平台在 AWS 上运行，并使用在 AWS Organizations ​​的组织中管理的多个 AWS 帐户。 SaaS 平台在全球使用许多AWS 资源。为了遵守法规，对 AWS 资源的所有 API 呼叫都必须经过审核、追踪更改，并储存在持久且安全的资料储存中。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家金融服务公司向大型跨国银行出售其用于应用程序合规性的软件即服务 (SaaS) 平台。 SaaS 平台在 AWS 上运行，并使用在 AWS Organizations 的组织中管理的多个 AWS 账户。 SaaS 平台在全球使用许多AWS 资源。为了遵守法规，对 AWS 资源的所有 API 调用都必须经过审核、追踪更改，并存储在持久且安全的数据存储中。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：组织trail覆盖所有成员并自动适配新增账户，集中存储保护日志。"
@@ -8868,7 +8868,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "358": {
-    "blocker": "一家公司正在一组 Amazon EC2 实例上部署分散式记忆体资料库。 eet 由一个主节点和八个工作节点组成。主节点负责监控集群健康状况、接受使用者请求、将使用者请求分发到工作节点以及将聚合回应传送回客户端。工作节点相互通讯以复制资料分区。该公司需要尽可能低的网路延迟才能达到最佳效能。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在一组 Amazon EC2 实例上部署分布式内存数据库。实例组包括一个主节点和八个工作节点。主节点负责监控集群健康状态、接收用户请求、将请求分发给工作节点，并将汇总响应返回客户端。工作节点之间相互通信，以复制数据分区。公司要求尽可能低的网络延迟，以获得最高性能。哪种方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：内存优化+Cluster同时对应内存容量与低时延通信。"
@@ -8892,7 +8892,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "359": {
-    "blocker": "一家公司在虚拟机器上托管的约 100 万个 .csv 档案中维护本地资讯。数据最初大小为 10 TB，并以每周 1 TB 的速度成长。该公司需要将资料自动备份到AWS云。 Backups 资料必须每天出现。该公司需要一种解决方案，应用自订过滤器来仅备份位于指定来源目录中的资料子集。公司已建立AWS Direct Connect连线。哪种解决方案能够以最少的营运开销满足备份要求？",
+    "blocker": "一家公司在本地虚拟机上保存约 100 万个 .csv 文件。数据初始大小为 10 TB，每周增长 1 TB。公司需要每天自动将这些数据备份到 AWS 云。方案必须支持自定义过滤器，只备份指定源目录中的一部分数据。公司已建立 AWS Direct Connect 连接。哪种方案能以最少运维工作满足这些备份要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：DataSync内建过滤/计划和增量传输，最少运维。"
@@ -8916,7 +8916,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "360": {
-    "blocker": "一家金融服务公司拥有一款资产管理产品，全世界数以千计的客户都在使用。客户透过调查提供有关产品的回馈。该公司正在建立一个在Amazon EMR上运行的新分析解决方案，以分析这些调查的数据。以下使用者角色需要存取分析解决方案以执行不同的操作： • 管理员：根据分析团队的要求为分析团队配置EMR 集群 • 资料工程师：执行 ETL 脚本来处理、转换和丰富资料集 • 资料分析师：对资料执行 SQL 和 Hive 查询 解决方案架构师必须确保所有使用者角色仅对他们需要的资源具有最低存取权限。使用者角色必须能够仅启动经过批准和授权的应用程式。该解决方案还必须确保对使用者角色创建的所有资源进行标记。哪种解决方案可以满足这些要求？",
+    "blocker": "一家金融服务公司拥有一款资产管理产品，全世界数以千计的客户都在使用。客户通过调查提供有关产品的回馈。该公司正在建立一个在Amazon EMR上运行的新分析解决方案，以分析这些调查的数据。以下用户角色需要访问分析解决方案以执行不同的操作： • 管理员：根据分析团队的要求为分析团队配置EMR 集群 • 数据工程师：执行 ETL 脚本来处理、转换和丰富数据集 • 数据分析师：对数据执行 SQL 和 Hive 查询 解决方案架构师必须确保所有用户角色仅对他们需要的资源具有最低访问权限。用户角色必须能够仅启动经过批准和授权的应用程序。该解决方案还必须确保对用户角色创建的所有资源进行标记。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：原生服务目录结合产品与约束/标签支持所需治理。"
@@ -8945,7 +8945,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "361": {
-    "blocker": "一家软体即服务 (SaaS) 公司使用 AWS 托管由 AWS PrivateLink 提供支援的服务。该服务由专有软体组成，该软体在 Network Load Balancer (NLB) 后面的三个 Amazon EC2 实例上运行。这些实例位于 eu-west-2 Region 中多个 Availability Zones 的私有子网中。该公司的所有客户均位于 eu-west-2。然而，该公司现在在 us-east-1 Region 获得了一个新客户。该公司在 us-east-1 中创建了新的 VPC 和新子网。公司在两个 Regions 中的 VPC 之间建立Region VPC 间对等互连。公司希望让新客户能够存取 SaaS 服务，但公司不希望立即在 us-east-1 中部署新的 EC2 资源。哪种解决方案可以满足这些要求？",
+    "blocker": "一家软件即服务 (SaaS) 公司使用 AWS 托管由 AWS PrivateLink 提供支持的服务。该服务由专有软件组成，该软件在 Network Load Balancer (NLB) 后面的三个 Amazon EC2 实例上运行。这些实例位于 eu-west-2 Region 中多个 Availability Zones 的私有子网中。该公司的所有客户均位于 eu-west-2。然而，该公司现在在 us-east-1 Region 获得了一个新客户。该公司在 us-east-1 中创建了新的 VPC 和新子网。公司在两个 Regions 中的 VPC 之间建立Region VPC 间对等互连。公司希望让新客户能够访问 SaaS 服务，但公司不希望立即在 us-east-1 中部署新的 EC2 资源。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：NLB的IP目标可指向可路由的异地区域私有IP，服务和NLB保持同区。"
@@ -8969,7 +8969,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "362": {
-    "blocker": "公司需要监控两个 AWS Regions 中越来越多的 Amazon S3 储存桶。该公司还需要追踪在 Amazon S3 中加密的物件的百分比。该公司需要一个仪表板来为内部合规团队显示这些资讯。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "公司需要监控两个 AWS Regions 中越来越多的 Amazon S3 存储桶。该公司还需要追踪在 Amazon S3 中加密的对象的百分比。该公司需要一个仪表板来为内部合规团队显示这些资讯。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：默认板提供现成全账户指标并可按Region/桶下钻。"
@@ -8998,7 +8998,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "363": {
-    "blocker": "一家公司的 CISO 已要求解决方案架构师重新设计该公司当前的 CI/CD 实践，以确保在发现漏洞时尽快对其应用程式进行修补部署，同时将停机时间降至最低。公司还必须能够在发生错误时快速回滚变更。 Web 应用程式部署在 Application Load Balancer 后面的一组 Amazon EC2 实例中。该公司目前使用 GitHub 托管应用程式原始码，并配置了AWS CodeBuild 专案来建立应用程式。该公司还打算使用 AWS CodePipeline 使用现有的 CodeBuild 专案触发来自 GitHub 提交的建置。什么CI/CD配置满足所有要求？",
+    "blocker": "一家公司的 CISO 已要求解决方案架构师重新设计该公司当前的 CI/CD 实践，以确保在发现漏洞时尽快对其应用程序进行修补部署，同时将停机时间降至最低。公司还必须能够在发生错误时快速回滚变更。 Web 应用程序部署在 Application Load Balancer 后面的一组 Amazon EC2 实例中。该公司目前使用 GitHub 托管应用程序源代码，并配置了AWS CodeBuild 专案来建立应用程序。该公司还打算使用 AWS CodePipeline 使用现有的 CodeBuild 专案触发来自 GitHub 提交的建置。什么CI/CD配置满足所有要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：蓝绿隔离新旧环境，CodeDeploy支持回滚部署。"
@@ -9022,7 +9022,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "364": {
-    "blocker": "某公司透过 AWS Organizations ​​中的组织管理多个 AWS 帐户。公司不同业务部门在Amazon EC2实例上运行应用程式。所有 EC2 实例都必须具有 BusinessUnit 标签，以便公司可以追踪每个业务部门的成本。最近的审计显示，某些实例缺少此标签。该公司手动将遗失的标签新增至实例。解决方案架构师应该做什么来强制执行未来的标记要求？",
+    "blocker": "某公司通过 AWS Organizations 中的组织管理多个 AWS 账户。公司不同业务部门在Amazon EC2实例上运行应用程序。所有 EC2 实例都必须具有 BusinessUnit 标签，以便公司可以追踪每个业务部门的成本。最近的审计显示，某些实例缺少此标签。该公司手动将遗失的标签新增至实例。解决方案架构师应该做什么来强制执行未来的标记要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：Null=true代表请求中缺少标签，挂根可涵盖各成员OU。"
@@ -9046,7 +9046,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "365": {
-    "blocker": "一家公司正在运行由数千个 Amazon EC2 实例组成的工作负载。此工作负载在包含多个公共子网和私有子网的VPC中运作。公有子网路有一条从 0.0.0.0/0 到现有 Internet 闸道的路由。私有子网路有一条从 0.0.0.0/0 到现有 NAT 闸道的路由。解决方案架构师需要迁移整个EC2实例以使用IPv6。私有子网路中的 EC2 实例不得从公用 Internet 存取。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家公司运行由数千个 Amazon EC2 实例组成的工作负载。VPC 包含多个公有和私有子网：公有子网中目的地址为 0.0.0.0/0 的路由指向现有互联网网关，私有子网的同一默认路由指向现有 NAT 网关。架构师需要将全部 EC2 实例迁移为使用 IPv6，并且不能让公共互联网主动访问私有子网中的实例。应采取什么方案？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：egress-only IGW专为IPv6状态化仅出站访问。"
@@ -9070,7 +9070,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "366": {
-    "blocker": "一家公司正在使用 Amazon API Gateway 部署私人 REST API，该 API 将提供对敏感资料的存取。该 API 必须只能从部署在 VPC 中的应用程式存取。该公司成功部署了 API。但是，无法从部署在 VPC 中的 Amazon EC2 实例存取该 API。哪一种解决方案将提供 EC2 实例和 API 之间的连接？",
+    "blocker": "一家公司正在使用 Amazon API Gateway 部署私人 REST API，该 API 将提供对敏感数据的访问。该 API 必须只能从部署在 VPC 中的应用程序访问。该公司成功部署了 API。但是，无法从部署在 VPC 中的 Amazon EC2 实例访问该 API。哪一种解决方案将提供 EC2 实例和 API 之间的连接？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：端点、DNS和两侧策略共同提供允许的调用路径。"
@@ -9094,7 +9094,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "367": {
-    "blocker": "一家大型薪资公司最近与一家小型固定公司合并。 uni ed公司现在拥有多个业务部门，每个部门都有自己现有的AWS帐户。解决方案架构师必须确保公司能够集中管理所有AWS帐户的计费和存取策略。解决方案架构师透过从集中管理帐户向公司的所有成员帐户发送邀请来配置AWS Organizations。解决方案架构师接下来该做什么来满足这些要求？",
+    "blocker": "一家大型薪资服务公司最近与一家小型人力资源服务公司合并。合并后的公司包含多个业务部门，各部门都有现有的 AWS 账户。架构师必须确保能够集中管理所有账户的账单与访问策略。架构师已从一个集中管理账户向公司的全部成员账户发出邀请，以配置 AWS Organizations。接下来应如何满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：官方明确建议邀请账户手动创建该角色并授权管理账户。"
@@ -9118,7 +9118,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "368": {
-    "blocker": "某公司的应用程式服务已容器化并部署在多个具有公用 IP 的Amazon EC2 实例上。 Apache Kafka 集群已部署到 EC2 实例。 PostgreSQL 资料库已迁移到 Amazon RDS。该公司预计，当新版本的agship产品发布时，其平台上的订单将大幅增加。目前架构的哪些变化将减少营运开销并支援产品发布？",
+    "blocker": "一家公司的应用服务已容器化，部署在多台具有公网 IP 的 Amazon EC2 实例上。Apache Kafka 集群也运行在 EC2 实例上。PostgreSQL 数据库已迁移到 Amazon RDS for PostgreSQL。公司预计，在发布旗舰产品的新版本时，平台订单量将显著增加。应如何调整现有架构，以降低运维工作量并支持此次发布？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：托管EKS+Fargate及MSK保留容器/Kafka生态，消除大量主机管理。"
@@ -9142,7 +9142,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "369": {
-    "blocker": "一家公司在 on-premises 资料中心托管VPN。员工目前连接到 VPN 来存取其 Windows 主目录中的档案。最近，远距工作的员工数量大幅增加。因此，在工作时间内连接到资料中心的频宽使用率已开始达到 100%。公司必须在 AWS 上设计一个解决方案，以支援公司远端员工的成长，减少连接资料中心的频宽使用量，并减少营运开销。哪种步骤组合能够以最少的营运开销满足这些要求？ （选两个。）",
+    "blocker": "一家公司在 on-premises 数据中心托管VPN。员工目前连接到 VPN 来访问其 Windows 主目录中的文件。最近，远距工作的员工数量大幅增加。因此，在工作时间内连接到数据中心的带宽使用率已开始达到 100%。公司必须在 AWS 上设计一个解决方案，以支持公司远端员工的成长，减少连接数据中心的带宽使用量，并减少运维开销。哪种步骤组合能够以最少的运维开销满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：FSx Windows支持Windows文件共享/AD集成。",
@@ -9168,7 +9168,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "370": {
-    "blocker": "某公司有多个AWS帐户。该公司最近进行了一次安全审计，发现许多未加密的 Amazon 弹性块存储 (Amazon EBS) 卷附加到 Amazon EC2 实例。解决方案架构师必须对未加密的磁碟区进行加密，并确保将来能够自动侦测到未加密的磁碟区。此外，该公司希望有一个解决方案能够集中管理多个AWS帐户，并专注于合规性和安全性。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
+    "blocker": "某公司有多个AWS账户。该公司最近进行了一次安全审计，发现许多未加密的 Amazon 弹性块存储 (Amazon EBS) 卷附加到 Amazon EC2 实例。解决方案架构师必须对未加密的卷进行加密，并确保将来能够自动侦测到未加密的卷。此外，该公司希望有一个解决方案能够集中管理多个AWS账户，并专注于合规性和安全性。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：强烈建议的控制明确包含侦测已附加EBS卷是否加密，满足持续合规。",
@@ -9199,7 +9199,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "371": {
-    "blocker": "一家公司在 Application Load Balancer (ALB) 后面的 Amazon EC2 实例上托管一个 Intranet Web 应用程式。目前，用户根据内部用户资料库向应用程式进行身份验证。该公司需要使用 Microsoft Active Directory 目录的现有 AWS Directory Service 对应用程式的使用者进行身份验证。目录中拥有帐户的所有使用者都必须有权存取该应用程式。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在 Application Load Balancer (ALB) 后面的 Amazon EC2 实例上托管一个 Intranet Web 应用程序。目前，用户根据内部用户数据库向应用程序进行身份验证。该公司需要使用 Microsoft Active Directory 目录的现有 AWS Directory Service 对应用程序的用户进行身份验证。目录中拥有账户的所有用户都必须有权访问该应用程序。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Cognito联合身份加ALB认证是给定选项的正确集成链路。"
@@ -9223,7 +9223,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "372": {
-    "blocker": "一家公司有一个为许多访客提供服务的网站。该公司在主 AWS Region 和灾难复原 (DR) Region 中为网站部署了后端服务。为网站部署了一个 Amazon CloudFront 发行版。该公司为主 Region 的后端服务创建了一个 Amazon Route 53 记录集，其中包含运行状况检查和故障转移路由策略。该公司将 Route 53 记录集配置为 CloudFront 分发的来源。该公司配置了另一个记录集，该记录集指向 DR Region 中的后端服务端点，作为辅助故障转移记录类型。两个记录集的 TTL 均为 60 秒。目前，故障转移需要 1 分钟以上。解决方案架构师必须设计一个能够提供最快故障转移时间的解决方案。哪种解决方案将实现这一目标？",
+    "blocker": "一家公司有一个为许多访客提供服务的网站。该公司在主 AWS Region 和灾难恢复 (DR) Region 中为网站部署了后端服务。为网站部署了一个 Amazon CloudFront 分配。该公司为主 Region 的后端服务创建了一个 Amazon Route 53 记录集，其中包含健康检查和故障转移路由策略。该公司将 Route 53 记录集配置为 CloudFront 分发的来源。该公司配置了另一个记录集，该记录集指向 DR Region 中的后端服务端点，作为辅助故障转移记录类型。两个记录集的 TTL 均为 60 秒。目前，故障转移需要 1 分钟以上。解决方案架构师必须设计一个能够提供最快故障转移时间的解决方案。哪种解决方案将实现这一目标？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：原生源站组按错误码/连接失败转备，可调低连接次数/超时。"
@@ -9247,7 +9247,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "373": {
-    "blocker": "一家公司使用多个 AWS 帐户，并拥有多个 DevOps 团队在这些帐户中运行生产和非生产工作负载。该公司希望集中限制对 DevOps 团队不使用的某些 AWS 服务的存取。公司决定使用AWS Organizations，并成功邀请所有AWS帐户加入组织。他们希望允许存取目前正在使用的服务并拒绝一些特定的服务。他们还希望将多个帐户作为一个整体进行管理。解决方案架构师应采取哪些步骤组合来满足这些要求？ （选择三项。）",
+    "blocker": "一家公司使用多个 AWS 账户，并拥有多个 DevOps 团队在这些账户中运行生产和非生产工作负载。该公司希望集中限制对 DevOps 团队不使用的某些 AWS 服务的访问。公司决定使用AWS Organizations，并成功邀请所有AWS账户加入组织。他们希望允许访问目前正在使用的服务并拒绝一些特定的服务。他们还希望将多个账户作为一个整体进行管理。解决方案架构师应采取哪些步骤组合来满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：拒绝少数服务用deny-list，其他服务仍可按IAM授权。",
@@ -9275,7 +9275,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "374": {
-    "blocker": "一家现场活动公司正在为其 AWS 上的门票应用程式设计扩展解决方案。该应用程式在促销活动期间的使用率很高。每个销售活动都是预定的一次性活动。该应用程式在 Auto Scaling 群组中的 Amazon EC2 实例上运行。该应用程式使用PostgreSQL作为资料库层。该公司需要一个扩展解决方案，以最大限度地提高销售活动期间的可用性。哪种解决方案可以满足这些要求？",
+    "blocker": "一家现场活动公司正在为 AWS 上的售票应用设计伸缩方案。应用在开始售票时会出现明显的使用高峰，每次售票活动都是预先安排好的一次性活动。应用运行在 Auto Scaling 组中的 Amazon EC2 实例上，数据库层使用 PostgreSQL。公司需要一个伸缩方案，尽量提高售票活动期间的可用性。哪种方案能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：定时扩容+Aurora副本提升允许提前准备大writer容量。"
@@ -9299,7 +9299,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "375": {
-    "blocker": "一家公司在本地运行 Intranet 应用程式。该公司希望配置应用程式的云端备份。该公司为此解决方案选择了 AWS Elastic Disaster Recovery。该公司要求复制流量不透过公共互联网传输。该应用程式也不能透过网路存取。该公司不希望该解决方案消耗所有可用的网路频宽，因为其他应用程式需要频宽。哪一种步骤组合可以满足这些要求？ （选择三项。）",
+    "blocker": "一家公司在本地运行内网应用，希望为其配置云端备份，并选择 AWS Elastic Disaster Recovery。公司要求复制流量不能经过公共互联网，应用也不能被公共互联网访问。此外，方案不能占用全部可用网络带宽，因为其他应用也需要带宽。以下哪三个步骤能够满足这些要求？（选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：私有子网无公网直接入站，NAT仅供必要出站控制访问。",
@@ -9327,7 +9327,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "376": {
-    "blocker": "一家提供影像储存服务的公司希望将面向客户的解决方案部署到AWS。数百万个人客户将使用该解决方案。此解决方案将接收大量大图像文件，调整文件大小，并将文件储存在 Amazon S3 储存桶中长达 6 个月。该解决方案必须能够处理需求的显著变化。此解决方案还必须在企业规模上可靠，并且能够在发生故障时重新执行处理作业。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家提供图片存储服务的公司希望在 AWS 上部署面向客户的方案，供数百万个人客户使用。方案需要接收成批的大图片文件，调整图片尺寸，并将文件在 Amazon S3 桶中最多保存 6 个月。方案必须应对需求的大幅变化，在企业规模下保持可靠，并能在失败时重新运行处理任务。哪种方案能以最低成本满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：编排保留失败状态/重跑能力并设置6个月到期，最符合完整要求。"
@@ -9351,7 +9351,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "377": {
-    "blocker": "一家公司在 AWS Organizations ​​中有一个组织，其中包括公司每个部门的单独 AWS 帐户。不同部门的应用团队独立开发和部署解决方案。该公司希望降低计算成本并适当管理跨部门的成本。该公司还希望提高各部门计费的可见度。公司不希望在选择运算资源时失去营运弹性。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在 AWS Organizations 中有一个组织，其中包括公司每个部门的单独 AWS 账户。不同部门的应用团队独立开发和部署解决方案。该公司希望降低计算成本并适当管理跨部门的成本。该公司还希望提高各部门计费的可见度。公司不希望在选择运算资源时失去营运弹性。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：集中账单、可分摊标签和灵活的Compute承诺折扣相匹配。"
@@ -9375,7 +9375,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "378": {
-    "blocker": "一家公司有一个 Web 应用程序，可以将图片和影片安全地上传到 Amazon S3 储存桶。该公司要求只有经过身份验证的用户才可以发布内容。该应用程式产生一个预签名 URL，用于透过浏览器介面上传物件。大多数使用者报告大于 100 MB 的物件上传速度缓慢。解决方案架构师可以采取哪些措施来提高这些上传的效能，同时确保只允许经过验证的使用者发布内容？",
+    "blocker": "一家公司有一个 Web 应用程序，可以将图片和影片安全地上传到 Amazon S3 存储桶。该公司要求只有经过身份验证的用户才可以发布内容。该应用程序产生一个预签名 URL，用于通过浏览器接口上传对象。大多数用户报告大于 100 MB 的对象上传速度缓慢。解决方案架构师可以采取哪些措施来提高这些上传的性能，同时确保只允许经过验证的用户发布内容？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：加速端点加multipart适合远程大文件，签名权限保持。"
@@ -9399,7 +9399,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "379": {
-    "blocker": "一家大公司正在将整个 IT 产品组合迁移到AWS。公司每个业务部门都有独立的AWS帐户，支援开发和测试环境。很快将需要新帐户来支援生产工作负载。财务部门需要一种集中的付款方式，但必须保持对每个组的支出的可见性以分配成本。安全团队需要一个集中机制来控制公司所有帐户中IAM的使用情况。以下选项的哪一种组合能够以最少的努力满足公司的需求？ （选两个。）",
+    "blocker": "一家大公司正在将整个 IT 产品组合迁移到AWS。公司每个业务部门都有独立的AWS账户，支持开发和测试环境。很快将需要新账户来支持生产工作负载。财务部门需要一种集中的付款方式，但必须保持对每个组的支出的可见性以分配成本。安全团队需要一个集中机制来控制公司所有账户中IAM的使用情况。以下选项的哪一种组合能够以最少的努力满足公司的需求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：组织集中账单与账户层级是财务治理基础。",
@@ -9425,7 +9425,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "380": {
-    "blocker": "一家公司有一个解决方案可以分析来自数千个气象站的天气数据。气象站透过具有 AWS Lambda 功能整合的 Amazon API Gateway REST API 发送资料。 Lambda函数呼叫第三方服务进行资料预处理。第三方服务过载，预处理失败，导致资料遗失。解决方案架构师必须提高解决方案的弹性。解决方案架构师必须确保不会遗失任何数据，并且在发生故障时可以稍后处理数据。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家公司有一个解决方案可以分析来自数千个气象站的天气数据。气象站通过具有 AWS Lambda 功能整合的 Amazon API Gateway REST API 发送数据。 Lambda函数调用第三方服务进行数据预处理。第三方服务过载，预处理失败，导致数据遗失。解决方案架构师必须提高解决方案的弹性。解决方案架构师必须确保不会遗失任何数据，并且在发生故障时可以稍后处理数据。解决方案架构师应该怎么做才能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：队列吸收峰值、控制消费速率，DLQ保存反复失败的任务。"
@@ -9449,7 +9449,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "381": {
-    "blocker": "一家公司使用三层 Web 架构在AWS 上建立了一个电子商务网站。该应用程式基于 Java，由 Amazon CloudFront 发行版、Auto Scaling 群组中的 Amazon EC2 实例组成的 Apache Web 伺服器层以及后端 Amazon Aurora 层以及后端 142⟧ 资料库组成。上个月，在促销活动期间，用户报告在将商品添加到购物车时出现错误和超时。营运团队恢复了 Web 伺服器建立的日志并审查了Aurora 资料库集群效能指标。一些 Web 伺服器在收集日志之前被终止，且 Aurora 指标不足以进行查询效能分析。解决方案架构师必须采取哪些步骤组合来提高高峰流量事件期间的应用程式效能可见度？ （选择三项。）",
+    "blocker": "一家公司使用三层 Web 架构在 AWS 上构建了一个电子商务网站。该应用基于 Java，由 Amazon CloudFront 分配、在 Auto Scaling 组内 Amazon EC2 实例上运行的 Apache Web 服务器层，以及后端 Amazon Aurora MySQL 数据库组成。上个月的一次促销活动期间，用户反馈向购物车添加商品时出现错误和超时。运维团队收集了 Web 服务器生成的日志，并查看了 Aurora 数据库集群的性能指标。一些 Web 服务器在日志被收集之前已被终止，而 Aurora 指标不足以分析查询性能。解决方案架构师必须采取哪三个步骤，以提高高峰流量期间应用性能的可观测性？（选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：原生导出慢查询/错误日志以分析数据库瓶颈。",
@@ -9477,7 +9477,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "382": {
-    "blocker": "为季节性劳动力提供招聘网站的公司的流量和使用量都在增加。后端服务在Application Load Balancer后面的一对Amazon EC2实例上运行，并以Amazon DynamoDB作为资料储存。旺季时应用程序读写流量较慢。哪个选项提供了可扩展的应用程式架构，以最少的开发工作来应对旺季？",
+    "blocker": "为季节性劳动力提供招聘网站的公司的流量和使用量都在增加。后端服务在Application Load Balancer后面的一对Amazon EC2实例上运行，并以Amazon DynamoDB作为数据存储。旺季时应用程序读写流量较慢。哪个选项提供了可扩展的应用程序架构，以最少的开发工作来应对旺季？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：不改应用接口即可让EC2与DynamoDB容量随负载扩展。"
@@ -9501,7 +9501,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "383": {
-    "blocker": "一家公司正在迁移到云端。它希望评估现有资料中心环境中虚拟机器的配置，以确保能够准确调整新的Amazon EC2实例的大小。该公司希望收集 CPU、记忆体和磁碟使用率等指标，并且需要详细了解每个执行个体上正在运行的进程。该公司还希望监控网路连接以映射伺服器之间的通讯。哪一种方式能够最经济有效地收集这些数据？",
+    "blocker": "一家公司正在迁移到云端。公司希望评估现有数据中心环境中虚拟机的配置，以便准确选择新 Amazon EC2 实例的规格。公司希望收集 CPU、内存和磁盘利用率等指标，并获取每台实例上运行的进程清单。公司还希望监控网络连接，以绘制服务器之间的通信关系。哪种方法能够以最具成本效益的方式收集这些数据？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：Agent采集系统性能、进程和网络连接，正好覆盖需求。"
@@ -9525,7 +9525,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "384": {
-    "blocker": "一家公司提供在 AWS 云端中运行的软体即服务 (SaaS) 应用程式。该应用程式在 Network Load Balancer (NLB) 后面的 Amazon EC2 实例上运行。这些实例位于 Auto Scaling 群组中，并分布在单一 AWS Region 中的三个 Availability Zones 中。该公司正在将该应用程式部署到其他Regions中。公司必须向客户提供应用程式的静态 IP 位址，以便客户可以将 IP 位址新增至允许清单。解决方案必须自动将客户路由到地理位置最接近他们的Region。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司提供在 AWS 云端中运行的软件即服务 (SaaS) 应用程序。该应用程序在 Network Load Balancer (NLB) 后面的 Amazon EC2 实例上运行。这些实例位于 Auto Scaling 群组中，并分布在单一 AWS Region 中的三个 Availability Zones 中。该公司正在将该应用程序部署到其他Regions中。公司必须向客户提供应用程序的静态 IP 地址，以便客户可以将 IP 地址新增至允许清单。解决方案必须自动将客户路由到地理位置最接近他们的Region。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：标准加速器支持NLB端点和固定IP并自动按客户端位置/健康分流。"
@@ -9549,7 +9549,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "385": {
-    "blocker": "一家公司在 AWS 云端运行多个工作负载。该公司拥有独立的软体开发部门。该公司使用AWS Organizations以及与SAML的联合来向开发人员授予管理其AWS帐户中的资源的权限。每个开发单元将其生产工作负载部署到一个公共生产帐户。最近，生产帐户中发生了一起事件，开发单位的成员终止了属于不同开发单位的EC2实例。解决方案架构师必须创建一个解决方案，以防止将来发生类似事件。该解决方案还必须允许开发人员能够管理用于其工作负载的执行个体。哪种策略可以满足这些要求？",
+    "blocker": "一家公司在 AWS 云端运行多个工作负载。该公司拥有独立的软件开发部门。该公司使用AWS Organizations以及与SAML的联合来向开发人员授予管理其AWS账户中的资源的权限。每个开发单元将其生产工作负载部署到一个公共生产账户。最近，生产账户中发生了一起事件，开发单位的成员终止了属于不同开发单位的EC2实例。解决方案架构师必须创建一个解决方案，以防止将来发生类似事件。该解决方案还必须允许开发人员能够管理用于其工作负载的实例。哪种策略可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：ABAC会话标签与资源标签比较并显式拒绝不匹配，适用共享账户。"
@@ -9573,7 +9573,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "386": {
-    "blocker": "一家企业公司正在为其用户建立基础设施服务平台。该公司有以下要求： • 在启动AWS 基础设施时向使用者提供最低权限存取权限，以便使用者无法提供未经批准的服务。 • 使用中央帐户来管理基础设施服务的建立。 • 提供将基础设施服务分发到AWS Organizations ​​中的多个帐户的能力。 • 提供在使用者启动的任何基础设施上强制执行标签的能力。使用 AWS 服务的哪一种操作组合可以满足这些要求？ （选择三项。）",
+    "blocker": "一家企业公司正在为其用户建立基础设施服务平台。该公司有以下要求： • 在启动AWS 基础设施时向用户提供最低权限访问权限，以便用户无法提供未经批准的服务。 • 使用中央账户来管理基础设施服务的建立。 • 提供将基础设施服务分发到AWS Organizations 中的多个账户的能力。 • 提供在用户启动的任何基础设施上强制执行标签的能力。使用 AWS 服务的哪一种操作组合可以满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：中央组合分享维护一致批准产品。",
@@ -9601,7 +9601,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "387": {
-    "blocker": "一家公司部署了一个新的 Web 应用程式。作为设定的一部分，本公司将 AWS WAF 配置为透过 Amazon Kinesis Data Firehose 登入 Amazon S3。该公司开发了一个 Amazon Athena 查询，每天运行一次，以返回过去 24 小时的 AWS WAF 日志资料。每日日志量是恒定的。然而，随著时间的推移，相同的查询将花费更多的时间来运行。解决方案架构师需要设计一个解决方案来防止查询时间持续增加。此解决方案必须最大限度地减少营运开销。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司部署了一个新的 Web 应用。作为配置的一部分，公司配置 AWS WAF，通过 Amazon Kinesis Data Firehose 将日志投递到 Amazon S3。公司编写了一个 Amazon Athena 查询，每天运行一次，返回过去 24 小时的 AWS WAF 日志数据。每日日志量保持不变。然而，随着时间推移，相同查询的运行时间越来越长。解决方案架构师需要设计一个方案，防止查询耗时持续增长，并尽量减少运维工作。哪种方案能够满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：保留既有Firehose/Athena，只改分区和查询最简单。"
@@ -9625,7 +9625,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "388": {
-    "blocker": "一家公司正在开发一个 Web 应用程序，该应用程式在面向公众的 Application Load Balancer (ALB) 后面的 Auto Scaling 群组中的 Amazon EC2 实例上运行。仅允许来自特定国家/地区的使用者存取该应用程式。公司需要能够记录已被阻止的存取请求。此解决方案需要尽可能少的维护。哪种解决方案满足这些要求？",
+    "blocker": "一家公司正在开发一个 Web 应用程序，该应用程序在面向公众的 Application Load Balancer (ALB) 后面的 Auto Scaling 群组中的 Amazon EC2 实例上运行。仅允许来自特定国家/地区的用户访问该应用程序。公司需要能够记录已被阻止的访问请求。此解决方案需要尽可能少的维护。哪种解决方案满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：原生地理匹配+日志满足地域限制及审计。"
@@ -9649,7 +9649,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "389": {
-    "blocker": "一家公司正在将应用程式从on-premises基础架构迁移到AWS云端。在迁移设计会议期间，该公司对其旧版 Windows 档案伺服器的可用性和复原选项表示担忧。文件伺服器包含敏感的关键业务数据，这些数据在数据损坏或遗失时无法重新建立。根据合规要求，资料不得透过公共网路传输。该公司希望尽可能转向AWS 托管服务。公司决定将资料储存在 Windows 档案伺服器档案系统的 Amazon FSx 中。解决方案架构师必须设计一种解决方案，将资料复制到另一个AWSRegion以实现灾难复原 (DR) 目的。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在将应用从本地基础设施迁移到 AWS 云。在迁移设计会议中，公司对旧版 Windows 文件服务器的可用性和恢复方案表示担忧。该文件服务器包含敏感且关键的业务数据，一旦损坏或丢失便无法重建。合规要求规定，数据不得经过公共互联网传输。公司希望尽可能使用 AWS 托管服务，并决定将数据存储在 Amazon FSx for Windows File Server 文件系统中。解决方案架构师必须设计一个方案，将数据复制到另一个 AWS 区域用于灾难恢复（DR）。哪种方案能够满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：FSx+DataSync支持私有网络跨区域文件复制。"
@@ -9673,7 +9673,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "390": {
-    "blocker": "一家公司目前正处于应用程式的设计阶段，该应用程式需要 RPO 少于 5 分钟，RTO 少于 10 分钟。解决方案架构团队预测该资料库将储存约 10 TB 的资料。作为设计的一部分，他们正在寻找一种资料库解决方案，该解决方案将为公司提供故障转移到辅助Region的能力。哪一种解决方案能够以最低的成本满足这些业务需求？",
+    "blocker": "一家公司目前正处于应用程序的设计阶段，该应用程序需要 RPO 少于 5 分钟，RTO 少于 10 分钟。解决方案架构团队预测该数据库将存储约 10 TB 的数据。作为设计的一部分，他们正在寻找一种数据库解决方案，该解决方案将为公司提供故障转移到辅助Region的能力。哪一种解决方案能够以最低的成本满足这些业务需求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：原生异地副本持续追赶，可提升为可写独立实例。"
@@ -9697,7 +9697,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "391": {
-    "blocker": "一家金融公司需要为新的数位钱包应用程式创建一个单独的AWS帐户。公司使用AWS Organizations来管理其帐户。解决方案架构师使用管理帐户中的 IAM 使用者 Support1 建立新的成员帐户，并将 nance1@example.com 作为电子邮件地址。解决方案架构师应该如何在新会员帐户中建立 IAM 使用者？",
+    "blocker": "一家金融公司需要为新的数位钱包应用程序创建一个单独的AWS账户。公司使用AWS Organizations来管理其账户。解决方案架构师使用管理账户中的 IAM 用户 Support1 建立新的成员账户，并将 nance1@example.com 作为电子邮件地址。解决方案架构师应该如何在新成员账户中建立 IAM 用户？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：新建成员默认跨账户管理角色提供管理员权限。"
@@ -9721,7 +9721,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "392": {
-    "blocker": "一家汽车租赁公司建立了一个无伺服器 REST API 来为其行动应用程式提供资料。该应用程式由 Amazon API Gateway API 和 Regional 端点、AWS Lambda 函数和 Amazon Aurora MySQL 无伺服器资料库集群组成。该公司最近向合作伙伴的行动应用程式开放了API。结果请求数量显著增加，导致偶发的资料库记忆体错误。对 API 流量的分析表明，客户端在短时间内对相同查询发出多个 HTTP GET 请求。流量集中在工作时间，假日和其他活动期间流量高峰。该公司需要提高支援额外使用的能力，同时最大限度地减少与解决方案相关的成本增加。哪种策略可以满足这些要求？",
+    "blocker": "一家汽车租赁公司构建了一个无服务器 REST API，为其移动应用提供数据。该应用由使用区域端点的 Amazon API Gateway API、AWS Lambda 函数和 Amazon Aurora MySQL Serverless 数据库集群组成。公司最近向合作伙伴的移动应用开放了该 API，导致请求量显著增加，并引发间歇性的数据库内存错误。对 API 流量的分析表明，客户端在短时间内针对相同查询发出了多次 HTTP GET 请求。流量集中在营业时间，并在节假日及其他活动期间出现尖峰。公司需要支持新增的使用量，同时尽量减少方案带来的成本增长。哪种策略能够满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：阶段缓存直接消除重复GET后端调用，保留客户端接口。"
@@ -9745,7 +9745,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "393": {
-    "blocker": "一家公司正在将 on-premises 应用程式和 MySQL 资料库迁移到 AWS。应用程式处理高度敏感的数据，新数据在资料库中不断更新。资料不得透过互联网传输。公司还必须对传输中和静态的资料进行加密。该资料库大小为 5 TB。该公司已在 MySQL 资料库实例的 Amazon RDS 中建立了资料库架构。该公司已建立到 AWS 的 1 Gbps AWS Direct Connect 连接。该公司还设立了公共 VIF 和私人 VIF。解决方案架构师需要设计一个解决方案，以尽可能少的停机时间将资料迁移到AWS。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在将本地应用和 MySQL 数据库迁移到 AWS。应用处理高度敏感的数据，数据库中的数据也在持续更新。数据不得通过互联网传输，且必须同时进行传输中加密和静态加密。数据库大小为 5 TB。公司已经在 Amazon RDS for MySQL 数据库实例中创建了数据库模式。公司还建立了连接 AWS 的 1 Gbps AWS Direct Connect 连接，并配置了一个公共虚拟接口（VIF）和一个私有 VIF。解决方案架构师需要设计一个方案，以尽可能少的停机时间将数据迁移到 AWS。哪种方案能够满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：持续CDC结合私网与TLS最适合少停机迁移。"
@@ -9769,7 +9769,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "394": {
-    "blocker": "Accompany 正在 AWS 上部署用于大数据分析的新集群。此集群将在分布于多个 Availability Zones 的许多 Linux Amazon EC2 实例上运行。集群中的所有节点都必须具有对公共底层档案储存的读写存取权限。文件储存必须具有高可用性、具有弹性、必须与便携式作业系统介面 (POSIX) 相容，并且必须适应高水准的吞吐量。哪种储存解决方案可以满足这些要求？",
+    "blocker": "一家公司正在 AWS 上部署一个新的大数据分析集群。该集群将在分布于多个可用区的大量 Linux Amazon EC2 实例上运行。集群中的所有节点都必须能够读写同一个底层共享文件存储。该文件存储必须具备高可用性和容错能力、兼容可移植操作系统接口（POSIX），并支持高吞吐量。哪种存储方案能够满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：EFS区域存储及Max I/O支持并行工作负载，符合历史题意，但不是当前通用首选。"
@@ -9793,7 +9793,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "395": {
-    "blocker": "一家公司在 AWS 上托管软体即服务 (SaaS) 解决方案。该解决方案有一个 Amazon API Gateway API，为 HTTPS 端点提供服务。 API 使用 AWS Lambda 函数进行计算。 Lambda 函数将资料储存在 Amazon Aurora Serverless v1 资料库中。该公司使用AWS无伺服器应用程式模型（AWSSAM）来部署此解决方案。该解决方案跨越多个Availability Zones，并且没有灾难复原 (DR) 计划。解决方案架构师必须设计一个灾难复原策略，该策略可以在另一个AWSRegion中复原解决方案。此解决方案的 RTO 为 5 分钟，RPO 为 1 分钟。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家公司在 AWS 上托管软件即服务 (SaaS) 解决方案。该解决方案有一个 Amazon API Gateway API，为 HTTPS 端点提供服务。 API 使用 AWS Lambda 函数进行计算。 Lambda 函数将数据存储在 Amazon Aurora Serverless v1 数据库中。该公司使用AWS无服务器应用程序模型（AWSSAM）来部署此解决方案。该解决方案跨越多个Availability Zones，并且没有灾难恢复 (DR) 计划。解决方案架构师必须设计一个灾难恢复策略，该策略可以在另一个AWSRegion中恢复解决方案。此解决方案的 RTO 为 5 分钟，RPO 为 1 分钟。解决方案架构师应该怎么做才能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：全局库复制加预建应用栈缩短恢复路径。"
@@ -9817,7 +9817,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "396": {
-    "blocker": "一家公司拥有一家连锁旅行社，并在 AWS 云端中运行应用程式。公司员工使用该应用程式搜寻有关旅行目的地的资讯。目的地内容每年更新四次。两个固定的 Amazon EC2 实例为应用程式提供服务。该公司使用具有 Travel.example.com 多值记录的 Amazon Route 53 公共托管区域，该区域传回 EC2 实例的弹性 IP 位址。该应用程式使用Amazon DynamoDB作为其主要资料储存。该公司使用自托管的 Redis 实例作为快取解决方案。在内容更新期间，EC2实例和快取解决方案的负载急剧增加。负载的增加多次导致停机。解决方案架构师必须更新应用程序，以便应用程式具有高可用性，并且可以处理内容更新产生的负载。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司拥有一家连锁旅行社，并在 AWS 云端中运行应用程序。公司员工使用该应用程序搜寻有关旅行目的地的资讯。目的地内容每年更新四次。两个固定的 Amazon EC2 实例为应用程序提供服务。该公司使用具有 Travel.example.com 多值记录的 Amazon Route 53 公共托管区域，该区域传回 EC2 实例的弹性 IP 地址。该应用程序使用Amazon DynamoDB作为其主要数据存储。该公司使用自托管的 Redis 实例作为缓存解决方案。在内容更新期间，EC2实例和缓存解决方案的负载急剧增加。负载的增加多次导致停机。解决方案架构师必须更新应用程序，以便应用程序具有高可用性，并且可以处理内容更新产生的负载。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：DAX匹配DynamoDB，ALB/ASG和scheduled scaling是有效完整链路。"
@@ -9846,7 +9846,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "397": {
-    "blocker": "公司需要储存和处理将使用自订行动应用程式从行动装置上传的影像资料。使用高峰期为平日上午 8 点至下午 5 点，每分钟上传数千次。该应用程式在其他时间很少使用。当影像处理完成时，使用者会收到通知。解决方案架构师应该采取哪种操作组合来确保影像处理可以扩展以处理负载？ （选择三项。）",
+    "blocker": "公司需要存储和处理将使用自定义行动应用程序从行动设备上传的影像数据。使用高峰期为平日上午 8 点至下午 5 点，每分钟上传数千次。该应用程序在其他时间很少使用。当影像处理完成时，用户会收到通知。解决方案架构师应该采取哪种操作组合来确保影像处理可以扩展以处理负载？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：S3支持SQS标准队列，可靠缓冲并发任务。",
@@ -9874,7 +9874,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "398": {
-    "blocker": "一家公司正在 AWS 上建立应用程式。应用程式将日志传送到Amazon OpenSearch Service集群进行分析。所有资料必须储存在VPC中。该公司的一些开发人员在家工作。其他开发人员在三个不同的公司办公地点工作。开发人员需要存取OpenSearch服务来直接从本地开发机器分析和视觉化日志。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在 AWS 上建立应用程序。应用程序将日志传送到Amazon OpenSearch Service集群进行分析。所有数据必须存储在VPC中。该公司的一些开发人员在家工作。其他开发人员在三个不同的公司办公地点工作。开发人员需要访问OpenSearch服务来直接从本地开发机器分析和视觉化日志。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：远程接入VPN面向个人客户端，配置自助门户便于分发客户端配置。"
@@ -9898,7 +9898,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "399": {
-    "blocker": "一家公司希望将其网站从on-premises资料中心迁移到AWS。同时，希望将网站迁移到基于容器化微服务的架构，以提高可用性和成本效率。该公司的安全策略规定，必须根据最佳实践，使用最小权限来配置权限和网路权限。解决方案架构师必须创建满足安全要求的容器化架构，并将应用程式部署到Amazon ECS集群。部署后需要采取哪些步骤才能满足要求？ （选两个。）",
+    "blocker": "一家公司希望将其网站从on-premises数据中心迁移到AWS。同时，希望将网站迁移到基于容器化微服务的架构，以提高可用性和成本效率。该公司的安全策略规定，必须根据最佳实践，使用最小权限来配置权限和网络权限。解决方案架构师必须创建满足安全要求的容器化架构，并将应用程序部署到Amazon ECS集群。部署后需要采取哪些步骤才能满足要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：awsvpc使任务拥有独立网络接口和安全组。",
@@ -9929,7 +9929,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "400": {
-    "blocker": "一家公司正在运行一个无伺服器应用程序，该应用程式由多个 AWS Lambda 函数和 Amazon DynamoDB 表组成。该公司创建了需要 Lambda 函数来存取 Amazon Neptune 资料库集群的新功能。 Neptune 资料库集群位于 VPC 的三个子网路中。哪种可能的解决方案将允许 Lambda 函数存取 Neptune 资料库集群和 DynamoDB 表？ （选两个。）",
+    "blocker": "一家公司正在运行一个无服务器应用程序，该应用程序由多个 AWS Lambda 函数和 Amazon DynamoDB 表组成。该公司创建了需要 Lambda 函数来访问 Amazon Neptune 数据库集群的新功能。 Neptune 数据库集群位于 VPC 的三个子网中。哪种可能的解决方案将允许 Lambda 函数访问 Neptune 数据库集群和 DynamoDB 表？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：私有子网路由NAT访问DynamoDB，VPC本地路由访问Neptune。",
@@ -9960,7 +9960,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "401": {
-    "blocker": "一家公司想要为在公司资料中心运行的应用程式设计灾难复原 (DR) 解决方案。应用程式写入 SMB 档案共用并在第二个档案共用上建立副本。两个共享都位于资料中心。该应用程式使用两种类型的档案：元资料档案和图像档案。公司希望将副本存放在AWS上。该公司需要能够在灾难发生时使用 SMB 从资料中心或AWS 存取资料。资料副本很少被访问，但必须在 5 分钟内可用。",
+    "blocker": "一家公司想要为在公司数据中心运行的应用程序设计灾难恢复 (DR) 解决方案。应用程序写入 SMB 文件共用并在第二个文件共用上建立副本。两个共享都位于数据中心。该应用程序使用两种类型的文件：元数据文件和图像文件。公司希望将副本存放在AWS上。该公司需要能够在灾难发生时使用 SMB 从数据中心或AWS 访问数据。数据副本很少被访问，但必须在 5 分钟内可用。",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：Standard-IA提供毫秒级对象取回，网关支持SMB并匹配低频访问。"
@@ -9984,7 +9984,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "402": {
-    "blocker": "一家公司正在创建一种解决方案，可以在发生意外灾难时将 400 名员工转移到远端工作环境。使用者桌面混合使用 Windows 和 Linux 作业系统。每个桌面上都安装了多种类型的软体，例如网页浏览器和邮件用户端。解决方案架构师需要实施一个可以与公司的 on-premises Active Directory 整合的解决方案，以允许员工使用他们现有的身份凭证。此解决方案必须提供多重身份验证 (MFA)，并且必须复制现有桌面的使用者体验。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在创建一种解决方案，可以在发生意外灾难时将 400 名员工转移到远端工作环境。用户桌面混合使用 Windows 和 Linux 作业系统。每个桌面上都安装了多种类型的软件，例如网页浏览器和邮件客户端。解决方案架构师需要实施一个可以与公司的 on-premises Active Directory 整合的解决方案，以允许员工使用他们现有的身份凭证。此解决方案必须提供多重身份验证 (MFA)，并且必须复制现有桌面的用户体验。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：完整桌面+目录连接+RADIUS包含所有关键能力。"
@@ -10008,7 +10008,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "403": {
-    "blocker": "一家公司部署了Amazon Connect 联络中心。联络中心代理报告大量电脑产生的呼叫。该公司担心这些电话对成本和生产力的影响。该公司希望有一个解决方案，允许客服人员将通话标记为垃圾邮件，并自动阻止这些号码将来转给客服人员。满足这些要求的最高效的解决方案是什么？",
+    "blocker": "一家公司部署了 Amazon Connect 联络中心。客服人员反馈收到了大量自动拨打的电话。公司担心这些电话带来的成本及工作效率影响，希望客服人员能够将通话标记为骚扰电话，并在以后自动阻止这些号码接入客服人员。哪种方案能够以最高的运维效率满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：同时包含代理标记、号码持久化及未来呼叫读取判断。"
@@ -10032,7 +10032,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "404": {
-    "blocker": "一家公司安装了感测器来收集该公司所有工厂的环境参数信息，例如湿度和光线。公司需要即时传输和分析AWS云端中的资料。如果任何参数超出可接受的范围，工厂营运团队必须立即收到通知。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司安装了感测器来收集该公司所有工厂的环境参数信息，例如湿度和光线。公司需要即时传输和分析AWS云端中的数据。如果任何参数超出可接受的范围，工厂运维团队必须立即收到通知。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：流+Lambda+SNS完成实时判断和通知。"
@@ -10056,7 +10056,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "405": {
-    "blocker": "某公司正准备为工作负载部署Amazon Elastic Kubernetes Service (Amazon EKS)集群。该公司预计该集群将支援数量不可预测的无状态 Pod。许多 Pod 将在短时间内创建，因为工作负载会自动扩展工作负载使用的副本数量。哪种解决方案将最大限度地提高节点弹性？",
+    "blocker": "一家公司准备为一个工作负载部署 Amazon Elastic Kubernetes Service（Amazon EKS）集群。公司预计，该集群需要支持数量不可预测的无状态 Pod。随着工作负载自动扩展其使用的副本数量，大量 Pod 将在短时间内被创建。哪种方案能最大程度提高节点的容错能力？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：AZ拓扑分散约束是官方提高工作负载容灾建议。"
@@ -10080,7 +10080,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "406": {
-    "blocker": "一家公司需要为 Web 应用程式实施灾难复原 (DR) 计划。该应用程式在单一 AWS Region 中运行。该应用程式使用在容器中运行的微服务。容器托管在 Amazon Elastic Container Service (Amazon ECS) 的 AWS Fargate 上。该应用程式将 MySQL 资料库实例的 Amazon RDS 作为其资料层，并使用 Amazon Route 53 进行 DNS 解析。如果应用程式遇到故障，Amazon CloudWatch 警报将呼叫 Amazon EventBridge 规则。解决方案架构师必须设计一个灾难复原解决方案，以向单独的Region提供应用程式复原。此解决方案必须最大限度地缩短从故障中恢复所需的时间。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司需要为一个 Web 应用实施灾难恢复（DR）计划。该应用运行在单个 AWS 区域中，采用容器化微服务。容器通过 Amazon Elastic Container Service（Amazon ECS）中的 AWS Fargate 托管。应用的数据层是一个 Amazon RDS for MySQL 数据库实例，并使用 Amazon Route 53 进行 DNS 解析。如果应用发生故障，Amazon CloudWatch 告警会触发一个 Amazon EventBridge 规则。解决方案架构师必须设计一个灾备方案，在另一个区域恢复应用，并尽可能缩短故障恢复所需的时间。哪种方案能够满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：预建计算+持续复制数据库把恢复工作减到提升和切流。"
@@ -10104,7 +10104,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "407": {
-    "blocker": "一家公司在 AWS Organizations ​​的组织中拥有 AWS 帐户。该公司希望将 Amazon EC2 使用情况作为指标进行追踪。如果 EC2 使用率比过去 30 天的平均 EC2 使用率高出 10% 以上，公司的架构团队必须收到每日警报。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司的 AWS 账号属于 AWS Organizations 中的一个组织。公司希望跟踪 Amazon EC2 使用量。当 EC2 使用量比过去 30 天的平均 EC2 使用量高出 10% 以上时，公司的架构团队必须收到每日告警。哪种方案能够满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：Budgets可按用量类型和每日周期报警。"
@@ -10133,7 +10133,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "408": {
-    "blocker": "某电商公司正在改造其IT基础设施，并计划使用AWS服务。该公司的 CIO 要求解决方案架构师设计一个简单、高度可用且松散耦合的订单处理应用程式。该应用程式负责接收和处理订单，然后将其储存在Amazon DynamoDB表中。该应用程式具有零星的流量模式，并且应该能够在行销活动期间进行扩展，以最小的延迟处理订单。下列哪一项是满足要求最可靠的方法？",
+    "blocker": "某电商公司正在改造其IT基础设施，并计划使用AWS服务。该公司的 CIO 要求解决方案架构师设计一个简单、高度可用且松散耦合的订单处理应用程序。该应用程序负责接收和处理订单，然后将其存储在Amazon DynamoDB表中。该应用程序具有零星的流量模式，并且应该能够在行销活动期间进行扩展，以最小的延迟处理订单。下列哪一项是满足要求最可靠的方法？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：托管队列和函数具备弹性/重试，最贴近简单可靠订单处理。"
@@ -10157,7 +10157,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "409": {
-    "blocker": "一家公司正在部署 AWS Lambda 函数来存取 PostgreSQL 资料库的 Amazon RDS。该公司需要在 QA 环境和生产环境中启动 Lambda 函数。公司不得在应用程式代码中公开凭证，并且必须自动轮换密码。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在部署需要访问 Amazon RDS for PostgreSQL 数据库的 AWS Lambda 函数。公司需要在 QA 测试环境和生产环境中运行这些函数。公司不得在应用代码中暴露凭证，并且必须自动轮换密码。哪种方案能够满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Secrets Manager专用于机密存储和数据库自动轮换。"
@@ -10181,7 +10181,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "410": {
-    "blocker": "一家公司正在使用 AWS Control Tower 管理 AWS Organizations ​​组织中的 AWS 帐户。该公司有一个包含帐户的OU。公司必须阻止 OU 帐户中的任何新的或现有的 Amazon EC2 执行个体取得公用 IP 位址。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在使用 AWS Control Tower 管理 AWS Organizations 组织中的 AWS 账户。该公司有一个包含账户的OU。公司必须阻止 OU 账户中的任何新的或现有的 Amazon EC2 实例取得公网 IP 地址。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：SCP作为成员账户权限上限可拒绝创建与后续关联公网地址。"
@@ -10205,7 +10205,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "411": {
-    "blocker": "一家公司正在 AWS 上部署第三方 Web 应用程式。该应用程式打包为Docker图像。该公司已将 Docker 映像部署为 Amazon Elastic Container Service (Amazon ECS) 中的 AWS Fargate 服务。 Application Load Balancer (ALB) 将流量引导至应用程式。该公司只需为特定的用户清单提供从互联网访问该应用程式的能力。公司无法更改应用程序，也无法将应用程式与身分提供者整合。所有使用者都必须通过多重身份验证 (MFA) 进行身份验证。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在 AWS 上部署第三方 Web 应用程序。该应用程序打包为Docker 镜像。该公司已将 Docker 镜像部署为 Amazon Elastic Container Service (Amazon ECS) 中的 AWS Fargate 服务。 Application Load Balancer (ALB) 将流量引导至应用程序。该公司只需为特定的用户清单提供从互联网访问该应用程序的能力。公司无法更改应用程序，也无法将应用程序与身份提供者整合。所有用户都必须通过多重身份验证 (MFA) 进行身份验证。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：Cognito存指定名单并强制MFA，ALB可在应用外完成认证。"
@@ -10229,7 +10229,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "412": {
-    "blocker": "解决方案架构师正准备将新的安全工具部署到多个先前未使用的AWSRegions中。解决方案架构师将使用AWS CloudFormation堆叠集部署该工具。堆叠集的范本包含一个具有自订名称的 IAM 角色。建立堆叠集后，没有成功建立堆叠实例。解决方案架构师应该怎么做才能成功部署堆叠？",
+    "blocker": "解决方案架构师正准备将新的安全工具部署到多个先前未使用的AWSRegions中。解决方案架构师将使用AWS CloudFormation堆栈集部署该工具。堆栈集的模板包含一个具有自定义名称的 IAM 角色。建立堆栈集后，没有成功建立堆栈实例。解决方案架构师应该怎么做才能成功部署堆栈？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：覆盖区域启用与命名IAM确认。"
@@ -10253,7 +10253,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "413": {
-    "blocker": "一家公司的应用程式使用 Amazon Aurora PostgreSQL 资料库集群作为应用程式的资料库。资料库集群包含一个小型主实例和三个较大的副本实例。该应用程式在 AWS Lambda 函数上运行。应用程式与资料库的副本实例建立许多短期连接以执行唯读操作。在高流量期间，应用程式变得不可靠，并且资料库报告正在建立太多连接。高流量时段的频率是无法预测的。哪种解决方案将提高应用程式的可靠性？",
+    "blocker": "一家公司的应用程序使用 Amazon Aurora PostgreSQL 数据库集群作为应用程序的数据库。数据库集群包含一个小型主实例和三个较大的副本实例。该应用程序在 AWS Lambda 函数上运行。应用程序与数据库的副本实例建立许多短期连接以执行只读操作。在高流量期间，应用程序变得不可靠，并且数据库报告正在建立太多连接。高流量时段的频率是无法预测的。哪种解决方案将提高应用程序的可靠性？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：连接池化加reader endpoint直接解决短连接爆发。"
@@ -10277,7 +10277,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "414": {
-    "blocker": "A retail company is mounting IoT sensors in all of its stores worldwide. During the manufacturing of each sensor, the company’s private certi cate authority (CA) issues an X.509 private certi cate authority (CA) issues an X.509 private certi cate authority (CA) issues an X。 A solutions architect needs to give the sensors the ability to send data to AWS after they are installed.在安装之前，感测器不得将资料传送至AWS。哪种解决方案可以满足这些要求？",
+    "blocker": "一家零售公司正在全球所有门店安装物联网（IoT）传感器。在每个传感器的制造过程中，公司的私有证书颁发机构（CA）会签发一张包含唯一序列号的 X.509 证书，然后将该证书部署到对应的传感器上。解决方案架构师需要让这些传感器在安装完成后能够向 AWS 发送数据，但在安装之前不得向 AWS 发送数据。哪种方案能够满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：CA自动注册与JITP模板方向正确，但pre-provisioning hook仅支持fleet provisioning，按字面不可实施。"
@@ -10311,7 +10311,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "415": {
-    "blocker": "一家新创公司最近将一个大型电子商务网站迁移到AWS。该网站的销售额增长了 70%。软体工程师正在使用私人 GitHub 储存库来管理程式码。 DevOps 团队正在使用 Jenkins 进行建置和单元测试。工程师需要在部署期间收到有关不良建置和零停机的通知。工程师还需要确保对用户的任何生产变更都是无缝的，并且在出现重大问题时可以回滚。软体工程师决定使用 AWS CodePipeline 来管理他们的建置和部署流程。哪种解决方案可以满足这些要求？",
+    "blocker": "一家初创公司最近将一个大型电子商务网站迁移到 AWS，网站销售额增长了 70%。软件工程师使用私有 GitHub 仓库管理代码，DevOps 团队使用 Jenkins 进行构建和单元测试。工程师需要在构建失败时收到通知，并要求部署期间零停机。他们还需要确保生产环境变更对用户无感，并在出现严重问题时能够回滚。软件工程师决定使用 AWS CodePipeline 管理构建和部署流程。哪种方案能够满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：webhook、构建测试、SNS、蓝绿部署组成可回滚流水线。"
@@ -10340,7 +10340,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "416": {
-    "blocker": "一家软体即服务 (SaaS) 公司开发了多租户环境。本公司使用租户共享的Amazon DynamoDB表作为储存层。该公司使用AWS Lambda功能进行应用服务。该公司希望提供基于每个租户的资源消耗的分层订阅模式。每个租用户都由唯一的租用户 ID 来标识，该 ID 作为每个请求的一部分传送到 Lambda 函数。本公司已在 AWS 帐户中建立了 AWS 成本和使用情况报告 (AWS CUR)。该公司希望将 DynamoDB 成本分配给每个租户，以符合该租户的资源消耗。哪种解决方案能够以最少的营运工作量提供每个租户的DynamoDB成本的详细视图？",
+    "blocker": "一家软件即服务 (SaaS) 公司开发了多租户环境。本公司使用租户共享的Amazon DynamoDB表作为存储层。该公司使用AWS Lambda功能进行应用服务。该公司希望提供基于每个租户的资源消耗的分层订阅模式。每个租用户都由唯一的租用户 ID 来标识，该 ID 作为每个请求的一部分传送到 Lambda 函数。本公司已在 AWS 账户中建立了 AWS 成本和使用情况报告 (AWS CUR)。该公司希望将 DynamoDB 成本分配给每个租户，以符合该租户的资源消耗。哪种解决方案能够以最少的运维工作量提供每个租户的DynamoDB成本的详细视图？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：ConsumedCapacity提供实际请求容量，结合tenant可细粒度分摊。"
@@ -10364,7 +10364,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "417": {
-    "blocker": "一家公司有一个应用程序，将资料储存在单一 Amazon S3 储存桶中。公司必须将所有资料保留一年。该公司的安全团队担心攻击者可能透过泄漏的长期凭证存取AWS帐户。哪种解决方案将确保 S3 储存桶中现有​​和未来的物件受到保护？",
+    "blocker": "一家公司有一个应用程序，将数据存储在单一 Amazon S3 存储桶中。公司必须将所有数据保留一年。该公司的安全团队担心攻击者可能通过泄漏的长期凭证访问AWS账户。哪种解决方案将确保 S3 存储桶中现有和未来的对象受到保护？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：跨账户+不可变保留同时保护既有及未来对象。"
@@ -10393,7 +10393,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "418": {
-    "blocker": "一家公司需要提高AWS上基于Web的应用程式的安全性。该应用程式使用具有两个自订来源的Amazon CloudFront。第一个自订来源将请求路由到 Amazon API Gateway HTTP API。第二个自订来源将流量路由至Application Load Balancer (ALB)。该应用程式与OpenID Connect (OIDC) 身分提供者 (IdP) 整合以进行使用者管理。安全审核显示JSON Web 令牌 (JWT) 授权者提供对 API 的存取。安全审计也显示ALB接受未经身份验证的使用者的请求。解决方案架构师必须设计一个解决方案，以确保所有后端服务仅回应经过验证的使用者。哪种解决方案可以满足这个要求？",
+    "blocker": "一家公司需要提高其 AWS Web 应用的安全性。该应用使用 Amazon CloudFront，并配置了两个自定义源站。第一个源站将请求路由到 Amazon API Gateway HTTP API，第二个源站将流量路由到 Application Load Balancer（ALB）。应用与 OpenID Connect（OIDC）身份提供商（IdP）集成以管理用户。安全审计发现，API 使用 JSON Web Token（JWT）授权器控制访问，但 ALB 仍接受未经身份验证的用户请求。解决方案架构师必须设计一个方案，确保所有后端服务仅响应经过身份验证的用户。哪种方案能够满足这一要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：ALB原生OIDC认证直接复用现有身份提供者。"
@@ -10417,7 +10417,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "419": {
-    "blocker": "一家公司创建一个 AWS Control Tower 登陆区来管理和治理多个帐户 AWS 环境。公司的安全团队将部署预防性控制和侦测控制来监控所有帐户的AWS服务。安全团队需要集中查看所有帐户的安全状态。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司创建一个 AWS Control Tower 登陆区来管理和治理多个账户 AWS 环境。公司的安全团队将部署预防性控制和侦测控制来监控所有账户的AWS服务。安全团队需要集中查看所有账户的安全状态。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：Security Hub组织集成和委派管理员提供多账户中央安全视图。"
@@ -10441,7 +10441,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "420": {
-    "blocker": "一家在欧洲和亚洲设有办事处的消费性电子产品开发公司在欧洲储存了 60 TB 的软体映像。该公司希望将影像传输到 ap-northeast-1 Region 中的Amazon S3 储存桶。每天都会建立新的软体映像，并且必须在传输过程中进行加密。该公司需要一种不需要客制化开发的解决方案，可以自动将所有现有的和新的软体映像传输到Amazon S3。转移过程的下一步是什么？",
+    "blocker": "一家消费电子产品开发公司在欧洲和亚洲设有办公室，并在欧洲的本地环境中存储了 60 TB 软件镜像。公司希望将这些镜像传输到 ap-northeast-1 区域中的 Amazon S3 存储桶。每天都会生成新的软件镜像，传输过程必须加密。公司需要一个无需自定义开发、能够自动将所有现有和新增软件镜像传输到 Amazon S3 的方案。传输流程的下一步应该是什么？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：原生在线批量/增量文件传输并支持任务调度。"
@@ -10465,7 +10465,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "421": {
-    "blocker": "一家公司有一个使用 Amazon API Gateway 的 Web 应用程式。 AWS Lambda和Amazon DynamoDB。最近的营销活动增加了需求。监控软体报告称，许多请求的回应时间比行销活动之前要长得多。解决方案架构师启用了 Amazon CloudWatch API Gateway 日志，并注意到 20% 的请求发生了错误。在 CloudWatch 中，Lambda 函数 Throttles 指标代表 1% 的请求，Errors 指标代表 10% 的请求。应用程式日志表明，当发生错误时，会呼叫DynamoDB。随著 Web 应用程式变得越来越流行，解决方案架构师应该做出哪些改变来改善当前的回应时间？",
+    "blocker": "一家公司的 Web 应用程序使用 Amazon API Gateway、AWS Lambda 和 Amazon DynamoDB。最近的营销活动使需求增加。监控软件报告，许多请求的响应时间明显长于活动前。解决方案架构师为 API Gateway 启用 Amazon CloudWatch Logs 后，发现 20% 的请求出现错误。CloudWatch 中，Lambda 函数的 Throttles（限流）指标对应 1% 的请求，Errors（错误）指标对应 10% 的请求。应用程序日志显示，发生错误时都调用了 DynamoDB。随着应用越来越受欢迎，架构师应作出哪项更改来改善响应时间？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：按流量调整表吞吐量，与日志定位的瓶颈对应。"
@@ -10489,7 +10489,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "422": {
-    "blocker": "一家公司有一个带有 Web 前端的应用程式。该应用程式在该公司的on-premises资料中心运行，需要存取关键资料的档案储存。该应用程式在三个 Linux VM 上运行以实现冗余。该架构包括一个具有HTTP基于请求的路由的负载平衡器。公司需要尽快将应用程式迁移到AWS。 AWS上的架构必须是高可用的。哪种解决方案能够以最少的架构变更来满足这些要求？",
+    "blocker": "一家公司有一个带有 Web 前端的应用程序。该应用程序在该公司的on-premises数据中心运行，需要访问关键数据的文件存储。该应用程序在三个 Linux VM 上运行以实现冗余。该架构包括一个具有HTTP基于请求的路由的负载均衡器。公司需要尽快将应用程序迁移到AWS。 AWS上的架构必须是高可用的。哪种解决方案能够以最少的架构变更来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：保留 VM 和共享文件架构，并消除单可用区故障点。"
@@ -10513,7 +10513,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "423": {
-    "blocker": "某公司计划将on-premises资料中心迁移至AWS。该公司目前在基于 Linux 的 VMware 虚拟机器上托管资料中心。解决方案架构师必须收集有关虚拟机器之间网路依赖性的资讯。此资讯必须采用图表形式，详细说明主机 IP 位址、主机名称和网路连线资讯。哪种解决方案可以满足这些要求？",
+    "blocker": "某公司计划将on-premises数据中心迁移至AWS。该公司目前在基于 Linux 的 VMware 虚拟机上托管数据中心。解决方案架构师必须收集有关虚拟机之间网络依赖性的资讯。此资讯必须采用图表形式，详细说明主机 IP 地址、主机名称和网络连接资讯。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：正确服务、代理和图访问权限组合。"
@@ -10537,7 +10537,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "424": {
-    "blocker": "一家公司在 AWS 上运行软体即服务 (SaaS) 应用程式。该应用程式由 AWS Lambda 函数和用于 MySQL Multi-AZ 资料库的 Amazon RDS 组成。在市场活动期间，应用程式的工作负载比平常高得多。使用者注意到高峰期间由于资料库连线较多，回应时间很慢。公司需要提高资料库的可扩展效能和可用性。哪种解决方案满足这些要求？",
+    "blocker": "一家公司在 AWS 上运行软件即服务（SaaS）应用程序，由 AWS Lambda 函数和采用多可用区部署的 Amazon RDS for MySQL 数据库组成。市场活动期间的工作负载远高于平时。用户发现高峰期数据库连接过多，导致响应缓慢。公司需要提高数据库的可扩展性、性能和可用性。哪种方案符合要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：Proxy 管连接，Aurora Replica 支持可用性和读取扩展。"
@@ -10561,7 +10561,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "425": {
-    "blocker": "一家公司正计划将应用程式从本地迁移到AWS 云端。该公司将透过将应用程式的底层资料储存移动到AWS来开始迁移。应用程式资料储存在本机共用档案系统上，应用程式伺服器透过 SMB 连接到共用档案系统。解决方案架构师必须实作一个使用 Amazon S3 储存桶进行共享储存的解决方案。在应用程式完全迁移并重写程式码以使用本机Amazon S3 API 之前，应用程式必须继续透过 SMB 存取资料。解决方案架构师必须将应用程式资料迁移到 AWS 到新位置，同时仍允许 on-premises 应用程式存取资料。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司计划将应用程序从本地迁移到 AWS 云，首先迁移底层数据存储。应用数据目前保存在本地共享文件系统中，应用服务器通过 SMB 访问。架构师必须设计以 Amazon S3 桶作为共享存储的方案。在应用完全迁移并将代码改写为使用 Amazon S3 原生 API 之前，应用必须继续通过 SMB 访问数据。架构师需要将数据迁移到 AWS 上的新位置，同时保持本地应用对数据的访问。哪种方案符合要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：文件网关将 SMB 请求转换为 S3 对象操作。"
@@ -10585,7 +10585,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "426": {
-    "blocker": "一家跨国公司拥有一款可显示票据条码的行动应用程式。客户使用行动应用程式上的门票参加现场活动。事件扫描器读取票据条码并呼叫后端 API 以根据资料库中的资料验证条码资料。扫描条码后，后端逻辑写入资料库的单一表以将条码标记为已使用。公司需要在 AWS 上部署应用程序，DNS 名称为 api.example.com。该公司将在全球三个AWSRegions托管该资料库。哪种解决方案能够以最低的延迟满足这些要求？",
+    "blocker": "一家跨国公司拥有一款可显示票据条码的行动应用程序。客户使用行动应用程序上的门票参加现场活动。事件扫描器读取票据条码并调用后端 API 以根据数据库中的数据验证条码数据。扫描条码后，后端逻辑写入数据库的单一表以将条码标记为已使用。公司需要在 AWS 上部署应用程序，DNS 名称为 api.example.com。该公司将在全球三个AWSRegions托管该数据库。哪种解决方案能够以最低的延迟满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：Lambda@Edge 可使用 SDK/网络访问邻近区域 DynamoDB 副本。"
@@ -10609,7 +10609,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "427": {
-    "blocker": "一家医疗公司正在一组 Amazon EC2 实例上执行 REST API。 EC2 实例在Application Load Balancer (ALB) 后面的Auto Scaling 组中运行。 ALB 在三个公有子网路中运行，EC2 实例在三个私有子网路中运行。该公司部署了一个以 ALB 作为唯一来源的 Amazon CloudFront 发行版。解决方案架构师应该推荐哪一种解决方案来增强源安全性？",
+    "blocker": "一家医疗公司正在一组 Amazon EC2 实例上执行 REST API。 EC2 实例在Application Load Balancer (ALB) 后面的Auto Scaling 组中运行。 ALB 在三个公有子网中运行，EC2 实例在三个私有子网中运行。该公司部署了一个以 ALB 作为唯一来源的 Amazon CloudFront 分配。解决方案架构师应该推荐哪一种解决方案来增强源安全性？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：实现来源身份标记和 ALB 端校验。"
@@ -10633,7 +10633,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "428": {
-    "blocker": "为了遵守产业法规，解决方案架构师必须设计一个解决方案，将公司的关键资料储存在多个公共AWSRegions，包括公司总部所在的美国。解决方案架构师需要向公司的全球 WAN 网路提供对储存在 AWS 中的资料的存取。安全团队要求存取此资料的流量不得穿越公共网路。解决方案架构师应该如何设计一个既满足需求又经济高效的高可用解决方案？",
+    "blocker": "为了遵守产业法规，解决方案架构师必须设计一个解决方案，将公司的关键数据存储在多个公共AWSRegions，包括公司总部所在的美国。解决方案架构师需要向公司的全球 WAN 网络提供对存储在 AWS 中的数据的访问。安全团队要求访问此数据的流量不得穿越公共网络。解决方案架构师应该如何设计一个既满足需求又经济高效的高可用解决方案？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：DX gateway 将冗余连接扩展到多区域 VPC。"
@@ -10657,7 +10657,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "429": {
-    "blocker": "一家公司开发了一个在该公司本地托管的 VMware vSphere VM 上运行 Windows Server 的应用程式。应用程式资料以必须透过应用程式读取的专有格式储存。该公司手动配置伺服器和应用程式。作为灾难复原计划的一部分，该公司希望在该公司的 on-premises 环境不可用时能够暂时在 AWS 上托管其应用程式。该公司希望应用程式在灾难复原事件完成后返回on-premises 托管。 RPO 5分钟。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司开发了一个在该公司本地托管的 VMware vSphere VM 上运行 Windows Server 的应用程序。应用程序数据以必须通过应用程序读取的专有格式存储。该公司手动配置服务器和应用程序。作为灾难恢复计划的一部分，该公司希望在该公司的 on-premises 环境不可用时能够暂时在 AWS 上托管其应用程序。该公司希望应用程序在灾难恢复事件完成后返回on-premises 托管。 RPO 5分钟。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：持续复制、恢复启动和回切符合本题。"
@@ -10681,7 +10681,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "430": {
-    "blocker": "一家公司在 eu-north-1 Region 的 Amazon EC2 上运行高度可用的资料收集应用程式。该应用程式从最终用户设备收集数据，并将记录写入AmazonKinesis数据流和一组处理记录的AWS Lambda函数。该公司将记录处理的输出持久保存到 eu-north-1 中的Amazon S3 储存桶中。本公司使用S3桶中的资料作为AmazonAthena的资料来源。该公司希望扩大其全球影响力。解决方案架构师必须在 sa-east-1 和 ap-north-1 Regions 中启动资料收集功能。解决方案架构师在两个新的 Regions 中部署应用程式、Kinesis 资料流和 Lambda 函数。解决方案架构师将S3储存桶保留在eu-north-1中，以满足集中资料分析的要求。在测试新设定期间，解决方案架构师注意到资料从新的Regions到达S3储存桶有明显的延迟。哪种解决方案将最大程度地改善此延迟时间？",
+    "blocker": "一家公司在 eu-north-1 区域的 Amazon EC2 上运行高可用的数据采集应用。应用从终端用户设备采集数据，将记录写入 Amazon Kinesis 数据流，并由一组 AWS Lambda 函数处理。处理结果持久保存到 eu-north-1 的 Amazon S3 桶，供 Amazon Athena 分析使用。公司计划扩大全球业务，架构师在 sa-east-1 和 ap-northeast-1 两个新区域部署应用、Kinesis 数据流和 Lambda 函数，但为集中分析而保留 eu-north-1 的原 S3 桶。测试发现，数据从新区域到达该桶的延迟明显增大。哪种方案能最大程度地改善这一延迟？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：本地摄取加后台跨区域复制是选项中的合理路径。"
@@ -10710,7 +10710,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "431": {
-    "blocker": "一家公司提供托管在单一共享 VPC 中的集中式 Amazon EC2 应用程式。集中式应用程式必须可从其他业务部门的 VPC 中执行的用户端应用程式存取。集中式应用程式前端配置了Network Load Balancer (NLB)以实现可扩展性。最多 10 个业务单元 VPC 需要连接到共享 VPC。一些业务单元VPCCIDR块与共享VPC重叠，并且一些业务单元相互重叠VPC中集中式应用程式的网路连接应仅允许来自授权业务单元VPC。解决方案架构师应使用哪种网路配置来提供从业务部门VPC中的客户端应用程式到共享VPC中的集中式应用程式的连接？",
+    "blocker": "一家公司在一个共享 VPC 中集中运行 Amazon EC2 应用。其他业务部门 VPC 内的客户端应用需要访问它。集中式应用的前端使用 Network Load Balancer（NLB）以支持扩展。最多有 10 个业务部门 VPC 需要连接该共享 VPC。其中部分 VPC 的 CIDR 地址段与共享 VPC 重叠，部分业务 VPC 的地址段彼此也重叠。只有获授权的业务部门 VPC 才能连接该应用。架构师应采用哪种网络配置？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：NLB endpoint service 加接入审批满足服务访问。"
@@ -10734,7 +10734,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "432": {
-    "blocker": "一家公司想要将其网站迁移到AWS。该网站使用微服务并在部署在 on-premises、自管理 Kubernetes 集群中的容器上运行。定义 Kubernetes 部署中容器的部署的所有清单均位于原始码控制中。网站的所有资料都储存在PostgreSQL资料库中。开源容器镜像储存库与 on-premises 环境一起运作。解决方案架构师需要确定公司将用于 AWS 网站的架构。哪一种解决方案能够以最少的迁移成本满足这些要求？",
+    "blocker": "一家公司计划将网站迁移到 AWS。网站采用微服务，运行在本地自行管理的 Kubernetes 集群中的容器上。定义容器部署方式的所有 Kubernetes 清单文件均保存在版本控制系统中。网站数据存储在 PostgreSQL 数据库中，本地环境还运行着一个开源容器镜像仓库。架构师需要确定网站在 AWS 上的目标架构。哪种方案所需的迁移工作量最少？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：复用 Kubernetes 部署，托管节点与数据库减少管理。"
@@ -10758,7 +10758,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "433": {
-    "blocker": "一家公司使用AWS上的行动应用程式来举办线上竞赛。公司在每次比赛结束时随机选出一名获胜者。比赛的持续时间长短不一。比赛结束后，公司不需要保留比赛的任何数据。该公司使用 Amazon EC2 实例上托管的自订程式码来处理竞赛资料并选择获胜者。 EC2 实例在 Application Load Balancer 后面运行，并将竞赛条目储存在 Amazon RDS 资料库实例上。该公司必须设计一种新的架构来降低举办竞赛的成本。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司使用AWS上的行动应用程序来举办在线竞赛。公司在每次比赛结束时随机选出一名获胜者。比赛的持续时间长短不一。比赛结束后，公司不需要保留比赛的任何数据。该公司使用 Amazon EC2 实例上托管的自定义代码来处理竞赛数据并选择获胜者。 EC2 实例在 Application Load Balancer 后面运行，并将竞赛条目存储在 Amazon RDS 数据库实例上。该公司必须设计一种新的架构来降低举办竞赛的成本。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：按需计算、键值存储和 TTL 清理与场景匹配。"
@@ -10782,7 +10782,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "434": {
-    "blocker": "一家公司实施了新的安全要求。根据新要求，公司必须扫描公司VPC中来自公司AWS实例的所有流量是否违反公司安全策略。透过这些扫描，该公司可以阻止对特定 IP 位址的存取。为了满足新的要求，该公司在私有子网路中部署了一组Amazon EC2实例作为透明代理。该公司在这些 EC2 实例上安装了经批准的代理伺服器软体。本公司修改了所有子网路上的路由表，以使用带有代理软体的对应EC2实例作为预设路由。本公司也会建立符合安全策略的安全群组，并将这些安全群组指派给EC2实例。尽管进行了这些配置，EC2 实例在其私有子网路中的流量并未正确转送到网际网路。解决方案架构师应该做什么来解决这个问题？",
+    "blocker": "一家公司提出新的安全要求：扫描公司 VPC 内所有 AWS 实例的流量，检查是否违反安全策略，并能阻断发往或来自特定 IP 地址的流量。公司在私有子网部署一组 EC2 实例作为透明代理，安装批准的代理软件，将所有子网的默认路由指向相应代理实例，并为实例配置符合策略的安全组。完成这些配置后，私有子网实例的流量仍未正确转发到互联网。架构师应如何解决？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：解除 EC2 转发设备的检查限制。"
@@ -10830,7 +10830,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "436": {
-    "blocker": "一家公司开发了一款流行视频游戏的新版本，并希望将其提供给公众下载。新版本包大小约5GB。该公司从托管在 on-premises 资料中心的基于 Linux 的面向公众的 FTP 网站提供现有版本的下载。该公司预计新版本将被全球用户下载。该公司希望有一种解决方案能够提供改进的下载效能和较低的传输成本，而无论用户位于何处。",
+    "blocker": "一家公司开发了一款流行视频游戏的新版本，并希望将其提供给公众下载。新版本包大小约5GB。该公司从托管在 on-premises 数据中心的基于 Linux 的面向公众的 FTP 网站提供现有版本的下载。该公司预计新版本将被全球用户下载。该公司希望有一种解决方案能够提供改进的下载性能和较低的传输成本，而无论用户位于何处。",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：全球 CDN 加 S3 适合公开安装包分发。"
@@ -10854,7 +10854,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "437": {
-    "blocker": "一家公司在云端中运行一个由资料库和网站组成的应用程式。用户可以将数据发布到网站，处理数据，然后透过电子邮件将数据发送回给他们。资料储存在 Amazon EC2 实例上运行的 MySQL 资料库中。此资料库在具有两个私有子网路的 VPC 中运作。该网站在 Apache Tomcat 上运行，该实例位于具有一个公共子网的不同 VPC 中的单一 EC2 实例中。资料库和网站 VPC 之间有一个 VPC 对等连接。由于高流量，该网站在上个月遭受了几次中断。解决方案架构师应该采取哪些措施来提高应用程式的可靠性？ （选择三项。）",
+    "blocker": "一家公司在云端中运行一个由数据库和网站组成的应用程序。用户可以将数据发布到网站，处理数据，然后通过电子邮件将数据发送回给他们。数据存储在 Amazon EC2 实例上运行的 MySQL 数据库中。此数据库在具有两个私有子网的 VPC 中运作。该网站在 Apache Tomcat 上运行，该实例位于具有一个公共子网的不同 VPC 中的单一 EC2 实例中。数据库和网站 VPC 之间有一个 VPC 对等连接。由于高流量，该网站在上个月遭受了几次中断。解决方案架构师应该采取哪些措施来提高应用程序的可靠性？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：多实例与负载均衡提高 Web 可靠性。",
@@ -10882,7 +10882,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "438": {
-    "blocker": "一家零售公司正在AWS上运行其电子商务应用程式。该应用程式在 Application Load Balancer (ALB) 后面的 Amazon EC2 实例上运行。该公司使用Amazon RDS资料库实例作为资料库后端。 Amazon CloudFront 配置有一个指向 ALB 的原点。静态内容被快取。 Amazon Route 53 用于托管所有公共区域。应用程式更新后，ALB偶尔会回传 502 状态码（网关错误）错误。根本原因是回到 ALB 的HTTP 标头格式错误。当解决方案架构师在错误发生后立即重新载入网页时，网页会成功返回。当公司正在解决该问题时，解决方案架构师需要向访客提供自订错误页面，而不是标准的 ALB 错误页面。哪种步骤组合能够以最少的营运开销满足这项要求？ （选两个。）",
+    "blocker": "一家零售公司在 AWS 上运行电商应用。应用运行在 Application Load Balancer（ALB）后的 EC2 实例上，使用 Amazon RDS 数据库。CloudFront 分配只有一个指向 ALB 的源站，并缓存静态内容。Route 53 托管所有公有 DNS 区域。应用更新后，ALB 偶尔返回 502 Bad Gateway，原因是后端返回给 ALB 的 HTTP 标头格式错误；错误发生后立即刷新网页则可成功访问。在排查根因期间，架构师需要向访客显示自定义错误页面，而不是 ALB 默认错误页。哪两个步骤能以最少运维工作满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：独立 S3 静态错误页来源合理。",
@@ -10908,7 +10908,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "439": {
-    "blocker": "一家公司希望将 Amazon Aurora MySQL 资料库集群从现有 AWS 帐户迁移到同一 AWS Region 中的新 AWS Region 中的新 ⟧T178⟧T178。两个帐户都是 AWS Organizations ​​中同一组织的成员。在执行DNS切换到新资料库之前，公司必须尽量减少资料库服务中断。哪种迁移策略可以满足此要求？ （选两个。）",
+    "blocker": "一家公司希望将 Amazon Aurora MySQL 数据库集群从现有 AWS 账户迁移到同一 AWS 区域内的新 AWS 账户。两个账户都属于 AWS Organizations 中的同一个组织。公司希望在将 DNS 切换到新数据库前，尽量减少数据库服务中断。以下哪两种迁移策略能够满足要求？（选择两项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：共享快照可快速建立目标库的基线。",
@@ -10933,7 +10933,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "440": {
-    "blocker": "软体即服务 (SaaS) 公司为客户提供媒体软体解决方案。此解决方案托管在跨各种 AWS Regions 和 AWS 帐户的 50 个 VPC 上。其中一个VPC被指定为管理VPC。 VPC 中的计算资源独立工作。该公司开发了一项新功能，要求所有 50 个VPC 能够相互通讯。新功能还需要从每个客户的VPC到公司管理层VPC的单向访问。管理VPC托管运算资源，用于验证媒体软体解决方案的授权。随著解决方案的成长，公司用于托管解决方案的VPC数量将持续增加。哪种步骤组合能够以最少的营运开销提供所需的 VPC 连接？ （选两个。）",
+    "blocker": "一家 SaaS 公司为客户提供媒体软件，运行于跨多个 AWS 区域和账户的 50 个 VPC。其中一个是管理 VPC，各 VPC 中的计算资源独立运行。新功能要求全部 50 个公司 VPC 相互通信，同时允许每个客户 VPC 向公司管理 VPC 发起单向访问。管理 VPC 中有用于验证软件许可证的计算资源。随着业务增长，公司 VPC 数量还将继续增加。哪两个步骤能以最少运维工作满足连接要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：用区域 TGW 汇聚公司 VPC，跨区域 TGW 再建立对等。",
@@ -10964,7 +10964,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "441": {
-    "blocker": "一家公司拥有多个汇总到母公司的业务线 (LOB)。该公司已要求其解决方案架构师开发符合以下要求的解决方案： • 为其 LOB 使用的所有AWS 帐户产生一张AWS 发票。 • 每个LOB 帐户的成本应在发票上详细列出。 • 根据公司治理政策的规定，提供限制LOB 帐户中的服务和功能的能力。 • 无论治理策略如何，每个LOB 帐号都应被授予完全管理员权限。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
+    "blocker": "一家公司拥有多个汇总到母公司的业务线 (LOB)。该公司已要求其解决方案架构师开发符合以下要求的解决方案： • 为其 LOB 使用的所有AWS 账户产生一张AWS 发票。 • 每个LOB 账户的成本应在发票上详细列出。 • 根据公司治理政策的规定，提供限制LOB 账户中的服务和功能的能力。 • 无论治理策略如何，每个LOB 账户都应被授予完全管理员权限。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：单一组织提供合并账单和成员账户成本明细。",
@@ -10990,7 +10990,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "442": {
-    "blocker": "解决方案架构师部署了一个 Web 应用程序，为自订网域下的两个 AWS Regions 的使用者提供服务。该应用程式使用Amazon Route 53基于延迟的路由。解决方案架构师将加权记录集与每个Region的单独Availability Zones中的一对Web伺服器相关联。解决方案架构师运行灾难复原场景。当一个 Region 中的所有 Web 伺服器停止时，Route 53 不会自动将使用者重新导向到另一个 Region。下列哪些可能是此问题的根本原因？ （选两个。）",
+    "blocker": "架构师在两个 AWS 区域部署了使用同一自定义域名的 Web 应用。应用采用 Amazon Route 53 基于延迟的路由，并在每个区域为两台分属不同可用区的 Web 服务器配置加权记录集。在灾难恢复测试中，停止某个区域的全部 Web 服务器后，Route 53 没有自动将用户引导到另一区域。哪两项可能是原因？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：未评估目标健康，父节点不能感知区域全部失败。",
@@ -11016,7 +11016,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "443": {
-    "blocker": "某洪水监测机构部署了10000多个水位监测感测器。感测器发送连续的资料更新，每次更新的大小小于 1 MB。该机构拥有一组on-premises应用程式伺服器。这些伺服器接收来自感测器的更新，将原始资料转换为人类可读的格式，并将结果写入on-premises关系资料库伺服器。然后，资料分析师使用简单的 SQL 查询来监控资料。该机构希望提高应用程式的整体可用性并减少执行维护任务所需的工作量。这些维护任务（包括应用程式伺服器的更新和修补程式）会导致停机。当应用程式伺服器关闭时，感测器中的资料会遗失，因为其余伺服器无法处理整个工作负载。该机构需要一种能够优化营运管理费用和成本的解决方案。解决方案架构师建议使用AWS IoT Core 收集感测器资料。解决方案架构师还应该建议什么来满足这些要求？",
+    "blocker": "某洪水监测机构部署了10000多个水位监测感测器。感测器发送连续的数据更新，每次更新的大小小于 1 MB。该机构拥有一组on-premises应用程序服务器。这些服务器接收来自感测器的更新，将原始数据转换为人类可读的格式，并将结果写入on-premises关系数据库服务器。然后，数据分析师使用简单的 SQL 查询来监控数据。该机构希望提高应用程序的整体可用性并减少执行维护任务所需的工作量。这些维护任务（包括应用程序服务器的更新和修补程序）会导致停机。当应用程序服务器关闭时，感测器中的数据会遗失，因为其余服务器无法处理整个工作负载。该机构需要一种能够优化营运管理费用和成本的解决方案。解决方案架构师建议使用AWS IoT Core 收集感测器数据。解决方案架构师还应该建议什么来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Firehose/S3/Athena 组合适合按需分析。"
@@ -11040,7 +11040,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "444": {
-    "blocker": "公共零售 Web 应用程式在 Amazon EC2 实例前面使用 Application Load Balancer (ALB)，这些实例跨由 Amazon RDS MySQL Multi-AZ 部署支援的 ⟦T126AZ⧦ 中的多个执行 ⟧ 运行。目标群体健康检查配置为使用HTTP并指向产品目录页面。 Auto Scaling 配置为根据 ALB 运行状况检查来维护网路大小。最近，该应用程式遇到了中断。 Auto Scaling 在中断期间不断更换实例。随后的调查确定 Web 伺服器指标在正常范围内，但资料库层负载较高，导致查询回应时间严重延长。下列哪些变更可以共同解决这些问题，同时提高整个应用程式堆叠的可用性和功能的监控能力，以实现未来的成长？ （选两个。）",
+    "blocker": "一个面向公众的零售 Web 应用在同一 AWS 区域的多个可用区运行 EC2 实例，前端使用 ALB，后端使用 Amazon RDS for MySQL 多可用区部署。目标组健康检查使用 HTTP 并指向产品目录页，Auto Scaling 根据 ALB 健康检查维持 Web 实例数量。最近发生故障时，Auto Scaling 不断替换实例。调查发现 Web 服务器指标正常，但数据库负载过高，查询响应时间大幅增加。哪两项更改能共同解决问题，并改善整个应用各层可用性和功能的监控，以支持未来增长？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：简单 HTML 用作 ALB 检查，完整产品页另做外部监控。",
@@ -11066,7 +11066,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "445": {
-    "blocker": "某公司拥有一个on-premises资料中心，并正在使用Kubernetes在AWS上开发新的解决方案。该公司使用Amazon Elastic Kubernetes Service (Amazon EKS)集群作为其开发和测试环境。用于生产工作负载的EKS控制平面和资料平面必须驻留在本地。该公司需要一个AWS托管解决方案来进行Kubernetes管理。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "某公司拥有一个on-premises数据中心，并正在使用Kubernetes在AWS上开发新的解决方案。该公司使用Amazon Elastic Kubernetes Service (Amazon EKS)集群作为其开发和测试环境。用于生产工作负载的EKS控制平面和数据平面必须驻留在本地。该公司需要一个AWS托管解决方案来进行Kubernetes管理。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：架构方向正确，但 server 必须改为 rack 才受支持。"
@@ -11090,7 +11090,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "446": {
-    "blocker": "一家公司使用AWS Organizations来管理其开发环境。公司每个开发团队都有自己的AWS帐户。每个帐户都有一个不重叠的VPC和CIDR块。该公司在共享服务帐户中有一个 Amazon Aurora 资料库集群。所有开发团队都需要使用资料库集群中的即时资料。哪种解决方案能够以最少的营运开销提供与资料库集群所需的连接？",
+    "blocker": "一家公司使用 AWS Organizations 管理开发环境，各开发团队都有独立 AWS 账户。每个账户有一个 VPC，所有 VPC 的 CIDR 地址段互不重叠。共享服务账户中运行着 Amazon Aurora 数据库集群，各团队都需访问其中的实时数据。哪种方案能以最少运维工作提供所需的数据库连接？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：共享 TGW 加正确路由与安全组提供数据库连通。"
@@ -11114,7 +11114,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "447": {
-    "blocker": "一家公司使用 AWS CloudFormation 在其 AWS 成员帐户中建立所有新的基础设施。资源很少发生变化，大小适合预期负载。每月的AWS帐单是一致的。有时，开发人员会建立新资源进行测试，但在测试完成后忘记删除该资源。大多数测试会持续几天，然后不再需要资源。该公司希望自动化寻找未使用资源的流程。解决方案架构师需要设计一个解决方案来确定AWS帐单中的成本是否增加。此解决方案必须协助识别导致成本增加的资源，并且必须自动通知公司的营运团队。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司使用 AWS CloudFormation 在其 AWS 成员账户中建立所有新的基础设施。资源很少发生变化，大小适合预期负载。每月的AWS帐单是一致的。有时，开发人员会建立新资源进行测试，但在测试完成后忘记删除该资源。大多数测试会持续几天，然后不再需要资源。该公司希望自动化寻找未使用资源的流程。解决方案架构师需要设计一个解决方案来确定AWS帐单中的成本是否增加。此解决方案必须协助识别导致成本增加的资源，并且必须自动通知公司的运维团队。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：服务维度监视器直接覆盖所有新旧服务，符合题意。"
@@ -11138,7 +11138,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "448": {
-    "blocker": "一家公司正在部署一个新的基于 Web 的应用程序，需要一个适用于 Linux 应用程式伺服器的储存解决方案。该公司希望创建一个位置来更新所有实例的应用程式资料。活动资料集的大小最大为 100 GB。解决方案架构师已确定每天将出现 3 小时的高峰操作，并且总共需要 225 MiBps 的读取吞吐量。解决方案架构师必须设计一个 Multi-AZ 解决方案，使资料副本可在另一个 AWS Region 中用于灾难复原 (DR)。 DR 副本的 RPO 不到 1 小时。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在部署一个新的基于 Web 的应用程序，需要一个适用于 Linux 应用程序服务器的存储解决方案。该公司希望创建一个位置来更新所有实例的应用程序数据。活动数据集的大小最大为 100 GB。解决方案架构师已确定每天将出现 3 小时的高峰操作，并且总共需要 225 MiBps 的读取吞吐量。解决方案架构师必须设计一个 Multi-AZ 解决方案，使数据副本可在另一个 AWS Region 中用于灾难恢复 (DR)。 DR 副本的 RPO 不到 1 小时。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：75×3=225 MiB/s 读取，配合 EFS 跨区域复制。"
@@ -11167,7 +11167,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "449": {
-    "blocker": "一家公司需要从没有网路连线的远端位置的实验中收集数据。实验期间，连接到本地网路的感测器将在 1 周内以专有格式产生 6 TB 资料。感测器可以配置为定期将其资料档案上传到FTP伺服器，但感测器没有自己的FTP伺服器。感测器也不支援其他协定。公司需要在实验结束后尽快集中收集资料并将资料移至AWS云端中的物件储存。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司要在没有互联网连接的偏远地点采集实验数据。接入本地网络的传感器将在一周内生成 6 TB 专有格式数据。传感器可定期将文件上传到 FTP 服务器，但自身不运行 FTP 服务器，也不支持其他协议。公司需要集中收集数据，并在实验结束后尽快将其迁入 AWS 云中的对象存储。哪种方案符合要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：本地 FTP 接收和离线 S3 导入符合题意。"
@@ -11196,7 +11196,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "450": {
-    "blocker": "一家拥有多个业务部门的公司正在使用 AWS Organizations ​​并启用所有功能。本公司实行每个业务部门都有自己的AWS帐户的帐户结构。每个AWS帐户的管理员需要使用AmazonAthena查看其帐户的详细成本和利用率资料。每个业务部门只能存取自己的成本和利用率资料。管理设定 AWS 成本和使用情况报告能力的 IAM 政策已到位。 Amazon S3 储存桶中已提供包含组织所有资料的中央成本和使用情况报告。哪种解决方案能够以最低的操作复杂度满足这些要求？",
+    "blocker": "一家拥有多个业务部门的公司正在使用 AWS Organizations 并启用所有功能。本公司实行每个业务部门都有自己的AWS账户的账户结构。每个AWS账户的管理员需要使用AmazonAthena查看其账户的详细成本和利用率数据。每个业务部门只能访问自己的成本和利用率数据。管理设定 AWS 成本和使用情况报告能力的 IAM 政策已到位。 Amazon S3 存储桶中已提供包含组织所有数据的中央成本和使用情况报告。哪种解决方案能够以最低的操作复杂度满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：成员自建 CUR 和自有桶是文档原生支持方案。"
@@ -11220,7 +11220,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "451": {
-    "blocker": "一家公司正在为制造应用程式设计AWS 环境。该应用程式在客户中获得了成功，并且该应用程式的用户群也有所增加。该公司已透过 1 Gbps AWS Direct Connect 连接将AWS 环境连接到该公司的on-premises 资料中心。本公司已配置BGP进行连接。公司必须更新现有的网路连线解决方案，以确保该解决方案具有高可用性、容错性和安全性。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司正在为制造应用程序设计AWS 环境。该应用程序在客户中获得了成功，并且该应用程序的用户群也有所增加。该公司已通过 1 Gbps AWS Direct Connect 连接将AWS 环境连接到该公司的on-premises 数据中心。本公司已配置BGP进行连接。公司必须更新现有的网络连接解决方案，以确保该解决方案具有高可用性、容错性和安全性。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：独立公网 VPN 可作为低成本加密备用路径。"
@@ -11244,7 +11244,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "452": {
-    "blocker": "公司需要对应用程式进行现代化改造并将应用程式迁移到AWS。该应用程式将使用者设定档资料以文字形式储存在 on-premises MySQL 资料库的单一表中。现代化后，用户将使用该应用程式上传最大 4 GB 的影片档案。其他用户必须能够从应用程式下载影片档案。该公司需要一种能够快速扩展的视讯储存解决方案。该解决方案不得影响应用程式效能。哪种解决方案可以满足这些要求？",
+    "blocker": "公司需要对应用程序进行现代化改造并将应用程序迁移到AWS。该应用程序将用户设定档数据以文字形式存储在 on-premises MySQL 数据库的单一表中。现代化后，用户将使用该应用程序上传最大 4 GB 的影片文件。其他用户必须能够从应用程序下载影片文件。该公司需要一种能够快速扩展的视讯存储解决方案。该解决方案不得影响应用程序性能。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：S3 大对象加 DynamoDB 元数据符合伸缩要求。"
@@ -11268,7 +11268,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "453": {
-    "blocker": "一家公司在Amazon Elastic File System (Amazon EFS) 文件系统中储存和管理文件。档案系统使用 AWS Key Management Service (AWS KMS) 金钥进行加密。档案系统安装到运行专有软体的Amazon EC2实例。该公司已启用档案系统的自动备份。自动备份使用 AWS Backup 预设备份计划。解决方案架构师必须确保可以在 RPO 100 分钟内恢复已删除的文件。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司使用 Amazon EFS 文件系统存储和管理文档，文件系统由 AWS KMS 密钥加密，并挂载到运行专有软件的 EC2 实例。公司已开启自动备份，使用 AWS Backup 默认备份计划。架构师必须确保被删除的文档能够恢复，且恢复点目标（RPO）不超过 100 分钟。哪种方案符合要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：小时级快照计划是给定选项中受支持做法。"
@@ -11292,7 +11292,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "454": {
-    "blocker": "解决方案架构师必须为云端工程师团队提供一种安全的方法，以使用AWS CLI 将物件上传到Amazon S3 储存桶。每个云端工程师都有一个IAM用户、IAM存取金钥和虚拟多重验证（MFA）设备。云端工程师的 IAM 用户位于名为 S3-access 的群组中。云端工程师必须使用 MFA 来执行 Amazon S3 中的任何操作。哪种解决方案可以满足这些要求？",
+    "blocker": "解决方案架构师必须为云端工程师团队提供一种安全的方法，以使用AWS CLI 将对象上传到Amazon S3 存储桶。每个云端工程师都有一个IAM用户、IAM访问密钥和虚拟多重验证（MFA）设备。云端工程师的 IAM 用户位于名为 S3-access 的群组中。云端工程师必须使用 MFA 来执行 Amazon S3 中的任何操作。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：STS 临时凭据携带 MFA 上下文供策略检查。"
@@ -11316,7 +11316,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "455": {
-    "blocker": "某公司需要将 60 个on-premises 旧应用程式迁移到AWS。这些应用程式基于 NET Framework，并在 Windows 上运行。该公司需要一种能够最大限度地减少迁移时间且无需更改应用程式程式码的解决方案。该公司也不想管理基础设施。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司需要将本地的 60 个旧应用程序迁移到 AWS。这些应用基于 .NET Framework，运行在 Windows 上。公司希望尽量缩短迁移时间，不修改应用代码，也不自行管理基础设施。哪种方案符合要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：迁 IIS 应用到 Beanstalk 并管理容量、补丁等。"
@@ -11340,7 +11340,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "456": {
-    "blocker": "公司需要对储存在 Amazon S3 储存桶中的资料执行大型批次作业。这些作业执行模拟。作业的结果对时间不敏感，过程可以承受中断。当资料储存在S3桶中时，每个作业必须处理15-20GB的资料。该公司将把作业的输出储存在不同的Amazon S3储存桶中以供进一步分析。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "公司需要对存储在 Amazon S3 存储桶中的数据执行大型批次作业。这些作业执行模拟。作业的结果对时间不敏感，过程可以承受中断。当数据存储在S3桶中时，每个作业必须处理15-20GB的数据。该公司将把作业的输出存储在不同的Amazon S3存储桶中以供进一步分析。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Batch 管队列和资源，Spot 降低可中断计算成本。"
@@ -11364,7 +11364,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "457": {
-    "blocker": "一家公司有一个可以在本地分析和储存影像资料的应用程式。该应用程式每天都会收到数百万个新图像档案。档案的平均大小为 1 MB。文件以 1 GB 为单位进行分析。当应用程式分析一批图像时，应用程式会将图像压缩在一起。然后，应用程式将映像档作为单一档案归档到 on-premises NFS 伺服器中以进行长期储存。该公司拥有 Microsoft Hyper-V 环境并拥有可用的运算能力。该公司没有储存容量，希望将影像存档在AWS上。该公司需要能够在收到请求后 1 周内检索存档资料。该公司在其 on-premises 资料中心和 AWS 之间拥有 10 Gbps AWS Direct Connect 连接。公司需要设定频宽限制并安排在非工作时间将存档影像复制到AWS。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司在本地运行分析和存储图像的应用，每天接收数百万个新图像文件，平均每个 1 MB。应用以 1 GB 为一批分析图像，将同批图像打成一个 ZIP 文件，归档到本地 NFS 服务器长期保存。本地有可用计算资源的 Microsoft Hyper-V 环境，但存储容量不足，因而希望将图像归档到 AWS。公司要求收到取回请求后能在一周内取回数据。本地数据中心与 AWS 之间有 10 Gbps Direct Connect。公司还需要限制传输带宽，并安排在非工作时间将归档文件复制到 AWS。哪种方案最具成本效益？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：复用本地计算并直接选择长期归档级。"
@@ -11388,7 +11388,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "458": {
-    "blocker": "一家公司希望记录其应用程式的关键绩效指标 (KPI)，作为转换为基于使用者的授权模式策略的一部分。该应用程式是一个多层应用程序，具有基于 Web 的 UI。公司透过CloudWatch代理将所有日志档案保存到AmazonCloudWatch。应用程式的所有登入都保存在日志档案中。作为新许可证架构的一部分，公司需要找出每个客户每天、每周和每月有多少唯一用户。哪种解决方案将在对应用程式进行最少更改的情况下提供此资讯？",
+    "blocker": "一家公司准备改用按用户数量授权的软件许可模式，需要采集应用的关键绩效指标（KPI）。这是一个有 Web 界面的多层应用，使用 CloudWatch agent 将全部日志发送到 Amazon CloudWatch，所有登录事件都会写入日志。公司希望按日、周、月统计每个客户去重后的用户数量。哪种方案对应用程序的改动最少？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：无需改应用，但必须额外统计活跃用户维度，不能把 Sum 当唯一用户数。"
@@ -11412,7 +11412,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "459": {
-    "blocker": "一家公司正在使用 GitHub Actions 运行CI/CD 管道来存取 AWS 上的资源。该公司有一个 IAM 用户，该用户使用管道中的金钥对 AWS 进行身份验证。具有附加策略的现有 IAM 角色授予部署资源所需的权限。该公司的安全团队实施了一项新要求，即管道不能再使用长期金钥。解决方案架构师必须用短期解决方案取代金钥。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司正在使用 GitHub Actions 运行CI/CD 管道来访问 AWS 上的资源。该公司有一个 IAM 用户，该用户使用管道中的密钥对 AWS 进行身份验证。具有附加策略的现有 IAM 角色授予部署资源所需的权限。该公司的安全团队实施了一项新要求，即管道不能再使用长期密钥。解决方案架构师必须用短期解决方案取代密钥。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：OIDC 信任和短期 STS 凭据适合 CI/CD。"
@@ -11436,7 +11436,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "460": {
-    "blocker": "一家公司正在目标 URL 清单上运行网路爬行过程，以获取机器学习训练演算法的训练文件。一组 Amazon EC2 t2.micro 实例从 Amazon Simple Queue Service (Amazon SQS) 伫列中撷取目标 URL。然后，实例将爬网演算法的结果以 .csv 档案形式写入Amazon Elastic File System (Amazon EFS) 磁碟区。 EFS 卷安装在 eet 的所有实例上。一个单独的系统以较低的频率将 URL 新增至 SQS 伫列。实例在 10 秒或更短时间内抓取每个 URL。指标表明，当 SQS 伫列中没有 URL 时，某些实例处于空闲状态。解决方案架构师需要重新设计架构以最佳化成本。哪一种步骤组合能够最经济有效地满足这些要求？ （选两个。）",
+    "blocker": "一家公司对目标 URL 列表运行网络爬虫，为机器学习算法获取训练文档。一组 EC2 t2.micro 实例从 SQS 队列获取 URL，将抓取结果以 .csv 文件写入 EFS 文件系统，所有实例都挂载该文件系统。另一系统仅偶尔向队列添加 URL。每个 URL 的抓取耗时不超过 10 秒；指标显示队列为空时部分实例处于空闲。架构师需要重新设计以优化成本。哪两个步骤最具成本效益？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：事件驱动函数按任务运行。",
@@ -11462,7 +11462,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "461": {
-    "blocker": "某公司需要将其网站从on-premises资料中心迁移到AWS。该网站由负载平衡器、在 Linux 作业系统上运行的内容管理系统 (CMS) 和 MySQL 资料库组成。 CMS 需要为档案系统提供与 NFS 相容的持久性储存。 AWS 上的新解决方案必须能够从 2 个Amazon EC2 实例扩展到 30 个EC2 实例，以应对不可预测的流量增长。新的解决方案还必须不需要对网站进行任何更改，并且必须防止资料遗失。哪种解决方案可以满足这些要求？",
+    "blocker": "某公司需要将其网站从on-premises数据中心迁移到AWS。该网站由负载均衡器、在 Linux 作业系统上运行的内容管理系统 (CMS) 和 MySQL 数据库组成。 CMS 需要为文件系统提供与 NFS 兼容的持久性存储。 AWS 上的新解决方案必须能够从 2 个Amazon EC2 实例扩展到 30 个EC2 实例，以应对不可预测的流量增长。新的解决方案还必须不需要对网站进行任何更改，并且必须防止数据遗失。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：共享持久存储与独立数据库符合伸缩和保留要求。"
@@ -11486,7 +11486,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "462": {
-    "blocker": "某公司需要对在单一AWSRegion中运行的关键应用程式实施灾难复原。该应用程式的使用者与托管在 Application Load Balancer (ALB) 后面的 Amazon EC2 实例上的 Web 前端进行互动。应用程式写入 MySQL 资料库实例的 Amazon RDS。该应用程式还输出储存在Amazon S3储存桶中的已处理文件。该公司的财务团队直接查询资料库来运行报告。在繁忙期间，这些查询会消耗资源并对应用程式效能产生负面影响。解决方案架构师必须设计一个能够在灾难期间提供弹性的解决方案。此解决方案必须最大限度地减少资料遗失，并且必须解决财务团队查询导致的效能问题。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司要为运行在单个 AWS 区域的关键应用设计灾难恢复。用户通过 ALB 后的 EC2 Web 前端访问应用，数据写入 RDS for MySQL 实例，处理后的文档存入 S3。财务团队直接查询数据库生成报告，高峰期这些查询消耗资源，影响应用性能。架构师需要设计能应对灾难、尽量减少数据丢失，并解决财务查询性能问题的方案。哪种方案符合要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：副本减轻读取，跨区域副本和文档复制提供恢复基础。"
@@ -11510,7 +11510,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "463": {
-    "blocker": "某公司的on-premises资料中心运作著许多服务。资料中心使用 AWS Direct Connect (DX) 和 IPSec VPN 连接到 AWS。服务资料敏感，连线无法穿越网路。该公司希望扩展到新的细分市场，并开始向使用AWS的其他公司提供服务。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司的本地数据中心运行着许多服务，并通过 AWS Direct Connect（DX）和 IPsec VPN 连接 AWS。服务数据敏感，连接不得经过公共互联网。公司希望进入新市场，为其他使用 AWS 的公司提供这些服务。哪种方案符合要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：NLB endpoint service 可将本地 IP 目标经 DX 提供给消费者。"
@@ -11534,7 +11534,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "464": {
-    "blocker": "某公司使用 AWS Organizations ​​管理其 AWS 帐户。解决方案架构师必须设计一个解决方案，其中仅允许管理员角色使用IAM操作。然而，解决方案架构师无法存取整个公司的所有AWS帐户。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "某公司使用 AWS Organizations 管理其 AWS 账户。解决方案架构师必须设计一个解决方案，其中仅允许管理员角色使用IAM操作。然而，解决方案架构师无法访问整个公司的所有AWS账户。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：显式 Deny 加角色例外实现集中权限上限。"
@@ -11558,7 +11558,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "465": {
-    "blocker": "某公司使用AWS Organizations中的组织来管理多个AWS帐户。该公司在公司共享服务帐户的VPC 中托管一些应用程式。该公司已将中转网关附加到共享服务帐户中的VPC。该公司正在开发一项新功能，并创建了一个需要存取共享服务帐户中的应用程式的开发环境。该公司打算频繁删除和重新创建开发帐户中的资源。该公司还希望让开发团队能够根据需要重新建立团队与共享服务帐户的连结。哪种解决方案可以满足这些要求？",
+    "blocker": "某公司使用AWS Organizations中的组织来管理多个AWS账户。该公司在公司共享服务账户的VPC 中托管一些应用程序。该公司已将中转网关附加到共享服务账户中的VPC。该公司正在开发一项新功能，并创建了一个需要访问共享服务账户中的应用程序的开发环境。该公司打算频繁删除和重新创建开发账户中的资源。该公司还希望让开发团队能够根据需要重新建立团队与共享服务账户的链接。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：共享 TGW 与 VPC attachment 自动接收对应需求。"
@@ -11582,7 +11582,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "466": {
-    "blocker": "一家公司希望将虚拟 Microsoft 工作负载从on-premises 资料中心迁移到AWS。该公司已成功在AWS上测试了一些范例工作负载。该公司还创建了与 VPC 的 AWS Site-to-Site VPN 连接。解决方案架构师需要为从资料中心迁移所有工作负载产生总拥有成本 (TCO) 报告。资料中心内的每台虚拟机器均已启用简单网路管理协定 (SNMP)。公司无法在资料中心增加更多虚拟机，也无法在虚拟机上安装额外的软体。发现资料必须自动汇入到AWS Migration Hub。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司希望将虚拟 Microsoft 工作负载从on-premises 数据中心迁移到AWS。该公司已成功在AWS上测试了一些范例工作负载。该公司还创建了与 VPC 的 AWS Site-to-Site VPN 连接。解决方案架构师需要为从数据中心迁移所有工作负载产生总拥有成本 (TCO) 报告。数据中心内的每台虚拟机均已启用简单网络管理协定 (SNMP)。公司无法在数据中心增加更多虚拟机，也无法在虚拟机上安装额外的软件。发现数据必须自动导入到AWS Migration Hub。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：无代理 collector 加 Evaluator 成本评估符合限制。"
@@ -11606,7 +11606,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "467": {
-    "blocker": "一家正在开发手机游戏的公司正在提供两种 AWS Regions 的游戏资产。游戏资产由每个 Region 中 Application Load Balancer (ALB) 后面的一组 Amazon EC2 实例提供。公司要求从最近的Region取得游戏资源。如果最近的Region中的游戏资源不可用，则应从其他Region获取它们。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家开发手机游戏的公司在两个 AWS 区域提供游戏资源，每个区域均由 ALB 后的一组 EC2 实例提供内容。公司要求用户从最近的区域获取资源；若该区域不可用，则改从另一区域获取。架构师应如何满足要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：延迟路由加目标健康满足择近与故障绕行。"
@@ -11630,7 +11630,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "468": {
-    "blocker": "一家公司在多个 AWS 帐户中部署工作负载。每个帐户都有一个 VPC，其中 VPC 流日志以文字日志格式发布到集中式 Amazon S3 储存桶。每个日志档案都使用 gzip 压缩进行压缩。公司必须无限期保留日志档案。安全工程师偶尔会使用AmazonAthena查询VPC流日志来分析日志。随著摄取日志数量的增加，查询效能会随著时间的推移而下降。解决方案架构师必须提高日志分析的效能并减少VPC流日志使用的储存空间。哪种解决方案能够满足这些要求并具有最大的效能改进？",
+    "blocker": "一家公司在多个 AWS 账户中部署工作负载。每个账户都有一个 VPC，其中 VPC 流日志以文字日志格式发布到集中式 Amazon S3 存储桶。每个日志文件都使用 gzip 压缩进行压缩。公司必须无限期保留日志文件。安全工程师偶尔会使用AmazonAthena查询VPC流日志来分析日志。随著摄取日志数量的增加，查询性能会随著时间的推移而下降。解决方案架构师必须提高日志分析的性能并减少VPC流日志使用的存储空间。哪种解决方案能够满足这些要求并具有最大的性能改进？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：列式文件和分区直接优化分析扫描。"
@@ -11654,7 +11654,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "469": {
-    "blocker": "某公司希望在其 on-premises 基础设施和 AWS 之间建立专用连接。该公司正在建立与其帐户 VPC 的 1 Gbps AWS Direct Connect 连线。该架构包括一个中转网关和一个Direct Connect网关，用于连接多个VPC和on-premises基础设施。公司必须使用 Direct Connect 连接透过中转 VIF 连接到 VPC 资源。哪一种步骤组合可以满足这些要求？ （选两个。）",
+    "blocker": "某公司希望在其 on-premises 基础设施和 AWS 之间建立专用连接。该公司正在建立与其账户 VPC 的 1 Gbps AWS Direct Connect 连接。该架构包括一个中转网关和一个Direct Connect网关，用于连接多个VPC和on-premises基础设施。公司必须使用 Direct Connect 连接通过中转 VIF 连接到 VPC 资源。哪一种步骤组合可以满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：向 AWS 宣告本地前缀才能有返回路径。",
@@ -11680,7 +11680,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "470": {
-    "blocker": "一家公司希望将AmazonWorkSpaces与瘦客户端设备结合使用来取代老化的桌上型电脑。员工使用桌面存取处理临床试验数据的应用程式。公司安全策略规定，对应用程式的存取必须仅限于公司分公司位置。该公司正在考虑在未来 6 个月内增设一个分公司。哪种解决方案能够以最高的营运效率满足这些要求？",
+    "blocker": "一家公司希望将AmazonWorkSpaces与瘦客户端设备结合使用来取代老化的桌上型电脑。员工使用桌面访问处理临床试验数据的应用程序。公司安全策略规定，对应用程序的访问必须仅限于公司分公司位置。该公司正在考虑在未来 6 个月内增设一个分公司。哪种解决方案能够以最高的运维效率满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：原生按可信客户端来源网络限制访问。"
@@ -11704,7 +11704,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "471": {
-    "blocker": "某公司使用AWS Organizations。该公司在一个集中网路帐户中运行两个防火墙设备。每个防火墙设备都在手动配置的高可用Amazon EC2实例上运行。中转网关将集中网路帐户的VPC连接到成员帐户的VPC。每个防火墙设备都使用静态专用 IP 位址，然后用于将流量从成员帐户路由到网际网路。在最近的事件中，配置不当的脚本启动了两个防火墙设备的终止。在重建防火墙设备期间，该公司编写了一个新脚本来在启动时配置防火墙设备。该公司希望对防火墙设备的部署进行现代化改造。防火墙设备需要能够水平扩展，以在网路扩展时处理增加的流量。公司必须继续使用重新墙设备以遵守公司政策。防火墙设备提供者已确认最新版本的防火墙代码适用于所有AWS 服务。解决方案架构师应该推荐哪种步骤组合来最经济有效地满足这些要求？ （选择三项。）",
+    "blocker": "一家公司使用 AWS Organizations，在集中网络账户运行两台防火墙虚拟设备，分别位于手工配置的高可用 EC2 实例上。Transit Gateway 将该账户的 VPC 与各成员 VPC 连接。成员账户通过防火墙的静态私有 IP 将流量路由到互联网。最近，一个配置错误的脚本终止了两台设备。重建期间，公司编写了用于启动时自动配置防火墙的新脚本。公司希望改进部署，使防火墙能随网络增长水平扩展，并遵守必须继续使用这些设备的政策。供应商确认最新版防火墙软件兼容所需 AWS 服务。哪三个步骤最具成本效益？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：GWLB 面向透明虚拟安全设备。",
@@ -11732,7 +11732,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "472": {
-    "blocker": "解决方案架构师必须为支援 Web 应用程式的 Amazon RDS for PostgreSQL 资料库实作多Region 架构。该资料库从AWS CloudFormation模板启动，该模板包括主要和辅助Regions中都存在的AWS服务和功能。此资料库配置为自动备份，其RTO 为 15 分钟，RPO 为 2 小时。 Web 应用程式设定为使用Amazon Route 53 记录将流量路由到资料库。哪种步骤组合将产生满足所有要求的高可用架构？ （选两个。）",
+    "blocker": "解决方案架构师必须为支持 Web 应用程序的 Amazon RDS for PostgreSQL 数据库实作多Region 架构。该数据库从AWS CloudFormation模板启动，该模板包括主要和辅助Regions中都存在的AWS服务和功能。此数据库配置为自动备份，其RTO 为 15 分钟，RPO 为 2 小时。 Web 应用程序设定为使用Amazon Route 53 记录将流量路由到数据库。哪种步骤组合将产生满足所有要求的高可用架构？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：预置副本显著缩短数据库重建时间。",
@@ -11758,7 +11758,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "473": {
-    "blocker": "一家电子商务公司在AWS上运行一个应用程式。该应用程式有一个 Amazon API Gateway API，可呼叫 AWS Lambda 函数。资料储存在 PostgreSQL 资料库实例的 Amazon RDS 中。在该公司最近一次灰烬销售期间，API 呼叫的突然增加对应用程式的效能产生了负面影响。解决方案架构师审查了这段时间内的AmazonCloudWatch指标，并注意到 Lambda 呼叫和资料库连接显著增加。资料库执行个体上的 CPU 使用率也很高。解决方案架构师应该建议什么来优化应用程式的效能？",
+    "blocker": "一家电商公司在 AWS 上运行应用，API Gateway 调用 Lambda 函数，数据存储在 RDS for PostgreSQL 实例。最近的限时促销中，API 调用量骤增，影响了应用性能。架构师检查 CloudWatch 指标后发现，Lambda 调用次数和数据库连接数显著增加，数据库 CPU 利用率也很高。应建议哪种方案来优化性能？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：Proxy 直接针对跨执行环境连接池。"
@@ -11782,7 +11782,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "474": {
-    "blocker": "一家零售公司希望改进其应用程式架构。该公司的应用程式注册新订单、处理商品退货并提供分析。这些应用程式将零售资料储存在MySQL资料库和Oracle OLAP分析资料库中。所有应用程式和资料库都托管在 Amazon EC2 实例上。每个应用程式都由多个组件组成，这些组件处理订单流程的不同部分。这些组件使用来自不同来源的传入资料。每周都会执行一个单独的 ETL 作业，并将资料从每个应用程式复制到分析资料库。解决方案架构师必须将架构重新设计为使用无伺服器服务的事件驱动解决方案。该解决方案必须提供近乎即时的更新分析。哪种解决方案可以满足这些要求？",
+    "blocker": "一家零售公司希望改进其应用程序架构。该公司的应用程序注册新订单、处理商品退货并提供分析。这些应用程序将零售数据存储在MySQL数据库和Oracle OLAP分析数据库中。所有应用程序和数据库都托管在 Amazon EC2 实例上。每个应用程序都由多个组件组成，这些组件处理订单流程的不同部分。这些组件使用来自不同来源的传入数据。每周都会执行一个单独的 ETL 作业，并将数据从每个应用程序复制到分析数据库。解决方案架构师必须将架构重新设计为使用无服务器服务的事件驱动解决方案。该解决方案必须提供近乎即时的更新分析。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：计算、事务、分析服务分工匹配。"
@@ -11806,7 +11806,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "475": {
-    "blocker": "一家公司正在计划从on-premises资料中心迁移到AWS云端。该公司计划使用在 AWS Organizations ​​的组织中管理的多个 AWS 帐户。该公司最初将创建少量帐户，并根据需要添加帐户。解决方案架构师必须设计一个在所有 AWS 帐户中启用 AWS CloudTrail 的解决方案。满足这些要求的最高效的营运解决方案是什么？",
+    "blocker": "一家公司正在计划从on-premises数据中心迁移到AWS云端。该公司计划使用在 AWS Organizations 的组织中管理的多个 AWS 账户。该公司最初将创建少量账户，并根据需要添加账户。解决方案架构师必须设计一个在所有 AWS 账户中启用 AWS CloudTrail 的解决方案。满足这些要求的最高效的营运解决方案是什么？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：组织 trail 原生覆盖组织成员。"
@@ -11830,7 +11830,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "476": {
-    "blocker": "一家软体开发公司有多名远距工作的工程师。该公司正在 Amazon EC2 实例上运行 Active Directory 域服务 (AD DS)。该公司的安全策略规定，部署在 VPC 中的所有内部非公共服务必须可透过 VPN 存取。必须使用多重身份验证 (MFA) 才能存取 VPN。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家软件开发公司有多名远距工作的工程师。该公司正在 Amazon EC2 实例上运行 Active Directory 域服务 (AD DS)。该公司的安全策略规定，部署在 VPC 中的所有内部非公共服务必须可通过 VPN 访问。必须使用多重身份验证 (MFA) 才能访问 VPN。解决方案架构师应该怎么做才能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Client VPN 与目录身份验证对应用户接入。"
@@ -11854,7 +11854,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "477": {
-    "blocker": "一家公司正在 on-premises 资料中心运行一个三层 Web 应用程式。前端由 Apache Web 伺服器提供服务，中间层是一个整体 Java 应用程序，储存层是一个 PostgreSQL 资料库。在最近的一次行销促销中，客户无法透过该应用程式下订单，因为该应用程式崩溃了。分析显示，三层均超载。应用程式变得无响应，并且资料库由于读取操作而达到其容量限制。该公司已在不久的将来安排了几次类似的促销活动。解决方案架构师必须制定迁移到AWS的计划来解决这些问题。此解决方案必须最大限度地提高可扩展性并最大限度地减少营运工作量 哪种步骤组合可以满足这些要求？ （选择三项。）",
+    "blocker": "一家公司在本地运行三层 Web 应用：前端是 Apache Web 服务器，中间层为单体 Java 应用，数据层为 PostgreSQL。最近营销活动期间，应用崩溃导致客户无法下单。分析发现三层均过载；应用无响应，数据库因大量读取达到容量上限。公司近期还安排了多次类似活动，架构师必须制定迁移 AWS 的计划，在尽量提高可扩展性的同时尽量减少运维工作。哪三个步骤符合要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：静态内容无需维持Web服务器群。",
@@ -11882,7 +11882,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "478": {
-    "blocker": "一家公司正在 AWS 上部署新应用程式。该应用程式由 Amazon Elastic Kubernetes Service (Amazon EKS) 集群和 Amazon Elastic Container Registry (Amazon ECR) 储存库组成。 EKS 群集有一个 AWS 受管节点组。该公司的安全准则规定，AWS 上的所有资源都必须持续扫描安全漏洞。哪种解决方案能够以最少的营运开销满足这项要求？",
+    "blocker": "一家公司正在 AWS 上部署新应用程序。该应用程序由 Amazon Elastic Kubernetes Service (Amazon EKS) 集群和 Amazon Elastic Container Registry (Amazon ECR) 存储库组成。 EKS 群集有一个 AWS 受管节点组。该公司的安全准则规定，AWS 上的所有资源都必须持续扫描安全漏洞。哪种解决方案能够以最少的运维开销满足这项要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Inspector提供对应资源的持续扫描能力。"
@@ -11906,7 +11906,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "479": {
-    "blocker": "公司需要提高其票务应用程式的可靠性。该应用程式在Amazon Elastic Container Service (Amazon ECS)集群上运行。该公司使用Amazon CloudFront来服务该应用程式。 ECS 集群的单一 ECS 服务是 CloudFront 发行版的起源。该应用程式仅允许特定数量的活跃用户进入购票流程。这些使用者透过其 JSON Web 令牌 (JWT) 中的加密属性进行识别。所有其他使用者都会被重新导向到等候室模组，直到有可用容量进行购买。该应用程式正在经历高负载。候诊室模组按设计工作，但候诊室的负载正在扰乱应用程式的可用性。这种中断对应用程式的门票销售交易产生了负面影响。哪种解决方案将为高负载期间的门票销售交易提供最高的可靠性？",
+    "blocker": "一家公司希望提高票务应用的可靠性。应用运行在 ECS 集群，使用 CloudFront 分发内容，分配的源站是集群中的一个 ECS 服务。系统只允许特定数量的活跃用户进入购票流程，通过其 JWT 中的加密属性识别这些用户。其余用户被引导到等候室模块，直到购票流程有空余容量。高负载时等候室虽按设计运行，但它的流量影响了整个应用可用性，连带影响购票交易。哪种方案能最大程度地提高高负载期间购票交易的可靠性？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：独立服务加边缘分流针对可靠性根因。"
@@ -11930,7 +11930,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "480": {
-    "blocker": "解决方案架构师正在从现有手动建立的非生产 AWS 环境建立AWS CloudFormation 范本。 CloudFormation模板可以根据需要销毁并重新建立。此环境包含一个 Amazon EC2 实例。 EC2 实例具有一个实例设定文件，EC2 实例使用该实例设定档来承担父帐户中的角色。解决方案架构师在 CloudFormation 范本中重新建立角色并使用相同的角色名称。当在子帐户中启动CloudFormation范本时，由于权限不足，EC2实例无法再承担父帐户中的角色。解决方案架构师应该如何解决此问题？",
+    "blocker": "解决方案架构师正在从现有手动建立的非生产 AWS 环境建立AWS CloudFormation 模板。 CloudFormation模板可以根据需要销毁并重新建立。此环境包含一个 Amazon EC2 实例。 EC2 实例具有一个实例设定文件，EC2 实例使用该实例设定档来承担父账户中的角色。解决方案架构师在 CloudFormation 模板中重新建立角色并使用相同的角色名称。当在子账户中启动CloudFormation模板时，由于权限不足，EC2实例无法再承担父账户中的角色。解决方案架构师应该如何解决此问题？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：重新保存Principal角色ARN以绑定新角色ID。"
@@ -11954,7 +11954,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "481": {
-    "blocker": "某公司的 Web 应用程式有可靠性问题。该应用程式为全球客户提供服务。该应用程式在单一 Amazon EC2 执行个体上运行，并对 MySQL 资料库的 Amazon RDS 执行读取密集型操作。在高负载期间，应用程式变得无回应，需要手动重新启动 EC2 执行个体。解决方案架构师必须提高应用程式的可靠性。哪种解决方案能够以最少的开发工作满足此要求？",
+    "blocker": "一家公司的 Web 应用服务全球用户，但可靠性不足。应用运行在单台 EC2 实例，对 RDS for MySQL 数据库执行大量读取。高负载时应用无响应，需要手工重启 EC2。架构师应采用哪种方案，以最少开发工作提高可靠性？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：多实例Web加可读Aurora副本提高可靠性。"
@@ -11978,7 +11978,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "482": {
-    "blocker": "公司需要使用支援 AWS Transfer Family SFTP 的伺服器和 Amazon S3 储存桶来接收来自第三方资料供应商的更新。资料使用 Pretty Good Privacy (PGP) 加密技术进行加密。该公司需要一种解决方案，能够在公司收到资料后自动解密资料。解决方案架构师将使用 Transfer Family 管理的工作流程。该公司使用 IAM 策略创建了 IAM 服务角色，该策略允许存取 AWS Secrets Manager 和 S3 储存桶。该角色的信任关系允许传输 amazonaws.com 服务承担该角色。解决方案架构师接下来该做什么来完成自动解密的解决方案？",
+    "blocker": "一家公司使用启用 SFTP 的 AWS Transfer Family 服务器与 S3 桶接收第三方数据供应商的更新。数据经过 PGP 加密，公司希望收到后自动解密。架构师计划使用 Transfer Family 托管工作流，并已创建可访问 Secrets Manager 和 S3 桶的 IAM 服务角色，其信任关系允许 transfer.amazonaws.com 服务代入该角色。接下来应如何完成自动解密配置？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：私钥、正常解密步骤和服务器关联正确。"
@@ -12002,7 +12002,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "483": {
-    "blocker": "一家公司正在将其大型多人游戏的基础设施迁移到AWS。游戏的应用程式设有排行榜，玩家可以即时查看排名。排行榜需要微秒读取和个位数毫秒写入延迟。资料集的大小为个位数太字节，如果发生主节点故障，必须能够在不到一分钟的时间内接受写入。该公司需要一种解决方案，使数据能够透过数据管道持久保存以进行进一步的分析处理。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司将大型多人在线游戏的基础设施迁移到 AWS。游戏排行榜需实时显示排名，读取延迟需为微秒级，写入延迟需为个位数毫秒。数据集为个位数 TB（不到 10 TB）；主节点故障后，必须在少于 1 分钟内恢复接受写入。数据还需持久保存，以便通过数据管道进一步分析。哪种方案所需运维工作最少？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：MemoryDB提供内存性能与多AZ持久性。"
@@ -12025,7 +12025,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "484": {
-    "blocker": "一家公司正在 AWS 云端中运行多个应用程式。这些应用程式特定于公司中的各个业务部门。该公司正在 AWS Organizations ​​组织中的多个 AWS 帐户中运行应用程式的元件。公司组织中的每个云端资源都有一个名为 BusinessUnit 的标签。每个标签都已具有适当的业务单位名称值。公司需要将其云端成本分配给不同的业务部门。该公司还需要可视化每个业务部门的云端成本。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在 AWS 云端中运行多个应用程序。这些应用程序特定于公司中的各个业务部门。该公司正在 AWS Organizations 组织中的多个 AWS 账户中运行应用程序的组件。公司组织中的每个云端资源都有一个名为 BusinessUnit 的标签。每个标签都已具有适当的业务单位名称值。公司需要将其云端成本分配给不同的业务部门。该公司还需要可视化每个业务部门的云端成本。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：管理账户激活标签与集中报表链路正确。"
@@ -12049,7 +12049,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "485": {
-    "blocker": "一家公用事业公司希望每 5 分钟从其智慧电表收集一次使用数据，以便于进行使用时间计量。当仪表将资料传送到AWS时，资料会传送到Amazon API Gateway，并由AWS Lambda函数进行处理。并储存于Amazon DynamoDB表中。在试验阶段，Lambda 函数需要 3 到 5 秒才能完成。随著更多智慧电表的部署，工程师注意到 Lambda 函数需要 1 到 2 分钟才能完成。随著从设备收集新类型的指标，这些功能的持续时间也在增加。在 DynamoDB 上执行 PUT 操作时出现许多 ProvisionedThroughputExceededException 错误，且 Lambda 中也出现许多 TooManyRequestsException 错误。哪种更改组合可以解决这些问题？ （选两个。）",
+    "blocker": "一家公用事业公司每 5 分钟从智能电表采集用量，用于分时计量。数据发送到 API Gateway，由 Lambda 函数处理后存入 DynamoDB 表。试点时函数运行需 3–5 秒；随着电表增多，已增至 1–2 分钟，新增采集指标还使耗时继续增加。向 DynamoDB 执行 PUT 时大量出现 ProvisionedThroughputExceededException，Lambda 也大量出现 TooManyRequestsException。哪两项更改能解决问题？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：提高表或相应索引WCU针对ProvisionedThroughputExceededException。",
@@ -12099,7 +12099,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "487": {
-    "blocker": "某公司计划将许多虚拟机器从on-premises环境迁移到AWS。该公司需要在迁移之前对本地环境进行初步评估、虚拟机器上运行的应用程式之间的依赖关系的可视化以及提供on-premises环境评估的报告。为了获取此信息，该公司已发起迁移评估员评估请求。该公司能够在其 on-premises 环境中安装收集器软体，不受任何限制 哪种解决方案能够以最少的营运开销为公司提供所需的资讯？",
+    "blocker": "一家公司计划将大量本地虚拟机迁移到 AWS，需要先评估本地环境、以图形查看虚拟机上各应用的依赖关系，并获得环境评估报告。公司已发起 Migration Evaluator 评估请求，并可不受限制地在本地安装收集软件。哪种方案能以最少运维工作提供这些信息？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：同时配置两种采集并从正确服务取得图和评估报告。"
@@ -12128,7 +12128,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "488": {
-    "blocker": "一家公司透过使用 Amazon API Gateway API 和包含 API 方法逻辑的 AWS Lambda 函数在 AWS 上托管其主要 API。公司的内部应用程式使用 API 来实现核心功能和业务逻辑。该公司的客户使用 API 存取其帐户中的资料。一些客户还可以存取在单一独立 Amazon EC2 实例上运行的旧版 API。该公司希望提高这些 API 的安全性，以便更好地防止拒绝服务 (DoS) 攻击、检查漏洞并防范常见漏洞。解决方案架构师应该怎么做才能满足这些要求？",
+    "blocker": "一家公司通过使用 Amazon API Gateway API 和包含 API 方法逻辑的 AWS Lambda 函数在 AWS 上托管其主要 API。公司的内部应用程序使用 API 来实现核心功能和业务逻辑。该公司的客户使用 API 访问其账户中的数据。一些客户还可以访问在单一独立 Amazon EC2 实例上运行的旧版 API。该公司希望提高这些 API 的安全性，以便更好地防止拒绝服务 (DoS) 攻击、检查漏洞并防范常见漏洞。解决方案架构师应该怎么做才能满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：各服务职责分工正确。"
@@ -12152,7 +12152,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "489": {
-    "blocker": "一家公司正在 AWS 上运行无伺服器电子商务应用程式。应用程式使用 Amazon API Gateway 呼叫 AWS Lambda Java 函数。 Lambda 函数连接到 MySQL 资料库的 Amazon RDS 来储存资料。在最近的促销活动中，网路流量突然增加导致 API 效能不佳和资料库连线失败。该公司需要实施一种解决方案来最大限度地减少 Lambda 函数的延迟并支援流量突发。哪种解决方案能够以最少的应用程式更改来满足这些要求？",
+    "blocker": "一家公司在 AWS 上运行无服务器电商应用，由 API Gateway 调用 Java 编写的 Lambda 函数，函数连接 RDS for MySQL 保存数据。最近促销时流量突增，API 性能下降并出现数据库连接失败。公司希望尽量降低 Lambda 延迟并支持突发流量。哪种方案对应用的改动最少？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：连接池与预初始化分别针对两项问题。"
@@ -12176,7 +12176,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "490": {
-    "blocker": "公司要求所有内部应用程式连线都使用私人 IP 位址。为了促进此策略，解决方案架构师创建了介面端点来连接到AWS公共服务。经过测试，解决方案架构师注意到服务名称正在解析为公用 IP 位址，且内部服务无法连接到介面端点。解决方案架构师应该采取哪一步来解决这个问题？",
+    "blocker": "公司要求所有内部应用程序连接都使用私有 IP 地址。为了促进此策略，解决方案架构师创建了接口端点来连接到AWS公共服务。经过测试，解决方案架构师注意到服务名称正在解析为公网 IP 地址，且内部服务无法连接到接口端点。解决方案架构师应该采取哪一步来解决这个问题？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：VPC DNS属性与端点private DNS均须配置。"
@@ -12200,7 +12200,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "491": {
-    "blocker": "一家公司正在开发延迟敏感的应用程式。该应用程式的一部分包括多个需要尽快初始化的AWS Lambda功能。 Lambda 函数是用 Java 编写的，并包含处理程序外部的初始化程式码，用于载入函式库、初始化类别并产生唯一 ID。哪一种解决方案能够最经济有效地满足启动效能要求？",
+    "blocker": "一家公司开发对延迟敏感的应用，其中多个 Java Lambda 函数需要尽快初始化。函数在 handler 之外的初始化代码中加载库、初始化类并生成唯一 ID。哪种方案最具成本效益地满足启动性能要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：发布版本使用SnapStart并将唯一数据放恢复后生成。"
@@ -12224,7 +12224,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "492": {
-    "blocker": "解决方案架构师正在使用 AWS 汇入/汇出的 Amazon EC2 VM 汇入功能从 on-premises 环境汇入 VM。解决方案架构师建立了一个 AMI，并且配置了一个基于该 AMI 的 Amazon EC2 执行个体。 EC2 实例在 VPC 的公共子网路内运行，并分配有公共 IP 位址。 EC2 实例不会在 AWS Systems Manager 控制台中显示为托管实例。解决方案架构师应采取哪些步骤组合来解决此问题？ （选两个。）",
+    "blocker": "解决方案架构师正在使用 AWS 导入/导出的 Amazon EC2 VM 导入功能从 on-premises 环境导入 VM。解决方案架构师建立了一个 AMI，并且配置了一个基于该 AMI 的 Amazon EC2 实例。 EC2 实例在 VPC 的公共子网内运行，并分配有公共 IP 地址。 EC2 实例不会在 AWS Systems Manager 控制台中显示为托管实例。解决方案架构师应采取哪些步骤组合来解决此问题？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：检查SSM Agent安装、运行与联网。",
@@ -12250,7 +12250,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "493": {
-    "blocker": "一家公司正在使用AWS CloudFormation作为所有应用程式的部署工具。它将所有应用程式二进位档案和模板存放在启用版本控制的Amazon S3储存桶中。开发人员可以存取托管整合开发环境 (IDE) 的Amazon EC2 实例。开发人员将应用程式二进位档案从Amazon S3下载到EC2实例，进行更改，并在本地运行单元测试后将二进位档案上传到S3储存桶。开发者希望改善现有的部署机制，使用AWSCodePipeline实作CI/CD。开发人员有以下要求： • 使用AWS CodeCommit 进行原始码控制。 • 自动化单元测试和安全扫描。 • 当单元测试失败时提醒开发人员。 • 作为CI/CD 的一部分，开启和关闭应用程式功能并动态自订部署。 • 在部署应用程式之前让首席开发人员批准。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在使用AWS CloudFormation作为所有应用程序的部署工具。它将所有应用程序二进位文件和模板存放在启用版本控制的Amazon S3存储桶中。开发人员可以访问托管整合开发环境 (IDE) 的Amazon EC2 实例。开发人员将应用程序二进位文件从Amazon S3下载到EC2实例，进行更改，并在本地运行单元测试后将二进位文件上传到S3存储桶。开发者希望改善现有的部署机制，使用AWSCodePipeline实作CI/CD。开发人员有以下要求： • 使用AWS CodeCommit 进行源代码控制。 • 自动化单元测试和安全扫描。 • 当单元测试失败时提醒开发人员。 • 作为CI/CD 的一部分，开启和关闭应用程序功能并动态自定义部署。 • 在部署应用程序之前让首席开发人员批准。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：各阶段使用对应托管服务，支持自动测试与人工批准。"
@@ -12274,7 +12274,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "494": {
-    "blocker": "一家全球电子商务公司在世界各地拥有许多资料中心。随著储存资料的成长，该公司需要建立一个解决方案，为遗留的on-premises档案应用程式提供可扩展的储存。公司必须能够使用 AWS Backup 取得磁碟区的时间点副本，并且必须保留对频繁存取的资料的低延迟存取。该公司还需要拥有可以作为互联网小型电脑系统介面 (iSCSI) 设备从该公司的 on-premises 应用伺服器安装的储存磁碟区。哪种解决方案可以满足这些要求？",
+    "blocker": "一家全球电商公司在多地有数据中心。随着数据增长，公司需要为旧的本地文件应用提供可扩展存储，使用 AWS Backup 创建卷的时间点副本，并保持对常用数据的低延迟访问。存储卷还必须能由本地应用服务器作为 iSCSI 设备挂载。哪种方案符合要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：缓存卷匹配本地低延迟热数据与云端容量。"
@@ -12298,7 +12298,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "495": {
-    "blocker": "一家公司有一个使用 AWS Key Management Service (AWS KMS) 来加密和解密资料的应用程式。该应用程式将资料储存在 AWS Region 的 Amazon S3 储存桶中。公司安全策略要求在将资料放入S3储存桶之前对资料进行加密。当应用程式从 S3 储存桶读取档案时，应用程式必须解密资料。该公司将S3储存桶复制到其他Regions。解决方案架构师必须设计一个解决方案，以便应用程式可以跨Regions加密和解密资料。应用程式必须使用相同的金钥来解密每个Region中的资料。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司有一个使用 AWS Key Management Service (AWS KMS) 来加密和解密数据的应用程序。该应用程序将数据存储在 AWS Region 的 Amazon S3 存储桶中。公司安全策略要求在将数据放入S3存储桶之前对数据进行加密。当应用程序从 S3 存储桶读取文件时，应用程序必须解密数据。该公司将S3存储桶复制到其他Regions。解决方案架构师必须设计一个解决方案，以便应用程序可以跨Regions加密和解密数据。应用程序必须使用相同的密钥来解密每个Region中的数据。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：多区域相关密钥可在本地解密同一加密材料。"
@@ -12322,7 +12322,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "496": {
-    "blocker": "一家公司托管一个应用程序，该应用程式使用 Application Load Balancer (ALB) 后面的 Auto Scaling 组中的多个 Amazon EC2 实例。在 EC2 实例初始启动期间，EC2 执行个体执行使用者资料脚本以从 Amazon S3 储存桶下载应用程式的关键内容。 EC2 实例正在正确启动。但是，一段时间后，EC2 实例被终止，并显示以下错误讯息：「实例因 ELB 系统运作状况检查失败而停止服务。」EC2 实例会因无限循环中的 Auto Scaling 事件而继续启动和终止。最近部署的唯一变化是该公司为 S3 储存桶添加了大量关键内容。该公司不想在生产中更改用户资料脚本。解决方案架构师应该怎么做才能成功部署生产环境？",
+    "blocker": "一家公司在 ALB 后的 Auto Scaling 组运行多个 EC2 实例。实例初次启动时通过用户数据（user data）脚本，从 S3 下载应用所需关键内容。实例能正常启动，但一段时间后因“ELB 系统健康检查失败，实例被移出服务”而终止。Auto Scaling 不断启动并终止实例，形成循环。最近唯一变化是 S3 桶内新增了大量关键内容，公司不希望修改生产环境的启动脚本。架构师应如何让部署成功完成？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：延长ASG健康检查宽限允许启动脚本完成。"
@@ -12346,7 +12346,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "497": {
-    "blocker": "某公司需要将一些on-premises Oracle 资料库迁移到AWS。出于业务合规性原因，该公司选择将一些资料库保留在本地。 on-premises 资料库包含空间资料并执行 cron 作业进行维护。公司需要从AWS直接连接到on-premises系统，以外部表的形式查询资料。哪种解决方案可以满足这些要求？",
+    "blocker": "某公司需要将一些on-premises Oracle 数据库迁移到AWS。出于业务合规性原因，该公司选择将一些数据库保留在本地。 on-premises 数据库包含空间数据并执行 cron 作业进行维护。公司需要从AWS直接连接到on-premises系统，以外部表的形式查询数据。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：PostgreSQL扩展组合与DX路径符合要求。"
@@ -12370,7 +12370,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "498": {
-    "blocker": "Accompany 在 Amazon EC2 和 AWS Lambda 上运行应用程式。应用程式将暂存资料储存在Amazon S3中。 S3 物件将在 24 小时后删除。该公司透过启动 AWS CloudFormation 堆叠来部署该应用程式的新版本。堆叠创建所需的资源。验证新版本后，公司将删除旧堆叠。最近删除旧开发堆叠失败。解决方案架构师需要在不进行重大架构变更的情况下解决此问题。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在 EC2 和 Lambda 上运行应用，将临时数据存入 S3，并在 24 小时后删除对象。公司每次部署新版本时启动 CloudFormation 堆栈创建所需资源，验证新版本后删除旧堆栈。最近旧开发堆栈删除失败，架构师需要在不大幅更改架构的情况下解决。哪种方案符合要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：正确实现Delete处理并回复CloudFormation后清空桶。"
@@ -12394,7 +12394,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "499": {
-    "blocker": "一家公司有一个应用程序，将用户上传的影片储存在使用 S3 标准储存的 Amazon S3 储存桶中。用户在影片上传后的前180天内频繁存取影片。 180 天后造访的情况很少见。指定使用者和匿名使用者存取影片。大多数影片的大小都超过 100 MB。用户在上传影片时经常会遇到网路连线较差的情况，导致上传失败。该公司对影片使用分段上传。解决方案架构师需要优化应用程式的S3成本。哪一种行动组合可以满足这些要求？ （选两个。）",
+    "blocker": "一家公司有一个应用程序，将用户上传的影片存储在使用 S3 标准存储的 Amazon S3 存储桶中。用户在影片上传后的前180天内频繁访问影片。 180 天后造访的情况很少见。指定用户和匿名用户访问影片。大多数影片的大小都超过 100 MB。用户在上传影片时经常会遇到网络连接较差的情况，导致上传失败。该公司对影片使用分段上传。解决方案架构师需要优化应用程序的S3成本。哪一种行动组合可以满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：AbortIncompleteMultipartUpload清理失败上传残留。",
@@ -12420,7 +12420,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "500": {
-    "blocker": "一家公司在 AWS 上运行电子商务 Web 应用程式。 Web 应用程式以静态网站托管在 Amazon S3 上，并使用 Amazon CloudFront 进行内容交付。 Amazon API Gateway API 呼叫 AWS Lambda 函数来处理 Web 应用程式的使用者请求和订单处理 Lambda 函数将资料储存在使用按需实例的 MySQL 资料库集群的 Amazon ROS 中。资料库集群使用情况在过去 12 个月中保持一致。近期，该网站遭遇SQL注入和Web漏洞攻击。客户还报告说，在使用高峰期，订单处理时间增加。在此期间，Lambda 函数通常会冷启动。随著公司的发展，公司需要保证流量高峰时的可扩展性和低延迟存取。该公司还必须优化资料库成本并增加对 SQL 注入和 Web 攻击尝试的保护。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在 AWS 上运行电子商务 Web 应用程序。该应用以静态网站形式托管在 Amazon S3 上，并使用 Amazon CloudFront 分发内容。一个 Amazon API Gateway API 调用 AWS Lambda 函数，处理用户请求和订单。Lambda 函数将数据存储在一个使用按需实例的 Amazon RDS for MySQL 数据库集群中。数据库集群的使用量在过去 12 个月一直保持稳定。最近，网站遭遇 SQL 注入和 Web 漏洞利用尝试。客户还反馈，在使用高峰期，订单处理耗时增加；此时 Lambda 函数经常出现冷启动。随着公司发展，方案需要保证高峰流量下的可扩展性和低延迟访问，同时优化数据库成本，并增加对 SQL 注入和 Web 漏洞利用尝试的防护。哪种方案能够满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：分别对应延迟、稳定数据库折扣和Web防护。"
@@ -12444,7 +12444,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "501": {
-    "blocker": "一家公司在单一 Amazon EC2 实例上运行 Web 应用程式。最终用户在使用高峰期（CPU 使用率始终高于 95%）会遇到应用程式效能缓慢的情况。使用者资料脚本在 EC2 实例上安装所需的自订套件。启动实例的过程需要几分钟。该公司正在创建一个 Auto Scaling 组，该组具有混合实例组、不同的 CPU 和最大容量限制。 Auto Scaling 群组将使用各种设定选项的启动模板。该公司需要在自动扩展期间启动新实例时减少应用程式延迟。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在单一 Amazon EC2 实例上运行 Web 应用程序。最终用户在使用高峰期（CPU 使用率始终高于 95%）会遇到应用程序性能缓慢的情况。用户数据脚本在 EC2 实例上安装所需的自定义套件。启动实例的过程需要几分钟。该公司正在创建一个 Auto Scaling 组，该组具有混合实例组、不同的 CPU 和最大容量限制。 Auto Scaling 群组将使用各种设定选项的启动模板。该公司需要在自动扩展期间启动新实例时减少应用程序延迟。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：动态伸缩、预热池与生命周期协调各有对应作用。"
@@ -12468,7 +12468,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "502": {
-    "blocker": "某公司需要将on-premises资料库群组迁移到Amazon RDS。该公司目前混合使用 Microsoft SQL Server、MySQL 和 Oracle 资料库。一些资料库具有自订架构和预存程序。公司应该采取哪些步骤组合来进行迁移？ （选两个。）",
+    "blocker": "某公司需要将on-premises数据库群组迁移到Amazon RDS。该公司目前混合使用 Microsoft SQL Server、MySQL 和 Oracle 数据库。一些数据库具有自定义架构和存储过程。公司应该采取哪些步骤组合来进行迁移？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：SCT评估并辅助转换schema和代码。",
@@ -12494,7 +12494,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "503": {
-    "blocker": "一家公司正在将其部落格平台迁移到AWS。公司的 on-premises 伺服器透过 AWS Site-to-Site VPN 连接连接到 AWS。部落格内容每天由多个作者更新多次，并透过网路附加储存 (NAS) 伺服器上的档案共用提供。公司需要在不耽误内容更新的情况下迁移部落格平台。该公司已在多个 Availability Zones 上部署了 Amazon EC2 实例，以在 Application Load Balancer 后面运行博客平台。该公司还需要尽快将 200 TB 存档资料从其on-premises 伺服器移至Amazon S3。哪一种停靠点组合可以满足这些要求？ （选两个。）",
+    "blocker": "一家公司正在将其部落格平台迁移到AWS。公司的 on-premises 服务器通过 AWS Site-to-Site VPN 连接连接到 AWS。部落格内容每天由多个作者更新多次，并通过网络附加存储 (NAS) 服务器上的文件共用提供。公司需要在不耽误内容更新的情况下迁移部落格平台。该公司已在多个 Availability Zones 上部署了 Amazon EC2 实例，以在 Application Load Balancer 后面运行博客平台。该公司还需要尽快将 200 TB 存档数据从其on-premises 服务器移至Amazon S3。哪一种步骤组合可以满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：EFS可由本地和云端NFS客户端共同挂载。",
@@ -12520,7 +12520,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "504": {
-    "blocker": "一家公司计划将旧版 on-premises 应用程式迁移到 AWS。该应用程式是一个 Java Web 应用程序，在 Apache Tomcat 上运行，并带有 PostgreSQL 资料库。该公司无权存取原始程式码，但可以部署应用程式 Java 存档 (JAR) 档案。该应用程式的流量在每个月末都会增加。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司计划将旧版 on-premises 应用程序迁移到 AWS。该应用程序是一个 Java Web 应用程序，在 Apache Tomcat 上运行，并带有 PostgreSQL 数据库。该公司无权访问原始代码，但可以部署应用程序 Java 存档 (JAR) 文件。该应用程序的流量在每个月末都会增加。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：托管平台最接近无需重构迁移。"
@@ -12544,7 +12544,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "505": {
-    "blocker": "一家公司正在将其on-premises IoT 平台迁移到AWS。此平台由以下元件组成： • MongoDB 集群作为所有收集和处理的物联网资料的资料储存。 • 使用讯息伫列遥测传输(MQTT) 每5 分钟连接到IoT 装置以收集资料的应用程式。 • 定期执行作业以根据IoT 资料产生报表的应用程式。这些作业需要 120-600 秒才能完成运行。 • 在Web 伺服器上执行的Web 应用程式。最终使用者使用 Web 应用程式产生可供公众存取的报告。该公司需要将平台迁移到AWS，以在保持效能的同时减少营运开销。哪种步骤组合能够以最少的营运开销满足这些要求？ （选择三项。）",
+    "blocker": "一家公司正在将其on-premises IoT 平台迁移到AWS。此平台由以下组件组成： • MongoDB 集群作为所有收集和处理的物联网数据的数据存储。 • 使用消息队列遥测传输(MQTT) 每5 分钟连接到IoT 设备以收集数据的应用程序。 • 定期执行作业以根据IoT 数据产生报表的应用程序。这些作业需要 120-600 秒才能完成运行。 • 在Web 服务器上执行的Web 应用程序。最终用户使用 Web 应用程序产生可供公众访问的报告。该公司需要将平台迁移到AWS，以在保持性能的同时减少运维开销。哪种步骤组合能够以最少的运维开销满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：编排短任务并以对象/CDN发布报告。",
@@ -12572,7 +12572,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "506": {
-    "blocker": "一家公司创建了一个Amazon API Gateway API 并与外部开发团队分享该 API。此 API 使用 AWS Lambda 函数并部署到名为 Production 的阶段。外部开发团队是 API 的唯一使用者。 API 在特定时间的使用量突然增加，导致人们担心成本增加。该公司需要在不重新设计 Lambda 函数的情况下限制成本和使用量。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司创建了一个Amazon API Gateway API 并与外部开发团队分享该 API。此 API 使用 AWS Lambda 函数并部署到名为 Production 的阶段。外部开发团队是 API 的唯一用户。 API 在特定时间的使用量突然增加，导致人们担心成本增加。该公司需要在不重新设计 Lambda 函数的情况下限制成本和使用量。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：使用计划原生提供每key节流与周期配额。"
@@ -12596,7 +12596,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "507": {
-    "blocker": "一家娱乐公司在 Auto Scaling 群组中的一组 Linux Amazon EC2 实例上托管票务服务。票务服务使用定价文件。定价文件储存在具有 S3 标准储存的 Amazon S3 储存桶中。由第三方托管的中央定价解决方案更新定价文件。定价文件每 1-15 分钟更新一次，包含数千个订单项目。当实例启动时，定价档案会下载到每个 EC2 实例。 EC2 实例有时会使用过时的定价讯息，这可能会导致客户收取不正确的费用。哪一种解决方案能够最经济有效地解决这个问题？",
+    "blocker": "一家娱乐公司在 Auto Scaling 群组中的一组 Linux Amazon EC2 实例上托管票务服务。票务服务使用定价文件。定价文件存储在具有 S3 标准存储的 Amazon S3 存储桶中。由第三方托管的中央定价解决方案更新定价文件。定价文件每 1-15 分钟更新一次，包含数千个价格条目。当实例启动时，定价文件会下载到每个 EC2 实例。 EC2 实例有时会使用过时的定价消息，这可能会导致客户收取不正确的费用。哪一种解决方案能够最经济有效地解决这个问题？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：直接读取S3对象路径与现有定价文件对应。"
@@ -12620,7 +12620,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "508": {
-    "blocker": "某公司有一个应用程序，该应用程式使用 Auto Scaling 组中的 Amazon EC2 实例。品质保证 (QA) 部门需要启动大量短期环境来测试应用程式。应用程式环境目前由部门经理使用AWS CloudFormation模板启动。为了启动堆叠，管理器使用有权使用 CloudFormation、EC2 和 Auto Scaling API 的角色。经理希望允许测试人员启动自己的环境，但不希望向每个使用者授予广泛的权限。哪种设定可以实现这些目标？",
+    "blocker": "某公司有一个应用程序，该应用程序使用 Auto Scaling 组中的 Amazon EC2 实例。品质保证 (QA) 部门需要启动大量短期环境来测试应用程序。应用程序环境目前由部门经理使用AWS CloudFormation模板启动。为了启动堆栈，经理使用有权使用 CloudFormation、EC2 和 Auto Scaling API 的角色。经理希望允许测试人员启动自己的环境，但不希望向每个用户授予广泛的权限。哪种设定可以实现这些目标？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：产品加启动角色是标准受控自助部署。"
@@ -12644,7 +12644,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "509": {
-    "blocker": "一家公司为其电子商务网站使用单一 AWS Region。该网站包含一个 Web 应用程序，该应用程式在 Application Load Balancer (ALB) 后面的多个 Amazon EC2 实例上运行。该网站还包括一个 Amazon DynamoDB 表。 Amazon Route 53 中的自订网域连结到ALB。本公司在AWS证书管理器（ACM）中创建了SSL/TLS证书，并将证书附加到ALB。该公司没有使用内容交付网路作为其设计的一部分。该公司希望在第二个Region内复制其整个应用程式堆叠，以提供灾难复原、规划未来成长并为用户提供更好的存取时间。解决方案架构师需要实施一个解决方案来实现这些目标并最大限度地减少管理开销。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选择三项。）",
+    "blocker": "一家公司为其电子商务网站使用单一 AWS Region。该网站包含一个 Web 应用程序，该应用程序在 Application Load Balancer (ALB) 后面的多个 Amazon EC2 实例上运行。该网站还包括一个 Amazon DynamoDB 表。 Amazon Route 53 中的自定义网域链接到ALB。本公司在AWS证书管理器（ACM）中创建了SSL/TLS证书，并将证书附加到ALB。该公司没有使用内容交付网络作为其设计的一部分。该公司希望在第二个Region内复制其整个应用程序堆栈，以提供灾难恢复、规划未来成长并为用户提供更好的访问时间。解决方案架构师需要实施一个解决方案来实现这些目标并最大限度地减少管理开销。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：IaC复用降低重复部署与漂移。",
@@ -12672,7 +12672,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "510": {
-    "blocker": "一家公司希望为其资料科学家创建一个 Amazon S3 储存桶来储存与工作相关的文件。该公司使用 AWS IAM Identity Center 对所有用户进行身份验证。创建了一个资料科学家小组。该公司希望资料科学家只能存取他们自己的工作成果。该公司还希望创建月度报告，显示每个用户访问了哪些文件。哪一种步骤组合可以满足这些要求？ （选两个。）",
+    "blocker": "一家公司希望为其数据科学家创建一个 Amazon S3 存储桶来存储与工作相关的文件。该公司使用 AWS IAM Identity Center 对所有用户进行身份验证。创建了一个数据科学家小组。该公司希望数据科学家只能访问他们自己的工作成果。该公司还希望创建月度报告，显示每个用户访问了哪些文件。哪一种步骤组合可以满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：permission set结合会话PrincipalTag限制前缀。",
@@ -12698,7 +12698,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "511": {
-    "blocker": "一家公司在 Amazon EC2 实例上托管资料处理应用程式。该应用程式轮询 Amazon Elastic File System (Amazon EFS) 档案系统以查找新上传的档案。当侦测到新档案时，应用程式会从档案中提取资料并运行逻辑来选择Docker容器映像来处理该档案。应用程式启动适当的容器映像并将档案位置作为参数传递。容器执行的资料处理可能需要长达 2 小时。处理完成后，容器内运行的程式码将档案写回Amazon EFS并退出。该公司需要重构应用程式以消除运行容器的EC2实例。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在 Amazon EC2 实例上托管数据处理应用程序。该应用程序轮询 Amazon Elastic File System (Amazon EFS) 文件系统以查找新上传的文件。当侦测到新文件时，应用程序会从文件中提取数据并运行逻辑来选择Docker容器映像来处理该文件。应用程序启动适当的容器映像并将文件位置作为参数传递。容器执行的数据处理可能需要长达 2 小时。处理完成后，容器内运行的代码将文件写回Amazon EFS并退出。该公司需要重构应用程序以消除运行容器的EC2实例。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：S3事件、短选择函数与长时Fargate处理对应工作边界。"
@@ -12722,7 +12722,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "512": {
-    "blocker": "一家媒体公司拥有 30-T8 的数位新闻影片储存库。这些影片储存在on-premises磁带库中的磁带上，并由媒体资产管理 (MAM) 系统引用。该公司希望以自动化的方式丰富这些影片的元数据，并使用 MAM 功能将它们放入可搜寻的目录中。公司必须能够根据影片中的资讯进行搜索，例如物体、风景或人脸。提供了一个目录，其中包含影片中出现的人员的脸孔，其中包括每个人的图像。该公司希望将这些影片迁移到AWS。该公司拥有与 AWS 的高速AWS Direct Connect 连接，并希望直接从其当前的档案系统移动 MAM 解决方案视讯内容。如何透过使用最少的持续管理开销并对现有系统造成最小的干扰来满足这些要求？",
+    "blocker": "一家媒体公司拥有 30 TB 的数位新闻影片存储库。这些影片存储在on-premises磁带库中的磁带上，并由媒体资产管理 (MAM) 系统引用。该公司希望以自动化的方式丰富这些影片的元数据，并使用 MAM 功能将它们放入可搜寻的目录中。公司必须能够根据影片中的资讯进行搜索，例如物体、风景或人脸。提供了一个目录，其中包含影片中出现的人员的脸孔，其中包括每个人的图像。该公司希望将这些影片迁移到AWS。该公司拥有与 AWS 的高速AWS Direct Connect 连接，并希望直接从其当前的文件系统移动 MAM 解决方案视讯内容。如何通过使用最少的持续管理开销并对现有系统造成最小的干扰来满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：保留文件工作流并利用S3视频分析。"
@@ -12746,7 +12746,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "513": {
-    "blocker": "公司需要优化 AWS Organizations ​​组织中包含多个帐户的 AWS 环境的成本。该公司在 3 年前进行了成本优化活动，并购买了最近过期的Amazon EC2 标准预留实例。公司还需要 EC2 实例 3 年。此外，该公司还部署了新的无伺服器工作负载。哪种策略将为公司节省最多的成本？",
+    "blocker": "公司需要优化 AWS Organizations 组织中包含多个账户的 AWS 环境的成本。该公司在 3 年前进行了成本优化活动，并购买了最近过期的Amazon EC2 标准预留实例。公司还需要 EC2 实例 3 年。此外，该公司还部署了新的无服务器工作负载。哪种策略将为公司节省最多的成本？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：稳定EC2长约加全预付Compute SP覆盖新增计算。"
@@ -12770,7 +12770,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "514": {
-    "blocker": "一家公司经营一个为全球客户提供服务的静态内容分发平台。客户使用自己的 AWS 帐户中的内容。该公司透过 Amazon S3 储存桶提供其内容。该公司使用 S3 档案闸道将内容从其 on-premises 环境上传到 S3 储存桶。该公司希望透过从距离客户最近的AWS Region 提供内容来提高平台的性能和可靠性。公司必须以最小延迟且不暴露于公共互联网的方式将on-premises资料路由到Amazon S3。哪种步骤组合能够以最少的营运开销满足这些要求？ （选两个。）",
+    "blocker": "一家公司经营一个为全球客户提供服务的静态内容分发平台。客户从各自的 AWS 账户访问这些内容。该公司通过 Amazon S3 存储桶提供其内容。该公司使用 S3 文件网关将内容从其 on-premises 环境上传到 S3 存储桶。该公司希望通过从距离客户最近的AWS Region 提供内容来提高平台的性能和可靠性。公司必须以最小延迟且不暴露于公共互联网的方式将on-premises数据路由到Amazon S3。哪种步骤组合能够以最少的运维开销满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：托管全局接入与区域路由。",
@@ -12796,7 +12796,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "515": {
-    "blocker": "某公司正在将资料中心迁移至AWS云，需要尽快完成迁移。该公司有许多应用程序在数据中心的数百个 VMware 虚拟机上运行。每个虚拟机器都配置有一个共用 Windows 资料夹，其中包含常见的共用档案。档案共享大小超过 100 GB。该公司的合规团队要求每个虚拟机器的每次软体安装和修改都需要编辑和批准变更请求。该公司在 AWS 和资料中心之间拥有 10 GB 频宽的 AWS Direct Connect 连线。公司应采取哪一组步骤才能在最短的时间内完成迁移？",
+    "blocker": "某公司正在将数据中心迁移至AWS云，需要尽快完成迁移。该公司有许多应用程序在数据中心的数百个 VMware 虚拟机上运行。每个虚拟机都配置有一个共用 Windows 数据夹，其中包含常见的共用文件。文件共享大小超过 100 GB。该公司的合规团队要求每个虚拟机的每次软件安装和修改都必须提交变更请求并获得批准。该公司在 AWS 和数据中心之间拥有 10 GB 带宽的 AWS Direct Connect 连接。公司应采取哪一组步骤才能在最短的时间内完成迁移？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：历史MGN无代理复制与FSx SMB匹配。"
@@ -12821,7 +12821,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "516": {
-    "blocker": "一家公司在 AWS Organizations ​​的组织中拥有多个 AWS 帐户。该公司需要储存 AWS 帐户活动并使用 SQL 从中央位置查询资料。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司在 AWS Organizations 的组织中拥有多个 AWS 账户。该公司需要存储 AWS 账户活动并使用 SQL 从中央位置查询数据。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：组织event data store和Lake SQL符合要求。"
@@ -12845,7 +12845,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "517": {
-    "blocker": "一家公司正在使用 AWS 来开发和管理其生产 Web 应用程式。该应用程式包括呼叫 AWS Lambda 函数的 Amazon API Gateway HTTP API。 Lambda 函数处理数据，然后将数据储存在资料库中。该公司希望以整合的方式实现Web应用程式的用户授权。该公司已经使用第三方身分提供者为公司的其他应用程式发行OAuth代币。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在使用 AWS 来开发和管理其生产 Web 应用程序。该应用程序包括调用 AWS Lambda 函数的 Amazon API Gateway HTTP API。 Lambda 函数处理数据，然后将数据存储在数据库中。该公司希望以整合的方式实现Web应用程序的用户授权。该公司已经使用第三方身份提供者为公司的其他应用程序发行OAuth 令牌。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：自定义authorizer验证令牌并返回授权结果。"
@@ -12869,7 +12869,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "518": {
-    "blocker": "一家公司已将应用程式部署到 AWS 帐户中的数千个 Amazon EC2 实例。安全审核发现多个未加密的 Amazon 弹性块储存 (Amazon EBS) 磁碟区附加到 EC2 实例。本公司的安全策略要求对EBS卷进行加密。该公司需要实施自动化解决方案来加密 EBS 卷。此解决方案还必须防止开发团队创建未加密的EBS卷。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司已将应用程序部署到 AWS 账户中的数千个 Amazon EC2 实例。安全审核发现多个未加密的 Amazon 弹性块存储 (Amazon EBS) 卷附加到 EC2 实例。本公司的安全策略要求对EBS卷进行加密。该公司需要实施自动化解决方案来加密 EBS 卷。此解决方案还必须防止开发团队创建未加密的EBS卷。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：Config修复历史资源并开启区域默认加密。"
@@ -12893,7 +12893,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "519": {
-    "blocker": "一家公司正在AWS云端中运行大型容器化工作负载。此工作负载由大约 100 个不同的服务组成。该公司使用Amazon Elastic Container Service (Amazon ECS)来协调工作负载。最近，公司开发团队开始在ECS集群中使用AWSFargate代替Amazon EC2实例。过去，工作负载已接近运行帐户中可用的最大数量的EC2实例。公司担心工作量可能会达到允许的最大ECS任务数。解决方案架构师必须实作一个解决方案，当Fargate达到最大任务数的 80% 时，该解决方案将通知开发团队。解决方案架构师应该做什么来满足这个要求？",
+    "blocker": "一家公司正在AWS云端中运行大型容器化工作负载。此工作负载由大约 100 个不同的服务组成。该公司使用Amazon Elastic Container Service (Amazon ECS)来协调工作负载。最近，公司开发团队开始在ECS集群中使用AWSFargate代替Amazon EC2实例。过去，工作负载已接近运行账户中可用的最大数量的EC2实例。公司担心工作量可能会达到允许的最大ECS任务数。解决方案架构师必须实作一个解决方案，当Fargate达到最大任务数的 80% 时，该解决方案将通知开发团队。解决方案架构师应该做什么来满足这个要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：用量/对应服务配额得到百分比并告警。"
@@ -12917,7 +12917,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "520": {
-    "blocker": "一家公司有多个用 Python 写的 AWS Lambda 函数。这些功能使用 .zip 套件部署类型进行部署。这些函数使用 Lambda 层，其中包含 .zip 档案中的公共库和套件。 Lambda .zip 套件和 Lambda 层 .zip 档案储存在 Amazon S3 储存桶中。公司必须实作 Lambda 函数和 Lambda 层的自动扫描以识别 CVE。 Lambda 函数的子集必须接收自动程式码扫描，以侦测潜在的资料外泄和其他漏洞。程式码扫描必须仅针对选定的 Lambda 函数进行，而不是针对所有 Lambda 函数。哪一种行动组合可以满足这些要求？ （选择三项。）",
+    "blocker": "一家公司有多个用 Python 写的 AWS Lambda 函数。这些功能使用 .zip 套件部署类型进行部署。这些函数使用 Lambda 层，其中包含 .zip 文件中的公共库和套件。 Lambda .zip 套件和 Lambda 层 .zip 文件存储在 Amazon S3 存储桶中。公司必须实作 Lambda 函数和 Lambda 层的自动扫描以识别 CVE。 Lambda 函数的子集必须接收自动代码扫描，以侦测潜在的数据外泄和其他漏洞。代码扫描必须仅针对选定的 Lambda 函数进行，而不是针对所有 Lambda 函数。哪一种行动组合可以满足这些要求？ （选择三项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：启用Inspector的自动漏洞扫描。",
@@ -12945,7 +12945,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "521": {
-    "blocker": "一家公司正在改变其应用程式帐户中处理 Amazon EC2 实例修补的方式。该公司目前透过在应用程式帐户中的VPC中使用NAT网关来透过互联网修补实例。该公司在核心帐户的专用私有 VPC 中将 EC2 实例设定为补丁来源储存库。该公司希望使用AWS Systems Manager补丁管理器和核心帐户中的补丁来源储存库来修补应用程式帐户中的EC2实例。公司必须阻止应用程式帐户中的所有EC2实例存取网际网路。应用程式帐户中的EC2实例需要存取储存应用程式资料的Amazon S3。这些 EC2 实例需要连接到 Systems Manager 以及核心帐户中私有 VPC 中的补丁来源储存库。哪种解决方案可以满足这些要求？",
+    "blocker": "一家公司正在改变其应用程序账户中处理 Amazon EC2 实例修补的方式。该公司目前通过在应用程序账户中的VPC中使用NAT网关来通过互联网修补实例。该公司在核心账户的专用私有 VPC 中将 EC2 实例设定为补丁来源存储库。该公司希望使用AWS Systems Manager补丁管理器和核心账户中的补丁来源存储库来修补应用程序账户中的EC2实例。公司必须阻止应用程序账户中的所有EC2实例访问互联网。应用程序账户中的EC2实例需要访问存储应用程序数据的Amazon S3。这些 EC2 实例需要连接到 Systems Manager 以及核心账户中私有 VPC 中的补丁来源存储库。哪种解决方案可以满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：端点加peering分别解决AWS API与跨VPC仓库访问。"
@@ -12969,7 +12969,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "522": {
-    "blocker": "美国 (US) 的一家公司收购了欧洲的一家公司。两家公司都使用AWS云。这家美国公司建构了一个采用微服务架构的新应用程式。这家美国公司在 us-east-2 Region 的 5 个 VPC 上托管该应用程式。应用程式必须能够存取 eu-west-1 Region 中的一个 VPC 中的资源。但是，应用程式不得存取任何其他VPC。两个 Regions 中的 VPC 没有重叠的 CIDR 范围。所有帐户均已合并到 AWS Organizations ​​的一个组织中。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "美国 (US) 的一家公司收购了欧洲的一家公司。两家公司都使用AWS云。这家美国公司建构了一个采用微服务架构的新应用程序。这家美国公司在 us-east-2 Region 的 5 个 VPC 上托管该应用程序。应用程序必须能够访问 eu-west-1 Region 中的一个 VPC 中的资源。但是，应用程序不得访问任何其他VPC。两个 Regions 中的 VPC 没有重叠的 CIDR 范围。所有账户均已合并到 AWS Organizations 的一个组织中。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：五条定向peering覆盖需求且无传递路由。"
@@ -12993,7 +12993,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "523": {
-    "blocker": "一家旅游公司建立了一个 Web 应用程序，该应用程式使用 Amazon 简单电子邮件服务 (Amazon SES) 向用户发送电子邮件通知。该公司需要启用日志记录以协助解决电子邮件传送问题。该公司还需要能够根据收件人、主题和发送时间进行搜寻。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
+    "blocker": "一家旅游公司建立了一个 Web 应用程序，该应用程序使用 Amazon 简单电子邮件服务 (Amazon SES) 向用户发送电子邮件通知。该公司需要启用日志记录以协助解决电子邮件传送问题。该公司还需要能够根据收件人、主题和发送时间进行搜寻。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：SES事件发布到Firehose/S3提供邮件投递日志。",
@@ -13019,7 +13019,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "524": {
-    "blocker": "一家公司迁移到 AWS 并使用 AWS 业务支援。该公司希望跨 AWS 帐户监控 Amazon EC2 实例的成本效益。 EC2 实例具有部门、业务单位和环境的标签。开发EC2实例成本高但利用率低。公司需要侦测并停止任何未充分利用的开发EC2实例。如果执行个体在过去 14 天内至少有 4 天内平均每日 CPU 利用率为 10% 或更低且网路 I/O 为 5 MB 或更低，则执行个体未充分利用。哪种解决方案能够以最少的营运开销满足这些要求？",
+    "blocker": "一家公司迁移到 AWS 并使用 AWS 业务支持。该公司希望跨 AWS 账户监控 Amazon EC2 实例的成本效益。 EC2 实例具有部门、业务单位和环境的标签。开发EC2实例成本高但利用率低。公司需要侦测并停止任何未充分利用的开发EC2实例。如果实例在过去 14 天内至少有 4 天内平均每日 CPU 利用率为 10% 或更低且网络 I/O 为 5 MB 或更低，则实例未充分利用。哪种解决方案能够以最少的运维开销满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "C：复用Trusted Advisor既有检查与事件通知。"
@@ -13043,7 +13043,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "525": {
-    "blocker": "一家公司正在 AWS 上托管一个将在未来 3 年运行的专案的申请。该应用程式由 20 个 Amazon EC2 按需实例组成，这些实例在 Network Load Balancer (NLB) 的目标群组中注册。这些实例分布在两个Availability Zones上。该应用程式是无状态的，每周 7 天、每天 24 小时运行。该公司收到用户的报告，称应用程式响应缓慢。效能指标显示，在正常应用程式使用期间，执行个体的 CPU 使用率为 10%。然而，CPU 使用率在繁忙时会增加到 100%，通常会持续几个小时。公司需要一种新的架构来解决应用程式响应缓慢的问题。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司正在 AWS 上托管一个应用程序，用于未来 3 年持续运行的项目。该应用程序由 20 个 Amazon EC2 按需实例组成，这些实例在 Network Load Balancer (NLB) 的目标群组中注册。这些实例分布在两个Availability Zones上。该应用程序是无状态的，每周 7 天、每天 24 小时运行。该公司收到用户的报告，称应用程序响应缓慢。性能指标显示，在正常应用程序使用期间，实例的 CPU 使用率为 10%。然而，CPU 使用率在繁忙时会增加到 100%，通常会持续几个小时。公司需要一种新的架构来解决应用程序响应缓慢的问题。哪一种解决方案能够最具成本效益地满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "D：较小稳定基线加动态容量匹配峰谷。"
@@ -13067,7 +13067,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "526": {
-    "blocker": "Accompany 正在建立一个应用程式来收集和传输来自工厂的感测器资料。该应用程式将使用AWS IoT Core 将资料从数百个装置发送到Amazon S3 资料湖。公司必须在将资料载入到Amazon S3之前丰富资料。应用程式将每 5 秒传输一次感测器资料。新的感测器资料必须在应用程式收集资料后 30 分钟内Amazon S3 可用。没有其他应用程式正在处理来自 AWS IoT Core 的感测器资料。哪一种解决方案能够最具成本效益地满足这些要求？",
+    "blocker": "一家公司正在构建一个应用程序，用于收集并传输工厂的传感器数据。应用程序将使用 AWS IoT Core，把数百个设备的数据发送到一个 Amazon S3 数据湖。公司必须在将数据加载到 Amazon S3 之前对其进行丰富处理。应用程序每 5 秒传输一次传感器数据。从应用程序收集到新数据开始，必须在少于 30 分钟的时间内让数据在 Amazon S3 中可用。没有其他应用程序处理来自 AWS IoT Core 的这些传感器数据。哪种方案能够以最经济的方式满足这些要求？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：Basic Ingest加缓冲交付减少无必要消息与小对象开销。"
@@ -13091,7 +13091,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "corrected"
   },
   "527": {
-    "blocker": "一家公司正在从大量物联网设备收集数据。资料储存在Amazon S3资料湖中。资料科学家对在单独的 AWS 帐户中的 VPC 的两个公共子网中运行的 Amazon EC2 实例进行分析。资料科学家需要从 EC2 实例存取资料湖。 EC2 实例已指派有权存取 Amazon S3 的角色。根据公司政策，只有授权网路才允许存取物联网资料。解决方案架构师应该采取哪些步骤组合来满足这些要求？ （选两个。）",
+    "blocker": "一家公司从大量 IoT 设备收集数据，并将数据存储在一个 Amazon S3 数据湖中。数据科学家在 Amazon EC2 实例上分析这些数据。这些实例位于另一个 AWS 账户中某个 VPC 的两个公有子网内。数据科学家需要从 EC2 实例访问该数据湖，实例已被分配一个具有 Amazon S3 访问权限的角色。公司规定，只有获得授权的网络才能访问这些 IoT 数据。解决方案架构师应采取哪组步骤来满足这些要求？（选择两项。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "B：必须将access point的network origin显式设为指定VPC。",
@@ -13117,7 +13117,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "ambiguous"
   },
   "528": {
-    "blocker": "一家公司想要将其网站迁移到AWS。该网站使用部署在 on-premises、自我管理的 Kubernetes 集群中的容器。网站的所有资料都储存在 on-premises PostgreSQL 资料库中。公司决定将on-premisesKubernetes集群迁移至Amazon Elastic Kubernetes Service (Amazon EKS)集群。 EKS 集群将使用具有静态节点数的 EKS 受管节点组。该公司也将把on-premises资料库迁移到PostgreSQL资料库的Amazon RDS。解决方案架构师需要在迁移之前估算此工作负载的总拥有成本 (TCO)。哪种解决方案将提供所需的 TCO 资讯？",
+    "blocker": "一家公司想要将其网站迁移到AWS。该网站使用部署在 on-premises、自我管理的 Kubernetes 集群中的容器。网站的所有数据都存储在 on-premises PostgreSQL 数据库中。公司决定将on-premisesKubernetes集群迁移至Amazon Elastic Kubernetes Service (Amazon EKS)集群。 EKS 集群将使用具有静态节点数的 EKS 受管节点组。该公司也将把on-premises数据库迁移到 Amazon RDS for PostgreSQL 数据库。解决方案架构师需要在迁移之前估算此工作负载的总拥有成本 (TCO)。哪种解决方案将提供所需的 TCO 资讯？",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：评估工具与成本场景报告对应TCO。"
@@ -13141,7 +13141,7 @@ const QUESTION_EXPLANATIONS = {
     "audit_status": "confirmed"
   },
   "529": {
-    "blocker": "一家活动公司在AWS上经营一个票务平台。该公司的客户在该平台上配置和安排他们的活动。这些事件导致平台流量大幅增加。本公司知道每个客户活动的日期和时间。该公司在Amazon Elastic Container Service (Amazon ECS)集群上运行该平台。 ECS 群集由 Auto Scaling 群组中的 Amazon EC2 按需实例组成。 Auto Scaling 组使用预测扩展策略。 ECS集群经常向Amazon S3储存桶发出请求以下载票证资产。 ECS集群和S3桶位于同一个AWSRegion和同一个AWS帐户中。 ECS集群和S3储存桶之间的流量经由NAT网关流动。公司需要在不降低平台可用性的情况下优化平台成本。哪一种步骤组合可以满足这些要求？ （选两个。）",
+    "blocker": "一家活动公司在AWS上经营一个票务平台。该公司的客户在该平台上配置和安排他们的活动。这些事件导致平台流量大幅增加。本公司知道每个客户活动的日期和时间。该公司在Amazon Elastic Container Service (Amazon ECS)集群上运行该平台。 ECS 群集由 Auto Scaling 群组中的 Amazon EC2 按需实例组成。 Auto Scaling 组使用预测扩展策略。 ECS集群经常向Amazon S3存储桶发出请求以下载票证资产。 ECS集群和S3桶位于同一个AWSRegion和同一个AWS账户中。 ECS集群和S3存储桶之间的流量经由NAT网关流动。公司需要在不降低平台可用性的情况下优化平台成本。哪一种步骤组合可以满足这些要求？ （选两个。）",
     "requirements": "按英文原题的完整条件比较所有选项；以下结论是根据所列 AWS 资料作出的学习用判断。",
     "steps": [
       "A：S3 gateway endpoint无额外小时/数据处理费。",

@@ -191,7 +191,7 @@ body {
 }
 </style>
 <link rel="stylesheet" href="../twenty_review.css?v=simplified1">
-<link rel="stylesheet" href="../learning_review.css?v=audit1"><link rel="manifest" href="../manifest.webmanifest">
+<link rel="stylesheet" href="../learning_review.css?v=translation1"><link rel="manifest" href="../manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="../icons/icon-192.png">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
 <meta name="theme-color" content="#1d6a52">
@@ -251,12 +251,12 @@ body {
   </div>
 </div>
 <script src="../vendor/mermaid.min.js?v=learning1"></script>
-<script src="../sap_questions.js?v=audit1"></script>
-<script src="../sap_explanations.js?v=audit1"></script>
+<script src="../sap_questions.js?v=translation1"></script>
+<script src="../sap_explanations.js?v=translation1"></script>
 <script src="../sap_glossary.js?v=learning1"></script>
-<script src="../learning_review.js?v=audit1"></script>
+<script src="../learning_review.js?v=translation1"></script>
 <script src="../quick_memory.js?v=simplified1"></script>
-<script src="../quick_answer_cards.js?v=audit1"></script>
+<script src="../quick_answer_cards.js?v=translation1"></script>
 <script src="../flash_cards.js?v=simplified1"></script><script src="../twenty_review.js?v=audit1"></script>
 <script src="../explanation_shared.js?v=audit1"></script>
 <script>
@@ -376,11 +376,11 @@ function loadQuestion() {
 
   for (const opt of q.options) {
     html += `
-      <label class="option" data-letter="${opt.letter}" onclick="selectOption(this, '${opt.letter}', ${q.is_multi})">
+      <div class="option-pair"><label class="option" data-letter="${opt.letter}" onclick="selectOption(this, '${opt.letter}', ${q.is_multi})">
         <input type="${inputType}" name="q${q.id}" value="${opt.letter}">
         <span class="option-label">${opt.letter}.</span>
         <span class="option-text">${(optionsTranslated && opt.text_zh ? escapeHtml(opt.text_zh) : escapeHtml(opt.text))}</span>
-      </label>
+      </label>${renderOriginalOption(opt)}</div>
     `;
   }
 

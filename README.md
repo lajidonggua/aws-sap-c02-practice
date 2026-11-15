@@ -23,6 +23,7 @@ AWS Certified Solutions Architect – Professional（SAP-C02）中文刷题与�
 - 最近10次作答正确率随每次提交更新，重做同题计入次数，不足10次按实际样本计算。旧答案没有顺序记录，不虚构历史正确率；旧已做数量保持不变。
 - 主刷题进度包含顺序、随机及章节等主页面作答；旧版题库、多选专练和模拟考的记录单独管理。
 - 独立作答时默认隐藏提示；可主动展开，也保留闪记和速查模式。
+- 全部 529 道题的中文题干及 2273 个选项已逐题对照英文校验。每个选项均可单独展开英文原文，答题前即可核对，查看不会选中或提交答案；原文缺失处保留明确说明。详见[翻译校验记录](docs/translation-review/README.md)。
 - 关键词支持检索中英文题干、全部选项和速记内容，精确题号优先。
 - 每题小白解析：题目条件、知识点、相关名词解释、生活类比、校对判断流程、逐选项理由、AWS资料链接和参考回想答案。
 - 多选题专项练习、计时模拟考、争议题提示和术语表。
@@ -85,6 +86,8 @@ python3 -m http.server 8000
 ```sh
 node build_quick_cards.cjs
 node test_quick_cards.cjs
+node test_translation_review.cjs
+node test_english_options.cjs
 node test_quick_search.cjs
 node test_learning_review.cjs
 node test_study_guide.cjs

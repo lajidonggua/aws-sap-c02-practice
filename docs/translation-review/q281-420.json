@@ -1,0 +1,1139 @@
+[
+  {
+    "id": 281,
+    "reviewed": true,
+    "options": {
+      "A": "将数据存储在 Amazon S3 中。使用 Amazon Redshift Spectrum 查询数据。"
+    },
+    "notes": "核对ORC/HDFS、常驻EMR、查询不足15分钟且仅17–22时；A的Spectrum不应直译为频谱。"
+  },
+  {
+    "id": 282,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对现有与未来资源、cost center/project ID、24小时及SCP拒绝条件，未发现含义偏差。"
+  },
+  {
+    "id": 283,
+    "reviewed": true,
+    "options": {
+      "E": "在 AWS 云中建立一个网络账户，并在其中创建一个私有 VPC。将托管 S3 存储桶的各账户中的 VPC，与网络账户中的 VPC 建立 VPC 对等连接。"
+    },
+    "notes": "原中文把internet译成泛指网络，可能误读成不允许任何网络；E句法损坏。",
+    "question_zh": "一家公司希望将本地系统中的数据发送到 Amazon S3 存储桶。公司在三个不同账户中创建了 S3 存储桶。数据必须通过私有连接传输，不能经过公共互联网。公司目前没有与 AWS 建立专用连接。解决方案架构师应采取哪两个步骤来满足这些要求？（选择两项。）"
+  },
+  {
+    "id": 284,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对每日4小时峰值、100000 RCU/80000 WCU、预置吞吐与最省成本/运维目标；语义正确。"
+  },
+  {
+    "id": 285,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对三个GET路径、当前不用API key、每10秒轮询与AppSync/WebSockets的差别，语义正确。"
+  },
+  {
+    "id": 286,
+    "reviewed": true,
+    "options": {
+      "C": "使用 AWS CloudFormation StackSets，在每个 AWS 账户中创建一个新的 IAM 策略。只有当 s3:AccessPointNetworkOrigin 条件键的值为 VPC 时，该策略才允许执行 s3:CreateAccessPoint 操作。"
+    },
+    "notes": "题干VPC秒为乱码，C把s3 API错成13。",
+    "question_zh": "一家公司通过 AWS Organizations 中的一个组织集中管理数百个 AWS 账户。公司最近开始允许产品团队在各自账户中创建和管理 S3 接入点。这些 S3 接入点必须只能从 VPC 内访问，不能从公共互联网访问。以最少运维工作强制实施这一要求的方法是什么？"
+  },
+  {
+    "id": 287,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对blue/green、新建同配置环境后Swap Environment URLs；各选项语义正确。"
+  },
+  {
+    "id": 288,
+    "reviewed": true,
+    "options": {
+      "A": "将上传的图片存储在 Amazon Elastic File System（Amazon EFS）中。将每张图片的应用日志信息发送到 Amazon CloudWatch Logs。创建一组 Amazon EC2 实例，通过 CloudWatch Logs 判断哪些图片需要处理。将处理后的图片放入 Amazon EFS 的另一个目录。启用 Amazon CloudFront，并将该实例组中的一个 EC2 实例配置为源站。"
+    },
+    "notes": "A末尾残留OCR eet，改为实例组；题干英文The will缺主语，不自行补具体执行者。"
+  },
+  {
+    "id": 289,
+    "reviewed": true,
+    "options": {
+      "A": "为 RDS for MySQL 数据库实例创建一个 Amazon Aurora MySQL 副本。暂停应用对 RDS 数据库实例的写入，将 Aurora 副本提升为独立数据库集群。重新配置应用以使用 Aurora 数据库，然后恢复写入。将 eu-west-1 添加为该数据库集群的辅助区域，并启用写入转发。在 eu-west-1 部署应用，并将其配置为使用 eu-west-1 中的 Aurora MySQL 端点。",
+      "B": "为 RDS for MySQL 数据库实例在 eu-west-1 创建一个跨区域副本。配置该副本，将写入查询复制回主数据库实例。在 eu-west-1 部署应用，并将其配置为使用 eu-west-1 中的 RDS for MySQL 端点。",
+      "C": "将 RDS for MySQL 数据库实例的最新快照复制到 eu-west-1，并从该快照在 eu-west-1 创建一个新的 RDS for MySQL 数据库实例。配置从 us-east-1 到 eu-west-1 的 MySQL 逻辑复制。在数据库集群上启用写入转发。在 eu-west-1 部署应用，并将其配置为使用 eu-west-1 中的 RDS for MySQL 端点。",
+      "D": "将 RDS for MySQL 数据库实例转换为 Amazon Aurora MySQL 数据库集群。将 eu-west-1 添加为该集群的辅助区域，并启用写入转发。在 eu-west-1 部署应用，并将其配置为使用 eu-west-1 中的 Aurora MySQL 端点。"
+    },
+    "notes": "RDS for MySQL产品名称在中文中多次错位；C的eu-wes&1是原英文OCR错误，按同段明确区域eu-west-1恢复中文，保留英文。",
+    "question_zh": "一家公司在 us-east-1 区域的 Amazon RDS for MySQL 数据库实例上部署了数据库。公司需要向欧洲客户提供这些数据。欧洲客户必须能够访问与美国客户相同的数据，且不能接受较高的应用延迟或过时数据。欧洲和美国的客户都需要向数据库写入数据，并实时看到另一方的更新。哪种解决方案能满足这些要求？"
+  },
+  {
+    "id": 290,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对不得改变客户连接方式、现有EIP与SSH验证、安全组、public和VPC-hosted internet-facing差别。C最后写S3是英文原选项本身的不一致，保留不修成EFS。"
+  },
+  {
+    "id": 291,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对固定摄取速率、每晚4小时、允许下轮重试、1/3年RI与最高Spot价格50%；语义准确。"
+  },
+  {
+    "id": 292,
+    "reviewed": true,
+    "options": {},
+    "notes": "题干VPC被占位符替换，恢复VPC；保留固定公网IP、NFS共享和最少运维限定。",
+    "question_zh": "一家公司需要将本地 SFTP 站点迁移到 AWS。该站点当前运行在一台 Linux 虚拟机上，上传的文件通过 NFS 共享供下游应用访问。迁移到 AWS 时，解决方案架构师必须实现高可用性。方案必须提供一组固定公网 IP 地址，供外部供应商加入允许列表。公司已在本地数据中心与其 VPC 之间建立 AWS Direct Connect 连接。哪种方案能够以最少运维工作满足这些要求？"
+  },
+  {
+    "id": 293,
+    "reviewed": true,
+    "options": {},
+    "notes": "题干丢失AZ2的CIDR并有占位符，恢复完整地址与ASG目标子网关系。",
+    "question_zh": "解决方案架构师将一个正在运行的工作负载部署在 Auto Scaling 组中的 Amazon EC2 实例上。VPC 跨两个可用区（AZ），每个可用区中都有一个供该 Auto Scaling 组使用的子网。VPC 已连接到本地环境，且连接不能中断。Auto Scaling 组最多有 20 个正在提供服务的实例。IPv4 地址规划如下：VPC CIDR 为 10.0.0.0/23；AZ1 子网 CIDR 为 10.0.0.0/24；AZ2 子网 CIDR 为 10.0.1.0/24。部署后，该区域新增了第三个可用区。架构师希望在不增加 IPv4 地址空间、不中断服务的情况下使用新可用区。哪种方案能满足这些要求？"
+  },
+  {
+    "id": 294,
+    "reviewed": true,
+    "options": {
+      "D": "使用 AWS Service Catalog 将 CloudFormation 堆栈作为产品管理。使用 TagOptions 库控制项目标签值，并将该产品组合共享给组织中的所有 OU。"
+    },
+    "notes": "chargeback不是退款，project values不是项目价值；Service Catalog portfolio改为产品组合。",
+    "question_zh": "一家公司使用 AWS Organizations 中的一个组织管理其 AWS 账户，并使用 AWS CloudFormation 部署全部基础设施。财务团队希望建立内部费用分摊模型，要求各业务部门使用预定义的项目标签值列表为资源添加标签。团队使用 AWS Cost Explorer 中的 AWS Cost and Usage Report，并按项目筛选时，发现了一些不符合规定的项目标签值。公司希望强制新资源使用项目标签。哪种方案能够以最少工作量满足这些要求？"
+  },
+  {
+    "id": 295,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对永久降本和提高利用率、未来最少配置变更、CPU与内存需求以及模板新版本，含义正确。"
+  },
+  {
+    "id": 296,
+    "reviewed": true,
+    "options": {
+      "B": "使用 AWS Database Migration Service（AWS DMS）、Amazon EventBridge 和 AWS Lambda，将 Aurora 数据库复制到辅助 AWS 区域。使用 DynamoDB Streams、EventBridge 和 Lambda，将 DynamoDB 数据库复制到该辅助区域。在主区域和辅助区域中分别配置使用区域端点的 API Gateway API。实施 Amazon Route 53 故障转移路由，将流量从主区域切换到辅助区域。"
+    },
+    "notes": "B的辅助区域两处被占位符截断，完整恢复复制链路。"
+  },
+  {
+    "id": 297,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对参数排序、混合大小写/小写、viewer request触发器、禁止缓存与大小写不敏感各选项，未发现语义偏差。"
+  },
+  {
+    "id": 298,
+    "reviewed": true,
+    "options": {},
+    "notes": "ve-node是英文five-node的OCR损坏；中文恢复5节点，保留1小时RPO与最低成本。",
+    "question_zh": "一家公司在单个 AWS 区域运行电子商务应用。应用使用一个包含 5 个节点的 Amazon Aurora MySQL 数据库集群，存储客户及其近期订单信息。集群全天有大量写入事务。公司需要将 Aurora 数据库的数据复制到另一个区域，以满足灾难恢复要求。公司的 RPO 为 1 小时。哪种方案能够以最低成本满足这些要求？"
+  },
+  {
+    "id": 299,
+    "reviewed": true,
+    "options": {
+      "D": "创建一个配置了 AWS Systems Manager Agent（SSM Agent）的新 AMI，并用它为 Auto Scaling 组创建启动模板。在组中使用较小的实例。创建 Application Load Balancer，将流量分发到组中的实例，并配置 Auto Scaling 组按 CPU 利用率伸缩。将数据库迁移到 Amazon Aurora MySQL。"
+    },
+    "notes": "D把英文now AMI（上下文new AMI）直译成现在创建，恢复新AMI；末尾development me为原英文OCR缺字。"
+  },
+  {
+    "id": 300,
+    "reviewed": true,
+    "options": {
+      "D": "使用 AWS Migration Hub，选择托管该应用的服务器。使用 AWS Application Discovery Agent 将 Amazon CloudWatch Agent 推送到已识别的服务器。将代理收集的 CloudWatch 日志导出到 Amazon S3，再用 Amazon Athena 查询日志，找出通过端口 1000 通信的服务器。返回 Migration Hub，根据 Athena 查询结果创建迁移组。"
+    },
+    "notes": "application estate应为应用资产而不是应用领域；CloudWalch为英文CloudWatch笔误，中文恢复产品名。",
+    "question_zh": "一家公司计划将多个应用迁移到 AWS，但尚未充分了解全部应用资产。其环境同时包含物理机和虚拟机。其中一个待迁移应用具有许多对延迟敏感的依赖项，公司还没有掌握全部依赖关系。不过，公司知道这些低延迟通信使用一个基于 IP 的自定义协议，端口为 1000。公司希望将该应用及其依赖项一起迁移，使全部低延迟接口同时迁至 AWS。公司已经安装 AWS Application Discovery Agent，并收集了数月数据。应如何确定哪些依赖项必须与该应用在同一阶段迁移？"
+  },
+  {
+    "id": 301,
+    "reviewed": true,
+    "options": {
+      "D": "在 VPC 中创建 Application Load Balancer（ALB），将 Lambda 函数配置为其目标。为 ALB 配置 AWS WAF Web ACL，并为每个客户配置包含适当请求配额的基于速率的规则。"
+    },
+    "notes": "D把rate-based错译成基于规则，恢复基于速率的规则。"
+  },
+  {
+    "id": 302,
+    "reviewed": true,
+    "options": {
+      "C": "在 AWS 上将这些虚拟机重新创建为 Amazon EC2 实例，并安装全部必需软件包。创建一个 Amazon FSx for Lustre 文件系统，配置 AWS DataSync 经 Direct Connect 连接，将 NFS 服务器中的数据复制到该文件系统。"
+    },
+    "notes": "核对120台VM、10TB NFS、10Gbps专线与最短迁移时间；C的FSx产品名语序损坏。"
+  },
+  {
+    "id": 303,
+    "reviewed": true,
+    "options": {
+      "A": "创建一个专用于数据处理微服务的对称 AWS Key Management Service（AWS KMS）密钥。创建字段级加密配置文件和配置，并将 KMS 密钥及该配置关联到 CloudFront 缓存行为。",
+      "B": "创建一个专用于数据处理微服务的 RSA 密钥对，将公钥上传到 CloudFront 分发。创建字段级加密配置文件和配置，并将该配置添加到 CloudFront 缓存行为。"
+    },
+    "notes": "field-level encryption在A/B被错译为高级/现场级加密，统一恢复字段级加密；D原文私钥加密虽为错误选项仍忠实保留。"
+  },
+  {
+    "id": 304,
+    "reviewed": true,
+    "options": {
+      "C": "禁用 VPC 的 enableDnsSupport 属性，启用 VPC 的 enableDnsHostnames 属性。创建新的 VPC DHCP 选项集，配置 domain-name-servers=10.24.34.2，并将该选项集关联到 VPC。",
+      "D": "创建私有托管区域并将其关联到 VPC。启用 VPC 的 enableDnsSupport 属性，禁用 enableDnsHostnames 属性。更新 VPC DHCP 选项集，使其包含 domain-name-servers=AmazonProvidedDNS。"
+    },
+    "notes": "C的VPC句子因英文OCR拼接而损坏，D把DHCP属性名翻成中文不宜；保留C禁用DNS support与D禁用hostnames的错误选项原义。"
+  },
+  {
+    "id": 305,
+    "reviewed": true,
+    "options": {
+      "B": "部署一个 AWS Lambda 函数。当 Amazon CloudWatch 中的 Redshift 集群 CPU 指标达到 80% 时，调用该函数，通过经典调整大小（classic resize）操作增加 Redshift 集群容量。",
+      "C": "部署一个 AWS Lambda 函数。当 Amazon CloudWatch 中的 Redshift 集群 CPU 指标达到 80% 时，调用该函数，通过弹性调整大小（elastic resize）操作增加 Redshift 集群容量。"
+    },
+    "notes": "B/C明确CPU指标属于Redshift集群、在CloudWatch中观察，避免中文误归为CloudWatch集群。"
+  },
+  {
+    "id": 306,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对1PB、100名科学家、单一IAM组、个人前缀与对象级事件。A的$(aws:username)是英文原选项自身的变量语法问题，不能用翻译偷偷改正原选项。"
+  },
+  {
+    "id": 307,
+    "reviewed": true,
+    "options": {
+      "A": "在 Amazon ECR 中创建私有存储库，并创建仅允许所需 ECR 操作的存储库权限策略。添加条件：仅当 aws:PrincipalOrgID 等于公司组织 ID 时，才允许这些 ECR 操作。为存储库添加生命周期规则，只保留最近的 5 个无标签镜像，删除超出数量的其他无标签镜像。",
+      "B": "在 Amazon ECR 中创建公共存储库。在该 ECR 账户中创建 IAM 角色，设置权限：当 aws:PrincipalOrgID 等于公司组织 ID 时，任何账户都可以代入该角色。为存储库添加生命周期规则，只保留最近的 5 个无标签镜像，删除超出数量的其他无标签镜像。",
+      "C": "在 Amazon ECR 中创建私有存储库，并创建仅包含所需 ECR 操作的存储库权限策略。添加条件，允许组织中的全部账户 ID 执行这些操作。配置每天运行的 Amazon EventBridge 规则，调用 AWS Lambda 函数，只保留最近的 5 个无标签镜像，删除超出数量的其他无标签镜像。",
+      "D": "在 Amazon ECR 中创建公共存储库。配置一个接口 VPC 端点及端点策略，授予拉取公司所需镜像的权限。添加条件，允许公司组织中的全部账户 ID 执行 ECR 操作。配置每天运行的 Amazon EventBridge 规则，调用 AWS Lambda 函数，只保留最近的 5 个无标签镜像，删除超出数量的其他无标签镜像。"
+    },
+    "notes": "四选项中ve应为5，条件键PrincipalOrglD为原文OCR把I/l混淆，中文恢复规范aws:PrincipalOrgID。"
+  },
+  {
+    "id": 308,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对原每天快照保留7天、新每6小时保留30天、跨账户管理及统一状态视图；各选项含义准确。"
+  },
+  {
+    "id": 309,
+    "reviewed": true,
+    "options": {
+      "A": "配置适用于账户 A 的 SCP，使其允许该操作。"
+    },
+    "notes": "A句法将SCP配置为账户有误，应配置适用于A的SCP。其余账户A/B、身份策略与信任策略方向均忠实。"
+  },
+  {
+    "id": 310,
+    "reviewed": true,
+    "options": {
+      "B": "部署一个与 S3 存储桶关联的 AWS Storage Gateway 卷网关（Volume Gateway）。将文件从本地文件存储方案迁移到卷网关。创建 S3 生命周期规则，在 5 天后将文件转移到 S3 Glacier Deep Archive。"
+    },
+    "notes": "核对NFS、5天后归档、允许数天取回及三种Gateway类型；B重复破损网关名恢复Volume Gateway。"
+  },
+  {
+    "id": 311,
+    "reviewed": true,
+    "options": {},
+    "notes": "MemoryDB for Redis是产品名，不是MemoryDB用于支援一个独立Redis集群。",
+    "question_zh": "一家公司在 Amazon EC2 实例和 AWS Lambda 函数上运行应用。EC2 实例承受持续且稳定的负载，Lambda 函数的负载则变化较大且不可预测。应用还包含一个使用 Amazon MemoryDB for Redis 集群的缓存层。解决方案架构师需要推荐一种方案，尽量降低公司的每月总体成本。哪种方案能满足这些要求？"
+  },
+  {
+    "id": 312,
+    "reviewed": true,
+    "options": {
+      "A": "创建 EC2 Spot Fleet，并在每个区域将其关联到 Network Load Balancer（NLB）。创建指向 NLB 的 AWS Global Accelerator IP 地址，并为该地址创建 Amazon Route 53 基于延迟的路由记录。在每个区域的 Amazon RDS for MySQL 数据库实例中保存游戏元数据，并在其他区域设置只读副本。"
+    },
+    "notes": "A的Spot Fleet被误直译为现货舰队，RDS for MySQL产品名错位；其余全球可用/跨区读写与自动低延迟路由条件一致。"
+  },
+  {
+    "id": 313,
+    "reviewed": true,
+    "options": {
+      "C": "在共享服务 VPC 中创建一个新的 Gateway Load Balancer。创建一个新的目标组，将其关联到该 Gateway Load Balancer，并将各防火墙设备实例添加到目标组中。"
+    },
+    "notes": "C因源英文标点缺失导致中文VPC位置错乱，恢复共享服务VPC中创建GWLB和目标组的顺序。"
+  },
+  {
+    "id": 314,
+    "reviewed": true,
+    "options": {
+      "A": "创建一个弹性网络接口（ENI）池。针对池中的 ENI 向软件供应商申请许可证文件，并将这些文件存储在 Amazon S3 中。创建启动自动化脚本，下载许可证文件，并将对应的 ENI 附加到 Amazon EC2 实例。",
+      "B": "创建一个弹性网络接口（ENI）池。针对池中的 ENI 向软件供应商申请许可证文件，并将这些文件存储在一个 Amazon EC2 实例上。从该实例创建 AMI，并将此 AMI 用于今后所有 EC2 实例。",
+      "E": "修改一个 Amazon EC2 实例，在其配置文件中写入数据库服务器的 IP 地址，再重新创建 AMI，供今后所有 EC2 实例使用。"
+    },
+    "notes": "A/B的for the pool误成池供应商；E的instances英文OCR为stances被翻成立场。"
+  },
+  {
+    "id": 315,
+    "reviewed": true,
+    "options": {
+      "A": "使用 AWS Database Migration Service（AWS DMS）的全量加载任务，将原区域的主数据库复制到新区域的数据库。将 Route 53 记录改为基于延迟的路由，以连接到 API Gateway API。",
+      "B": "使用 AWS Database Migration Service（AWS DMS）的全量加载加变更数据捕获（CDC）任务，将原区域的主数据库复制到新区域的数据库。将 Route 53 记录改为地理位置路由，以连接到 API Gateway API。"
+    },
+    "notes": "题干RDS for MySQL名称错位；A/B的full load不是全负载，而是数据库全量迁移。",
+    "question_zh": "一家公司在美国的一个 AWS 区域运行销售报表应用。应用通过 Amazon API Gateway 区域 API 和 AWS Lambda 函数，按需从 Amazon RDS for MySQL 数据库中的数据生成报表。前端托管在 Amazon S3 上，用户通过 Amazon CloudFront 分发访问。公司使用 Amazon Route 53 提供域名解析，并配置简单路由，将流量发送到 API Gateway API。公司计划在未来 6 个月内拓展欧洲业务。超过 90% 的数据库流量为只读流量。公司已在新区域部署 API Gateway API 和 Lambda 函数。架构师必须设计方案，尽量降低用户下载报表时的延迟。哪种方案能满足这些要求？"
+  },
+  {
+    "id": 316,
+    "reviewed": true,
+    "options": {
+      "C": "在 AWS Organizations 中创建用于测试的新 OU。创建 AWS CloudFormation 模板，包含 VPC、必需的网络资源、Transit Gateway 连接及相关路由配置。使用该模板创建 CloudFormation StackSet，部署到测试 OU 下的各账户。为每个测试环境创建一个新账户。"
+    },
+    "notes": "C的CioudFormation是源英文产品名OCR错误，中文恢复CloudFormation。"
+  },
+  {
+    "id": 317,
+    "reviewed": true,
+    "options": {
+      "C": "将现有的 Secrets Manager 机密复制到其他区域。为每个目标区域中的机密副本，选择合适的 KMS 密钥。",
+      "E": "在每个目标区域中创建一个新的 Secrets Manager 机密。将现有区域中的机密值复制到各目标区域的新机密中。"
+    },
+    "notes": "C/E混淆Secrets Manager机密值与KMS密钥，按英文secret/key分别恢复。"
+  },
+  {
+    "id": 318,
+    "reviewed": true,
+    "options": {
+      "B": "将数据库迁移到 Amazon Aurora MySQL。将应用部署在 Application Load Balancer 后的 Amazon EC2 Auto Scaling 组中。将会话存储在 Amazon ElastiCache for Redis 复制组中。",
+      "C": "将数据库迁移到 Amazon DocumentDB（兼容 MongoDB）。将应用部署在 Network Load Balancer 后的 Amazon EC2 Auto Scaling 组中。将会话存储在 Amazon Kinesis Data Firehose 中。",
+      "D": "将数据库迁移到 Amazon RDS for MariaDB 多可用区数据库实例。将应用部署在 Application Load Balancer 后的 Amazon EC2 Auto Scaling 组中。将会话存储在 Amazon ElastiCache for Memcached 中。"
+    },
+    "notes": "C的负载均衡与会话存储句子粘连；B/D恢复完整ElastiCache产品名。"
+  },
+  {
+    "id": 319,
+    "reviewed": true,
+    "options": {
+      "B": "通过 AWS Directory Service 的 AD Connector，将 AWS IAM Identity Center（AWS Single Sign-On）与本地 Active Directory 集成。针对用户组配置访问 AWS Systems Manager 的权限集。使用 Systems Manager Fleet Manager，通过 RDP 访问目标实例。",
+      "C": "在本地环境与目标 VPC 之间建立 VPN。确保目标实例通过该 VPN 连接加入本地 Active Directory 域。配置经 VPN 的 RDP 访问，让用户从公司网络连接到目标实例。"
+    },
+    "notes": "B存在整段占位符乱码，C的VPC被截为VP；题干internet恢复公共互联网。",
+    "question_zh": "一家公司的解决方案架构师需要让用户安全地通过远程桌面连接到 VPC 中的 Amazon EC2 Windows 实例。方案必须与公司的本地 Active Directory 集成，集中管理用户。连接 VPC 的路径经过公共互联网。公司已有可用于建立 AWS Site-to-Site VPN 连接的硬件。哪种方案能够以最低成本满足这些要求？"
+  },
+  {
+    "id": 320,
+    "reviewed": true,
+    "options": {},
+    "notes": "at rest误成静态磁盘卷名错位；恢复对所有新EBS卷实施静态加密的要求。",
+    "question_zh": "一家公司的合规审计发现，某个 AWS 账户中创建的部分 Amazon Elastic Block Store（Amazon EBS）卷未加密。解决方案架构师必须实施一个方案，对今后所有新建 EBS 卷进行静态加密。哪种方案能以最少工作量满足这一要求？"
+  },
+  {
+    "id": 321,
+    "reviewed": true,
+    "options": {},
+    "notes": "all connections logged in CloudTrail被译为在CloudTrail登入，应为记录；不复用SSH key的要求保留。",
+    "question_zh": "一家研究公司在 AWS 云中每天运行模拟，以满足较高需求。模拟运行在数百个基于 Amazon Linux 2 的 Amazon EC2 实例上。偶尔有模拟任务卡住，需要云运维工程师通过 SSH 连接到 EC2 实例解决问题。公司政策规定，各 EC2 实例不能共用同一个 SSH 密钥，而且所有连接都必须记录到 AWS CloudTrail。架构师应如何满足这些要求？"
+  },
+  {
+    "id": 322,
+    "reviewed": true,
+    "options": {
+      "A": "在 VPC 的两个可用区中部署一组 EC2 实例，作为缓存 DNS 服务器，解析来自 VPC 内应用服务器的 DNS 查询。"
+    },
+    "notes": "A的DNS被占位符损坏，恢复完整查询含义；出站解析方向与专线条件核对无误。"
+  },
+  {
+    "id": 323,
+    "reviewed": true,
+    "options": {},
+    "notes": "fixed schemas指固定数据库模式，不是固定基础设施架构；保留JSON与实时发送。",
+    "question_zh": "一家公司处理环境数据，已部署传感器，持续提供城市不同区域的数据流。数据采用 JSON 格式。公司希望使用 AWS 方案，将数据实时发送到一个不要求固定数据模式（schema）的数据库中存储。哪种方案能满足这些要求？"
+  },
+  {
+    "id": 324,
+    "reviewed": true,
+    "options": {
+      "A": "为该应用创建新的 Amazon DocumentDB（兼容 MongoDB）表，并使用预置 IOPS 卷。使用实例端点连接到 Amazon DocumentDB。",
+      "B": "为该应用创建使用按需容量的 Amazon DynamoDB 表。通过 DynamoDB 网关 VPC 端点连接到这些表。",
+      "C": "为该应用创建使用按需容量的 Amazon DynamoDB 表。通过 DynamoDB 接口 VPC 端点连接到这些表。",
+      "D": "为该应用创建新的 Amazon DocumentDB（兼容 MongoDB）表，并使用预置 IOPS 卷。使用集群端点连接到 Amazon DocumentDB。"
+    },
+    "notes": "题干without internet误成没有任何网络连接；各选项容量属性与数据库产品名修正语法，保留原文DocumentDB tables这一选项本身的说法。",
+    "question_zh": "一家公司正在将一个旧应用从本地数据中心迁移到 AWS。应用使用 MongoDB 作为键值数据库。按照公司的技术规范，所有 Amazon EC2 实例必须部署在不能连接公共互联网的私有子网中。此外，应用与数据库之间的全部连接都必须加密。数据库必须能够按需扩展。哪种方案能满足这些要求？"
+  },
+  {
+    "id": 325,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对本地MongoDB副本集、经DX访问、迁移目标DocumentDB、DMS CDC端点与同步/异步区别；语义正确。"
+  },
+  {
+    "id": 326,
+    "reviewed": true,
+    "options": {
+      "A": "部署 AWS Directory Service for Microsoft Active Directory。启动一个 Amazon WorkSpace，连接并使用该 WorkSpace 执行域安全配置任务。",
+      "B": "部署 AWS Directory Service for Microsoft Active Directory。启动一个 EC2 实例，连接并使用该实例执行域安全配置任务。",
+      "C": "部署 AWS Directory Service Simple AD。启动一个 EC2 实例，连接并使用该实例执行域安全配置任务。",
+      "D": "部署 AWS Directory Service Simple AD。启动一个 Amazon WorkSpace，连接并使用该 WorkSpace 执行域安全配置任务。"
+    },
+    "notes": "AWS Directory Service for Microsoft Active Directory与Simple AD应保留产品名；Amazon WorkSpace不应仅译普通工作区。"
+  },
+  {
+    "id": 327,
+    "reviewed": true,
+    "options": {
+      "A": "创建一个 Amazon RDS 数据库实例，使用不同的数据库模式（schema）分别存储产品数据和用户会话数据。在另一个区域为该数据库实例配置只读副本。"
+    },
+    "notes": "A的separate schemas是同数据库实例中的独立模式，避免误为独立系统架构。"
+  },
+  {
+    "id": 328,
+    "reviewed": true,
+    "options": {
+      "B": "在 AWS Control Tower 中创建一个自定义检测性控制（护栏），将其配置为仅允许部署突发性能实例，并禁止不相关的服务。将该控制应用到开发 OU。",
+      "D": "在 AWS Control Tower 账户中创建 AWS Config 规则，将其配置为仅允许部署突发性能实例，并禁止不相关的服务。使用 AWS CloudFormation StackSets 将该规则部署到开发 OU。"
+    },
+    "notes": "detective control不是侦探控制；D错误拼写AWS Cong恢复AWS Config。"
+  },
+  {
+    "id": 329,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对对象业务有效45分钟而24小时后删除、旧堆栈S3删除失败、DependsOn和DeletionPolicy；翻译含义准确。"
+  },
+  {
+    "id": 330,
+    "reviewed": true,
+    "options": {},
+    "notes": "live traffic是正式生产流量，不是实时流量；更准确区分API key节流和测试流量。",
+    "question_zh": "一家公司开发了一款手机游戏，后端运行在本地数据中心的多台虚拟机上，通过包含多个操作的 REST API 暴露业务逻辑。玩家会话数据存储在集中式文件存储中。后端使用不同的 API 密钥实施节流，并区分正式流量与测试流量。后端负载在一天中不断变化，高峰时服务器容量不足，读取玩家会话数据时也存在延迟。管理层要求架构师提出一个云架构，既能应对变化的负载，又能低延迟访问数据，同时不能改变 API 模型。哪种方案能满足这些要求？"
+  },
+  {
+    "id": 331,
+    "reviewed": true,
+    "options": {
+      "A": "配置一个定期运行的流程，执行 aws s3 sync 命令，将本地文件系统中的内容同步到 Amazon S3。配置 AWS Lambda 函数，处理 S3 事件通知，并将图片从 S3 复制到 EFS 文件系统。"
+    },
+    "notes": "A的aws s3 sync命令不能翻成aws s3同步；图片与AMI映像区分。D的EFS PrivateLink数据路径为英文原题缺陷，翻译忠实保留。",
+    "question_zh": "一家公司正在将应用迁移到 AWS 云。应用目前运行在本地数据中心，每晚向一个已挂载的 NFS 文件系统写入数千张图片。迁移后，公司将在挂载了 Amazon Elastic File System（Amazon EFS）文件系统的 Amazon EC2 实例上运行应用。公司已建立到 AWS 的 AWS Direct Connect 连接。在迁移切换前，架构师必须建立一个流程，将本地新创建的图片复制到 EFS 文件系统。以最少运维工作完成复制的方法是什么？"
+  },
+  {
+    "id": 332,
+    "reviewed": true,
+    "options": {
+      "B": "更新 ALB 安全组的入站规则，只允许来自 CloudFront 托管前缀列表 com.amazonaws.global.cloudfront.origin-facing 的访问。"
+    },
+    "notes": "B的CloudFront托管前缀列表名被拆译而损坏，恢复原字符串。"
+  },
+  {
+    "id": 333,
+    "reviewed": true,
+    "options": {
+      "B": "在两个区域的 ECR 中保存 Docker 镜像。计划每 8 小时创建一次 RDS 快照，并将快照复制到辅助区域。发生故障时，使用 AWS CloudFormation 在辅助区域部署 ALB、EC2、ECS 和 RDS 资源，从最新快照恢复数据库，并更新 DNS 记录，使其指向辅助区域的 ALB。",
+      "D": "在辅助区域部署 Pilot Light（核心常开）环境：配置 ALB，以及在 AWS Auto Scaling 组中运行 Docker 的最小规模 EC2 部署，并配置增加实例规格和节点数量的伸缩策略。创建 RDS 数据的跨区域只读副本。发生故障时，将该副本提升为主数据库，并更新 DNS 记录，使其指向辅助区域的 ALB。"
+    },
+    "notes": "B的DNS末句被占位符截断，D的pilot light被错误直译并含占位符；恢复8小时RPO/24小时RTO与步骤。",
+    "question_zh": "一家公司使用 Application Load Balancer（ALB）和 Amazon ECS 集群中托管的 Docker 应用，运行一个社区论坛网站。网站数据存储在 Amazon RDS for MySQL 中，容器镜像存储在 ECR 中。公司需要向客户提供灾难恢复 SLA：RTO 不超过 24 小时，RPO 不超过 8 小时。哪种方案能够以最低成本满足这些要求？"
+  },
+  {
+    "id": 334,
+    "reviewed": true,
+    "options": {
+      "B": "在 AWS Organizations 中创建一个组织，并为其启用 AWS Control Tower。检查随附的、基于 SCP 的控制措施（护栏），并检查 AWS Config 中哪些方面还需要补充。根据需要添加 OU。将 AWS IAM Identity Center（AWS Single Sign-On）连接到本地 AD FS 服务器。",
+      "D": "在 AWS Organizations 中创建一个组织，并为其启用 AWS Control Tower。检查随附的、基于 SCP 的控制措施（护栏），并检查 AWS Config 中哪些方面还需要补充。配置 IAM 身份提供者，与本地 AD FS 服务器建立联合身份验证。"
+    },
+    "notes": "controls不是控制装置，areas在这里是需要补充的配置方面，不是AWS区域。"
+  },
+  {
+    "id": 335,
+    "reviewed": true,
+    "options": {
+      "C": "将数据库从 Amazon Aurora 迁移到 Amazon RDS for MySQL。确保 Web、应用和数据库三个层都位于私有子网中。",
+      "D": "使用 Aurora 全球数据库进行跨区域物理复制。使用启用了跨区域复制的 Amazon S3 存储静态内容和资源。在全球多个区域部署 Web 层和应用层。",
+      "E": "引入使用基于延迟路由的 Amazon Route 53，并部署 Amazon CloudFront 分发。确保 Web 层和应用层各自运行在 Auto Scaling 组中。"
+    },
+    "notes": "C的Amazon RDS for MySQL名称错位；D/E语法混乱，恢复跨区域内容复制和Route53/CloudFront分工，不改架构。"
+  },
+  {
+    "id": 336,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对游戏实例全年始终可用、分析可中断恢复、RI/SavingsPlan与Spot分工，各选项忠实无缺漏。"
+  },
+  {
+    "id": 337,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对任何生产账户的特权凭据泄露、非生产账户备份、compliance mode、至少一份冷层与S3 Object Lock；标签已由上一轮审校修复，译文准确。"
+  },
+  {
+    "id": 338,
+    "reviewed": true,
+    "options": {
+      "C": "创建 IAM 角色，授予 Amazon CloudWatch Logs 向 Amazon Kinesis 数据流写入数据的权限，并在该角色中配置相应信任策略。在每个成员账户中，为每个日志组创建一个订阅过滤器，将数据发送到该 Kinesis 数据流。",
+      "D": "创建 IAM 角色，授予 Amazon CloudWatch Logs 向 Amazon SQS 队列写入数据的权限，并在该角色中配置相应信任策略。在每个成员账户中，为所有日志组创建一个共同的订阅过滤器，将数据发送到该 SQS 队列。"
+    },
+    "notes": "C/D恢复CloudWatch Logs产品名、信任策略、每日志组一个与所有日志组一个过滤器的明确差异。"
+  },
+  {
+    "id": 339,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对每台VM跨多个卷共500TB、10Gbps专线未被占用、最少停机与SMS/DMS任务分工；500TB看似异常但确为英文原文，不改数值。"
+  },
+  {
+    "id": 340,
+    "reviewed": true,
+    "options": {
+      "B": "为全部 VPC 和 VPN 配置连接（attachment）。",
+      "E": "在 VPC 与 VPN 之间配置连接（attachment）。"
+    },
+    "notes": "B/E的attachment译附件不清晰，恢复网络连接的含义，仍保留原选项不同连接对象。"
+  },
+  {
+    "id": 341,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对写密集、长期无使用与流量骤增骤降、memory-optimized、Instance和Compute Savings Plans差别。v1为原题历史版本，不改译为v2。"
+  },
+  {
+    "id": 342,
+    "reviewed": true,
+    "options": {
+      "A": "将应用迁移为一组 AWS Lambda 函数，并将这些函数设为 ALB 的目标。创建一个新的 EBS 卷存储静态内容，配置 Lambda 函数从该卷读取内容。将数据库迁移到 Amazon RDS for MySQL 多可用区数据库集群。",
+      "B": "将应用迁移为一组 AWS Step Functions 状态机，并将状态机设为 ALB 的目标。创建 Amazon EFS 文件系统存储静态内容，配置状态机从 EFS 文件系统读取。将数据库迁移到包含一个读取数据库实例的 Amazon Aurora MySQL Serverless v2。",
+      "C": "将应用容器化并迁移到 Amazon ECS 集群，使用 AWS Fargate 启动类型运行承载应用的任务。创建一个新的 EBS 卷存储静态内容，并将该卷挂载到 ECS 集群。在 ECS 集群上配置 AWS Application Auto Scaling，将 ECS 服务设为 ALB 的目标。将数据库迁移到 Amazon RDS for MySQL 多可用区数据库集群。",
+      "D": "将应用容器化并迁移到 Amazon ECS 集群，使用 AWS Fargate 启动类型运行承载应用的任务。创建 Amazon EFS 文件系统存储静态内容，并将其挂载到每个容器。在 ECS 集群上配置 AWS Application Auto Scaling，将 ECS 服务设为 ALB 的目标。将数据库迁移到包含一个读取数据库实例的 Amazon Aurora MySQL Serverless v2。"
+    },
+    "notes": "additional EC2不是附加的EC2，B的ALB句子截断；各选项RDS/Aurora名称语序恢复。",
+    "question_zh": "一家公司将应用迁移到 AWS。应用运行在 Application Load Balancer（ALB）后的两个 Amazon EC2 实例上。应用数据存储在另一台 EC2 实例上运行的 MySQL 数据库中，数据库访问以读取为主。应用从各 EC2 实例挂载的 Amazon EBS 卷加载静态内容。这些内容更新频繁，每次都必须复制到每个 EBS 卷。应用负载在一天中变化，高峰时无法处理全部传入请求。跟踪数据显示，数据库在高峰时无法承受读取负载。哪种方案能提高应用可靠性？"
+  },
+  {
+    "id": 343,
+    "reviewed": true,
+    "options": {
+      "C": "创建一个 AWS Lambda 函数作为自定义授权方，要求 API 客户端调用时传递 key 和 secret，再由 Lambda 对照 IAM 系统验证这对凭证。使用 AWS X-Ray 跟踪和分析用户对 API Gateway 的请求。",
+      "D": "为 API Gateway 创建客户端证书，将证书分发给需要访问端点的 AWS 用户和角色。允许 API 调用方访问端点时传递该客户端证书。使用 Amazon CloudWatch 跟踪和分析用户对 API Gateway 的请求。"
+    },
+    "notes": "C的key和secret均被译成金钥导致两个凭证部分无法区分，D的certificate明确译证书。"
+  },
+  {
+    "id": 344,
+    "reviewed": true,
+    "options": {},
+    "notes": "题干首句应用持续部署被错译为向ASG申请CI/CD，恢复实际部署关系。",
+    "question_zh": "一家公司使用 AWS CodePipeline，将应用持续集成和持续交付（CI/CD）到一个 Amazon EC2 Auto Scaling 组。所有 AWS 资源都在 AWS CloudFormation 模板中定义。应用构件存储在 Amazon S3 桶中，并通过实例 user data 脚本部署到 Auto Scaling 组。随着应用日益复杂，近期 CloudFormation 模板中的资源变更导致了计划外停机。架构师应如何改进 CI/CD 流水线，降低模板变更引发停机的可能性？"
+  },
+  {
+    "id": 345,
+    "reviewed": true,
+    "options": {
+      "B": "在 us-east-1 的 VPC 中部署跨多个可用区的 Application Load Balancer（ALB）。在这些可用区中部署 EC2 实例，组成由该 ALB 提供流量分发的 Auto Scaling 组。在 us-west-1 部署同样的方案。创建 Amazon Route 53 记录集，配置故障转移路由策略并启用健康检查，以提供跨区域高可用性。"
+    },
+    "notes": "B中ALB因源文OCR粘连截成AL，恢复两个区域各自ALB/ASG与全局failover记录；未把错误跨区ASG选项改成正确。"
+  },
+  {
+    "id": 346,
+    "reviewed": true,
+    "options": {
+      "A": "在 AWS App Runner 上托管 .NET Core 组件，在 Amazon RDS for SQL Server 上托管数据库，并使用 Amazon EventBridge 进行异步消息传递。",
+      "B": "使用 AWS Fargate 启动类型，在 Amazon ECS 上托管 .NET Core 组件。在 Amazon DynamoDB 中托管数据库，并使用 Amazon SNS 进行异步消息传递。"
+    },
+    "notes": "strongly relational不是强相关，而是高度关系型数据模型；A/B的.NET/EventBridge/DynamoDB技术标识因OCR损坏，恢复中文对应名。",
+    "question_zh": "一家公司有一个由多个 .NET Framework 组件构成的旧应用。这些组件共用同一个 Microsoft SQL Server 数据库，并通过 Microsoft Message Queueing（MSMQ）异步通信。公司正在将其迁移为容器化的 .NET Core 组件，并希望重构后运行在 AWS 上。.NET Core 组件需要复杂编排，公司还必须能够完全控制网络与主机配置。应用采用高度关系型的数据库模型。哪种方案能满足这些要求？"
+  },
+  {
+    "id": 347,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对同AZ placement group、扩实例遇insufficient capacity、停止再启动与其他策略差别，语义正确。"
+  },
+  {
+    "id": 348,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对每月补丁、重启后ASG替换为未打补丁实例、AMI/launch configuration/instance refresh与终止保护，未发现语义偏差。"
+  },
+  {
+    "id": 349,
+    "reviewed": true,
+    "options": {
+      "C": "在 VPC 中创建 NAT 实例。配置 VPC 路由，允许访问公共互联网。为 SageMaker 笔记本实例配置防火墙规则，只允许访问 PyPI 存储库端点。"
+    },
+    "notes": "C的VPC路由句子因原英文缺标点而粘连，恢复NAT实例及路由/防火墙步骤。"
+  },
+  {
+    "id": 350,
+    "reviewed": true,
+    "options": {},
+    "notes": "operational overhead误译为营运费用，目标应最少运维而非只比价格；至少两个额外区域条件保留。",
+    "question_zh": "一位架构师为一个具有严格灾难恢复要求的政府机构工作。机构要求将全部 Amazon EBS 快照保存到至少两个额外的 AWS 区域，并尽可能减少运维工作。哪种方案能满足这些要求？"
+  },
+  {
+    "id": 351,
+    "reviewed": true,
+    "options": {
+      "A": "创建一个新的开发账户，将全部 EC2 实例、用户和资产迁移到 us-east-2。将该账户加入公司的 AWS Organizations 组织，并强制实施一个表示区域亲和性的标签策略。"
+    },
+    "notes": "A的Region affinity被译成区域实体，恢复区域绑定/亲和性含义；不能加入组织、t3.small与us-east-2限定均核对。"
+  },
+  {
+    "id": 352,
+    "reviewed": true,
+    "options": {
+      "C": "在源 S3 桶上启用 Amazon S3 Transfer Acceleration，并将提供最准确数据的雷达站配置为使用新的端点。监控目标 S3 桶的 TotalRequestLatency 指标。创建 Amazon EventBridge 规则，在该状态发生变化时触发告警。"
+    },
+    "notes": "cover all objects误成覆写所有对象，原文是复制规则覆盖范围；C中正确识别选定雷达站而非用数据配置设备。",
+    "question_zh": "一家科研公司需要处理 Amazon S3 桶中的文本和图片数据。这些数据来自多个雷达站，采集于一项深空任务中实时且时间紧迫的阶段。各雷达站将数据上传到源 S3 桶，并以雷达站标识编号作为数据前缀。公司在第二个账户中创建了目标 S3 桶，需要通过 S3 复制规则，将源桶中的全部对象复制到目标桶，以满足合规要求。其中一个雷达站被认为提供最准确的数据。公司必须监控该站的数据，确认它们在上传到源桶后 30 分钟内完成复制。架构师应如何满足这一要求？"
+  },
+  {
+    "id": 353,
+    "reviewed": true,
+    "options": {
+      "B": "AWS Server Migration Service（AWS SMS，服务器迁移服务）",
+      "C": "AWS X-Ray"
+    },
+    "notes": "AWS SMS误译为简讯，它在迁移工具列表中指AWS Server Migration Service；其余服务/工具原义一致。 C恢复产品名的空格。"
+  },
+  {
+    "id": 354,
+    "reviewed": true,
+    "options": {
+      "A": "在其他可用区中部署额外的 NAT 网关，并更新路由表。将 RDS for MySQL 数据库实例改为多可用区配置。将 Auto Scaling 组配置为跨可用区启动实例，并将最小容量和最大容量都设为 3。",
+      "B": "将 NAT 网关替换为虚拟私有网关。将 RDS for MySQL 数据库实例替换为 Amazon Aurora MySQL 数据库集群。将 Auto Scaling 组配置为在 VPC 的全部子网中启动实例，并将最小容量和最大容量都设为 3。",
+      "C": "将 NAT 网关替换为 NAT 实例。将 RDS for MySQL 数据库实例迁移到 RDS for PostgreSQL 数据库实例。在其他可用区中启动新的 EC2 实例。",
+      "D": "在其他可用区中部署额外的 NAT 网关，并更新路由表。为 RDS for MySQL 数据库实例启用自动备份，将保留期设为 7 天。将 Auto Scaling 组配置为在 VPC 的全部子网中启动实例，并保持最小容量和最大容量都为 1。"
+    },
+    "notes": "修正RDS for MySQL/PostgreSQL名称错位及其他可用区复数，保留A的min/max3与D的1和7天备份差异。",
+    "question_zh": "架构师在应用上线前检查其韧性。应用运行在 VPC 私有子网中的一个 Amazon EC2 实例上，由最小容量和最大容量都为 1 的 Auto Scaling 组提供。应用数据存储在一个 Amazon RDS for MySQL 数据库实例中。VPC 在三个可用区中配置了子网，但只有一个 NAT 网关。架构师需要推荐一个方案，确保应用能够跨多个可用区运行。哪种方案能满足这一要求？"
+  },
+  {
+    "id": 355,
+    "reviewed": true,
+    "options": {
+      "D": "启动 Amazon EC2 实例并安装 Docker，将容器迁移到这些实例。创建 Amazon EFS 文件系统，并在 EC2 实例上为该 EFS 文件系统配置挂载点。"
+    },
+    "notes": "D的挂载点方向语法错位，恢复在EC2实例上添加EFS挂载点；其他选项忠实保留共享EBS等原错误架构。"
+  },
+  {
+    "id": 356,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对Windows/Linux、物理机/虚拟机、资产清单缺失、rightsize、连接依赖和各发现/评估工具分工，语义正确。"
+  },
+  {
+    "id": 357,
+    "reviewed": true,
+    "options": {
+      "A": "创建一个新的 AWS CloudTrail 跟踪。使用组织管理账户中现有的 Amazon S3 桶存储日志，将该跟踪部署到所有 AWS 区域，并在 S3 桶上启用 MFA Delete 和加密。"
+    },
+    "notes": "CloudTrail trail不是文件路径，A统一为跟踪；全部API审计、各账户/各区域与MFA delete差异忠实保留。"
+  },
+  {
+    "id": 358,
+    "reviewed": true,
+    "options": {},
+    "notes": "题干fleet残留OCR eet，恢复实例组；主节点/8个worker与最低网络延迟条件保留。",
+    "question_zh": "一家公司在一组 Amazon EC2 实例上部署分布式内存数据库。实例组包括一个主节点和八个工作节点。主节点负责监控集群健康状态、接收用户请求、将请求分发给工作节点，并将汇总响应返回客户端。工作节点之间相互通信，以复制数据分区。公司要求尽可能低的网络延迟，以获得最高性能。哪种方案能满足这些要求？"
+  },
+  {
+    "id": 359,
+    "reviewed": true,
+    "options": {},
+    "notes": "Backups data must occur daily被译成资料每天出现，恢复每日备份；10TB和每周1TB保留。",
+    "question_zh": "一家公司在本地虚拟机上保存约 100 万个 .csv 文件。数据初始大小为 10 TB，每周增长 1 TB。公司需要每天自动将这些数据备份到 AWS 云。方案必须支持自定义过滤器，只备份指定源目录中的一部分数据。公司已建立 AWS Direct Connect 连接。哪种方案能以最少运维工作满足这些备份要求？"
+  },
+  {
+    "id": 360,
+    "reviewed": true,
+    "options": {
+      "D": "使用 AWS CloudFormation 启动 EMR 集群，并在创建集群时为其附加基于资源的策略。创建 AWS Config 规则，检查不合规的集群和 Amazon S3 桶，并配置规则通知管理员修复这些资源。"
+    },
+    "notes": "D中AWS Config产品名被错误断为AWS。配置，恢复完整服务名。"
+  },
+  {
+    "id": 361,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对eu-west-2既有NLB/3实例、多AZ私网、新us-east-1客户与不新部署EC2约束；四选项跨区目标类型和授权方向均忠实。"
+  },
+  {
+    "id": 362,
+    "reviewed": true,
+    "options": {
+      "A": "在每个区域创建一个新的 S3 Storage Lens 仪表板，跟踪存储桶和加密指标。将两个区域仪表板中的数据汇总到 Amazon QuickSight 的一个仪表板，供合规团队使用。"
+    },
+    "notes": "A的S3 Storage Lens因英文OCR丢S而成3 Storage Lens，恢复官方产品名。"
+  },
+  {
+    "id": 363,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对快速补丁、最小停机、出错快速rollback、现有GitHub/CodeBuild与CodePipeline触发关系；各选项译意准确。"
+  },
+  {
+    "id": 364,
+    "reviewed": true,
+    "options": {
+      "A": "在组织中启用标签策略，为 BusinessUnit 标签创建策略。关闭对标签键大小写规范的合规检查。对 ec2:instance 资源类型实施该标签策略，并将策略附加到组织根。",
+      "B": "在组织中启用标签策略，为 BusinessUnit 标签创建策略。启用对标签键大小写规范的合规检查。对 ec2:instance 资源类型实施该标签策略，并将策略附加到组织管理账户。",
+      "C": "创建一个 SCP，并将其附加到组织根。在 SCP 中加入以下语句：\n{\n  \"Sid\": \"DenyEC2Creation\",\n  \"Effect\": \"Deny\",\n  \"Action\": [\"ec2:RunInstances\"],\n  \"Resource\": [\"arn:aws:ec2:*:*:instance/*\"],\n  \"Condition\": {\"Null\": {\"aws:RequestTag/BusinessUnit\": \"true\"}}\n}",
+      "D": "创建一个 SCP，并将其附加到组织管理账户。在 SCP 中加入以下语句：\n{\n  \"Sid\": \"DenyEC2Creation\",\n  \"Effect\": \"Deny\",\n  \"Action\": [\"ec2:RunInstances\"],\n  \"Resource\": [\"arn:aws:ec2:*:*:instance/*\"],\n  \"Condition\": {\"Null\": {\"aws:RequestTag/BusinessUnit\": \"false\"}}\n}"
+    },
+    "notes": "C/D将JSON策略键、动作、ARN和布尔文本翻成中文，必须逐字保留技术标识；A/B capitalization是大小写规范而非要求大写。"
+  },
+  {
+    "id": 365,
+    "reviewed": true,
+    "options": {},
+    "notes": "题干默认路由的0.0.0.0/0是目的地址前缀而非流量来源，中文消除从该地址误解；IPv6不得公网入站限定保留。",
+    "question_zh": "一家公司运行由数千个 Amazon EC2 实例组成的工作负载。VPC 包含多个公有和私有子网：公有子网中目的地址为 0.0.0.0/0 的路由指向现有互联网网关，私有子网的同一默认路由指向现有 NAT 网关。架构师需要将全部 EC2 实例迁移为使用 IPv6，并且不能让公共互联网主动访问私有子网中的实例。应采取什么方案？"
+  },
+  {
+    "id": 366,
+    "reviewed": true,
+    "options": {
+      "B": "为 API Gateway 创建接口 VPC 端点，附加允许 execute-api:Invoke 操作的端点策略。启用端点的私有 DNS。配置 API 资源策略，允许来自该 VPC 端点的访问。使用 API 端点的 DNS 名称访问 API。"
+    },
+    "notes": "B的execute-api:Invoke被翻译破坏，恢复精确IAM动作。"
+  },
+  {
+    "id": 367,
+    "reviewed": true,
+    "options": {},
+    "notes": "staffing company错成固定公司、unified残留英文OCR，恢复人力资源公司与合并后公司含义。",
+    "question_zh": "一家大型薪资服务公司最近与一家小型人力资源服务公司合并。合并后的公司包含多个业务部门，各部门都有现有的 AWS 账户。架构师必须确保能够集中管理所有账户的账单与访问策略。架构师已从一个集中管理账户向公司的全部成员账户发出邀请，以配置 AWS Organizations。接下来应如何满足这些要求？"
+  },
+  {
+    "id": 368,
+    "reviewed": true,
+    "options": {},
+    "notes": "flagship因英文OCR残留agship，恢复旗舰产品，并补全RDS for PostgreSQL产品名。",
+    "question_zh": "一家公司的应用服务已容器化，部署在多台具有公网 IP 的 Amazon EC2 实例上。Apache Kafka 集群也运行在 EC2 实例上。PostgreSQL 数据库已迁移到 Amazon RDS for PostgreSQL。公司预计，在发布旗舰产品的新版本时，平台订单量将显著增加。应如何调整现有架构，以降低运维工作量并支持此次发布？"
+  },
+  {
+    "id": 369,
+    "reviewed": true,
+    "options": {
+      "B": "将用户主目录迁移到 Amazon FSx for Windows File Server。",
+      "C": "将用户主目录迁移到 Amazon FSx for Lustre。"
+    },
+    "notes": "B/C的FSx产品名称语序导致误以为迁移对象不同，明确均迁移现有用户主目录、仅目标服务不同。"
+  },
+  {
+    "id": 370,
+    "reviewed": true,
+    "options": {
+      "B": "使用 AWS CLI 列出所有 AWS 账户中的全部未加密卷。运行一个脚本，对这些未加密卷进行原地加密。"
+    },
+    "notes": "B漏译in place，这是判别错误选项的重要条件，恢复原地加密；其余保留检测/加密与mandatory/strongly recommended差别。"
+  },
+  {
+    "id": 371,
+    "reviewed": true,
+    "options": {
+      "B": "配置 Amazon Cognito 用户池，为其配置一个使用该目录元数据的联合身份提供者（IdP）。创建应用客户端，并将其关联到用户池。为 ALB 创建监听规则，指定 authenticate-cognito 操作，并将规则配置为使用该用户池和应用客户端。"
+    },
+    "notes": "B的ALB因英文OCR句子粘连而截断，恢复监听规则与authenticate-cognito技术动作。"
+  },
+  {
+    "id": 372,
+    "reviewed": true,
+    "options": {
+      "C": "为后端服务创建使用基于延迟路由策略的新记录集，并将这些记录集配置为 CloudFront 分发的源站。",
+      "D": "创建一个 CloudFront 源站组，其中包含两个源站，分别对应两个区域的后端服务。在 CloudFront 分发的缓存行为中配置源站故障转移。"
+    },
+    "notes": "C的origin不应译为原点；D漏掉每区域一个源站的分配关系，恢复两个源站明确含义。"
+  },
+  {
+    "id": 373,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对已用服务保留、特定服务拒绝、多个账户按OU管理，Deny/FullAWSAccess/DenyAWSAccess技术标识均忠实。"
+  },
+  {
+    "id": 374,
+    "reviewed": true,
+    "options": {},
+    "notes": "sale events为预先安排的售票活动，不必然是折扣促销；保留一次性、可预知时间这一重要限定。",
+    "question_zh": "一家现场活动公司正在为 AWS 上的售票应用设计伸缩方案。应用在开始售票时会出现明显的使用高峰，每次售票活动都是预先安排好的一次性活动。应用运行在 Auto Scaling 组中的 Amazon EC2 实例上，数据库层使用 PostgreSQL。公司需要一个伸缩方案，尽量提高售票活动期间的可用性。哪种方案能满足这些要求？"
+  },
+  {
+    "id": 375,
+    "reviewed": true,
+    "options": {},
+    "notes": "应用不能从internet访问被错译为不能透过任何网络访问，恢复公共互联网限制。",
+    "question_zh": "一家公司在本地运行内网应用，希望为其配置云端备份，并选择 AWS Elastic Disaster Recovery。公司要求复制流量不能经过公共互联网，应用也不能被公共互联网访问。此外，方案不能占用全部可用网络带宽，因为其他应用也需要带宽。以下哪三个步骤能够满足这些要求？（选择三项。）"
+  },
+  {
+    "id": 376,
+    "reviewed": true,
+    "options": {
+      "A": "使用 AWS Step Functions 处理用户存储图片时产生的 S3 事件。运行 AWS Lambda 函数，就地调整图片尺寸，并替换 S3 桶中的原始文件。创建 S3 生命周期过期策略，在 6 个月后使所有已存储图片过期。",
+      "B": "使用 Amazon EventBridge 处理用户上传图片时产生的 S3 事件。运行 AWS Lambda 函数，就地调整图片尺寸，并替换 S3 桶中的原始文件。创建 S3 生命周期过期策略，在 6 个月后使所有已存储图片过期。"
+    },
+    "notes": "resize image指调整图片尺寸而非文件字节大小；up to6months明确最多6个月；A/B补齐in-place。",
+    "question_zh": "一家提供图片存储服务的公司希望在 AWS 上部署面向客户的方案，供数百万个人客户使用。方案需要接收成批的大图片文件，调整图片尺寸，并将文件在 Amazon S3 桶中最多保存 6 个月。方案必须应对需求的大幅变化，在企业规模下保持可靠，并能在失败时重新运行处理任务。哪种方案能以最低成本满足这些要求？"
+  },
+  {
+    "id": 377,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对各部门独立账户、统一账单、资源标签和保留算力选择弹性；Instance/Compute Savings Plans差别与SCP错误用途均忠实。"
+  },
+  {
+    "id": 378,
+    "reviewed": true,
+    "options": {
+      "D": "为目标 S3 桶配置 Amazon CloudFront 分发，在缓存行为中启用 PUT 和 POST 方法。将 CloudFront 源站配置为使用源站访问身份（OAI），并在桶策略中授予该 OAI 用户 s3:PutObject 权限。让浏览器界面通过 CloudFront 分发上传对象。"
+    },
+    "notes": "D的s3:PutObject因英文OCR丢s而成3: PutObject，中文恢复规范IAM动作，不改OAI等原选项架构。"
+  },
+  {
+    "id": 379,
+    "reviewed": true,
+    "options": {
+      "C": "要求各业务部门使用自己的 AWS 账户，为各账户添加合适标签，并启用 Cost Explorer 管理内部费用分摊。",
+      "D": "启用 AWS Organizations 的全部功能，并创建合适的服务控制策略，对成员账户中的 IAM 权限实施限制。"
+    },
+    "notes": "C的chargebacks误译退款；D应为过滤成员账户IAM权限，不是IAM存在子账户。"
+  },
+  {
+    "id": 380,
+    "reviewed": true,
+    "options": {},
+    "notes": "核对第三方过载丢数据、稍后重试、SQS主/死信队列、EventBridge主/失败总线的区别，所有选项语义忠实。"
+  },
+  {
+    "id": 381,
+    "reviewed": true,
+    "options": {
+      "A": "配置 Aurora MySQL 数据库集群，将慢查询日志和错误日志发布到 Amazon CloudWatch Logs。",
+      "D": "在 EC2 实例上安装并配置 Amazon CloudWatch Logs 代理，将 Apache 日志发送到 CloudWatch Logs。"
+    },
+    "notes": "题干中 Aurora MySQL 数据库名称被占位符及重复文本破坏，已完整恢复。核对 Java 三层架构、实例终止前日志丢失、查询性能分析不足和选择三项；A/D 保留 CloudWatch Logs 官方名称。",
+    "question_zh": "一家公司使用三层 Web 架构在 AWS 上构建了一个电子商务网站。该应用基于 Java，由 Amazon CloudFront 分配、在 Auto Scaling 组内 Amazon EC2 实例上运行的 Apache Web 服务器层，以及后端 Amazon Aurora MySQL 数据库组成。上个月的一次促销活动期间，用户反馈向购物车添加商品时出现错误和超时。运维团队收集了 Web 服务器生成的日志，并查看了 Aurora 数据库集群的性能指标。一些 Web 服务器在日志被收集之前已被终止，而 Aurora 指标不足以分析查询性能。解决方案架构师必须采取哪三个步骤，以提高高峰流量期间应用性能的可观测性？（选择三项。）"
+  },
+  {
+    "id": 382,
+    "reviewed": true,
+    "options": {
+      "C": "为后端服务使用 Auto Scaling 组。使用 DynamoDB 自动扩缩容。",
+      "D": "为后端服务使用 Auto Scaling 组。使用 Amazon Simple Queue Service（Amazon SQS）和 AWS Lambda 函数向 DynamoDB 写入数据。"
+    },
+    "notes": "逐项核对双 EC2 实例、ALB、DynamoDB、旺季读写变慢及最少开发工作；C/D 明确为后端服务使用 Auto Scaling 组，不改变各选项的数据库扩展或写入方案。"
+  },
+  {
+    "id": 383,
+    "reviewed": true,
+    "options": {},
+    "notes": "准确选定新 EC2 实例规格不是调整已有实例大小；将进程清单要求明确为每台实例运行的进程。核对 CPU/内存/磁盘利用率、网络连接映射及最具成本效益。",
+    "question_zh": "一家公司正在迁移到云端。公司希望评估现有数据中心环境中虚拟机的配置，以便准确选择新 Amazon EC2 实例的规格。公司希望收集 CPU、内存和磁盘利用率等指标，并获取每台实例上运行的进程清单。公司还希望监控网络连接，以绘制服务器之间的通信关系。哪种方法能够以最具成本效益的方式收集这些数据？"
+  },
+  {
+    "id": 384,
+    "reviewed": true,
+    "options": {
+      "A": "创建 Amazon CloudFront 分配。创建 CloudFront 源站组，将每个新增区域的 NLB 添加到该源站组。向客户提供该分配所用边缘站点的 IP 地址范围。",
+      "C": "创建 Amazon CloudFront 分配。为每个新增区域的 NLB 创建自定义源站。向客户提供该分配所用边缘站点的 IP 地址范围。"
+    },
+    "notes": "A 漏译“每个区域的 NLB”，已恢复；A/C 的 origin 应为源站，非起源或原点。逐项核对多区域、静态允许列表 IP、最近地理区域和两类 Global Accelerator。"
+  },
+  {
+    "id": 385,
+    "reviewed": true,
+    "options": {
+      "B": "在 SAML 联合登录过程中，将 DevelopmentUnit 属性作为 AWS Security Token Service（AWS STS）会话标签传递。更新开发人员所代入 IAM 角色的 IAM 策略，添加 Deny 操作，并使用 StringNotEquals 条件比较 DevelopmentUnit 资源标签与 aws:PrincipalTag/DevelopmentUnit。",
+      "C": "在 SAML 联合登录过程中，将 DevelopmentUnit 属性作为 AWS Security Token Service（AWS STS）会话标签传递。创建 SCP，添加 Allow 操作，并使用 StringEquals 条件比较 DevelopmentUnit 资源标签与 aws:PrincipalTag/DevelopmentUnit。将该 SCP 附加到根 OU。"
+    },
+    "notes": "核对共用生产账号、按开发部门隔离实例管理，以及 SAML 会话标签。B/C 原文条件为资源标签与主体标签比较，补明比较对象；保留 B 的 Deny+StringNotEquals 和 C 的 Allow+StringEquals，未改写原文的 root OU。"
+  },
+  {
+    "id": 386,
+    "reviewed": true,
+    "options": {
+      "A": "使用 AWS CloudFormation 模板开发基础设施服务。将模板放入中央 Amazon S3 存储桶，并在 S3 存储桶策略中添加需要访问该存储桶的 IAM 角色或用户。",
+      "B": "使用 AWS CloudFormation 模板开发基础设施服务。将每个模板作为 AWS Service Catalog 产品，上传到中央 AWS 账号内创建的产品组合中。将这些产品组合共享给公司在 AWS Organizations 中建立的组织结构。",
+      "D": "仅向用户的 IAM 角色授予 ServiceCatalogEndUserAccess 权限。使用自动化脚本将中央产品组合导入各个 AWS 账号、复制 TagOption、为用户授予访问权限，并应用启动约束。"
+    },
+    "notes": "A 把“将需访问存储桶的角色/用户加入存储桶策略”误译为“需要访问策略”，已修正。B/D Service Catalog portfolios 是产品组合，非投资组合。核对最小权限、中央创建、多账号分发、强制标签和选择三项。"
+  },
+  {
+    "id": 387,
+    "reviewed": true,
+    "options": {
+      "C": "更新 Kinesis Data Firehose 配置，按日期和时间对 Amazon S3 中的数据进行分区。为 Amazon Redshift 创建外部表。配置 Amazon Redshift Spectrum 查询该数据源。",
+      "D": "修改 Kinesis Data Firehose 配置及 Athena 表定义，按日期和时间对数据进行分区。修改 Athena 查询，使其仅查看相关分区。"
+    },
+    "notes": "题干 log to S3 被误译为登入 S3，已修正为投递日志；核对固定每日日志量、查询最近24小时但耗时增长、最少运维；C/D 保留服务官方名称及 Redshift/Athena 两种不同方案。",
+    "question_zh": "一家公司部署了一个新的 Web 应用。作为配置的一部分，公司配置 AWS WAF，通过 Amazon Kinesis Data Firehose 将日志投递到 Amazon S3。公司编写了一个 Amazon Athena 查询，每天运行一次，返回过去 24 小时的 AWS WAF 日志数据。每日日志量保持不变。然而，随着时间推移，相同查询的运行时间越来越长。解决方案架构师需要设计一个方案，防止查询耗时持续增长，并尽量减少运维工作。哪种方案能够满足这些要求？"
+  },
+  {
+    "id": 388,
+    "reviewed": true,
+    "options": {
+      "D": "创建一条安全组规则，允许来自指定国家所对应 IP 地址范围、目标端口为 80 和 443 的流量。将该安全组关联到 ALB。"
+    },
+    "notes": "逐项核对只允许特定国家、须记录被阻止请求、最少维护；D 明确安全组是允许来自这些 IP 范围且目标端口为80/443的流量。"
+  },
+  {
+    "id": 389,
+    "reviewed": true,
+    "options": {
+      "A": "在灾备区域创建一个目标 Amazon S3 存储桶。使用 Amazon FSx File Gateway，建立主区域的 FSx for Windows File Server 文件系统与灾备区域 S3 存储桶之间的连接。将该 S3 存储桶配置为 FSx File Gateway 中的持续备份源。",
+      "B": "在灾备区域创建一个 FSx for Windows File Server 文件系统。使用 AWS Site-to-Site VPN 连接主区域的 VPC 与灾备区域的 VPC。配置 AWS DataSync，通过 VPN 端点进行通信。",
+      "C": "在灾备区域创建一个 FSx for Windows File Server 文件系统。使用 VPC 对等连接，连接主区域的 VPC 与灾备区域的 VPC。配置 AWS DataSync，通过由 AWS PrivateLink 支持的接口 VPC 端点进行通信。",
+      "D": "在灾备区域创建一个 FSx for Windows File Server 文件系统。通过各区域中的 AWS Transit Gateway，连接主区域的 VPC 与灾备区域的 VPC。使用 AWS Transfer Family，通过 AWS 私有骨干网络，在主区域与灾备区域的 FSx for Windows File Server 文件系统之间复制文件。"
+    },
+    "notes": "题干及各选项将 FSx for Windows File Server 官方名称拆乱，已恢复；明确数据不能经过公共互联网。核对跨区域灾备及各选项不同连通/传输服务，保留原文中不成立的 FSx File Gateway、VPN endpoints 和 Transfer Family 方案。",
+    "question_zh": "一家公司正在将应用从本地基础设施迁移到 AWS 云。在迁移设计会议中，公司对旧版 Windows 文件服务器的可用性和恢复方案表示担忧。该文件服务器包含敏感且关键的业务数据，一旦损坏或丢失便无法重建。合规要求规定，数据不得经过公共互联网传输。公司希望尽可能使用 AWS 托管服务，并决定将数据存储在 Amazon FSx for Windows File Server 文件系统中。解决方案架构师必须设计一个方案，将数据复制到另一个 AWS 区域用于灾难恢复（DR）。哪种方案能够满足这些要求？"
+  },
+  {
+    "id": 390,
+    "reviewed": true,
+    "options": {
+      "B": "部署一个 Amazon RDS 实例，并在辅助区域创建其跨区域只读副本。发生故障时，将该只读副本提升为主实例。",
+      "C": "在主区域部署一个 Amazon Aurora 数据库集群，并在辅助区域部署另一个集群。使用 AWS DMS，使辅助区域保持同步。"
+    },
+    "notes": "B 原译把 RDS 主实例也放入辅助区域，改变跨区域灾备关系，已修正；C 的 primary Region 不是“主数据库区域”。核对 RPO严格小于5分钟、RTO严格小于10分钟、约10TB、最低成本和同区域/跨区域区别。"
+  },
+  {
+    "id": 391,
+    "reviewed": true,
+    "options": {},
+    "notes": "逐项核对管理账号 IAM 用户 Support1、新成员账号、OrganizationAccountAccessRole，以及各登录凭证来源。英文邮箱为 nance1@example.com，C 又多出空格，疑似源文 OCR；不擅自补成 finance1，也不改变登录方案。"
+  },
+  {
+    "id": 392,
+    "reviewed": true,
+    "options": {
+      "B": "部署 Amazon ElastiCache for Redis 缓存，用于存储数据库调用的结果。修改 Lambda 函数以使用该缓存。",
+      "D": "在 API Gateway 的生产阶段启用限流。设置速率和突发值，以限制传入的 API 调用。"
+    },
+    "notes": "题干 Regional endpoint 是 API 的端点类型，不是另一个组件。B 恢复 ElastiCache for Redis 名称；D incoming calls 是 API 调用而非来电。核对重复 GET、短时间相同查询、营业时间集中与节日尖峰、尽量少增成本。",
+    "question_zh": "一家汽车租赁公司构建了一个无服务器 REST API，为其移动应用提供数据。该应用由使用区域端点的 Amazon API Gateway API、AWS Lambda 函数和 Amazon Aurora MySQL Serverless 数据库集群组成。公司最近向合作伙伴的移动应用开放了该 API，导致请求量显著增加，并引发间歇性的数据库内存错误。对 API 流量的分析表明，客户端在短时间内针对相同查询发出了多次 HTTP GET 请求。流量集中在营业时间，并在节假日及其他活动期间出现尖峰。公司需要支持新增的使用量，同时尽量减少方案带来的成本增长。哪种策略能够满足这些要求？"
+  },
+  {
+    "id": 393,
+    "reviewed": true,
+    "options": {
+      "A": "执行数据库备份。将备份文件复制到 AWS Snowball Edge Storage Optimized 设备。将备份导入 Amazon S3。使用 Amazon S3 托管密钥的服务器端加密（SSE-S3）进行静态加密。使用 TLS 进行传输中加密。将数据从 Amazon S3 导入数据库实例。"
+    },
+    "notes": "题干 RDS for MySQL 产品名被拆乱，schema 明确为数据库模式；A 保留 Snowball Edge Storage Optimized 官方设备名。核对5TB、持续更新、不经互联网、传输/静态加密、1Gbps DX、公共/私有VIF、最少停机及B全量加载+CDC。",
+    "question_zh": "一家公司正在将本地应用和 MySQL 数据库迁移到 AWS。应用处理高度敏感的数据，数据库中的数据也在持续更新。数据不得通过互联网传输，且必须同时进行传输中加密和静态加密。数据库大小为 5 TB。公司已经在 Amazon RDS for MySQL 数据库实例中创建了数据库模式。公司还建立了连接 AWS 的 1 Gbps AWS Direct Connect 连接，并配置了一个公共虚拟接口（VIF）和一个私有 VIF。解决方案架构师需要设计一个方案，以尽可能少的停机时间将数据迁移到 AWS。哪种方案能够满足这些要求？"
+  },
+  {
+    "id": 394,
+    "reviewed": true,
+    "options": {
+      "B": "创建一个使用 General Purpose（通用）性能模式的新 Amazon Elastic File System（Amazon EFS）文件系统。在集群中的每台 EC2 实例上挂载该 EFS 文件系统。",
+      "D": "创建一个使用 Max I/O（最大 I/O）性能模式的新 Amazon Elastic File System（Amazon EFS）文件系统。在集群中的每台 EC2 实例上挂载该 EFS 文件系统。"
+    },
+    "notes": "源文 Accompany 是 A company 的黏连，不能当公司名；common 是共享而非公共，resilient 强调容错而非自动弹性，POSIX 译为可移植操作系统接口。核对跨多可用区 Linux 节点共读写、高吞吐、各存储/性能模式不同。",
+    "question_zh": "一家公司正在 AWS 上部署一个新的大数据分析集群。该集群将在分布于多个可用区的大量 Linux Amazon EC2 实例上运行。集群中的所有节点都必须能够读写同一个底层共享文件存储。该文件存储必须具备高可用性和容错能力、兼容可移植操作系统接口（POSIX），并支持高吞吐量。哪种存储方案能够满足这些要求？"
+  },
+  {
+    "id": 395,
+    "reviewed": true,
+    "options": {},
+    "notes": "完整核对 Aurora Serverless v1（版本限制不得省略）、跨可用区但无跨区灾备、RTO5分钟/RPO1分钟。A/B 仅创建部署 runbook，与 C/D 已在目标区启动且主备配置的差别保留；原文 A 的跨区域v1只读副本及C多写入实例保持原样，不借翻译修正错误选项。"
+  },
+  {
+    "id": 396,
+    "reviewed": true,
+    "options": {},
+    "notes": "逐项核对每年四次更新、固定两台EC2、自托管Redis、DynamoDB主存储、Route53多值记录及更新时停机；A/C按计划扩容与B/D手动扩容、DAX与两种ElastiCache均保留。B/D把Auto Scaling组作为CloudFront源站是源选项本身的问题，未擅自更改架构。"
+  },
+  {
+    "id": 397,
+    "reviewed": true,
+    "options": {
+      "D": "当队列中有消息时，调用一个 S3 Batch Operations 作业来执行图像处理。"
+    },
+    "notes": "逐项核对工作日8至17点、每分钟数千次、其余时段少用、处理完通知和选择三项。D 保留官方 S3 Batch Operations 名称；A 的 MQ、F 的 SES 推送原样保留，不改正错误选项。"
+  },
+  {
+    "id": 398,
+    "reviewed": true,
+    "options": {
+      "C": "创建一个中转网关，并将其连接到该 VPC。订购一条 AWS Direct Connect 连接。在 Direct Connect 连接上配置一个公共 VIF。将该公共 VIF 关联到中转网关。指导开发人员通过该 Direct Connect 连接进行连接。"
+    },
+    "notes": "C 英文 VPOrder 为 VPC 与 Order 断句/OCR黏连，中文也照搬乱码，已分开恢复；核对居家及三办公点开发人员需直接从本机访问VPC内OpenSearch。保留 C 的公共VIF关联transit gateway作为原始选项，不改其技术缺陷。"
+  },
+  {
+    "id": 399,
+    "reviewed": true,
+    "options": {},
+    "notes": "完整核对ECS已部署、权限和网络均按最小权限、选择两项；bridge与awsvpc、EC2实例角色与任务角色、直接传递IAM凭证均准确对应英文，未发现语义错译或乱码。"
+  },
+  {
+    "id": 400,
+    "reviewed": true,
+    "options": {
+      "C": "让 Lambda 函数保持在 VPC 之外运行。更新 Neptune 的安全组，允许来自这些 Lambda 函数 IP 地址范围的访问。"
+    },
+    "notes": "C 英文 VPUpdate 是 VPC 后断句损坏，中文错把安全组也当成“外部”的修饰对象，已恢复两个独立步骤。核对Neptune三个子网、同时访问DynamoDB、NAT与DynamoDB端点两方案及选择两项。"
+  },
+  {
+    "id": 401,
+    "reviewed": true,
+    "options": {
+      "B": "部署 Amazon FSx File Gateway。配置一个使用 SSD 存储的 Amazon FSx for Windows File Server 多可用区文件系统。"
+    },
+    "notes": "完整核对两份本地SMB共享、元数据/图像两类文件、副本少访问但5分钟内可用，不能把该要求理解为RPO。B 修复 FSx for Windows File Server 名称及 Multi-AZ/SSD 修饰关系；C图像Deep Archive与D全部Standard-IA保持区别。"
+  },
+  {
+    "id": 402,
+    "reviewed": true,
+    "options": {
+      "B": "使用 Amazon AppStream 2.0 作为应用程序流式传输服务。为员工配置 Desktop View（桌面视图）。建立连接公司本地网络的 VPN。在公司本地环境部署 Active Directory Federation Services（AD FS）。通过 VPN 连接，将 VPC 网络连接到 AD FS。"
+    },
+    "notes": "核对400员工、Windows/Linux混合桌面、现有AD身份、MFA及完整桌面体验。B on premises 不应误解为开发人员本机，明确为公司本地环境；A控制台启用MFA与C RADIUS设置保持原文差异。"
+  },
+  {
+    "id": 403,
+    "reviewed": true,
+    "options": {
+      "A": "自定义 Contact Control Panel（CCP，联络控制面板），添加一个“标记通话”按钮。该按钮调用 AWS Lambda 函数，由函数调用 UpdateContactAttributes API。使用 Amazon DynamoDB 表存储骚扰电话号码。修改联系流，使其检查更新后的属性，并使用 Lambda 函数读写该 DynamoDB 表。",
+      "B": "使用 Contact Lens for Amazon Connect 规则识别骚扰电话。使用 Amazon DynamoDB 表存储骚扰电话号码。修改联系流，使其检查该规则，并调用 AWS Lambda 函数读写该 DynamoDB 表。",
+      "C": "使用 Amazon DynamoDB 表存储骚扰电话号码。创建一个快速连接，让客服人员可以从 Contact Control Panel（CCP，联络控制面板）将骚扰电话转接到该连接。修改该快速连接的联系流，使其调用 AWS Lambda 函数向 DynamoDB 表写入数据。",
+      "D": "修改初始联系流，要求来电者输入信息。如果客服人员没有收到输入，便将来电者标记为骚扰来电者。使用 Amazon DynamoDB 表存储骚扰电话号码。使用 AWS Lambda 函数读写该 DynamoDB 表。"
+    },
+    "notes": "全文把spam来电误为垃圾邮件，A遗留ag OCR，B严重将 Contact Lens for Amazon Connect 译为隐形眼镜及Amazon连接。已逐项完整修复，保留C仅写入快速连接流程与A读写拦截流程的差别，不增加原文没有的步骤。",
+    "question_zh": "一家公司部署了 Amazon Connect 联络中心。客服人员反馈收到了大量自动拨打的电话。公司担心这些电话带来的成本及工作效率影响，希望客服人员能够将通话标记为骚扰电话，并在以后自动阻止这些号码接入客服人员。哪种方案能够以最高的运维效率满足这些要求？"
+  },
+  {
+    "id": 404,
+    "reviewed": true,
+    "options": {
+      "A": "将数据流式传输到 Amazon Kinesis Data Firehose 传输流。使用 AWS Step Functions 消费并分析该 Kinesis Data Firehose 传输流中的数据。使用 Amazon Simple Notification Service（Amazon SNS）通知运维团队。",
+      "D": "将数据流式传输到 Amazon Kinesis Data Analytics 应用。使用 Amazon Elastic Container Service（Amazon ECS）中一个能够自动扩缩容的容器化服务，消费并分析数据。使用 Amazon Simple Email Service（Amazon SES）通知运维团队。"
+    },
+    "notes": "核对所有工厂传感器、实时流处理、参数越界立即通知。A/D 恢复被中英混杂翻译破坏的 Kinesis Data Firehose 和 Kinesis Data Analytics 名称；不把错误选项的Step Functions直接消费或MSK直接触发Fargate改成正确架构。"
+  },
+  {
+    "id": 405,
+    "reviewed": true,
+    "options": {
+      "D": "为工作负载配置基于可用区的拓扑分布约束。"
+    },
+    "notes": "MAXIMIZE node resilience 要求节点韧性/容错能力，不是仅扩缩容弹性；D topology spread constraints 是拓扑分布约束，不是扩展约束。核对无状态Pod数量不可预测、短时大量创建，C原文仍为容量配置不足。",
+    "question_zh": "一家公司准备为一个工作负载部署 Amazon Elastic Kubernetes Service（Amazon EKS）集群。公司预计，该集群需要支持数量不可预测的无状态 Pod。随着工作负载自动扩展其使用的副本数量，大量 Pod 将在短时间内被创建。哪种方案能最大程度提高节点的容错能力？"
+  },
+  {
+    "id": 406,
+    "reviewed": true,
+    "options": {
+      "A": "在另一个区域预先配置第二个基于 Fargate 的 ECS 集群及 ECS 服务。创建一个 AWS Lambda 函数，执行以下操作：为 RDS 数据库实例创建快照，将快照复制到另一个区域，从快照创建新的 RDS 数据库实例，并更新 Route 53，将流量路由到第二个 ECS 集群。更新 EventBridge 规则，添加一个调用该 Lambda 函数的目标。",
+      "B": "创建一个 AWS Lambda 函数，由该函数在另一个区域创建第二个 ECS 集群及 ECS 服务。配置该函数继续执行以下操作：为 RDS 数据库实例创建快照，将快照复制到另一个区域，从快照创建新的 RDS 数据库实例，并更新 Route 53，将流量路由到第二个 ECS 集群。更新 EventBridge 规则，添加一个调用该 Lambda 函数的目标。"
+    },
+    "notes": "题干恢复 RDS for MySQL 产品名；A 的Route53集与B占位符/重复“流量”导致步骤破坏，完整修复。核对最小恢复耗时、A预建ECS但故障后复制快照、B故障后新建全部、C预建跨区副本、D错误快照转换DynamoDB均保持差异。",
+    "question_zh": "一家公司需要为一个 Web 应用实施灾难恢复（DR）计划。该应用运行在单个 AWS 区域中，采用容器化微服务。容器通过 Amazon Elastic Container Service（Amazon ECS）中的 AWS Fargate 托管。应用的数据层是一个 Amazon RDS for MySQL 数据库实例，并使用 Amazon Route 53 进行 DNS 解析。如果应用发生故障，Amazon CloudWatch 告警会触发一个 Amazon EventBridge 规则。解决方案架构师必须设计一个灾备方案，在另一个区域恢复应用，并尽可能缩短故障恢复所需的时间。哪种方案能够满足这些要求？"
+  },
+  {
+    "id": 407,
+    "reviewed": true,
+    "options": {
+      "A": "在组织的管理账号中配置 AWS Budgets。将使用量类型指定为 EC2 运行小时数，将周期指定为每天。根据 AWS Cost Explorer 报告的过去 30 天平均使用量，将预算使用量设为该平均值的 110%。配置告警，在达到使用量阈值时通知架构团队。",
+      "C": "在组织的管理账号中启用 AWS Trusted Advisor。配置一个成本优化建议告警，在 EC2 使用量比过去 30 天报告的平均使用量高出 10% 时，通知架构团队。"
+    },
+    "notes": "usage 是EC2运行小时数等使用量，不是CPU使用率；A是使用量预算而非金额预算。已修正题干及C，并补明A的小时单位。核对过去30天均值、高出10%以上、每日警报以及不同服务原始能力主张。",
+    "question_zh": "一家公司的 AWS 账号属于 AWS Organizations 中的一个组织。公司希望跟踪 Amazon EC2 使用量。当 EC2 使用量比过去 30 天的平均 EC2 使用量高出 10% 以上时，公司的架构团队必须收到每日告警。哪种方案能够满足这些要求？"
+  },
+  {
+    "id": 408,
+    "reviewed": true,
+    "options": {},
+    "notes": "逐项核对订单先处理后存DynamoDB、间歇性流量、营销时扩展、最少延迟与最高可靠性。EC2托管数据库、SQS+Lambda、StepFunctions+ECS、Kinesis+EC2四种路径均忠实原文，无语义错译或乱码。"
+  },
+  {
+    "id": 409,
+    "reviewed": true,
+    "options": {
+      "B": "将两个环境的数据库凭证存储在 AWS Secrets Manager 中，为 QA 环境和生产环境分别建立独立的凭证条目。启用自动轮换。通过 Lambda 函数的环境变量，传入对相应 Secrets Manager 条目的引用。",
+      "C": "将两个环境的数据库凭证存储在 AWS Key Management Service（AWS KMS）中。启用轮换。通过 Lambda 函数的环境变量，传入对存储在 AWS KMS 中的凭证的引用。"
+    },
+    "notes": "题干恢复 RDS for PostgreSQL 官方名称。B中Secrets Manager凭证条目误译为加密金钥，改为独立凭证条目及其引用；B/C的rotation是轮换而不是旋转。保留C将凭证存KMS的原始错误方案。",
+    "question_zh": "一家公司正在部署需要访问 Amazon RDS for PostgreSQL 数据库的 AWS Lambda 函数。公司需要在 QA 测试环境和生产环境中运行这些函数。公司不得在应用代码中暴露凭证，并且必须自动轮换密码。哪种方案能够满足这些要求？"
+  },
+  {
+    "id": 410,
+    "reviewed": true,
+    "options": {},
+    "notes": "完整核对ControlTower管理OU、禁止新建及现有EC2取得公网IP，prevent与D检测后修复不同。AssociatePublicIpAddress=False、主动控制、SCP启动及现有附加两限制均准确对应原文，无乱码。"
+  },
+  {
+    "id": 411,
+    "reviewed": true,
+    "options": {
+      "A": "在 Amazon Cognito 中创建用户池，并为该应用配置用户池。将所需的用户加入用户池，并将用户池配置为强制使用 MFA。在 ALB 上配置侦听器规则，要求通过 Amazon Cognito 托管的用户界面进行身份验证。"
+    },
+    "notes": "A 英文 MFConfigure 是 MFA 与下一句黏连，中文因此丢失必须MFA要求；已恢复明确的两个配置步骤。核对第三方容器不可修改/不直接集成IdP、指定名单、ALB统一验证；不改其他选项的原始技术主张。"
+  },
+  {
+    "id": 412,
+    "reviewed": true,
+    "options": {},
+    "notes": "逐项核对以前未使用的区域、自定义名称IAM角色、StackSet创建但实例全失败。CAPABILITY_NAMED_IAM 与 CAPABILITY_IAM、SELF_MANAGED、启用区域和提升配额均准确对应，未发现语义错译或乱码。"
+  },
+  {
+    "id": 413,
+    "reviewed": true,
+    "options": {},
+    "notes": "逐项核对一个较小主实例/三个较大只读副本、Lambda大量短连接、流量尖峰不可预测。A代理只读端点、B集群端点、C reader端点和D将Data API放在代理上均准确，保留原始选项区别。"
+  },
+  {
+    "id": 414,
+    "reviewed": true,
+    "options": {
+      "A": "创建一个能够验证序列号的 AWS Lambda 函数。创建一个 AWS IoT Core 预置模板，在 Parameters 部分包含 SerialNumber 参数。将该 Lambda 函数添加为预置前钩子。在制造过程中，调用 RegisterThing API 操作，并指定该模板及参数。",
+      "B": "创建一个能够验证序列号的 AWS Step Functions 状态机。创建一个 AWS IoT Core 预置模板，在 Parameters 部分包含 SerialNumber 参数。指定使用该 Step Functions 状态机验证参数。在安装过程中调用 StartThingRegistrationTask API 操作。",
+      "C": "创建一个能够验证序列号的 AWS Lambda 函数。创建一个 AWS IoT Core 预置模板，在 Parameters 部分包含 SerialNumber 参数。将该 Lambda 函数添加为预置前钩子。向 AWS IoT Core 注册该 CA，指定预置模板，并设置 allow-auto-registration 参数。",
+      "D": "创建一个 AWS IoT Core 预置模板，在 Parameters 部分包含 SerialNumber 参数，并在模板中加入参数验证。为每台使用该 CA 的设备预置声明证书（claim certificate）和私钥。授予 AWS IoT Core 服务权限，使其能够在预置过程中更新 AWS IoT 物品（thing）。"
+    },
+    "notes": "题干大面积残留英文并重复CA/X.509句，已依据完整英文恢复制造阶段签发唯一序列号证书与安装后才可发数据两时序。各选项将参数键翻译丢失，已保留准确 SerialNumber、Parameters、allow-auto-registration 和API名。",
+    "question_zh": "一家零售公司正在全球所有门店安装物联网（IoT）传感器。在每个传感器的制造过程中，公司的私有证书颁发机构（CA）会签发一张包含唯一序列号的 X.509 证书，然后将该证书部署到对应的传感器上。解决方案架构师需要让这些传感器在安装完成后能够向 AWS 发送数据，但在安装之前不得向 AWS 发送数据。哪种方案能够满足这些要求？"
+  },
+  {
+    "id": 415,
+    "reviewed": true,
+    "options": {
+      "A": "使用 GitHub WebSocket 触发 CodePipeline 流水线。使用适用于 AWS CodeBuild 的 Jenkins 插件进行单元测试。对于任何失败的构建，将告警发送到 Amazon SNS 主题。使用 AWS CodeDeploy，以原地、全部同时（all-at-once）的配置进行部署。",
+      "D": "使用 GitHub webhook 触发 CodePipeline 流水线。使用 AWS X-Ray 进行单元测试和静态代码分析。对于任何失败的构建，将告警发送到 Amazon SNS 主题。使用 AWS CodeDeploy，以原地、全部同时（all-at-once）的配置进行部署。"
+    },
+    "notes": "题干把“构建失败通知”和“部署零停机”误并为都要通知，已分开；A/D all-at-once明确为全部同时部署，不是一次性执行。核对70%销售增长、私有GitHub、已有Jenkins、平滑上线可回滚；保持webhooks/websockets及X-Ray/插件不同。",
+    "question_zh": "一家初创公司最近将一个大型电子商务网站迁移到 AWS，网站销售额增长了 70%。软件工程师使用私有 GitHub 仓库管理代码，DevOps 团队使用 Jenkins 进行构建和单元测试。工程师需要在构建失败时收到通知，并要求部署期间零停机。他们还需要确保生产环境变更对用户无感，并在出现严重问题时能够回滚。软件工程师决定使用 AWS CodePipeline 管理构建和部署流程。哪种方案能够满足这些要求？"
+  },
+  {
+    "id": 416,
+    "reviewed": true,
+    "options": {},
+    "notes": "完整核对多租户共享DynamoDB表、每请求tenantID、按实际资源消耗分摊、已有CUR和最少运维。B每事务RCU/WCU与C按项目数、D按响应大小/时长及PricingCalculator均保留，不把错误计费依据擅自改正。"
+  },
+  {
+    "id": 417,
+    "reviewed": true,
+    "options": {
+      "D": "在该账号的相应 AWS 区域中启用 Amazon GuardDuty 及其 S3 保护功能。添加一条 S3 生命周期规则，在 1 年后删除对象。"
+    },
+    "notes": "完整核对现有与未来对象都须保护、保留一年及长期凭证泄漏。A跨账号、版本控制/ObjectLock/默认保留/现有对象BatchReplication未漏；D区域修饰关系破坏已恢复。"
+  },
+  {
+    "id": 418,
+    "reviewed": true,
+    "options": {},
+    "notes": "题干将CloudFront custom origins明确为自定义源站，避免误解为来源用户；核对HTTP API已有JWT授权、ALB无认证、OIDC IdP和全部后端仅响应已认证用户。各选项的授权/签名/过滤/事后日志区别保留。",
+    "question_zh": "一家公司需要提高其 AWS Web 应用的安全性。该应用使用 Amazon CloudFront，并配置了两个自定义源站。第一个源站将请求路由到 Amazon API Gateway HTTP API，第二个源站将流量路由到 Application Load Balancer（ALB）。应用与 OpenID Connect（OIDC）身份提供商（IdP）集成以管理用户。安全审计发现，API 使用 JSON Web Token（JWT）授权器控制访问，但 ALB 仍接受未经身份验证的用户请求。解决方案架构师必须设计一个方案，确保所有后端服务仅响应经过身份验证的用户。哪种方案能够满足这一要求？"
+  },
+  {
+    "id": 419,
+    "reviewed": true,
+    "options": {
+      "A": "从 AWS Control Tower 管理账号使用 AWS CloudFormation StackSets，将一个 AWS Config 合规包部署到组织中的所有账号。",
+      "B": "为 AWS Organizations 中的组织启用 Amazon Detective。指定一个 AWS 账号作为 Detective 的委派管理员。"
+    },
+    "notes": "B 的 Amazon Detective 产品名被直译为Amazon侦探，已修复；A统一AWS Config合规包术语。核对ControlTower多账号、预防/检测控制、集中安全状态与委派管理员。"
+  },
+  {
+    "id": 420,
+    "reviewed": true,
+    "options": {
+      "A": "部署一个 AWS DataSync 代理，并配置任务，将软件镜像传输到该 S3 存储桶。",
+      "B": "配置 Amazon Kinesis Data Firehose，使用 S3 Transfer Acceleration 传输这些软件镜像。",
+      "C": "使用 AWS Snowball 设备传输这些软件镜像，并以该 S3 存储桶作为目标。",
+      "D": "使用 S3 API 的分段上传功能，通过 Site-to-Site VPN 连接传输这些软件镜像。"
+    },
+    "notes": "题干漏掉60TB文件在欧洲本地环境的存储位置，且软件镜像被混译成影像，已统一为软件镜像并补回本地。核对ap-northeast-1、每日新增、全部现有/新增自动传输、传输加密、不需自定义开发。",
+    "question_zh": "一家消费电子产品开发公司在欧洲和亚洲设有办公室，并在欧洲的本地环境中存储了 60 TB 软件镜像。公司希望将这些镜像传输到 ap-northeast-1 区域中的 Amazon S3 存储桶。每天都会生成新的软件镜像，传输过程必须加密。公司需要一个无需自定义开发、能够自动将所有现有和新增软件镜像传输到 Amazon S3 的方案。传输流程的下一步应该是什么？"
+  }
+]
